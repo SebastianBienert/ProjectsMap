@@ -46,9 +46,10 @@ namespace ProjectsMap.WebApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             //kernel.Bind<IRepo>().ToMethod(ctx => new Repo("Ninject Rocks!"));
-            // Web Api
-            //System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Ninject.WebApi.DependencyResolver.NinjectDependencyResolver(kernel)
+            
             kernel.Bind<IDeveloperRepository>().To<TestDeveloperRepository>();
+            kernel.Bind<IProjectRepository>().To<ProjectRepository>();
+            kernel.Bind<IFloorRepository>().To<FloorRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
         }
     }

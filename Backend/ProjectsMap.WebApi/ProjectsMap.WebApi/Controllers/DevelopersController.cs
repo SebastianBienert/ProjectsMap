@@ -22,7 +22,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok( new {results = _repository.Developers});
+            return Ok( _repository.Developers);
         }
 
         [Route("{id:int}")]
@@ -31,11 +31,26 @@ namespace ProjectsMap.WebApi.Controllers
             var developer = _repository.Get(id);
 
             if (developer != null)
-                return Ok(new {results = _repository.Get(id)});
+                return Ok(developer);
             else
                 return NotFound();
-
-
         }
+
+        [Route("technology/{technology}")]
+        public IHttpActionResult Get(string technology)
+        {
+            var list = _repository.Developers.Where(x => x.Technologies.Contains(technology));
+            if (list.Count() > 0)
+            {
+                return Ok(list);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        
+
     }
 }

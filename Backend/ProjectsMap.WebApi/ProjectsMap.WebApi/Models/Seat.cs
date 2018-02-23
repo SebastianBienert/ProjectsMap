@@ -7,6 +7,14 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Seat
     {
+        public Seat() { }
+
+        public Seat(Developer owner, int xCoordinate, int yCoordinate)
+        {
+            Owner = owner;
+            Coordinates = new Tuple<int, int>(xCoordinate, yCoordinate);
+        }
+
         public int Id { get; set; }
 
         public Developer Owner { get; set; }

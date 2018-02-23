@@ -23,7 +23,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 FirstName = "Michal",
                 Surname = "Radziwilko",
                 Id = 2,
-                Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie", "#Picie"}
+                Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie"}
              }
         };
 
