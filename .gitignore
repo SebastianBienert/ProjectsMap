@@ -92,3 +92,6 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
+Backend/ProjectsMap.WebApi/.vs/ProjectsMap.WebApi/v15/Server/sqlite3/storage.ide-wal
+Backend/ProjectsMap.WebApi/.vs/ProjectsMap.WebApi/v15/Server/sqlite3/storage.ide-shm
+Backend/ProjectsMap.WebApi/.vs/config/applicationhost.config
