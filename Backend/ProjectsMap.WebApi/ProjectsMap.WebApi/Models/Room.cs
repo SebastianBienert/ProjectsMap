@@ -12,13 +12,12 @@ namespace ProjectsMap.WebApi.Models
         public int RoomId { get; set; }
 
         //Shape of the room is described by the list of vertexes (x,y)
-        public IEnumerable<Tuple<int,int>> Vertexes { get; set; }
+        public virtual ICollection<Vertex> Vertexes { get; set; }
 
-        public IEnumerable<Seat> Seats { get; set; }
+        //One to many relation (Room - Seats)
+        public virtual ICollection<Seat> Seats { get; set; }
 
-        public IEnumerable<Project> Projects { get; set; }
-
-        public IEnumerable<Developer> Developers { get; set; }
-        
+        //many to many relation (Room - Project)
+        public virtual ICollection<Project> Projects { get; set; }   
     }
 }

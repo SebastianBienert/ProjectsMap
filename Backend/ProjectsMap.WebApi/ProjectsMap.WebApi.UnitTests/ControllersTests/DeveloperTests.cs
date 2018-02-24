@@ -59,7 +59,7 @@ namespace ProjectsMap.WebApi.UnitTests
         [Test]
         public void Web_api_should_return_all_developers_from_repository()
         {
-            var result = _controller.GetAll() as OkNegotiatedContentResult<IEnumerable<Developer>>;
+            var result = _controller.GetAll() as OkNegotiatedContentResult<List<Developer>>;
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
@@ -69,8 +69,8 @@ namespace ProjectsMap.WebApi.UnitTests
         [Test]
         public void Given_Existing_Technology_Web_Api_Should_Return_All_Developers_Using_It()
         {
-            var resultAngular = _controller.Get("AngularJS") as OkNegotiatedContentResult<IEnumerable<Developer>>;
-            var resultVue = _controller.Get("VueJS") as OkNegotiatedContentResult<IEnumerable<Developer>>;
+            var resultAngular = _controller.Get("#AngularJS") as OkNegotiatedContentResult<IEnumerable<Developer>>;
+            var resultVue = _controller.Get("#VueJS") as OkNegotiatedContentResult<IEnumerable<Developer>>;
 
 
             Assert.IsNotNull(resultVue);

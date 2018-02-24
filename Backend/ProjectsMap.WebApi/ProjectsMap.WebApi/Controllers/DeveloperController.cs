@@ -23,7 +23,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok( _repository.Developers);
+            return Ok( _repository.Developers.ToList());
         }
 
         [HttpGet]
@@ -42,7 +42,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("technology/{technology}")]
         public IHttpActionResult Get(string technology)
         {
-            var list = _repository.Developers.Where(x => x.Technologies.Contains(technology));
+            var list = _repository.Developers.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology));
             if (list.Count() > 0)
             {
                 return Ok(list);

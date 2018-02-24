@@ -16,14 +16,38 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 FirstName = "Witkor",
                 Surname = "Bukowski",
                 DeveloperId = 1,
-                Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie"}
+                Technologies = new List<Technology>()
+                {
+                    new Technology()
+                    {
+                        TechnologyId = 1,
+                        Name = "#ObijanieSie"
+                    },
+                    new Technology()
+                    {
+                        TechnologyId = 2,
+                        Name = "#NicNieRobienie"
+                    }
+                }
             },
             new Developer()
             {
                 FirstName = "Michal",
                 Surname = "Radziwilko",
                 DeveloperId = 2,
-                Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie"}
+                Technologies = new List<Technology>()
+                {
+                    new Technology()
+                    {
+                        TechnologyId = 1,
+                        Name = "#ObijanieSie"
+                    },
+                    new Technology()
+                    {
+                        TechnologyId = 2,
+                        Name = "#NicNieRobienie"
+                    }
+                }
              }
         };
 

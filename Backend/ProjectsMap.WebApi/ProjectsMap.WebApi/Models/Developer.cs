@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,16 +21,19 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int DeveloperId { get; set; }
 
-        public int UserId { get; set; }
-
         public virtual User User { get; set; }
 
         public string FirstName { get; set; }
 
         public string Surname { get; set; }
 
-        public IEnumerable<string> Technologies { get; set; }
+        //Many to many relation (Technology - Developer)
+        public virtual ICollection<Technology> Technologies { get; set; } 
 
-        
+        //Many to many relation (Project - Developer)
+        public virtual ICollection<Project> Projects { get; set; }
+
+        //One to one relation(Seat-Developer)
+        public virtual ICollection<Seat> Seat { get; set; }
     }
 }

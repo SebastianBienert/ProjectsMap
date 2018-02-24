@@ -47,7 +47,7 @@ namespace ProjectsMap.WebApi.App_Start
         {
             //kernel.Bind<IRepo>().ToMethod(ctx => new Repo("Ninject Rocks!"));
             
-            kernel.Bind<IDeveloperRepository>().To<TestDeveloperRepository>();
+            kernel.Bind<IDeveloperRepository>().To<DeveloperRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();

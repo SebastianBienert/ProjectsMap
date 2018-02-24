@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -13,18 +14,21 @@ namespace ProjectsMap.WebApi.Models
         public Seat(Developer developer, int xCoordinate, int yCoordinate)
         {
             Developer = developer;
-            Coordinates = new Tuple<int, int>(xCoordinate, yCoordinate);
+            Vertex = new Vertex(xCoordinate, yCoordinate);
         }
 
         [Key]
         public int SeatId { get; set; }
-
-        public int DeveloperId { get; set; }
-
-        public virtual Developer Developer { get; set; }
-
         //Coordinate of the Seat on the given floor is described by (x,y) - left top corner of a square
-        public Tuple<int, int> Coordinates { get; set; }
+        //One to one or zero relation (Vertex - Seat)
+        public virtual Vertex Vertex { get; set; }
 
+        //One to many relation(Room - Seats)
+        public virtual Room Room { get; set; }
+        public int RoomId { get; set; }
+
+        //One to one or zero relation (Seat - Developer)
+        public int DeveloperId { get; set; }
+        public virtual Developer Developer { get; set; }
     }
 }

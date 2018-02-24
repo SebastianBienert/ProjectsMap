@@ -20,21 +20,57 @@ namespace ProjectsMap.WebApi.UnitTests
                         DeveloperId = 1,
                         FirstName = "Jan",
                         Surname = "Kowalski",
-                        Technologies = new List<string>() {"AngularJS", "VueJS"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 1,
+                                Name = "#AngularJS"
+                            },
+                            new Technology()
+                            {
+                                TechnologyId = 2,
+                                Name = "#VueJS"
+                            }
+                        }
                     },
                     new Developer()
                     {
                         DeveloperId = 2,
                         FirstName = "Karol",
                         Surname = "Nowak",
-                        Technologies = new List<string>() {"AngularJS", ".NET Framework"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 1,
+                                Name = "#AngularJS"
+                            },
+                            new Technology()
+                            {
+                                TechnologyId = 3,
+                                Name = "#.NET Framework"
+                            }
+                        }
                     },
                     new Developer()
                     {
                         DeveloperId = 3,
                         FirstName = "Piotr",
                         Surname = "Nowak",
-                        Technologies = new List<string>() {"JavaScript", "PHP"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 4,
+                                Name = "#JavaScript"
+                            },
+                            new Technology()
+                            {
+                                TechnologyId = 5,
+                                Name = "#PHP"
+                            }
+                        }
                     }
                 };
             }
@@ -52,21 +88,42 @@ namespace ProjectsMap.WebApi.UnitTests
                         ProjectId = 1,
                         Description = "Projects Map",
                         Developers = new List<Developer> {devList[0], devList[1]},
-                        UsedTechnologies = new List<string> {"AngularJS"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 1,
+                                Name = "#AngularJS"
+                            }
+                        }
                     },
                     new Project()
                     {
                         ProjectId = 2,
                         Description = "Simple store",
                         Developers = new List<Developer> {devList[2], devList[1]},
-                        UsedTechnologies = new List<string> {".NET Framework"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 3,
+                                Name = "#.NET Framework"
+                            }
+                        }
                     },
                     new Project()
                     {
                         ProjectId = 3,
                         Description = "Web browser game",
                         Developers = new List<Developer> {devList[2], devList[1]},
-                        UsedTechnologies = new List<string> {"Unity"}
+                        Technologies = new List<Technology>()
+                        {
+                            new Technology()
+                            {
+                                TechnologyId = 5,
+                                Name = "#Unity"
+                            }
+                        }
                     }
                 };
             }
@@ -83,12 +140,12 @@ namespace ProjectsMap.WebApi.UnitTests
                     new Room()
                     {
                         RoomId = 1,
-                        Vertexes = new List<Tuple<int, int>>()
+                        Vertexes = new List<Vertex>()
                         {
-                            new Tuple<int, int>(10,10),
-                            new Tuple<int, int>(0,0),
-                            new Tuple<int, int>(0,10),
-                            new Tuple<int, int>(10,0)
+                            new Vertex(10,10),
+                            new Vertex(0,0),
+                            new Vertex(0,10),
+                            new Vertex(10,0),
                         },
                         Seats = new List<Seat>()
                         {
@@ -96,17 +153,16 @@ namespace ProjectsMap.WebApi.UnitTests
                             new Seat(devList[1], 8,8)
                         },
                         Projects = new List<Project>(){projectList[0], projectList[1], projectList[2]},
-                        Developers = new List<Developer>(){devList[0], devList[1]},
                     },
                     new Room()
                     {
                         RoomId = 2,
-                        Vertexes = new List<Tuple<int, int>>()
+                        Vertexes = new List<Vertex>()
                         {
-                            new Tuple<int, int>(100,100),
-                            new Tuple<int, int>(0,0),
-                            new Tuple<int, int>(0,100),
-                            new Tuple<int, int>(100,0)
+                            new Vertex(100,100),
+                            new Vertex(0,0),
+                            new Vertex(0,100),
+                            new Vertex(100,0),
                         },
                         Seats = new List<Seat>()
                         {
@@ -114,7 +170,6 @@ namespace ProjectsMap.WebApi.UnitTests
                             new Seat(devList[2], 84,84)
                         },
                         Projects = new List<Project>(){projectList[0], projectList[1], projectList[2]},
-                        Developers = new List<Developer>(){devList[1], devList[2]},
                     }
                 };
             }

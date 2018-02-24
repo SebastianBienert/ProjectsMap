@@ -13,8 +13,13 @@ namespace ProjectsMap.WebApi.Models
 
         public string Description { get; set; }
 
-        public IEnumerable<string> UsedTechnologies { get; set; }
+        //Many to many relation (Technology - Project)
+        public virtual ICollection<Technology> Technologies { get; set; }
 
-        public IEnumerable<Developer> Developers { get; set; }
+        //Many to many relation (Project - Developer)
+        public virtual ICollection<Developer> Developers { get; set; }
+
+        //Many to many relation (Room - Project)
+        public virtual ICollection<Room> Rooms { get; set; }
     }
 }
