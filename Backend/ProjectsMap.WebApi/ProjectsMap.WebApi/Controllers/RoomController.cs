@@ -9,55 +9,56 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
-    [RoutePrefix("api/project")]
-    public class ProjectController : ApiController
+    [RoutePrefix("api/room")]
+    public class RoomController : ApiController
     {
-        private IProjectRepository _repository;
+        private IRoomRepository _repository;
 
-        public ProjectController(IProjectRepository repository)
+        public RoomController(IRoomRepository roomRepository)
         {
-            _repository = repository;
+            _repository = roomRepository;
         }
 
+        [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Projects);
+            return Ok(_repository.Rooms);
         }
 
+        [HttpGet]
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            var project = _repository.Get(id);
+            var floor = _repository.Get(id);
 
-            if (project != null)
-                return Ok(project);
+            if (floor != null)
+                return Ok(floor);
             else
                 return NotFound();
         }
 
-
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Project project)
+        public IHttpActionResult Post(Room room)
         {
-            _repository.Add(project);
+            _repository.Add(room);
             return Ok();
         }
 
         [HttpDelete]
         [Route("")]
-        public IHttpActionResult Delete(Project project)
+        public IHttpActionResult Delete(Room room)
         {
-            _repository.Delete(project);
+            _repository.Delete(room);
             return Ok();
         }
 
         [HttpPut]
         [Route("")]
-        public IHttpActionResult Update(Project project)
+        public IHttpActionResult Update(Room room)
         {
-            _repository.Update(project);
+            _repository.Update(room);
             return Ok();
         }
     }

@@ -7,16 +7,16 @@ using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.Abstract
 {
-    public interface IFloorRepository
+    public interface IRoomRepository
     {
-        IEnumerable<Floor> Developers { get; }
+        IEnumerable<Room> Rooms { get; }
 
-        Floor Get(int id);
+        Room Get(int id);
 
-        void Add(Floor developer);
+        void Add(Room room);
 
-        void Delete(Floor developer);
+        void Delete(Room room);
 
-        void Update(Floor developer);
+        void Update(Room room);
     }
 }

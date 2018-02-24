@@ -9,56 +9,59 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
-    [RoutePrefix("api/project")]
-    public class ProjectController : ApiController
+    [RoutePrefix("api/users")]
+    public class UserController : ApiController
     {
-        private IProjectRepository _repository;
+        private IUserRepository _repository;
 
-        public ProjectController(IProjectRepository repository)
+        public UserController(IUserRepository repository)
         {
             _repository = repository;
         }
 
+        [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Projects);
+            return Ok(_repository.Users);
         }
 
+        [HttpGet]
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            var project = _repository.Get(id);
+            var user = _repository.Get(id);
 
-            if (project != null)
-                return Ok(project);
+            if (user != null)
+                return Ok(user);
             else
                 return NotFound();
         }
-
-
+   
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Project project)
+        public IHttpActionResult Post(User user)
         {
-            _repository.Add(project);
+            _repository.Add(user);
             return Ok();
         }
 
         [HttpDelete]
         [Route("")]
-        public IHttpActionResult Delete(Project project)
+        public IHttpActionResult Delete(User user)
         {
-            _repository.Delete(project);
+            _repository.Delete(user);
             return Ok();
         }
 
         [HttpPut]
         [Route("")]
-        public IHttpActionResult Update(Project project)
+        public IHttpActionResult Update(User user)
         {
-            _repository.Update(project);
+            _repository.Update(user);
             return Ok();
         }
+
+
     }
 }

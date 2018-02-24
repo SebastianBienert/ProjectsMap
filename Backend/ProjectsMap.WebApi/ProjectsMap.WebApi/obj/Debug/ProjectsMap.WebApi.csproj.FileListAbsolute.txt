@@ -21,7 +21,6 @@ D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\Proj
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\bin\System.Net.Http.Formatting.xml
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\bin\System.Web.Http.xml
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\bin\System.Web.Http.WebHost.xml
-D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\obj\Debug\ProjectsMap.WebApi.csprojResolveAssemblyReference.cache
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\obj\Debug\ProjectsMap.WebApi.csproj.CoreCompileInputs.cache
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\obj\Debug\ProjectsMap.WebApi.dll
 D:\PWR\Semestr 6\innovativeprojects-projects-map\Backend\ProjectsMap.WebApi\ProjectsMap.WebApi\obj\Debug\ProjectsMap.WebApi.pdb

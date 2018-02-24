@@ -17,44 +17,21 @@ namespace ProjectsMap.WebApi.UnitTests
     [TestFixture]
     public class DeveloperTests
     {
-        private DevelopersController _controller;
+        private DeveloperController _controller;
         [SetUp]
         public void Init()
         {
-            var devList = new List<Developer>()
-            {
-                new Developer()
-                {
-                    Id = 1,
-                    FirstName = "Jan",
-                    Surname = "Kowalski",
-                    Technologies = new List<string>() {"AngularJS", "VueJS"}
-                },
-                new Developer()
-                {
-                    Id = 2,
-                    FirstName = "Karol",
-                    Surname = "Nowak",
-                    Technologies = new List<string>() {"AngularJS", ".NET Framework"}
-                },
-                new Developer()
-                {
-                    Id = 3,
-                    FirstName = "Piotr",
-                    Surname = "Nowak",
-                    Technologies = new List<string>() {"JavaScript", "PHP"}
-                }
-            };
+            var devList = TestsData.DevList.ToList();
             var repositoryMock = new Mock<IDeveloperRepository>();
 
             repositoryMock.Setup(x => x.Developers).Returns(devList);
             repositoryMock.Setup(x => x.Get(It.IsAny<int>()))
                 .Returns((int id) =>
                 {
-                    return devList.FirstOrDefault(y => y.Id == id);
+                    return devList.FirstOrDefault(y => y.DeveloperId == id);
                 });
 
-            _controller = new DevelopersController(repositoryMock.Object);
+            _controller = new DeveloperController(repositoryMock.Object);
             _controller.Request = new HttpRequestMessage();
             _controller.Configuration = new HttpConfiguration();
         }
@@ -67,7 +44,7 @@ namespace ProjectsMap.WebApi.UnitTests
 
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Content);
-            Assert.AreEqual(2, result.Content.Id);
+            Assert.AreEqual(2, result.Content.DeveloperId);
         }
 
         [Test]

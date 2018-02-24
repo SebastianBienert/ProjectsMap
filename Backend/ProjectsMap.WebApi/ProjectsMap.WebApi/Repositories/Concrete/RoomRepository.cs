@@ -7,25 +7,25 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
-    public class FloorRepository : IFloorRepository
+    public class RoomRepository : IRoomRepository
     {
-        public IEnumerable<Floor> Developers { get; }
-        public Floor Get(int id)
+        public IEnumerable<Room> Rooms { get; }
+        public Room Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Floor developer)
+        public void Add(Room room)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(Floor developer)
+        public void Delete(Room room)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Floor developer)
+        public void Update(Room room)
         {
             throw new NotImplementedException();
         }

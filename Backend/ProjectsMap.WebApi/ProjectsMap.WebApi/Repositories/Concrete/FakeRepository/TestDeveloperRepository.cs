@@ -15,14 +15,14 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             {
                 FirstName = "Witkor",
                 Surname = "Bukowski",
-                Id = 1,
+                DeveloperId = 1,
                 Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie"}
             },
             new Developer()
             {
                 FirstName = "Michal",
                 Surname = "Radziwilko",
-                Id = 2,
+                DeveloperId = 2,
                 Technologies = new List<string>() {"#ObijanieSie", "#NicNieRobienie"}
              }
         };
@@ -34,7 +34,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 
         public Developer Get(int id)
         {
-            return Developers.FirstOrDefault(x => x.Id == id);
+            return Developers.FirstOrDefault(x => x.DeveloperId == id);
         }
 
         public void Add(Developer developer)
@@ -44,12 +44,12 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 
         public void Delete(Developer developer)
         {
-            _developers.Remove(Get(developer.Id));
+            _developers.Remove(Get(developer.DeveloperId));
         }
 
         public void Update(Developer developer)
         {
-            var dev = _developers.FirstOrDefault(x => x.Id == developer.Id);
+            var dev = _developers.FirstOrDefault(x => x.DeveloperId == developer.DeveloperId);
             if (dev != null)
             {
                 dev.FirstName = developer.FirstName;

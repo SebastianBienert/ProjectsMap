@@ -49,7 +49,7 @@ namespace ProjectsMap.WebApi.App_Start
             
             kernel.Bind<IDeveloperRepository>().To<TestDeveloperRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
-            kernel.Bind<IFloorRepository>().To<FloorRepository>();
+            kernel.Bind<IRoomRepository>().To<RoomRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
         }
     }

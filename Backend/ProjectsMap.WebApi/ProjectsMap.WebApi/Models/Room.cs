@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace ProjectsMap.WebApi.Models
 {
-    public class Floor
+    public class Room
     {
-        public int Id { get; set; }
+        [Key]
+        public int RoomId { get; set; }
 
-        //Shape of the floor is described by the list of vertexes (x,y)
+        //Shape of the room is described by the list of vertexes (x,y)
         public IEnumerable<Tuple<int,int>> Vertexes { get; set; }
 
         public IEnumerable<Seat> Seats { get; set; }
