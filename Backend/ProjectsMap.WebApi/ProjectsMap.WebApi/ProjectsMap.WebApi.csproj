@@ -175,7 +175,9 @@
     <Compile Include="Repositories\EntityFramework\EfDbContext.cs" />
     <Compile Include="Repositories\EntityFramework\ProjectsMapDbInitializer.cs" />
     <Compile Include="Services\Abstract\IDeveloperService.cs" />
+    <Compile Include="Services\Abstract\IRoomService.cs" />
     <Compile Include="Services\Concrete\DeveloperService.cs" />
+    <Compile Include="Services\Concrete\RoomService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
