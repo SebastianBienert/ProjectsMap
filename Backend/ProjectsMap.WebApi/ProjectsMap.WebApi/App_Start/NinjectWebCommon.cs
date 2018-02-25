@@ -11,6 +11,8 @@ using Ninject.Web.WebApi;
 using ProjectsMap.WebApi.App_Start;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Repositories.Concrete;
+using ProjectsMap.WebApi.Services;
+using ProjectsMap.WebApi.Services.Abstract;
 
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
@@ -51,6 +53,9 @@ namespace ProjectsMap.WebApi.App_Start
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
+
+            kernel.Bind<IDeveloperService>().To<DeveloperService>();
+
         }
     }
 }

@@ -6,34 +6,36 @@ using System.Net.Http;
 using System.Web.Http;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services;
+using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/developers")]
     public class DeveloperController : ApiController
     {
-        private IDeveloperRepository _repository;
+        private IDeveloperService _service;
 
-        public DeveloperController(IDeveloperRepository developerRepository)
+        public DeveloperController(IDeveloperService service)
         {
-            _repository = developerRepository;
+            _service = service;
         }
 
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok( _repository.Developers.ToList());
+            return Ok(_service.GetAllDevelopers());
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            var developer = _repository.Get(id);
+            var developerDto = _service.GetDeveloper(id);
 
-            if (developer != null)
-                return Ok(developer);
+            if (developerDto != null)
+                return Ok(developerDto);
             else
                 return NotFound();
         }
@@ -42,10 +44,10 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("technology/{technology}")]
         public IHttpActionResult Get(string technology)
         {
-            var list = _repository.Developers.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology));
-            if (list.Count() > 0)
+            var result = _service.GetDevelopersByTechnology(technology);
+            if (result != null)
             {
-                return Ok(list);
+                return Ok(result);
             }
             else
             {
@@ -58,7 +60,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Post(Developer developer)
         {
-            _repository.Add(developer);
+            _service.Post(developer);
             return Ok();
         }
 
@@ -66,7 +68,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Delete(Developer developer)
         {
-            _repository.Delete(developer);
+            _service.Delete(developer);
             return Ok();
         }
 
@@ -74,7 +76,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Update(Developer developer)
         {
-            _repository.Update(developer);
+            _service.Update(developer);
             return Ok();
         }
 
