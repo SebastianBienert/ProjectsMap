@@ -13,7 +13,7 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Repositories.Concrete;
 using ProjectsMap.WebApi.Services;
 using ProjectsMap.WebApi.Services.Abstract;
-
+using ProjectsMap.WebApi.Services.Concrete;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
@@ -52,6 +52,7 @@ namespace ProjectsMap.WebApi.App_Start
             kernel.Bind<IDeveloperRepository>().To<DeveloperRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
+            kernel.Bind<IRoomService>().To<RoomService>();
 
             kernel.Bind<IDeveloperService>().To<DeveloperService>();
 
