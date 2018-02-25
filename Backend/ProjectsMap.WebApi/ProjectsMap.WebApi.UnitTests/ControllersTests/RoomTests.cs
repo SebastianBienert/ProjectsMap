@@ -12,6 +12,7 @@ using NUnit.Framework.Internal;
 using ProjectsMap.WebApi.Controllers;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services.Concrete;
 
 namespace ProjectsMap.WebApi.UnitTests
 {
@@ -33,7 +34,9 @@ namespace ProjectsMap.WebApi.UnitTests
                     return roomList.FirstOrDefault(y => y.RoomId == id);
                 });
 
-            _controller = new RoomController(repositoryMock.Object);
+            var service = new RoomService(repositoryMock.Object);
+            
+            _controller = new RoomController(service);
             _controller.Request = new HttpRequestMessage();
             _controller.Configuration = new HttpConfiguration();
         }

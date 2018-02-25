@@ -6,34 +6,35 @@ using System.Net.Http;
 using System.Web.Http;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services.Concrete;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/room")]
     public class RoomController : ApiController
     {
-        private IRoomRepository _repository;
+        private IRoomService _service;
 
-        public RoomController(IRoomRepository roomRepository)
+        public RoomController(IRoomService roomService)
         {
-            _repository = roomRepository;
+            _service = roomService;
         }
 
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Rooms);
+            return Ok(_service.GetAllRooms());
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            var floor = _repository.Get(id);
+            var room = _service.GetRoom(id);
 
-            if (floor != null)
-                return Ok(floor);
+            if (room != null)
+                return Ok(room);
             else
                 return NotFound();
         }
@@ -42,7 +43,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Post(Room room)
         {
-            _repository.Add(room);
+            _service.Post(room);
             return Ok();
         }
 
@@ -50,7 +51,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Delete(Room room)
         {
-            _repository.Delete(room);
+            _service.Delete(room);
             return Ok();
         }
 
@@ -58,7 +59,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Update(Room room)
         {
-            _repository.Update(room);
+            _service.Update(room);
             return Ok();
         }
     }
