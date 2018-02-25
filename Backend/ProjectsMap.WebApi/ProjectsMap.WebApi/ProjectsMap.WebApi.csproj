@@ -115,9 +115,19 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTOs\DeveloperDto.cs" />
+    <Compile Include="DTOs\ProjectDto.cs" />
+    <Compile Include="DTOs\RoomDto.cs" />
+    <Compile Include="DTOs\SeatDto.cs" />
+    <Compile Include="DTOs\TechnologyDto.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
+    <Compile Include="DTOs\VertexDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\DeveloperMapper.cs" />
+    <Compile Include="Mappers\RoomMapper.cs" />
+    <Compile Include="Mappers\VertexMapper.cs" />
     <Compile Include="Migrations\201802242142301_initial.cs" />
     <Compile Include="Migrations\201802242142301_initial.Designer.cs">
       <DependentUpon>201802242142301_initial.cs</DependentUpon>
@@ -149,6 +159,8 @@
     <Compile Include="Repositories\Concrete\FakeRepository\TestDeveloperRepository.cs" />
     <Compile Include="Repositories\EntityFramework\EfDbContext.cs" />
     <Compile Include="Repositories\EntityFramework\ProjectsMapDbInitializer.cs" />
+    <Compile Include="Services\Abstract\IDeveloperService.cs" />
+    <Compile Include="Services\Concrete\DeveloperService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
