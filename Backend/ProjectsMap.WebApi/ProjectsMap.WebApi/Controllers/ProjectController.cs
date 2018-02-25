@@ -19,6 +19,7 @@ namespace ProjectsMap.WebApi.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {

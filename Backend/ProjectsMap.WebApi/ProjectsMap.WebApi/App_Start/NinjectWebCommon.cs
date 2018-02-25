@@ -52,7 +52,6 @@ namespace ProjectsMap.WebApi.App_Start
             kernel.Bind<IDeveloperRepository>().To<DeveloperRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
-            kernel.Bind<IProjectRepository>().To<ProjectRepository>();
 
             kernel.Bind<IDeveloperService>().To<DeveloperService>();
 

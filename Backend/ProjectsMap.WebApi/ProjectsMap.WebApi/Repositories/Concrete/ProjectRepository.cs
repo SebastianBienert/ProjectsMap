@@ -9,25 +9,46 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 {
     public class ProjectRepository : IProjectRepository
     {
-        public IEnumerable<Project> Projects { get; }
+        public IEnumerable<Project> Projects
+        {
+            get
+            {
+                var dbContext = new EfDbContext();
+                return dbContext.Projects.ToList();
+            }
+        }
         public Project Get(int id)
         {
-            throw new NotImplementedException();
+            var dbContext = new EfDbContext();
+            return dbContext.Projects.FirstOrDefault(x => x.ProjectId == id);
         }
 
         public void Add(Project project)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                dbContext.Projects.Add(project);
+                dbContext.SaveChanges();
+            }
         }
 
         public void Delete(Project project)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                dbContext.Projects.Remove(project);
+                dbContext.SaveChanges();
+            }
         }
 
         public void Update(Project project)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                var dev = dbContext.Projects.FirstOrDefault(x => x.ProjectId == project.ProjectId);
+                dev = project;
+                dbContext.SaveChanges();
+            }
         }
     }
 }

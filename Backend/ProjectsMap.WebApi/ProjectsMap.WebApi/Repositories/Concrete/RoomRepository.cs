@@ -9,25 +9,46 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 {
     public class RoomRepository : IRoomRepository
     {
-        public IEnumerable<Room> Rooms { get; }
+        public IEnumerable<Room> Rooms
+        {
+            get
+            {
+                var dbContext = new EfDbContext();
+                return dbContext.Rooms.ToList();
+            }
+        }
         public Room Get(int id)
         {
-            throw new NotImplementedException();
+            var dbContext = new EfDbContext();
+            return dbContext.Rooms.FirstOrDefault(x => x.RoomId == id);
         }
 
         public void Add(Room room)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                dbContext.Rooms.Add(room);
+                dbContext.SaveChanges();
+            }
         }
 
         public void Delete(Room room)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                dbContext.Rooms.Remove(room);
+                dbContext.SaveChanges();
+            }
         }
 
         public void Update(Room room)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                var dev = dbContext.Rooms.FirstOrDefault(x => x.RoomId == room.RoomId);
+                dev = room;
+                dbContext.SaveChanges();
+            }
         }
     }
 }
