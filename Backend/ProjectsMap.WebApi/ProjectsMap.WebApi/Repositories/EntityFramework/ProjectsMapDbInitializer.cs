@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using ProjectsMap.WebApi.Models;
@@ -146,6 +147,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 context.Developers.Add(dev);
 
             context.SaveChanges();
+
+  
 
         }
     }

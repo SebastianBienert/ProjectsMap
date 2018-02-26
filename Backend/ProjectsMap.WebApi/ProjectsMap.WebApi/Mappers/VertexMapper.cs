@@ -13,6 +13,7 @@ namespace ProjectsMap.WebApi.Mapper
         {
             var dto = new VertexDto()
             {
+                Id = vertex.VertexId,
                 X = vertex.X,
                 Y = vertex.Y
             };

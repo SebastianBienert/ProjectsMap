@@ -8,6 +8,8 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Project
     {
+
+
         [Key]
         public int ProjectId { get; set; }
 

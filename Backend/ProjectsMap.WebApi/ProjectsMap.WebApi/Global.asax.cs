@@ -18,6 +18,8 @@ namespace ProjectsMap.WebApi
             config.Formatters.JsonFormatter
                 .SerializerSettings
                 .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
         }
     }
 }

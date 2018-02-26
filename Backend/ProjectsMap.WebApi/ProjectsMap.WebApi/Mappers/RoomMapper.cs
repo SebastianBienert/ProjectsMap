@@ -13,11 +13,15 @@ namespace ProjectsMap.WebApi.Mapper
         {
             var dto = new RoomDto()
             {
+                Id = room.RoomId,
                 Vertexes = room.Vertexes.Select(v => VertexMapper.GetVertexDto(v)).ToList(),
                 Projects = room.Projects.Select(p => p.Description).ToList(),
                 Seats = room.Seats.Select(s => VertexMapper.GetVertexDto(s.Vertex)).ToList()
             };
             return dto;
         }
+
+
+
     }
 }

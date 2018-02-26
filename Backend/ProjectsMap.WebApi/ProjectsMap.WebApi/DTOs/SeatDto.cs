@@ -7,10 +7,12 @@ namespace ProjectsMap.WebApi.DTOs
 {
     public class SeatDto
     {
+        public int Id { get; set; }
+
         public VertexDto Vertex { get; set; }
 
-        public RoomDto Rooom { get; set; }
+        public int RooomId { get; set; }
 
-        public DeveloperDto Developer { get; set; }
+        public int DeveloperId { get; set; }
     }
 }

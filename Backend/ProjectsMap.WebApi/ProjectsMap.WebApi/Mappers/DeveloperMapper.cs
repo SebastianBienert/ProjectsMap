@@ -13,6 +13,7 @@ namespace ProjectsMap.WebApi.Mapper
         {
             var dto = new DeveloperDto()
             {
+                Id = developer.DeveloperId,
                 FirstName = developer.FirstName,
                 Surname = developer.Surname,
                 Technologies = developer.Technologies.Select(x => x.Name).ToList(),
@@ -20,9 +21,10 @@ namespace ProjectsMap.WebApi.Mapper
 
             var seatDto = new SeatDto()
             {
-                Developer = dto,
+                Id = developer.Seat == null ? 0 : developer.Seat.ToList()[0].SeatId,
+                DeveloperId = developer.DeveloperId,
                 Vertex = developer.Seat == null ? null : VertexMapper.GetVertexDto(developer.Seat.ToList()[0].Vertex),
-                Rooom = developer.Seat == null ? null: RoomMapper.GetRoomDto(developer.Seat.ToList()[0].Room),
+                RooomId = developer.Seat.ToList()[0].SeatId
             };
 
             dto.Seat = seatDto;

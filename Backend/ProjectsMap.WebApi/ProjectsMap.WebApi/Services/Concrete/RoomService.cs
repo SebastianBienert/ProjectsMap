@@ -11,40 +11,94 @@ namespace ProjectsMap.WebApi.Services.Concrete
 {
     public class RoomService : IRoomService
     {
-        private readonly IRoomRepository _repository;
+        private readonly IRoomRepository _roomRepository;
+        private readonly IVertexRepository _vertexRepository;
+        private readonly ISeatRepository _seatRepository;
 
-        public RoomService(IRoomRepository roomRepository)
+        public RoomService(IRoomRepository roomRepository, IVertexRepository vertexRepository,
+            ISeatRepository seatRepository)
         {
-            _repository = roomRepository;
+            _roomRepository = roomRepository;
+            _vertexRepository = vertexRepository;
+            _seatRepository = seatRepository;
         }
 
         public IEnumerable<RoomDto> GetAllRooms()
         {
-            return _repository.Rooms.Select(x => RoomMapper.GetRoomDto(x));
+            return _roomRepository.Rooms.Select(x => RoomMapper.GetRoomDto(x));
         }
 
         public RoomDto GetRoom(int id)
         {
-            var room = _repository.Get(id);
+            var room = _roomRepository.Get(id);
             if (room == null)
                 return null;
 
             return RoomMapper.GetRoomDto(room);
         }
 
-        public void Post(Room room)   
+        public void Post(Room room)
         {
-            _repository.Add(room);
+            //var result = _roomRepository.Rooms.FirstOrDefault(r => r.RoomId == room.Id);
+           /* if (result != null)
+                return;
+            else
+            {
+                var vertexes = new List<Vertex>();
+                foreach (var verDto in room.Vertexes)
+                {
+                    var ver = _vertexRepository.Vertices.FirstOrDefault(v => v.VertexId == verDto.Id);
+                    if (ver != null)
+                        vertexes.Add(ver);
+                    else
+                    {
+                        ver = new Vertex()
+                        {
+                            X = verDto.X,
+                            Y = verDto.Y,
+                        };
+                        _vertexRepository.Add(ver);
+                        vertexes.Add(ver);
+                    }
+                }
+
+                var seats = new List<Seat>();
+                foreach (var seatDto in room.Seats)
+                {
+                    var seat = _seatRepository.Get(seatDto.Id);
+                    if (seat != null)
+                        seats.Add(seat);
+                    else
+                    {
+                        seat = new Seat()
+                        {
+
+                        }
+                    }
+                }
+                
+
+
+               result = new Room()
+               {
+                   Vertexes = vertexes,
+
+               }
+            }*/
+
+
+
+
         }
 
         public void Delete(Room room)
         {
-            _repository.Delete(room);
+            _roomRepository.Delete(room);
         }
 
         public void Update(Room room)
         {
-            _repository.Update(room);
+            _roomRepository.Update(room);
         }
     }
 }

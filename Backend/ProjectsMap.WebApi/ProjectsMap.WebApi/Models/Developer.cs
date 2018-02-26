@@ -9,14 +9,15 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Developer
     {
-        public Developer() { }
+        public Developer()
+        {
+        }
 
         public Developer(string firstName, string surname)
         {
             FirstName = firstName;
             Surname = surname;
         }
-
 
         [Key]
         public int DeveloperId { get; set; }
