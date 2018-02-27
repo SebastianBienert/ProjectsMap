@@ -1,0 +1,23 @@
+<ul style="text-align: left;">
+  Rooms:
+  <li *ngFor="let room of rooms">
+    <ul style="text-align: left;">
+      Vertexes:
+    <li *ngFor="let vertex of room.Vertexes" >
+      X: {{vertex.X}} Y: {{vertex.Y}} 
+    </li>
+  </ul>
+  <ul style="text-align: left;">
+      Seats:
+    <li *ngFor="let seat of room.Seats" >
+      X: {{seat.X}} Y: {{seat.Y}} 
+    </li>
+  </ul>
+  <ul style="text-align: left;">
+      Projects:
+    <li *ngFor="let project of room.Projects" >
+      {{project}}
+    </li>
+  </ul>
+  </li>
+</ul>
