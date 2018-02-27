@@ -21,7 +21,7 @@ namespace ProjectsMap.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
-			var cors = new EnableCorsAttribute("http://localhost:4200/", "*", "*");//!!! change headers
+			var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");//!!! change headers
 			config.EnableCors(cors);
             //These lines force to return JSON instead of XML
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
