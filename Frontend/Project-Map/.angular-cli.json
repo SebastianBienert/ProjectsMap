@@ -23,8 +23,8 @@
       ],
       "scripts": 
       [
-        "../bower_components/svg.js/dist/svg.min.js",
-        "../bower_components/svg.draw.js/dist/svg.draw.min.js"
+        "../node_modules/svg.js/dist/svg.min.js",
+        "../node_modules/svg.draw.js/dist/svg.draw.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
