@@ -16,30 +16,35 @@ export class DrawingBoardComponent implements OnInit {
   rooms : Room[];
   drawMode: string;
   draw;
-  
-  drawIt($event)
-  {
-  this.rooms.forEach(room => {
-      var arra = '';
-      room.Vertexes.forEach(vertex => {
-        arra =  arra.concat(vertex.X + ',' +  vertex.Y + ' ')       
-      });
-      this.draw.polygon(arra).fill('none').stroke({ width: 1 });
-    });
-  }
+ 
   constructor(private roomService: RoomService) { }
 
   ngOnInit() {
-    this.displayData();
-  }
-  displayData(): void {
-    this.draw = SVG('canvas').size(800, 800);
-    this.getRooms();
     this.getRooms();
   }
 
   getRooms(): void {
     this.roomService.getRooms()
-      .subscribe(Rooms => this.rooms = Rooms);
+      .subscribe(
+        Rooms => {
+        this.rooms = Rooms;
+          this.displayMap()
+        });
+  }
+
+  drawIt($event) {
+    this.draw.rect(100, 100).move(100,100);
+  }
+
+  displayMap() {
+    this.draw = SVG('canvas').size(800, 800);
+    this.rooms.forEach(room => {
+      var arra = '';
+      room.Vertexes.forEach(vertex => {
+        arra =  arra.concat(vertex.X + ',' +  vertex.Y + ' ')       
+        arra = arra.concat(vertex.X + ',' + vertex.Y + ' ')
+      });
+      this.draw.polygon(arra).fill('none').stroke({ width: 1 });
+    });
   }
 }
