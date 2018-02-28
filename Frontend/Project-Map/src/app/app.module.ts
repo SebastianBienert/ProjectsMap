@@ -3,12 +3,13 @@ import { MessageService } from './services/message.service';
 import { RoomService } from './services/room.service';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { DrawingBoardComponent } from './drawing-board/drawing-board.component';
 import { RoomComponent } from './room/room.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 @NgModule({
@@ -20,11 +21,14 @@ import { RoomComponent } from './room/room.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [
     HttpErrorHandler,
     MessageService,
     RoomService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ NO_ERRORS_SCHEMA ]
 })
 export class AppModule { }
