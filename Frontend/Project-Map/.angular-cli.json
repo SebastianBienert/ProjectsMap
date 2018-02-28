@@ -19,14 +19,15 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "styles.css",
         "../node_modules/font-awesome/scss/font-awesome.scss",
   "../node_modules/angular-bootstrap-md/scss/bootstrap/bootstrap.scss",
   "../node_modules/angular-bootstrap-md/scss/mdb-free.scss"
       ],
       "scripts": 
       [
-        "../bower_components/svg.js/dist/svg.min.js",
-        "../bower_components/svg.draw.js/dist/svg.draw.min.js"
+        "../node_modules/svg.js/dist/svg.min.js",
+        "../node_modules/svg.draw.js/dist/svg.draw.min.js",
         "../node_modules/chart.js/dist/Chart.js",
   "../node_modules/hammerjs/hammer.min.js"
       ],
