@@ -46,12 +46,12 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Technology()
                         {
                             TechnologyId = 1,
-                            Name = "#ObijanieSie"
+                            Name = "#Angular"
                         },
                         new Technology()
                         {
                             TechnologyId = 2,
-                            Name = "#NicNieRobienie"
+                            Name = "#Java"
                         }
                     },
                     Projects = new List<Project>()
@@ -66,12 +66,12 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Technology()
                         {
                             TechnologyId = 1,
-                            Name = "#ObijanieSie"
+                            Name = "#HTML"
                         },
                         new Technology()
                         {
                             TechnologyId = 2,
-                            Name = "#NicNieRobienie"
+                            Name = "#CSS"
                         }
                     },
                     Projects = new List<Project>()

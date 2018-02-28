@@ -28,6 +28,18 @@ namespace ProjectsMap.WebApi.Models
 
         public string Surname { get; set; }
 
+        public string Email { get; set; }
+
+        public bool WantToHelp { get; set; }
+
+        public byte[] Photo { get; set; }
+
+        public string JobTitle { get; set; }
+
+        public virtual Company Company { get; set; }
+
+        public int? CompanyId { get; set; }
+
         //Many to many relation (Technology - Developer)
         public virtual ICollection<Technology> Technologies { get; set; } 
 

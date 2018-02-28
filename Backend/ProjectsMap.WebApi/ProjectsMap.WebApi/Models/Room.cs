@@ -11,6 +11,11 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int RoomId { get; set; }
 
+        //One to many relation [Floor - Room]
+        public virtual Floor Floor { get; set; }
+
+        public int? FloorId { get; set; }
+
         //Shape of the room is described by the list of vertexes (x,y)
         public virtual ICollection<Vertex> Vertexes { get; set; }
 

@@ -44,6 +44,35 @@ namespace ProjectsMap.WebApi.Repositories
                 .WithMany(r => r.Seats)
                 .HasForeignKey<int>(s => s.RoomId);
 
+            //One to many relation [Floor - Room]
+            modelBuilder.Entity<Room>()
+                .HasOptional<Floor>(r => r.Floor)
+                .WithMany(f => f.Rooms)
+                .HasForeignKey<int?>(r => r.FloorId);
+
+            //One to many relation [Building - Floor]
+            modelBuilder.Entity<Floor>()
+                .HasRequired<Building>(f => f.Building)
+                .WithMany(b => b.Floors)
+                .HasForeignKey(f => f.BuildingId);
+
+            //One to many relation [Company - Building]
+            modelBuilder.Entity<Building>()
+                .HasOptional<Company>(b => b.Company)
+                .WithMany(c => c.Buildings)
+                .HasForeignKey(b => b.CompanyId);
+
+            //One to many relation [Company - Developer]
+            modelBuilder.Entity<Developer>()
+                .HasOptional<Company>(d => d.Company)
+                .WithMany(c => c.Developers)
+                .HasForeignKey(d => d.CompanyId);
+
+            //One to many relation [Company - Projects]
+            modelBuilder.Entity<Project>()
+                .HasOptional(p => p.Company)
+                .WithMany(c => c.Projects)
+                .HasForeignKey(p => p.CompanyId);
 
             //One to one or zero [User - Developer]
             modelBuilder.Entity<User>()
@@ -87,6 +116,13 @@ namespace ProjectsMap.WebApi.Repositories
                     dp.MapRightKey("ProjectRefId");
                     dp.ToTable("DeveloperProject");
                 });
+
+            //Project has one or zero produt owner [Project - developer]
+            modelBuilder.Entity<Project>()
+                .HasOptional<Developer>(d => d.ProductOwner);
+
+
+
 
             //Many to many [Project - Technology]
             modelBuilder.Entity<Project>()
