@@ -1,7 +1,7 @@
 import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
-import { Scale, Doc, PointArray, Rect } from './../../../bower_components/svg.js/svg.js.d';
+import { Scale, Doc, PointArray, Rect } from './../../../node_modules/svg.js/svg.js.d';
 import { Component, OnInit } from '@angular/core';
 import { Room } from '../common-interfaces/room';
 declare const SVG:any;
