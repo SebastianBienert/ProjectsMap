@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -21,8 +22,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class fetchData extends AsyncTask<Void,Void,Void> {
     String data ="";
-    String dataParsed = "";
     String singleParsed = "";
+    ArrayList<String> dataList = new ArrayList<String>();
+
     @Override
     protected Void doInBackground(Void... voids) {
 
@@ -45,9 +47,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                         "Surname:" + JO.get("Surname") + "\n"+
                         "Technologies:" + JO.get("Technologies") + "\n"+
                         "Seat:" + JO.get("Seat") + "\n";
-
-                dataParsed = dataParsed + singleParsed + "\n";
-
+                dataList.add(singleParsed);
             }
 
         } catch (MalformedURLException e) {
@@ -64,6 +64,10 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        MainActivity.data.setText(this.dataParsed);
+        //MainActivity.data.setText(this.dataParsed);
+        for(int i=0; i<dataList.size();i++) {
+            MainActivity.custom.list.add(new singleRow(dataList.get(i)));
+        }
+        MainActivity.custom.notifyDataSetChanged();
     }
 }
