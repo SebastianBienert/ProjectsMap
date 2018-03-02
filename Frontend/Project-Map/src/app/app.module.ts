@@ -7,16 +7,18 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { DrawingBoardComponent } from './drawing-board/drawing-board.component';
+import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
 import { RoomComponent } from './room/room.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { MapCreatorComponent } from './map-creator/map-creator.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DrawingBoardComponent,
-    RoomComponent
+    DisplayedMapComponent,
+    RoomComponent,
+    MapCreatorComponent
   ],
   imports: [
     BrowserModule,
