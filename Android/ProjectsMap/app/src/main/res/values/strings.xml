@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ProjectsMap</string>
+    <string name="title_activity_search_developer">SearchDeveloper</string>
+    <string name="szukaj">Szukaj</string>
+    <string name="wszyscy_pracownicy">Wszyscy pracownicy</string>
+    <string name="wyszukaj_pracownika">Wyszukaj Pracownika</string>
+    <string name="numer_id_pracownika">Numer ID pracownika</string>
+    <string name="pobierz_dane">Pobierz dane</string>
+    <string name="cofnij">Cofnij</string>
+    <string name="numer_id">numer_id</string>
+    <string name="informacje_o_pracowniku">Informacje o pracowniku</string>
 </resources>
