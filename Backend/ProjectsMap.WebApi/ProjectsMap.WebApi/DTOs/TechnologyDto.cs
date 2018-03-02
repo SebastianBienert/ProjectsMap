@@ -11,8 +11,8 @@ namespace ProjectsMap.WebApi.DTOs
 
         public string Name { get; set; }
 
-        public IEnumerable<DeveloperDto> Developers { get; set; }
+        public IEnumerable<int> DevelopersId { get; set; }
 
-        public IEnumerable<ProjectDto> Projects { get; set; }
+        public IEnumerable<int> ProjectsId { get; set; }
     }
 }

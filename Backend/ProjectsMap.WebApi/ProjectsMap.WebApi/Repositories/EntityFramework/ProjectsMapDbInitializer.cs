@@ -216,18 +216,18 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
                     FirstName = "Witkor",
                     Surname = "Bukowski",
-                    DeveloperId = 1,
+               //     DeveloperId = 1,
                     Technologies = new List<Technology>()
                     {
                         new Technology()
                         {
                             TechnologyId = 1,
-                            Name = "#Angular"
+                            Name = "Angular"
                         },
                         new Technology()
                         {
                             TechnologyId = 2,
-                            Name = "#Java"
+                            Name = "Java"
                         }
                     },
                     Projects = new List<Project>()
@@ -236,18 +236,18 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
                     FirstName = "Michal",
                     Surname = "Radziwilko",
-                    DeveloperId = 2,
+            //        DeveloperId = 2,
                     Technologies = new List<Technology>()
                     {
                         new Technology()
                         {
                             TechnologyId = 1,
-                            Name = "#HTML"
+                            Name = "HTML"
                         },
                         new Technology()
                         {
                             TechnologyId = 2,
-                            Name = "#CSS"
+                            Name = "CSS"
                         }
                     },
                     Projects = new List<Project>()
@@ -258,7 +258,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             {
                 new User()
                 {
-                    UserId = 1,
+            //        UserId = 1,
                     Created = DateTime.Now,
                     Developer = developers[0],
                     Username = "Wiktor",
@@ -267,12 +267,21 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 },
                 new User()
                 {
-                    UserId = 2,
+            //        UserId = 2,
                     Created = DateTime.Now,
                     Developer = developers[1],
                     Username = "Michal",
                     Password = "secret2",
                     Email = "wiktor@gmail.com"
+                },
+                new User()
+                {
+          //          UserId = 0,
+                    Created = DateTime.Now,
+                    Developer = null,
+                    Username = "Wiktor",
+                    Password = "secret",
+                    Email = "michal@gmail.com"
                 },
             };
 

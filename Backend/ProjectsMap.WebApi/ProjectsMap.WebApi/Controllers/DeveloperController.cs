@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services;
@@ -58,7 +59,7 @@ namespace ProjectsMap.WebApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Developer developer)
+        public IHttpActionResult Post([FromBody] DeveloperDto developer)
         {
             _service.Post(developer);
             return Ok();

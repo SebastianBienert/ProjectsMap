@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 
@@ -81,6 +82,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 dev.Technologies = developer.Technologies;
             }
 
+        }
+
+        public void Add(DeveloperDto developer)
+        {
+            
         }
     }
 }

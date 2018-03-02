@@ -13,6 +13,6 @@ namespace ProjectsMap.WebApi.DTOs
 
         public int RooomId { get; set; }
 
-        public int DeveloperId { get; set; }
+        public int? DeveloperId { get; set; }
     }
 }

@@ -24,8 +24,16 @@ namespace ProjectsMap.WebApi.Repositories
 
         public DbSet<Vertex> Vertexes { get; set; }
 
+        public DbSet<Building> Buildings { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+
+        public DbSet<Floor> Floors { get; set; }
+
         public EfDbContext() : base("name=ProjectsMapDbContext")
         {
+            //Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new ProjectsMapDbInitializer());
         }
 
@@ -33,9 +41,9 @@ namespace ProjectsMap.WebApi.Repositories
         {
             //One to one or zero [Seat - Developer]
             modelBuilder.Entity<Seat>()
-                .HasRequired(s => s.Developer)
+                .HasOptional(s => s.Developer)
                 .WithMany(d => d.Seat)
-                .HasForeignKey<int>(s => s.DeveloperId);
+                .HasForeignKey<int?>(s => s.DeveloperId);
  
 
             //One to many [Room - seat]

@@ -27,8 +27,8 @@ namespace ProjectsMap.WebApi.Models
         public virtual Room Room { get; set; }
         public int RoomId { get; set; }
 
-        //One to one or zero relation (Seat - Developer)
-        public int DeveloperId { get; set; }
+        //One-zero to many relation (Seat - Developer)
+        public int? DeveloperId { get; set; }
         public virtual Developer Developer { get; set; }
     }
 }

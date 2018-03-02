@@ -19,15 +19,20 @@ namespace ProjectsMap.WebApi.Mapper
                 Technologies = developer.Technologies.Select(x => x.Name).ToList(),
             };
 
-            var seatDto = new SeatDto()
+            if (developer.Seat == null || developer.Seat.Count == 0)
+                dto.Seat = null;
+            else
             {
-                Id = developer.Seat == null ? 0 : developer.Seat.ToList()[0].SeatId,
-                DeveloperId = developer.DeveloperId,
-                Vertex = developer.Seat == null ? null : VertexMapper.GetVertexDto(developer.Seat.ToList()[0].Vertex),
-                RooomId = developer.Seat.ToList()[0].SeatId
-            };
+                var seatDto = new SeatDto()
+                {
+                    Id = developer.Seat.ToList()[0].SeatId,
+                    DeveloperId = developer.DeveloperId,
+                    Vertex = developer.Seat == null ? null : VertexMapper.GetVertexDto(developer.Seat.ToList()[0].Vertex),
+                    RooomId = developer.Seat.ToList()[0].SeatId
+                };
+                dto.Seat = seatDto;
+            }
 
-            dto.Seat = seatDto;
 
             return dto;
         }

@@ -54,7 +54,7 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
-        public void Post(Developer developer)
+        public void Post(DeveloperDto developer)
         {
             _repository.Add(developer);
         }
