@@ -28,8 +28,10 @@
       [
         "../node_modules/svg.js/dist/svg.min.js",
         "../node_modules/svg.draw.js/dist/svg.draw.min.js",
+        "../node_modules/svg.panzoom.js/dist/svg.panzoom.min.js",
+        "../node_modules/svg.draggable.js/dist/svg.draggable.min.js",
         "../node_modules/chart.js/dist/Chart.js",
-  "../node_modules/hammerjs/hammer.min.js"
+        "../node_modules/hammerjs/hammer.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

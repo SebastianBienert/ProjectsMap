@@ -1,6 +1,6 @@
 import { RoomComponent } from './room/room.component';
 import { Component, ViewChild } from '@angular/core';
-import { DrawingBoardComponent } from './drawing-board/drawing-board.component';
+import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
