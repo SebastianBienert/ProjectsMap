@@ -17,19 +17,18 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Majkel on 2018-02-28.
+ * Created by Mateusz on 2018-02-28.
  */
 
-public class fetchData extends AsyncTask<Void,Void,Void> {
+public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
     String data ="";
     String singleParsed = "";
-    ArrayList<String> dataList = new ArrayList<String>();
-
+    String numberId;
     @Override
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            URL url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/" + numberId);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = httpsURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -39,16 +38,12 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
                 data = data + line;
             }
 
-            JSONArray JA = new JSONArray(data);
-            for(int i=0;i<JA.length(); i++){
-                JSONObject JO = (JSONObject) JA.get(i);
-                singleParsed = "Id:" + JO.get("Id") + "\n"+
-                        "FirstName:" + JO.get("FirstName") + "\n"+
-                        "Surname:" + JO.get("Surname") + "\n"+
-                        "Technologies:" + JO.get("Technologies") + "\n"+
-                        "Seat:" + JO.get("Seat") + "\n";
-                dataList.add(singleParsed);
-            }
+            JSONObject developer = new JSONObject(data);
+                singleParsed = "Id:" + developer.get("Id") + "\n"+
+                        "FirstName:" + developer.get("FirstName") + "\n"+
+                        "Surname:" + developer.get("Surname") + "\n"+
+                        "Technologies:" + developer.get("Technologies") + "\n"+
+                        "Seat:" + developer.get("Seat") + "\n";
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -59,15 +54,13 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
-
+    public void setNumberId(String number){
+        numberId = number;
+    }
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        //MainActivity.data.setText(this.dataParsed);
-        for(int i=0; i<dataList.size();i++) {
-            AllDevelopers.custom.list.add(new singleRow(dataList.get(i)));
-        }
-        AllDevelopers.custom.notifyDataSetChanged();
+        SerachDeveloper.data.setText(this.singleParsed);
     }
 }

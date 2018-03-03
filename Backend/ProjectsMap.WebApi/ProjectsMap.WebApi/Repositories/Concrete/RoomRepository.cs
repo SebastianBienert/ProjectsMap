@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using System.Data.Entity;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
@@ -13,14 +14,25 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             get
             {
-                var dbContext = new EfDbContext();
-                return dbContext.Rooms.ToList();
+                using (var dbContext = new EfDbContext())
+                {
+                    return dbContext.Rooms
+                        .Include(r => r.Projects)
+                        .Include(r => r.Vertexes)
+                        .Include(r => r.Seats.Select(s => s.Vertex)).ToList();
+                }
             }
         }
         public Room Get(int id)
         {
-            var dbContext = new EfDbContext();
-            return dbContext.Rooms.FirstOrDefault(x => x.RoomId == id);
+            using (var dbContext = new EfDbContext())
+            {
+                return dbContext.Rooms
+                    .Include(r => r.Projects)
+                    .Include(r => r.Vertexes)
+                    .Include(r => r.Seats.Select(s => s.Vertex))
+                    .FirstOrDefault(x => x.RoomId == id);
+            }
         }
 
         public void Add(Room room)

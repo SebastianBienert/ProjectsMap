@@ -130,7 +130,7 @@
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SeatController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\TechnologyController.cs" />
     <Compile Include="DTOs\DeveloperDto.cs" />
     <Compile Include="DTOs\ProjectDto.cs" />
     <Compile Include="DTOs\RoomDto.cs" />
@@ -144,30 +144,11 @@
     <Compile Include="Mappers\DeveloperMapper.cs" />
     <Compile Include="Mappers\RoomMapper.cs" />
     <Compile Include="Mappers\SeatMapper.cs" />
+    <Compile Include="Mappers\TechnologyMapper.cs" />
     <Compile Include="Mappers\VertexMapper.cs" />
-    <Compile Include="Migrations\201802242142301_initial.cs" />
-    <Compile Include="Migrations\201802242142301_initial.Designer.cs">
-      <DependentUpon>201802242142301_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802242159081_addedDbSet.cs" />
-    <Compile Include="Migrations\201802242159081_addedDbSet.Designer.cs">
-      <DependentUpon>201802242159081_addedDbSet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802242226118_fkFix.cs" />
-    <Compile Include="Migrations\201802242226118_fkFix.Designer.cs">
-      <DependentUpon>201802242226118_fkFix.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802281353230_expand_Project_Entity.cs" />
-    <Compile Include="Migrations\201802281353230_expand_Project_Entity.Designer.cs">
-      <DependentUpon>201802281353230_expand_Project_Entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802281407227_expand_Developer_Entity.cs" />
-    <Compile Include="Migrations\201802281407227_expand_Developer_Entity.Designer.cs">
-      <DependentUpon>201802281407227_expand_Developer_Entity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201802281453408_Added_BuildingCompanyFloor.cs" />
-    <Compile Include="Migrations\201802281453408_Added_BuildingCompanyFloor.Designer.cs">
-      <DependentUpon>201802281453408_Added_BuildingCompanyFloor.cs</DependentUpon>
+    <Compile Include="Migrations\201803012127526_initial.cs" />
+    <Compile Include="Migrations\201803012127526_initial.Designer.cs">
+      <DependentUpon>201803012127526_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Building.cs" />
@@ -185,22 +166,25 @@
     <Compile Include="Repositories\Abstract\IRoomRepository.cs" />
     <Compile Include="Repositories\Abstract\IProjectRepository.cs" />
     <Compile Include="Repositories\Abstract\ISeatRepository.cs" />
+    <Compile Include="Repositories\Abstract\ITechnologyRepository.cs" />
     <Compile Include="Repositories\Abstract\IUserRepository.cs" />
     <Compile Include="Repositories\Abstract\IVertexRepository.cs" />
     <Compile Include="Repositories\Concrete\DeveloperRepository.cs" />
     <Compile Include="Repositories\Concrete\RoomRepository.cs" />
     <Compile Include="Repositories\Concrete\ProjectRepository.cs" />
-    <Compile Include="Repositories\Concrete\FakeRepository\TestDeveloperRepository.cs" />
     <Compile Include="Repositories\Concrete\SeatRepository.cs" />
+    <Compile Include="Repositories\Concrete\TechnologyRepository.cs" />
     <Compile Include="Repositories\Concrete\VertexRepository.cs" />
     <Compile Include="Repositories\EntityFramework\EfDbContext.cs" />
     <Compile Include="Repositories\EntityFramework\ProjectsMapDbInitializer.cs" />
     <Compile Include="Services\Abstract\IDeveloperService.cs" />
     <Compile Include="Services\Abstract\IRoomService.cs" />
     <Compile Include="Services\Abstract\ISeatService.cs" />
+    <Compile Include="Services\Abstract\ITechnologyService.cs" />
     <Compile Include="Services\Concrete\DeveloperService.cs" />
     <Compile Include="Services\Concrete\RoomService.cs" />
     <Compile Include="Services\Concrete\SeatService.cs" />
+    <Compile Include="Services\Concrete\TechnologyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -216,23 +200,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201802242142301_initial.resx">
-      <DependentUpon>201802242142301_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802242159081_addedDbSet.resx">
-      <DependentUpon>201802242159081_addedDbSet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802242226118_fkFix.resx">
-      <DependentUpon>201802242226118_fkFix.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802281353230_expand_Project_Entity.resx">
-      <DependentUpon>201802281353230_expand_Project_Entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802281407227_expand_Developer_Entity.resx">
-      <DependentUpon>201802281407227_expand_Developer_Entity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201802281453408_Added_BuildingCompanyFloor.resx">
-      <DependentUpon>201802281453408_Added_BuildingCompanyFloor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803012127526_initial.resx">
+      <DependentUpon>201803012127526_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

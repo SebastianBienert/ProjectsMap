@@ -1,31 +1,50 @@
 package project.projectsmap;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button click;
-    public static TextView data;
+    Button clickAllDeveloper;
+    Button clickSerachDeveloper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        click = (Button) findViewById(R.id.button);
-        data = (TextView) findViewById(R.id.fetcheddata);
+        clickAllDeveloper = (Button) findViewById(R.id.buttonAllDevelopers);
 
-        click.setOnClickListener(new View.OnClickListener() {
+        clickAllDeveloper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                fetchData process = new fetchData();
-                process.execute();
+                Intent intent = new Intent(MainActivity.this, AllDevelopers.class);
+                startActivity(intent);
             }
         });
+
+        clickSerachDeveloper = (Button) findViewById(R.id.buttonSearchDeveloper);
+
+        clickSerachDeveloper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SerachDeveloper.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
 }
+

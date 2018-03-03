@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.Abstract
@@ -13,7 +14,9 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         Developer Get(int id);
 
-        void Add(Developer developer);
+        int Add(DeveloperDto developer);
+
+        int Add(Developer developer);
 
         void Delete(Developer developer);
 

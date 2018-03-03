@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Mapper;
@@ -54,9 +55,9 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
-        public void Post(Developer developer)
+        public int Post(DeveloperDto developer)
         {
-            _repository.Add(developer);
+           return  _repository.Add(developer);
         }
 
         public void Delete(Developer developer)

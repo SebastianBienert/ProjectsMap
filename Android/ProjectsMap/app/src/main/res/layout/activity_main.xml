@@ -7,24 +7,25 @@
     tools:context="project.projectsmap.MainActivity">
 
     <Button
+        android:id="@+id/buttonAllDevelopers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click Me!"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/button" />
+        android:layout_above="@+id/buttonSearchDeveloper"
+        android:layout_alignEnd="@+id/buttonSearchDeveloper"
+        android:layout_alignLeft="@+id/buttonSearchDeveloper"
+        android:layout_alignRight="@+id/buttonSearchDeveloper"
+        android:layout_alignStart="@+id/buttonSearchDeveloper"
+        android:layout_marginBottom="89dp"
+        android:text="@string/wszyscy_pracownicy" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/button">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Fetched Text Here..."
-            android:padding="10dp"
-            android:textSize="24sp"
-            android:id="@+id/fetcheddata"/>
-    </ScrollView>
+    <Button
+        android:id="@+id/buttonSearchDeveloper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="190dp"
+        android:text="@string/wyszukaj_pracownika" />
 
 
 </RelativeLayout>

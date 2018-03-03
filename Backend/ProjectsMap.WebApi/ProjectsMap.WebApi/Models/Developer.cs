@@ -46,7 +46,7 @@ namespace ProjectsMap.WebApi.Models
         //Many to many relation (Project - Developer)
         public virtual ICollection<Project> Projects { get; set; }
 
-        //One to one relation(Seat-Developer)
+        //One to many relation(Seat-Developer)
         public virtual ICollection<Seat> Seat { get; set; }
     }
 }
