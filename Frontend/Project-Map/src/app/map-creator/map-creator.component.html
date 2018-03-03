@@ -1,2 +1,7 @@
-<div id="canvas" (click)='drawPolygon()'>
+<button  (click)='drawNewRoom()'>Create room</button>
+<button  (click)='deleteLastRoom()'>Delete last room</button>
+<button  (click)='chooseLine()'>Draw walls - line</button>
+<button  (click)='chooseSquare()'>Draw walls - square</button>
+<button  (click)='saveMap()'>Save Map</button>
+<div id="canvas" (click)="determineShape()">
 </div>
