@@ -35,8 +35,9 @@ public class SerachDeveloper extends AppCompatActivity {
         clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SerachDeveloper.this, MainActivity.class);
-                startActivity(intent);
+                SerachDeveloper.super.finish();
+                //Intent intent = new Intent(SerachDeveloper.this, MainActivity.class);
+                //startActivity(intent);
             }
         });
     }

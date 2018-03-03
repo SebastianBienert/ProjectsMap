@@ -47,8 +47,9 @@ public class AllDevelopers extends AppCompatActivity {
         clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AllDevelopers.this, MainActivity.class);
-                startActivity(intent);
+                AllDevelopers.super.finish();
+                //Intent intent = new Intent(AllDevelopers.this, MainActivity.class);
+                //startActivity(intent);
             }
         });
     }
