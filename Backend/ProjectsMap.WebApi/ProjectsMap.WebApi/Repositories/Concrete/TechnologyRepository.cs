@@ -36,7 +36,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             }
         }
 
-        public void Add(TechnologyDto technologyDto)
+        //Add technology with existing projects and developers
+        public int Add(TechnologyDto technologyDto)
         {
             using (var dbContext = new EfDbContext())
             {
@@ -49,18 +50,10 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     Projects = technologyDto.ProjectsId.Count() == 0 ? null : projectsFromDatabase
                 };
 
-                foreach (var dev in developersFromDataBase)
-                {
-                    dev.Technologies.Add(technology);
-                }
-
-                foreach (var project in projectsFromDatabase)
-                {
-                    project.Technologies.Add(technology);
-                }
-
                 dbContext.Technologies.Add(technology);
                 dbContext.SaveChanges();
+
+                return technology.TechnologyId;
             }
         }
 

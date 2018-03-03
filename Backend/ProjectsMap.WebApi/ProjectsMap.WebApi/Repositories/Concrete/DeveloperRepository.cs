@@ -36,7 +36,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             }
         }
 
-        public void Add(DeveloperDto dto)
+        public int Add(DeveloperDto dto)
         {
             using (var dbContext = new EfDbContext())
             {
@@ -45,7 +45,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     Technologies = dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
                     Seat = dto.Seat == null ? null : new List<Seat>() { dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)}
                 };
-                if (dto.Id == null || dto.Id == 0)
+                if (dto.Id == 0)
                 {
                     var user = new User
                     {
@@ -53,7 +53,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                         Developer = dev
                     };
                     dev.User = user;
-                    dbContext.Users.Add(user);
                  }
                 else
                 {
@@ -61,15 +60,19 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 }
                 dbContext.Developers.Add(dev);
                 dbContext.SaveChanges();
+
+                return dev.DeveloperId;
             }
         }
 
-        public void Add(Developer developer)
+        public int Add(Developer developer)
         {
             using (var dbContext = new EfDbContext())
             {
                 dbContext.Developers.Add(developer);
                 dbContext.SaveChanges();
+
+                return developer.DeveloperId;
             }
         }
 

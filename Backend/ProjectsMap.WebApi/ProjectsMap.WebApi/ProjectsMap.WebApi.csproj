@@ -172,7 +172,6 @@
     <Compile Include="Repositories\Concrete\DeveloperRepository.cs" />
     <Compile Include="Repositories\Concrete\RoomRepository.cs" />
     <Compile Include="Repositories\Concrete\ProjectRepository.cs" />
-    <Compile Include="Repositories\Concrete\FakeRepository\TestDeveloperRepository.cs" />
     <Compile Include="Repositories\Concrete\SeatRepository.cs" />
     <Compile Include="Repositories\Concrete\TechnologyRepository.cs" />
     <Compile Include="Repositories\Concrete\VertexRepository.cs" />

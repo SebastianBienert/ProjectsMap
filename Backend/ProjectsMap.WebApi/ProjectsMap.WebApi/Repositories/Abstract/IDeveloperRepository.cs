@@ -14,9 +14,9 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         Developer Get(int id);
 
-        void Add(DeveloperDto developer);
+        int Add(DeveloperDto developer);
 
-        void Add(Developer developer);
+        int Add(Developer developer);
 
         void Delete(Developer developer);
 

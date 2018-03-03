@@ -16,7 +16,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         IEnumerable<DeveloperDto> GetDevelopersByTechnology(string technology);
 
-        void Post(DeveloperDto developer);
+        int Post(DeveloperDto developer);
 
         void Delete(Developer developer);
 

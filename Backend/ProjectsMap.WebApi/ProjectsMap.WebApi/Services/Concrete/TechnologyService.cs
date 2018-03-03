@@ -49,9 +49,9 @@ namespace ProjectsMap.WebApi.Services.Concrete
             return list;
         }
 
-        public void Post(TechnologyDto technology)
+        public int Post(TechnologyDto technology)
         {
-            _repository.Add(technology);
+            return _repository.Add(technology);
         }
 
         public void Delete(TechnologyDto technology)
