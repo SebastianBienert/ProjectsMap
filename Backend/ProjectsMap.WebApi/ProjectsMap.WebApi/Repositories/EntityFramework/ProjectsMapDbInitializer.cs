@@ -352,6 +352,40 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             developers[1].Seat = new List<Seat>() { seatsFirstRoom[1]};
 
 
+            var company = new Company();
+            company.CompanyId = 1;
+
+            var building = new Building();
+            building.BuildingId = 1;
+
+            var floor = new Floor()
+            {
+                BuildingId = building.BuildingId,
+                Building = building,
+                FloorId = 1,
+                Rooms = rooms
+            };
+
+            var floors = new List<Floor>() { floor };
+            
+            building.Company = company;
+            building.CompanyId = company.CompanyId;
+            building.Address = "snackbar";
+            
+            building.Floors = floors;
+            
+            var buildings = new List<Building>();
+
+
+            company.Buildings = buildings;
+
+
+            context.Buildings.Add(building);
+
+            context.Floors.Add(floor);
+
+            context.Companies.Add(company);
+
             foreach (var ver in vertices)
                 context.Vertexes.Add(ver);
 
@@ -372,10 +406,11 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
             foreach (var dev in developers)
                 context.Developers.Add(dev);
+            
 
             context.SaveChanges();
 
-  
+
 
         }
     }
