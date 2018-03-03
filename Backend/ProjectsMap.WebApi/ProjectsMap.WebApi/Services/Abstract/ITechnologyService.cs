@@ -16,7 +16,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         IEnumerable<TechnologyDto> GetTechnologiesByName(string technology);
 
-        void Post(TechnologyDto technology);
+        int Post(TechnologyDto technology);
 
         void Delete(TechnologyDto technology);
 

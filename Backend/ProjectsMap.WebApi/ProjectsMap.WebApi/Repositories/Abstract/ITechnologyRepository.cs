@@ -16,7 +16,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         IEnumerable<Technology> GetTechnologiesByName(string name);
 
-        void Add(TechnologyDto technology);
+        int Add(TechnologyDto technology);
 
         void Delete(Technology technology);
 

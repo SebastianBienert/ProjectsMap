@@ -27,7 +27,7 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "GetTechnologyById")]
         public IHttpActionResult Get(int id)
         {
             var dto = _service.GetTechnology(id);
@@ -49,8 +49,8 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Post([FromBody] TechnologyDto technology)
         {
-            _service.Post(technology);
-            return Ok();
+            int createdId = _service.Post(technology);
+            return CreatedAtRoute("GetTechnologyById", new {id = createdId}, technology);
         }
 
 

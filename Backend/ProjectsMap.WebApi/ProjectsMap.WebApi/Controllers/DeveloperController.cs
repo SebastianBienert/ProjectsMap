@@ -30,7 +30,7 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "GetDeveloperById")]
         public IHttpActionResult Get(int id)
         {
             var developerDto = _service.GetDeveloper(id);
@@ -61,8 +61,9 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Post([FromBody] DeveloperDto developer)
         {
-            _service.Post(developer);
-            return Ok();
+            int createdId = _service.Post(developer);
+
+            return CreatedAtRoute("GetDeveloperById", new { id = createdId }, developer);
         }
 
         [HttpDelete]
