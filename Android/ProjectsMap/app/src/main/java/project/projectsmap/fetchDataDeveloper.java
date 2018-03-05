@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,6 +23,7 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
     String data ="";
     String numberId;
     Developer developer;
+    String description = null;
     @Override
     protected Void doInBackground(Void... voids) {
 
@@ -39,7 +41,10 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
 
             JSONObject jsonObject = new JSONObject(data);
             developer = new Developer(jsonObject);
-        } catch (MalformedURLException e) {
+        } catch (FileNotFoundException e){
+            description = "Brak pracownika o podanych danych.";
+            e.printStackTrace();
+        }catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +59,10 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-
-        SerachDeveloper.data.setText(developer.developerDescription());
+        if(description==null){
+            SerachDeveloper.data.setText(developer.developerDescription());
+        }else{
+            SerachDeveloper.data.setText(description);
+        }
     }
 }
