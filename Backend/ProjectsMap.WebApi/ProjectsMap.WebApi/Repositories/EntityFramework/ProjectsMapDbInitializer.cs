@@ -263,16 +263,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[10],
-                            EndVertex = vertices[13]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[13],
                             EndVertex = vertices[12]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[12],
+                            EndVertex = vertices[13]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[13],
                             EndVertex = vertices[11]
                         },
                     }
@@ -321,16 +321,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[14],
-                            EndVertex = vertices[21]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[21],
                             EndVertex = vertices[20]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[20],
+                            EndVertex = vertices[21]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[21],
                             EndVertex = vertices[15]
                         },
                     }
@@ -505,16 +505,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[34],
-                            EndVertex = vertices[37]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[37],
                             EndVertex = vertices[36]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[36],
+                            EndVertex = vertices[37]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[37],
                             EndVertex = vertices[33]
                         },
                     }
@@ -563,16 +563,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[38],
-                            EndVertex = vertices[41]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[41],
                             EndVertex = vertices[40]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[40],
+                            EndVertex = vertices[41]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[41],
                             EndVertex = vertices[39]
                         },
                     }
@@ -621,26 +621,26 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[42],
-                            EndVertex = vertices[44]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[44],
-                            EndVertex = vertices[30]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[30],
-                            EndVertex = vertices[31]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[31],
                             EndVertex = vertices[47]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[47],
+                            EndVertex = vertices[31]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[31],
+                            EndVertex = vertices[30]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[30],
+                            EndVertex = vertices[44]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[44],
                             EndVertex = vertices[43]
                         },
                     }
@@ -660,16 +660,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[49],
-                            EndVertex = vertices[53]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[53],
                             EndVertex = vertices[52]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[52],
+                            EndVertex = vertices[53]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[53],
                             EndVertex = vertices[50]
                         },
                     }
@@ -747,16 +747,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         new Wall()
                         {
                             StartVertex = vertices[58],
-                            EndVertex = vertices[60]
-                        },
-                        new Wall()
-                        {
-                            StartVertex = vertices[60],
                             EndVertex = vertices[59]
                         },
                         new Wall()
                         {
                             StartVertex = vertices[59],
+                            EndVertex = vertices[60]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[60],
                             EndVertex = vertices[57]
                         },
                     }
