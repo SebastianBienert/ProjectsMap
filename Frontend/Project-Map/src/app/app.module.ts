@@ -11,6 +11,10 @@ import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
 import { RoomComponent } from './room/room.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MapCreatorComponent } from './map-creator/map-creator.component';
+import { ListingComponent } from './listing/listing.component';
+import { PersonCardComponent } from './person-card/person-card.component';
+import { EmployeeService } from './services/employee.service';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -18,7 +22,10 @@ import { MapCreatorComponent } from './map-creator/map-creator.component';
     AppComponent,
     DisplayedMapComponent,
     RoomComponent,
-    MapCreatorComponent
+    MapCreatorComponent,
+    ListingComponent,
+    PersonCardComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,8 @@ import { MapCreatorComponent } from './map-creator/map-creator.component';
   providers: [
     HttpErrorHandler,
     MessageService,
-    RoomService],
+    RoomService,
+    EmployeeService],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

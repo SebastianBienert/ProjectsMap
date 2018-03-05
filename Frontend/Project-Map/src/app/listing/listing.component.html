@@ -1,0 +1,8 @@
+<!-- <ul style="text-align: left;">
+  Rooms:
+  <li *ngFor="let employee of employees">
+    <app-person-card [employee]='employee'></app-person-card>
+  </li>
+  
+</ul> -->
+<app-person-card *ngFor="let employee of employees" [employee]='employee'></app-person-card>
