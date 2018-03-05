@@ -219,116 +219,549 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         },
                     }
                    // Vertexes = new List<Vertex>() {vertices[6],vertices[7],vertices[9],vertices[8]}
-                }
-                /*
+                },
                 new Room()
                 {
                     RoomId = 4,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[9],vertices[8],vertices[10],vertices[11]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[9],
+                            EndVertex = vertices[8]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[8],
+                            EndVertex = vertices[10]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[10],
+                            EndVertex = vertices[11]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[11],
+                            EndVertex = vertices[9]
+                        },
+                    },
+                    //Vertexes = new List<Vertex>() {vertices[9],vertices[8],vertices[10],vertices[11]}
                 },
                 new Room()
                 {
                     RoomId = 5,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[11],vertices[10],vertices[13],vertices[12]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[11],
+                            EndVertex = vertices[10]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[10],
+                            EndVertex = vertices[13]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[13],
+                            EndVertex = vertices[12]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[12],
+                            EndVertex = vertices[11]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[11],vertices[10],vertices[13],vertices[12]}
                 },
                 new Room()
                 {
                     RoomId = 6,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[13],vertices[12],vertices[14],vertices[15]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[13],
+                            EndVertex = vertices[12]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[12],
+                            EndVertex = vertices[14]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[14],
+                            EndVertex = vertices[15]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[15],
+                            EndVertex = vertices[13]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[13],vertices[12],vertices[14],vertices[15]}
                 },
                 new Room()
                 {
                     RoomId = 7,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[15],vertices[14], vertices[21], vertices[20] }
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[15],
+                            EndVertex = vertices[14]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[14],
+                            EndVertex = vertices[21]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[21],
+                            EndVertex = vertices[20]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[20],
+                            EndVertex = vertices[15]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[15],vertices[14], vertices[21], vertices[20] }
                 },
                 new Room()
                 {
                     RoomId = 8,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[3],vertices[2],vertices[23],vertices[22]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[3],
+                            EndVertex = vertices[2]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[2],
+                            EndVertex = vertices[23]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[23],
+                            EndVertex = vertices[22]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[22],
+                            EndVertex = vertices[3]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[3],vertices[2],vertices[23],vertices[22]}
                 },
                 new Room()
                 {
                     RoomId = 9,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[20],vertices[18],vertices[24],vertices[25]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[20],
+                            EndVertex = vertices[18]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[18],
+                            EndVertex = vertices[24]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[24],
+                            EndVertex = vertices[25]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[25],
+                            EndVertex = vertices[20]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[20],vertices[18],vertices[24],vertices[25]}
                 },
                 new Room()
                 {
                     RoomId = 10,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[23],vertices[22]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[27],
+                            EndVertex = vertices[26]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[26],
+                            EndVertex = vertices[23]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[23],
+                            EndVertex = vertices[22]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[22],
+                            EndVertex = vertices[27]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[23],vertices[22]}
                 },
                 new Room()
                 {
                     RoomId = 11,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[28],vertices[29],vertices[30],vertices[31]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[28],
+                            EndVertex = vertices[29]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[29],
+                            EndVertex = vertices[30]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[30],
+                            EndVertex = vertices[31]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[31],
+                            EndVertex = vertices[28]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[28],vertices[29],vertices[30],vertices[31]}
                 },
                 new Room()
                 {
                     RoomId = 12,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[35],vertices[34], vertices[33], vertices[32] }
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[27],
+                            EndVertex = vertices[26]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[26],
+                            EndVertex = vertices[35]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[35],
+                            EndVertex = vertices[34]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[34],
+                            EndVertex = vertices[33]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[33],
+                            EndVertex = vertices[32]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[32],
+                            EndVertex = vertices[27]
+                        }
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[35],vertices[34], vertices[33], vertices[32] }
                 },
                 new Room()
                 {
                     RoomId = 13,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[33],vertices[34],vertices[37],vertices[36]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[33],
+                            EndVertex = vertices[34]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[34],
+                            EndVertex = vertices[37]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[37],
+                            EndVertex = vertices[36]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[36],
+                            EndVertex = vertices[33]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[33],vertices[34],vertices[37],vertices[36]}
                 },
                 new Room()
                 {
                     RoomId = 14,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[37],vertices[36],vertices[38],vertices[39]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[37],
+                            EndVertex = vertices[36]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[36],
+                            EndVertex = vertices[38]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[38],
+                            EndVertex = vertices[39]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[39],
+                            EndVertex = vertices[37]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[37],vertices[36],vertices[38],vertices[39]}
                 },
                 new Room()
                 {
                     RoomId = 15,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[39],vertices[38],vertices[41],vertices[40]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[39],
+                            EndVertex = vertices[38]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[38],
+                            EndVertex = vertices[41]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[41],
+                            EndVertex = vertices[40]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[40],
+                            EndVertex = vertices[39]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[39],vertices[38],vertices[41],vertices[40]}
                 },
                 new Room()
                 {
                     RoomId = 16,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[41],vertices[40],vertices[42],vertices[43]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[41],
+                            EndVertex = vertices[40]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[40],
+                            EndVertex = vertices[42]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[42],
+                            EndVertex = vertices[43]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[43],
+                            EndVertex = vertices[41]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[41],vertices[40],vertices[42],vertices[43]}
                 },
                 new Room()
                 {
                     RoomId = 17,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[43],vertices[42],vertices[44],vertices[30], vertices[31], vertices[47] }
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[43],
+                            EndVertex = vertices[42]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[42],
+                            EndVertex = vertices[44]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[44],
+                            EndVertex = vertices[30]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[30],
+                            EndVertex = vertices[31]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[31],
+                            EndVertex = vertices[47]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[47],
+                            EndVertex = vertices[43]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[43],vertices[42],vertices[44],vertices[30], vertices[31], vertices[47] }
                 },
                 new Room()
                 {
                     RoomId = 18,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[50],vertices[49],vertices[53],vertices[52]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[50],
+                            EndVertex = vertices[49]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[49],
+                            EndVertex = vertices[53]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[53],
+                            EndVertex = vertices[52]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[52],
+                            EndVertex = vertices[50]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[50],vertices[49],vertices[53],vertices[52]}
                 },
                 new Room()
                 {
                     RoomId = 19,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[61],vertices[54],vertices[55],vertices[56]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[61],
+                            EndVertex = vertices[54]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[54],
+                            EndVertex = vertices[55]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[55],
+                            EndVertex = vertices[56]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[56],
+                            EndVertex = vertices[61]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[61],vertices[54],vertices[55],vertices[56]}
                 },
                 new Room()
                 {
                     RoomId = 20,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[54],vertices[55],vertices[58],vertices[57]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[54],
+                            EndVertex = vertices[55]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[55],
+                            EndVertex = vertices[58]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[58],
+                            EndVertex = vertices[57]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[57],
+                            EndVertex = vertices[54]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[54],vertices[55],vertices[58],vertices[57]}
                 },
                 new Room()
                 {
                     RoomId = 21,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[57],vertices[58],vertices[60],vertices[59]}
-                },*/
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[57],
+                            EndVertex = vertices[58]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[58],
+                            EndVertex = vertices[60]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[60],
+                            EndVertex = vertices[59]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[59],
+                            EndVertex = vertices[57]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[57],vertices[58],vertices[60],vertices[59]}
+                }
             };
 
             IList<Project> projects  = new List<Project>()
@@ -994,7 +1427,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     Vertex = vertices[66]
                 },
             };
-<<<<<<< HEAD
+
 
             projects[0].Developers = developers;
             projects[0].Technologies = new List<Technology>()
@@ -1005,17 +1438,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 developers.ToList()[1].Technologies.ToList()[1]
             };
 
-
-            IList<User> users = new List<User>
-            {
-                new User()
-                {     
-                    Created = DateTime.Now,
-                    Developer = developers[0],
-                    Username = "Wiktor",
-                    Password = "secret",
-                    Email = "michal@gmail.com"
-=======
             IList<Seat> seatsSeventhRoom = new List<Seat>()
             {
                 new Seat()
@@ -1023,29 +1445,17 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     SeatId = 13,
                     Developer = null,
                     Vertex = vertices[67]
->>>>>>> 162a64213dc2394c8441892e03346dd8b809163e
+
                 },
                 new Seat()
-                {
-<<<<<<< HEAD
-                    Created = DateTime.Now,
-                    Developer = developers[1],
-                    Username = "Michal",
-                    Password = "secret2",
-                    Email = "wiktor@gmail.com"
-=======
+                { 
                     SeatId = 14,
                     Developer = null,
                     Vertex = vertices[68]
->>>>>>> 162a64213dc2394c8441892e03346dd8b809163e
                 },
                 new Seat()
                 {
-<<<<<<< HEAD
-                    Created = DateTime.Now,
-=======
                     SeatId = 15,
->>>>>>> 162a64213dc2394c8441892e03346dd8b809163e
                     Developer = null,
                     Vertex = vertices[69]
                 },
@@ -1551,7 +1961,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             foreach (var seat in seatsThirdRoom)
                 context.Seats.Add(seat);*/
 
-            foreach (var seat in seatsFourthRoom)
+         /*   foreach (var seat in seatsFourthRoom)
                 context.Seats.Add(seat);
 
             foreach (var seat in seatsFifthRoom)
@@ -1594,20 +2004,14 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 context.Seats.Add(seat);
 
             foreach (var user in users)
-                context.Users.Add(user);
+                context.Users.Add(user);*/
 
             /*foreach (var dev in developers)
                 context.Developers.Add(dev);
             */
 
-<<<<<<< HEAD
-            context.SaveChanges();
+            context.SaveChanges();        
 
-
-
-=======
-            context.SaveChanges();            
->>>>>>> 162a64213dc2394c8441892e03346dd8b809163e
         }
     }
 }
