@@ -1,7 +1,6 @@
 package project.projectsmap;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,8 +47,6 @@ public class AllDevelopers extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AllDevelopers.super.finish();
-                //Intent intent = new Intent(AllDevelopers.this, MainActivity.class);
-                //startActivity(intent);
             }
         });
     }
