@@ -8,6 +8,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 
 
 const httpOptions = {
@@ -27,7 +28,12 @@ export class EmployeeService {
     private http: HttpClient,
     httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('EmployeeService');
+
+    this.searchedEmployees = this.getEmployees();
   }
+  
+  searchedEmployees : Observable<Employee[]> = new Observable<Employee[]>();
+  
 
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
@@ -38,9 +44,12 @@ export class EmployeeService {
   }
 
   searchEmployeeByTechnology(technology : string): Observable<Employee[]> {
-    return this.http.get<Employee[]>(this.employeeUrl + "/technology/" + technology)
-      .pipe(
-        catchError(this.handleError('getEmployees', []))
-      );
+    
+
+    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/technology/" + technology)
+    .pipe(
+      catchError(this.handleError('getEmployees', []))
+    );
+    
   }
 }
