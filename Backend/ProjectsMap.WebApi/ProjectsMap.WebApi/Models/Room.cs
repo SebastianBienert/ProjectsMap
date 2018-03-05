@@ -16,8 +16,8 @@ namespace ProjectsMap.WebApi.Models
 
         public int? FloorId { get; set; }
 
-        //Shape of the room is described by the list of vertexes (x,y)
-        public virtual ICollection<Vertex> Vertexes { get; set; }
+        //Shape of the room is described by the list of edges
+        public virtual ICollection<Wall> Walls { get; set; }
 
         //One to many relation (Room - Seats)
         public virtual ICollection<Seat> Seats { get; set; }

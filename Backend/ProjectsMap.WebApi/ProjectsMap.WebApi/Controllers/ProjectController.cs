@@ -47,20 +47,5 @@ namespace ProjectsMap.WebApi.Controllers
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
         }
 
-        [HttpDelete]
-        [Route("")]
-        public IHttpActionResult Delete(Project project)
-        {
-            _repository.Delete(project);
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("")]
-        public IHttpActionResult Update(Project project)
-        {
-            _repository.Update(project);
-            return Ok();
-        }
     }
 }

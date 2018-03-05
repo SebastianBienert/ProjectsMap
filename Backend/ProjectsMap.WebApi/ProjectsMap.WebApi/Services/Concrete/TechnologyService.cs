@@ -24,7 +24,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
             foreach (var technology in _repository.Technologies)
             {
-                list.Add(TechnologyMapper.GeTechnologyDto(technology));
+                list.Add(DTOMapper.GeTechnologyDto(technology));
             }
             return list;
         }
@@ -33,7 +33,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
         {
             var tech = _repository.Get(id);
             if (tech != null)
-                return TechnologyMapper.GeTechnologyDto(tech);
+                return DTOMapper.GeTechnologyDto(tech);
 
                 return null;
         }
@@ -44,7 +44,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
             foreach (var technology in _repository.GetTechnologiesByName(name))
             {
-                list.Add(TechnologyMapper.GeTechnologyDto(technology));
+                list.Add(DTOMapper.GeTechnologyDto(technology));
             }
             return list;
         }

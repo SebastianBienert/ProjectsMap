@@ -37,9 +37,18 @@ export class DisplayedMapComponent implements OnInit {
     this.rooms.forEach(room => {
       //concatenate room vertices into polygon coordinates
       var arra = '';
-      room.Vertexes.forEach(vertex => {
+
+
+      arra = arra.concat(room.Walls[0].StartVertex.X + ',' + room.Walls[0].StartVertex.Y + ' ');
+      arra = arra.concat(room.Walls[0].EndVertex.X + ',' + room.Walls[0].EndVertex.Y + ' ');
+      room.Walls.slice(1,room.Walls.length - 1).forEach(wall => {
+        arra = arra.concat(wall.EndVertex.X + ',' + wall.EndVertex.Y + ' ');
+      })
+      
+      /*room.Vertexes.forEach(vertex => 
+        {
         arra = arra.concat(vertex.X + ',' + vertex.Y + ' ')
-      });
+      });*/
       //drawing room with mouseover and mouseout events
       this.drawnMap
       .polygon(arra).fill('#fff')

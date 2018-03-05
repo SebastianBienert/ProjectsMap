@@ -5,10 +5,11 @@ using System.Web;
 
 namespace ProjectsMap.WebApi.DTOs
 {
-    public class VertexDto
+    public class BuildingDto
     {
-        public int X { get; set; }
+        public int Id { get; set; }
 
-        public int Y { get; set; }
+        public string Address { get; set; }
+
     }
 }

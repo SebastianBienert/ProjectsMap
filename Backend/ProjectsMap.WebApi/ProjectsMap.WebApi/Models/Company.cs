@@ -11,6 +11,8 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int CompanyId { get; set; }
 
+        public string Name { get; set; }
+
         public virtual ICollection<Building> Buildings { get; set; }
 
         public virtual ICollection<Developer> Developers { get; set; }

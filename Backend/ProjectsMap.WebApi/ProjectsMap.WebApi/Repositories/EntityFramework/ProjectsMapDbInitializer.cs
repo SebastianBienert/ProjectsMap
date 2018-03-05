@@ -13,7 +13,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
     {
         protected override void Seed(EfDbContext context)
         {
-            base.Seed(context);
+           // base.Seed(context);
             IList<Vertex> vertices = new List<Vertex>()
             {
                 new Vertex(0,0),
@@ -61,8 +61,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Vertex(420,440),
                 new Vertex(420,510), //43
                 new Vertex(560,510),
-                new Vertex(560,350), //45
-                new Vertex(490,350),
+                new Vertex(560,351), //45                                           //NOT USED
+                new Vertex(490,351),                                                //NOT USED
                 new Vertex(490,440), //47
                 new Vertex(100,100),
                 new Vertex(280,100), //49
@@ -86,20 +86,91 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
                     RoomId = 1,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[0],vertices[3],vertices[6],vertices[7]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[3],
+                            EndVertex = vertices[6]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[0],
+                            EndVertex = vertices[3]
+                        },
+
+                        new Wall()
+                        {
+                            StartVertex = vertices[6],
+                            EndVertex = vertices[7]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[7],
+                            EndVertex = vertices[0]
+                        },
+                    }
+                    //new List<Vertex>() {vertices[0],vertices[3],vertices[6],vertices[7]}
                 },
                 new Room()
                 {
                     RoomId = 2,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[48],vertices[49],vertices[50],vertices[51]}
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[48],
+                            EndVertex = vertices[49]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[49],
+                            EndVertex = vertices[50]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[50],
+                            EndVertex = vertices[51]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[51],
+                            EndVertex = vertices[48]
+                        },
+                    }
+                    //Vertexes = new List<Vertex>() {vertices[48],vertices[49],vertices[50],vertices[51]}
                 },
                 new Room()
                 {
                     RoomId = 3,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[6],vertices[7],vertices[9],vertices[8]}
-                },
+                    Walls = new List<Wall>
+                    {
+                        new Wall()
+                        {
+                            StartVertex = vertices[6],
+                            EndVertex = vertices[7]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[7],
+                            EndVertex = vertices[9]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[9],
+                            EndVertex = vertices[8]
+                        },
+                        new Wall()
+                        {
+                            StartVertex = vertices[8],
+                            EndVertex = vertices[6]
+                        },
+                    }
+                   // Vertexes = new List<Vertex>() {vertices[6],vertices[7],vertices[9],vertices[8]}
+                }
+                /*
                 new Room()
                 {
                     RoomId = 4,
@@ -182,7 +253,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
                     RoomId = 17,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>() {vertices[43],vertices[42],vertices[44],vertices[45], vertices[46], vertices[47] }
+                    Vertexes = new List<Vertex>() {vertices[43],vertices[42],vertices[44],vertices[30], vertices[31], vertices[47] }
                 },
                 new Room()
                 {
@@ -207,7 +278,18 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     RoomId = 21,
                     Projects = new List<Project>(),
                     Vertexes = new List<Vertex>() {vertices[57],vertices[58],vertices[60],vertices[59]}
-                },
+                },*/
+            };
+
+            IList<Project> projects  = new List<Project>()
+            {
+                new Project()
+                {
+                    Description = "ProjectsMap - projekt zespolowy",
+                    DocumentationLink = "documentationlink",
+                    RepositoryLink = "repositoryLink",
+                    Rooms = rooms,
+                }
             };
 
             IList<Developer> developers = new List<Developer>()
@@ -254,11 +336,20 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 }
             };
 
+            projects[0].Developers = developers;
+            projects[0].Technologies = new List<Technology>()
+            {
+                developers.ToList()[0].Technologies.ToList()[0],
+                developers.ToList()[0].Technologies.ToList()[1],
+                developers.ToList()[1].Technologies.ToList()[0],
+                developers.ToList()[1].Technologies.ToList()[1]
+            };
+
+
             IList<User> users = new List<User>
             {
                 new User()
-                {
-            //        UserId = 1,
+                {     
                     Created = DateTime.Now,
                     Developer = developers[0],
                     Username = "Wiktor",
@@ -267,7 +358,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 },
                 new User()
                 {
-            //        UserId = 2,
                     Created = DateTime.Now,
                     Developer = developers[1],
                     Username = "Michal",
@@ -276,7 +366,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 },
                 new User()
                 {
-          //          UserId = 0,
                     Created = DateTime.Now,
                     Developer = null,
                     Username = "Wiktor",
@@ -352,51 +441,51 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             developers[1].Seat = new List<Seat>() { seatsFirstRoom[1]};
 
 
-            var company = new Company();
-            company.CompanyId = 1;
-
-            var building = new Building();
-            building.BuildingId = 1;
-
-            var floor = new Floor()
+            var company = new Company()
             {
-                BuildingId = building.BuildingId,
-                Building = building,
-                FloorId = 1,
-                Rooms = rooms
+                CompanyId = 1,
+                Buildings = new List<Building>()
+                {
+                    new Building()
+                    {
+                        BuildingId = 1,
+                        CompanyId = 1,
+                        Address = "Wroclaw, Poznanska 54A",
+                        Floors = new List<Floor>()
+                        {
+                            new Floor()
+                            {
+                                BuildingId = 1,
+                                Description = "Pietro 3",
+                                FloorId = 1,
+                                Rooms = rooms
+                            }
+                        }
+                    }
+                },
+                Developers = developers,
+                Projects = projects
+                
             };
+            projects.ToList()[0].Company = company;
+            company.Buildings.ToList()[0].Floors.ToList()[0].Building = company.Buildings.ToList()[0];
 
-            var floors = new List<Floor>() { floor };
-            
-            building.Company = company;
-            building.CompanyId = company.CompanyId;
-            building.Address = "snackbar";
-            
-            building.Floors = floors;
-            
-            var buildings = new List<Building>();
-
-
-            company.Buildings = buildings;
-
-
-            context.Buildings.Add(building);
-
-            context.Floors.Add(floor);
+            company.Buildings.ToList()[0].Company = company;
 
             context.Companies.Add(company);
 
-            foreach (var ver in vertices)
-                context.Vertexes.Add(ver);
+     
+           /* foreach (var ver in vertices)
+                context.Vertexes.Add(ver);*/
 
-            foreach (var room in rooms)
-                context.Rooms.Add(room);
+          /*  foreach (var room in rooms)
+                context.Rooms.Add(room);*/
 
-            foreach (var seat in seatsFirstRoom)
+          /*  foreach (var seat in seatsFirstRoom)
                 context.Seats.Add(seat);
 
             foreach (var seat in seatsThirdRoom)
-                context.Seats.Add(seat);
+                context.Seats.Add(seat);*/
 
             //foreach (var seat in seatsFourthRoom)
             //    context.Seats.Add(seat);
@@ -404,9 +493,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             foreach (var user in users)
                 context.Users.Add(user);
 
-            foreach (var dev in developers)
+            /*foreach (var dev in developers)
                 context.Developers.Add(dev);
-            
+            */
 
             context.SaveChanges();
 

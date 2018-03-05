@@ -9,7 +9,7 @@ namespace ProjectsMap.WebApi.DTOs
     {
         public int Id { get; set; }
 
-        public IEnumerable<VertexDto> Vertexes { get; set; }
+        public IEnumerable<WallDto> Walls { get; set; }
 
         public IEnumerable<VertexDto> Seats { get; set; }
 
