@@ -1,11 +1,11 @@
 ﻿using ProjectsMap.WebApi.DTOs;
-using ProjectsMap.WebApi.Mapper;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectsMap.WebApi.Mappers;
 
 namespace ProjectsMap.WebApi.Services.Concrete
 {
@@ -25,7 +25,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
         public IEnumerable<RoomDto> GetAllRooms()
         {
-            return _roomRepository.Rooms.Select(x => RoomMapper.GetRoomDto(x));
+            return _roomRepository.Rooms.Select(x => DTOMapper.GetRoomDto(x));
         }
 
         public RoomDto GetRoom(int id)
@@ -34,7 +34,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
             if (room == null)
                 return null;
 
-            return RoomMapper.GetRoomDto(room);
+            return DTOMapper.GetRoomDto(room);
         }
 
         public void Post(Room room)

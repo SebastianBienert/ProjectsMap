@@ -30,9 +30,11 @@ namespace ProjectsMap.WebApi.Repositories
 
         public DbSet<Floor> Floors { get; set; }
 
+        public DbSet<Wall> Walls { get; set; }
+
         public EfDbContext() : base("name=ProjectsMapDbContext")
         {
-            //Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new ProjectsMapDbInitializer());
         }
@@ -91,17 +93,36 @@ namespace ProjectsMap.WebApi.Repositories
             modelBuilder.Entity<Vertex>()
                 .HasOptional(v => v.Seat)
                 .WithRequired(s => s.Vertex);
-
-            //Many to many [Vertex - Room]
+            //Composite Key
             modelBuilder.Entity<Vertex>()
-                .HasMany<Room>(v => v.Rooms)
-                .WithMany(r => r.Vertexes)
-                .Map(vr =>
+                .HasKey(v => new {v.X, v.Y});
+
+
+            modelBuilder.Entity<Wall>()
+                .HasOptional(w => w.StartVertex)
+                .WithMany(v => v.StartWalls)
+                .HasForeignKey(w => new {w.StartVertexX, w.StartVertexY});
+
+            modelBuilder.Entity<Wall>()
+                .HasOptional(w => w.EndVertex)
+                .WithMany(v => v.EndWalls)
+                .HasForeignKey(w => new {w.EndVertexX, w.EndVertexY});
+
+            modelBuilder.Entity<Wall>()
+                .HasOptional(w => w.Floor)
+                .WithMany(f => f.Walls)
+                .HasForeignKey(w => w.FloorId);
+
+            modelBuilder.Entity<Wall>()
+                .HasMany<Room>(w => w.Rooms)
+                .WithMany(r => r.Walls)
+                .Map(wr =>
                 {
-                    vr.MapLeftKey("VertexRefId");
-                    vr.MapRightKey("RoomRefId");
-                    vr.ToTable("VertexRoom");
+                    wr.MapLeftKey("WallRefId");
+                    wr.MapRightKey("RoomRefId");
+                    wr.ToTable("WallRoom");
                 });
+
 
             //Many to many [Developer - Technology]
             modelBuilder.Entity<Developer>()

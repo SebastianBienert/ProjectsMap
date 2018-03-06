@@ -18,7 +18,7 @@ namespace ProjectsMap.WebApi.Migrations
         protected override void Seed(ProjectsMap.WebApi.Repositories.EfDbContext context)
         {
             base.Seed(context);
-            IList<Vertex> vertices = new List<Vertex>()
+           /* IList<Vertex> vertices = new List<Vertex>()
             {
                 new Vertex(0,0),
                 new Vertex(10,0),
@@ -34,7 +34,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                     RoomId = 1,
                     Projects = new List<Project>(),
-                    Vertexes = new List<Vertex>(vertices.Take(4).ToList())
+                   // Vertexes = new List<Vertex>(vertices.Take(4).ToList())
                 }
             };
 
@@ -159,7 +159,7 @@ namespace ProjectsMap.WebApi.Migrations
             foreach (var dev in developers)
                 context.Developers.Add(dev);
 
-            context.SaveChanges();
+            context.SaveChanges();*/
         }
     }
 }

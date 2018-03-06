@@ -47,20 +47,5 @@ namespace ProjectsMap.WebApi.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        [Route("")]
-        public IHttpActionResult Delete(Room room)
-        {
-            _service.Delete(room);
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("")]
-        public IHttpActionResult Update(Room room)
-        {
-            _service.Update(room);
-            return Ok();
-        }
     }
 }

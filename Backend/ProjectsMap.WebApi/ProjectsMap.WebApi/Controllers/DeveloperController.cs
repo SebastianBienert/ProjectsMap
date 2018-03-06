@@ -66,22 +66,5 @@ namespace ProjectsMap.WebApi.Controllers
             return CreatedAtRoute("GetDeveloperById", new { id = createdId }, developer);
         }
 
-        [HttpDelete]
-        [Route("")]
-        public IHttpActionResult Delete(Developer developer)
-        {
-            _service.Delete(developer);
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("")]
-        public IHttpActionResult Update(Developer developer)
-        {
-            _service.Update(developer);
-            return Ok();
-        }
-
-
     }
 }

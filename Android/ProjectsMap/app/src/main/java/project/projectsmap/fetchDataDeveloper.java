@@ -2,7 +2,6 @@ package project.projectsmap;
 
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,7 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -22,13 +20,14 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
     String data ="";
-    String singleParsed = "";
     String numberId;
+    Developer developer;
     @Override
     protected Void doInBackground(Void... voids) {
 
         try {
             URL url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/" + numberId);
+            //URL url = new URL("http://localhost:58923/api/developers/" + numberId);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = httpsURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -38,13 +37,8 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
                 data = data + line;
             }
 
-            JSONObject developer = new JSONObject(data);
-                singleParsed = "Id:" + developer.get("Id") + "\n"+
-                        "FirstName:" + developer.get("FirstName") + "\n"+
-                        "Surname:" + developer.get("Surname") + "\n"+
-                        "Technologies:" + developer.get("Technologies") + "\n"+
-                        "Seat:" + developer.get("Seat") + "\n";
-
+            JSONObject jsonObject = new JSONObject(data);
+            developer = new Developer(jsonObject);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -61,6 +55,6 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
-        SerachDeveloper.data.setText(this.singleParsed);
+        SerachDeveloper.data.setText(developer.developerDescription());
     }
 }

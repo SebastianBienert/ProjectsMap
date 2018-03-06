@@ -18,7 +18,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     return dbContext.Rooms
                         .Include(r => r.Projects)
-                        .Include(r => r.Vertexes)
+                        .Include(r => r.Walls.Select(w => w.StartVertex))
+                        .Include((r => r.Walls.Select(w => w.EndVertex)))
                         .Include(r => r.Seats.Select(s => s.Vertex)).ToList();
                 }
             }
@@ -29,7 +30,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             {
                 return dbContext.Rooms
                     .Include(r => r.Projects)
-                    .Include(r => r.Vertexes)
+                    .Include(r => r.Walls.Select(w => w.StartVertex))
+                    .Include((r => r.Walls.Select(w => w.EndVertex)))
                     .Include(r => r.Seats.Select(s => s.Vertex))
                     .FirstOrDefault(x => x.RoomId == id);
             }

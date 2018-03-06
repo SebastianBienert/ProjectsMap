@@ -11,11 +11,15 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int FloorId { get; set; }
 
+        public string Description { get; set; }
+
         public virtual Building Building { get; set; }
 
         public int BuildingId { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; }
+
+        public virtual ICollection<Wall> Walls { get; set; }
 
     }
 }

@@ -11,7 +11,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
     {
         IEnumerable<Vertex> Vertices { get; }
 
-        Vertex Get(int id);
+        Vertex Get(int x, int y);
 
         void Add(Vertex vertex);
 

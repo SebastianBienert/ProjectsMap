@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using ProjectsMap.WebApi.DTOs;
-using ProjectsMap.WebApi.Mapper;
+using ProjectsMap.WebApi.Mappers;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services.Abstract;
@@ -25,7 +25,7 @@ namespace ProjectsMap.WebApi.Services
             var list = new List<DeveloperDto>();
             foreach (var dev in _repository.Developers)
             {
-                list.Add(DeveloperMapper.GetDeveloperDto(dev));
+                list.Add(DTOMapper.GetDeveloperDto(dev));
             }
 
             return list;
@@ -37,7 +37,7 @@ namespace ProjectsMap.WebApi.Services
             if (developer == null)
                 return null;
 
-            return DeveloperMapper.GetDeveloperDto(developer);
+            return DTOMapper.GetDeveloperDto(developer);
         }
 
         public IEnumerable<DeveloperDto> GetDevelopersByTechnology(string technology)
@@ -46,7 +46,7 @@ namespace ProjectsMap.WebApi.Services
 
             if (list.Count() > 0)
             {
-                var dtoS = list.Select(dev => DeveloperMapper.GetDeveloperDto(dev)).ToList();
+                var dtoS = list.Select(dev => DTOMapper.GetDeveloperDto(dev)).ToList();
                 return dtoS;
             }
             else
