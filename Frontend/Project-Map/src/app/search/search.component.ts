@@ -17,18 +17,20 @@ export class SearchComponent implements OnInit {
   employees: Employee[];
   private handleError: HandleError;
   filter: string;
+  isEmp: boolean = false;
 
-  constructor(private employeeService: EmployeeService, projectService : ProjectService, private sharedService: SharedService) { }
+  constructor(private employeeService: EmployeeService, private projectService : ProjectService, private sharedService: SharedService) { }
 
   search(): void {
-    var isEmp: boolean = false;
+    this.isEmp = !this.isEmp;
 
-    if (isEmp) {
+    if (this.isEmp) {
       this.employeeService.searchEmployeeByTechnology(this.filter)
         .subscribe(x => this.sharedService.setFoundEmployees(x));
     }
     else {
-      this.projectService.
+      this.projectService.searchProjectByName(this.filter)
+        .subscribe(x => this.sharedService.setFoundProjects(x));
     }
 
   }

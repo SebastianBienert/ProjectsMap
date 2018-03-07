@@ -17,6 +17,7 @@ import { ListingComponent } from './listing/listing.component';
 import { PersonCardComponent } from './person-card/person-card.component';
 import { EmployeeService } from './services/employee.service';
 import { SearchComponent } from './search/search.component';
+import { ProjectCardComponent } from './project-card/project-card.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SearchComponent } from './search/search.component';
     MapCreatorComponent,
     ListingComponent,
     PersonCardComponent,
-    SearchComponent
+    SearchComponent,
+    ProjectCardComponent
   ],
   imports: [
     BrowserModule,

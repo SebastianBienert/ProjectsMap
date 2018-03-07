@@ -26,16 +26,18 @@ export class SharedService {
         
     }
 
-    private nameSource = new Subject<Employee[]>();
+    private employeesSubject = new Subject<Employee[]>();
+    private projectsSubject = new Subject<Project[]>();
 
-    employees = this.nameSource.asObservable();
+    employees = this.employeesSubject.asObservable();
+    projects = this.projectsSubject.asObservable();
 
     setFoundEmployees(val : Employee[]) {
-        this.nameSource.next(val);
+        this.employeesSubject.next(val);
     }
 
     setFoundProjects(val : Project[]) {
-       // this.nameSource.next(val);
+        this.projectsSubject.next(val);
     }
 
 }
