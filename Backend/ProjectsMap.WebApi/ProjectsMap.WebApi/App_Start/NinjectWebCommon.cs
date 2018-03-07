@@ -62,6 +62,7 @@ namespace ProjectsMap.WebApi.App_Start
             kernel.Bind<IDeveloperService>().To<DeveloperService>();
             kernel.Bind<ISeatService>().To<SeatService>();
             kernel.Bind<ITechnologyService>().To<TechnologyService>();
+            kernel.Bind<IProjectService>().To<ProjectService>();
 
         }
     }

@@ -7,30 +7,31 @@ using System.Web.Http;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/project")]
     public class ProjectController : ApiController
     {
-        private IProjectRepository _repository;
+        private IProjectService _service;
 
-        public ProjectController(IProjectRepository repository)
+        public ProjectController(IProjectService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Projects);
+            return Ok(_service.GetAllProjects());
         }
 
         [Route("{id:int}", Name = "GetProjectById")]
         public IHttpActionResult Get(int id)
         {
-            var project = _repository.Get(id);
+            var project = _service.GetProject(id);
 
             if (project != null)
                 return Ok(project);
@@ -38,12 +39,27 @@ namespace ProjectsMap.WebApi.Controllers
                 return NotFound();
         }
 
+        [HttpGet]
+        [Route("name/{name}")]
+        public IHttpActionResult Get(string name)
+        {
+            var result = _service.GetProjectsByName(name);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
 
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post(ProjectDto dtoProject)
         {
-            int createdId = _repository.Add(dtoProject);
+            int createdId = _service.Post(dtoProject);
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
         }
 

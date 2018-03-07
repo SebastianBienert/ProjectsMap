@@ -15,7 +15,7 @@ namespace ProjectsMap.WebApi.DTOs
 
         public string DocumentationLink { get; set; }
 
-        public int ProductOwnerId { get; set; }
+        public int? ProductOwnerId { get; set; }
 
         public int? CompanyId { get; set; }
 

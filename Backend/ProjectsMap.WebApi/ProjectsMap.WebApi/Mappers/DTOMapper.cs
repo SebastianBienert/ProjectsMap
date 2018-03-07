@@ -10,6 +10,22 @@ namespace ProjectsMap.WebApi.Mappers
 {
     public class DTOMapper
     {
+        public static ProjectDto GetProjectDto(Project project)
+        {
+            return new ProjectDto()
+            {
+                CompanyId = project.CompanyId,
+                Description = project.Description,
+                Developers = project.Developers?.ToList().Select(x => GetDeveloperDto(x)),
+                DocumentationLink = project.DocumentationLink,
+                Id = project.ProjectId,
+                ProductOwnerId = project.ProductOwner?.DeveloperId,
+                RepositoryLink = project.RepositoryLink,
+                Rooms = project.Rooms?.Select(x => GetRoomDto(x)),
+                Technologies = project.Technologies?.Select(x => GeTechnologyDto(x))
+            };
+        }
+
         public static DeveloperDto GetDeveloperDto(Developer developer)
         {
             var dto = new DeveloperDto()
