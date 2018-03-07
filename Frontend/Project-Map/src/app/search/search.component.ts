@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './../services/employee.service';
+import { ProjectService } from './../services/project.service';
 import { Employee } from '../common-interfaces/employee';
 import { HandleError } from '../services/http-error-handler.service';
 import { SharedService } from '../services/shared.service';
@@ -8,20 +9,28 @@ import { SharedService } from '../services/shared.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  providers: [ EmployeeService ],
+  providers: [EmployeeService, ProjectService],
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
 
-  employees : Employee[];
+  employees: Employee[];
   private handleError: HandleError;
-  filter : string;
-  
-  constructor(private employeeService : EmployeeService, private sharedService : SharedService) { }
+  filter: string;
 
-  search() : void{
-    this.employeeService.searchEmployeeByTechnology(this.filter)
-      .subscribe(x => this.sharedService.setFoundEmployees(x));
+  constructor(private employeeService: EmployeeService, projectService : ProjectService, private sharedService: SharedService) { }
+
+  search(): void {
+    var isEmp: boolean = false;
+
+    if (isEmp) {
+      this.employeeService.searchEmployeeByTechnology(this.filter)
+        .subscribe(x => this.sharedService.setFoundEmployees(x));
+    }
+    else {
+      this.projectService.
+    }
+
   }
 
   ngOnInit() {

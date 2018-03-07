@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
+import { Project } from '../common-interfaces/project';
 
 
 const httpOptions = {
@@ -31,6 +32,10 @@ export class SharedService {
 
     setFoundEmployees(val : Employee[]) {
         this.nameSource.next(val);
+    }
+
+    setFoundProjects(val : Project[]) {
+       // this.nameSource.next(val);
     }
 
 }
