@@ -11,42 +11,42 @@ using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Services
 {
-    public class DeveloperService : IDeveloperService
+    public class EmployeeService : IEmployeeService
     {
-        private IDeveloperRepository _repository;
+        private IEmployeeRepository _repository;
 
-        public DeveloperService(IDeveloperRepository repository)
+        public EmployeeService(IEmployeeRepository repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<DeveloperDto> GetAllDevelopers()
+        public IEnumerable<EmployeeDto> GetAllEmployees()
         {
-            var list = new List<DeveloperDto>();
+            var list = new List<EmployeeDto>();
             foreach (var dev in _repository.Developers)
             {
-                list.Add(DTOMapper.GetDeveloperDto(dev));
+                list.Add(DTOMapper.GetEmployeeDto(dev));
             }
 
             return list;
         }
 
-        public DeveloperDto GetDeveloper(int id)
+        public EmployeeDto GetEmployee(int id)
         {
             var developer = _repository.Get(id);
             if (developer == null)
                 return null;
 
-            return DTOMapper.GetDeveloperDto(developer);
+            return DTOMapper.GetEmployeeDto(developer);
         }
 
-        public IEnumerable<DeveloperDto> GetDevelopersByTechnology(string technology)
+        public IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology)
         {
             var list = _repository.Developers.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology)).ToList();
 
             if (list.Count() > 0)
             {
-                var dtoS = list.Select(dev => DTOMapper.GetDeveloperDto(dev)).ToList();
+                var dtoS = list.Select(dev => DTOMapper.GetEmployeeDto(dev)).ToList();
                 return dtoS;
             }
             else
@@ -55,19 +55,19 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
-        public int Post(DeveloperDto developer)
+        public int Post(EmployeeDto employee)
         {
-           return  _repository.Add(developer);
+           return  _repository.Add(employee);
         }
 
-        public void Delete(Developer developer)
+        public void Delete(Employee employee)
         {
-            _repository.Delete(developer);
+            _repository.Delete(employee);
         }
 
-        public void Update(Developer developer)
+        public void Update(Employee employee)
         {
-            _repository.Update(developer);
+            _repository.Update(employee);
         }
     }
 }

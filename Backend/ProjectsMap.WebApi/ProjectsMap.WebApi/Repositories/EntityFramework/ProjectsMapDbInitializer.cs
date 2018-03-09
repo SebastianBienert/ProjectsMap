@@ -135,7 +135,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 1,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -165,7 +165,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 2,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -194,7 +194,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 3,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -223,7 +223,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 4,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -252,7 +252,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 5,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -281,7 +281,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 6,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -310,7 +310,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 7,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -339,7 +339,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 8,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -368,7 +368,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 9,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -397,7 +397,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 10,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -426,7 +426,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 11,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -455,7 +455,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 12,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -494,7 +494,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 13,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -523,7 +523,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 14,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -552,7 +552,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 15,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -581,7 +581,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 16,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -610,7 +610,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 17,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -649,7 +649,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 18,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -678,7 +678,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 19,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -707,7 +707,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 20,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -736,7 +736,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Room()
                 {
                     RoomId = 21,
-                    Projects = new List<Project>(),
+                    
                     Walls = new List<Wall>
                     {
                         new Wall()
@@ -770,409 +770,379 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
                     Description = "ProjectsMap - projekt zespolowy",
                     DocumentationLink = "documentationlink",
-                    RepositoryLink = "repositoryLink",
-                    Rooms = rooms,
+                    RepositoryLink = "repositoryLink"
                 }
             };
 
-            IList<Developer> developers = new List<Developer>()
+            IList<Technology> technologies = new List<Technology>()
             {
-                new Developer()
+                new Technology()
+                {
+                    Name = "Angular"
+                },
+                new Technology()
+                {
+                    Name = "HTML"
+                },
+                new Technology()
+                {
+                    Name = "C#"
+                },
+                new Technology()
+                {
+                    Name = "Java"
+                },
+                new Technology()
+                {
+                    Name = "C++"
+                },
+                new Technology()
+                {
+                    Name = "CSS"
+                }
+            };
+
+
+            IList<Employee> developers = new List<Employee>()
+            {
+                new Employee()
                 {
                     FirstName = "Witkor",
                     Surname = "Bukowski",
-               //     DeveloperId = 1,
+                    Email = "wiktor@gmail.com",
+                    JobTitle = "Spawacz",
+                    DeveloperId = 1,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "Angular"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Java"
-                        }
+                       technologies[0],technologies[3]
                     },
-                    Projects = new List<Project>()
+                   ProjectRoles = new List<ProjectRole>()
+                   {
+                       new ProjectRole()
+                       {
+                           Role = "Manager",
+                           Project = projects[0]
+                       }
+                   }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Michal",
                     Surname = "Radziwilko",
-            //        DeveloperId = 2,
+                    DeveloperId = 2,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        }
+                        technologies[5],technologies[1]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Jan",
                     Surname = "Kowalski",
-            //        DeveloperId = 3,
+                    DeveloperId = 3,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        }
+                        technologies[5],technologies[1]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Tadeusz",
                     Surname = "Nowak",
-            //        DeveloperId = 4,
+                    DeveloperId = 4,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        }
+                        technologies[0],technologies[4]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Kacper",
                     Surname = "Nowak",
-            //        DeveloperId = 5,
+                   DeveloperId = 5,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        }
+                        technologies[2]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Joanna",
                     Surname = "Wojciechowska",
-            //        DeveloperId = 6,
+                    DeveloperId = 6,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        }
+                        technologies[5],technologies[1]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Katarzyna",
                     Surname = "Zajac",
-            //        DeveloperId = 7,
+                    DeveloperId = 7,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "CSS"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 3,
-                            Name = "Angular"
-                        },
+                        technologies[5],technologies[1],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Dawid",
                     Surname = "Olszewski",
-            //        DeveloperId = 8,
+                   DeveloperId = 8,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "C++"
-                        }
+                        technologies[2],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Michał",
                     Surname = "Wieczorek",
-            //        DeveloperId = 9,
+                    DeveloperId = 9,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C++"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 3,
-                            Name = "CSS"
-                        }
+                        technologies[5],technologies[1], technologies[4]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Daniel",
                     Surname = "Malinowski",
-            //        DeveloperId = 10,
+                    DeveloperId = 10,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        }
+                        technologies[5],technologies[1]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Dawid",
                     Surname = "Adamczyk",
-            //        DeveloperId = 11,
+                   DeveloperId = 11,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        }
+                        technologies[2],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Grzegorz",
                     Surname = "Piotrowski",
-            //        DeveloperId = 12,
+                   DeveloperId = 12,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "C++"
-                        }
+                        technologies[5],technologies[1],technologies[4]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Adrian",
                     Surname = "Kowalski",
-            //        DeveloperId = 13,
+                   DeveloperId = 13,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "Java"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "CSS"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        }
+                        technologies[5],technologies[1], technologies[0],technologies[3]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Anna",
                     Surname = "Rutokowska",
-            //        DeveloperId = 14,
+                    DeveloperId = 14,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "Java"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        }
+                        technologies[2],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Tomasz",
                     Surname = "Grabowski",
-            //        DeveloperId = 15,
+                    DeveloperId = 15,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        }
+                        technologies[2],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Natalia",
                     Surname = "Kozłowska",
-            //        DeveloperId = 16,
+                   DeveloperId = 16,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        }
+                        technologies[2],technologies[1],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Szymon",
                     Surname = "Zalewski",
-            //        DeveloperId = 17,
+                   DeveloperId = 17,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "C#"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        }
+                        technologies[2],technologies[1]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Ewa",
                     Surname = "Witkowska",
-            //        DeveloperId = 18,
+                    DeveloperId = 18,
                     Technologies = new List<Technology>()
                     {
-                        new Technology()
-                        {
-                            TechnologyId = 1,
-                            Name = "CSS"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "Angular"
-                        },
-                        new Technology()
-                        {
-                            TechnologyId = 2,
-                            Name = "HTML"
-                        }
+                        technologies[5],technologies[1],technologies[0]
                     },
-                    Projects = new List<Project>()
+                    ProjectRoles = new List<ProjectRole>()
+                    {
+                        new ProjectRole()
+                        {
+                            Role = "Employee",
+                            Project = projects[0]
+                        }
+                    }
                 },
             };
+
+            foreach (var dev in developers)
+            {
+                dev.ProjectRoles.ToList()[0].DeveloperId = dev.DeveloperId;
+                dev.ProjectRoles.ToList()[0].Employee = dev;
+                if (dev.DeveloperId != 1)
+                {
+                    dev.ManagerId = 1;
+                    dev.Manager = developers[0];
+                }
+            }
 
             IList<User> users = new List<User>
             {
@@ -1180,7 +1150,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
             //        UserId = 1,
                     Created = DateTime.Now,
-                    Developer = developers[0],
+                    Employee = developers[0],
                     Username = "Wiktor",
                     Password = "secret",
                     Email = "michal@gmail.com"
@@ -1189,7 +1159,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
             //        UserId = 2,
                     Created = DateTime.Now,
-                    Developer = developers[1],
+                    Employee = developers[1],
                     Username = "Michal",
                     Password = "secret2",
                     Email = "wiktor@gmail.com"
@@ -1198,7 +1168,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 3,
                     Created = DateTime.Now,
-                    Developer = developers[2],
+                    Employee = developers[2],
                     Username = "Parcownik1",
                     Password = "secret",
                     Email = "pracownik1@gmail.com"
@@ -1207,7 +1177,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 4,
                     Created = DateTime.Now,
-                    Developer = developers[3],
+                    Employee = developers[3],
                     Username = "Parcownik2",
                     Password = "secret",
                     Email = "pracownik2@gmail.com"
@@ -1216,7 +1186,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 5,
                     Created = DateTime.Now,
-                    Developer = developers[4],
+                    Employee = developers[4],
                     Username = "Parcownik3",
                     Password = "secret",
                     Email = "pracownik3@gmail.com"
@@ -1225,7 +1195,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 6,
                     Created = DateTime.Now,
-                    Developer = developers[5],
+                    Employee = developers[5],
                     Username = "Parcownik4",
                     Password = "secret",
                     Email = "pracownik4@gmail.com"
@@ -1234,7 +1204,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 7,
                     Created = DateTime.Now,
-                    Developer = developers[6],
+                    Employee = developers[6],
                     Username = "Parcownik5",
                     Password = "secret",
                     Email = "pracownik5@gmail.com"
@@ -1243,7 +1213,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 8,
                     Created = DateTime.Now,
-                    Developer = developers[7],
+                    Employee = developers[7],
                     Username = "Parcownik6",
                     Password = "secret",
                     Email = "pracownik6@gmail.com"
@@ -1252,7 +1222,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 9,
                     Created = DateTime.Now,
-                    Developer = developers[8],
+                    Employee = developers[8],
                     Username = "Parcownik7",
                     Password = "secret",
                     Email = "pracownik7@gmail.com"
@@ -1261,7 +1231,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 10,
                     Created = DateTime.Now,
-                    Developer = developers[9],
+                    Employee = developers[9],
                     Username = "Parcownik8",
                     Password = "secret",
                     Email = "pracownik8@gmail.com"
@@ -1270,7 +1240,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 11,
                     Created = DateTime.Now,
-                    Developer = developers[10],
+                    Employee = developers[10],
                     Username = "Parcownik9",
                     Password = "secret",
                     Email = "pracownik9@gmail.com"
@@ -1279,7 +1249,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 12,
                     Created = DateTime.Now,
-                    Developer = developers[11],
+                    Employee = developers[11],
                     Username = "Parcownik10",
                     Password = "secret",
                     Email = "pracownik10@gmail.com"
@@ -1288,7 +1258,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 13,
                     Created = DateTime.Now,
-                    Developer = developers[12],
+                    Employee = developers[12],
                     Username = "Parcownik11",
                     Password = "secret",
                     Email = "pracownik11@gmail.com"
@@ -1297,7 +1267,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 14,
                     Created = DateTime.Now,
-                    Developer = developers[13],
+                    Employee = developers[13],
                     Username = "Parcownik12",
                     Password = "secret",
                     Email = "pracownik12@gmail.com"
@@ -1306,7 +1276,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 15,
                     Created = DateTime.Now,
-                    Developer = developers[14],
+                    Employee = developers[14],
                     Username = "Parcownik13",
                     Password = "secret",
                     Email = "pracownik13@gmail.com"
@@ -1315,7 +1285,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 16,
                     Created = DateTime.Now,
-                    Developer = developers[15],
+                    Employee = developers[15],
                     Username = "Parcownik14",
                     Password = "secret",
                     Email = "pracownik14@gmail.com"
@@ -1324,7 +1294,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 17,
                     Created = DateTime.Now,
-                    Developer = developers[16],
+                    Employee = developers[16],
                     Username = "Parcownik15",
                     Password = "secret",
                     Email = "pracownik15@gmail.com"
@@ -1333,7 +1303,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 {
           //          UserId = 18,
                     Created = DateTime.Now,
-                    Developer = developers[17],
+                    Employee = developers[17],
                     Username = "Parcownik16",
                     Password = "secret",
                     Email = "pracownik16@gmail.com"
@@ -1345,25 +1315,25 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 1,
-                    Developer = developers[0],
+                    Employee = developers[0],
                     Vertex = vertices[4]
                 },
                 new Seat()
                 {
                     SeatId = 2,
-                    Developer = developers[1],
+                    Employee = developers[1],
                     Vertex = vertices[5]
                 },
                 new Seat()
                 {
                     SeatId = 3,
-                    Developer = developers[2],
+                    Employee = developers[2],
                     Vertex = vertices[1]
                 },
                 new Seat()
                 {
                     SeatId = 4,
-                    Developer = developers[3],
+                    Employee = developers[3],
                     Vertex = vertices[71]
                 },
             };            
@@ -1372,13 +1342,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 5,
-                    Developer = developers[10],
+                    Employee = developers[10],
                     Vertex = vertices[16]
                 },
                 new Seat()
                 {
                     SeatId = 6,
-                    Developer = developers[11],
+                    Employee = developers[11],
                     Vertex = vertices[17]
                 },
             };
@@ -1387,13 +1357,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 7,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[19]
                 },
                 new Seat()
                 {
                     SeatId = 8,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[62]
                 },
             };
@@ -1402,13 +1372,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 9,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[63]
                 },
                 new Seat()
                 {
                     SeatId = 10,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[64]
                 },
             };
@@ -1417,19 +1387,19 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 11,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[65]
                 },
                 new Seat()
                 {
                     SeatId = 12,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[66]
                 },
             };
 
 
-            projects[0].Developers = developers;
+             // projects[0].Developers = developers;
             projects[0].Technologies = new List<Technology>()
             {
                 developers.ToList()[0].Technologies.ToList()[0],
@@ -1443,26 +1413,26 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 13,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[67]
 
                 },
                 new Seat()
                 { 
                     SeatId = 14,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[68]
                 },
                 new Seat()
                 {
                     SeatId = 15,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[69]
                 },
                 new Seat()
                 {
                     SeatId = 16,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[70]
                 },
             };
@@ -1471,49 +1441,49 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 17,
-                    Developer = developers[4],
+                    Employee = developers[4],
                     Vertex = vertices[72]
                 },
                 new Seat()
                 {
                     SeatId = 18,
-                    Developer = developers[5],
+                    Employee = developers[5],
                     Vertex = vertices[73]
                 },
                 new Seat()
                 {
                     SeatId = 19,
-                    Developer = developers[6],
+                    Employee = developers[6],
                     Vertex = vertices[74]
                 },
                 new Seat()
                 {
                     SeatId = 20,
-                    Developer = developers[7],
+                    Employee = developers[7],
                     Vertex = vertices[75]
                 },
                 new Seat()
                 {
                     SeatId = 21,
-                    Developer = developers[8],
+                    Employee = developers[8],
                     Vertex = vertices[76]
                 },
                 new Seat()
                 {
                     SeatId = 22,
-                    Developer = developers[9],
+                    Employee = developers[9],
                     Vertex = vertices[77]
                 },
                 new Seat()
                 {
                     SeatId = 23,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[78]
                 },
                 new Seat()
                 {
                     SeatId = 24,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[79]
                 },
             };
@@ -1522,49 +1492,49 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 25,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[80]
                 },
                 new Seat()
                 {
                     SeatId = 26,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[81]
                 },
                 new Seat()
                 {
                     SeatId = 27,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[82]
                 },
                 new Seat()
                 {
                     SeatId = 28,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[83]
                 },
                 new Seat()
                 {
                     SeatId = 29,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[84]
                 },
                 new Seat()
                 {
                     SeatId = 30,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[85]
                 },
                 new Seat()
                 {
                     SeatId = 31,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[86]
                 },
                 new Seat()
                 {
                     SeatId = 32,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[87]
                 },
             };
@@ -1573,13 +1543,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 33,
-                    Developer = developers[12],
+                    Employee = developers[12],
                     Vertex = vertices[88]
                 },
                 new Seat()
                 {
                     SeatId = 34,
-                    Developer = developers[13],
+                    Employee = developers[13],
                     Vertex = vertices[89]
                 },
             };
@@ -1588,13 +1558,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 35,
-                    Developer = developers[14],
+                    Employee = developers[14],
                     Vertex = vertices[90]
                 },
                 new Seat()
                 {
                     SeatId = 36,
-                    Developer = developers[15],
+                    Employee = developers[15],
                     Vertex = vertices[91]
                 },
             };
@@ -1603,7 +1573,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 37,
-                    Developer = developers[16],
+                    Employee = developers[16],
                     Vertex = vertices[92]
                 },
             };
@@ -1612,7 +1582,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 38,
-                    Developer = developers[17],
+                    Employee = developers[17],
                     Vertex = vertices[93]
                 },
             };
@@ -1621,7 +1591,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 39,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[94]
                 },
             };
@@ -1630,7 +1600,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 40,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[95]
                 },
             };
@@ -1639,49 +1609,49 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 41,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[96]
                 },
                 new Seat()
                 {
                     SeatId = 42,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[97]
                 },
                 new Seat()
                 {
                     SeatId = 43,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[98]
                 },
                 new Seat()
                 {
                     SeatId = 44,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[99]
                 },
                 new Seat()
                 {
                     SeatId = 45,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[100]
                 },
                 new Seat()
                 {
                     SeatId = 46,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[101]
                 },
                 new Seat()
                 {
                     SeatId = 47,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[102]
                 },
                 new Seat()
                 {
                     SeatId = 48,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[103]
                 },
             };
@@ -1690,49 +1660,49 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 new Seat()
                 {
                     SeatId = 49,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[104]
                 },
                 new Seat()
                 {
                     SeatId = 50,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[105]
                 },
                 new Seat()
                 {
                     SeatId = 51,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[106]
                 },
                 new Seat()
                 {
                     SeatId = 52,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[107]
                 },
                 new Seat()
                 {
                     SeatId = 53,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[108]
                 },
                 new Seat()
                 {
                     SeatId = 54,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[109]
                 },
                 new Seat()
                 {
                     SeatId = 55,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[110]
                 },
                 new Seat()
                 {
                     SeatId = 56,
-                    Developer = null,
+                    Employee = null,
                     Vertex = vertices[111]
                 },
             };
@@ -1947,68 +1917,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             company.Buildings.ToList()[0].Company = company;
 
             context.Companies.Add(company);
-
-     
-           /* foreach (var ver in vertices)
-                context.Vertexes.Add(ver);*/
-
-          /*  foreach (var room in rooms)
-                context.Rooms.Add(room);*/
-
-          /*  foreach (var seat in seatsFirstRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsThirdRoom)
-                context.Seats.Add(seat);*/
-
-         /*   foreach (var seat in seatsFourthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsFifthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsSixthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsSeventhRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsSecondRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsEighteenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsEighthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsTenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsThirteenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsFourteenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsFifteenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsSixteenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsTwelfthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var seat in seatsSeventeenthRoom)
-                context.Seats.Add(seat);
-
-            foreach (var user in users)
-                context.Users.Add(user);*/
-
-            /*foreach (var dev in developers)
-                context.Developers.Add(dev);
-            */
 
             context.SaveChanges();        
 

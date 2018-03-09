@@ -15,9 +15,9 @@ namespace ProjectsMap.WebApi.Controllers
     [RoutePrefix("api/developers")]
     public class DeveloperController : ApiController
     {
-        private IDeveloperService _service;
+        private IEmployeeService _service;
 
-        public DeveloperController(IDeveloperService service)
+        public DeveloperController(IEmployeeService service)
         {
             _service = service;
         }
@@ -26,14 +26,14 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_service.GetAllDevelopers());
+            return Ok(_service.GetAllEmployees());
         }
 
         [HttpGet]
         [Route("{id:int}", Name = "GetDeveloperById")]
         public IHttpActionResult Get(int id)
         {
-            var developerDto = _service.GetDeveloper(id);
+            var developerDto = _service.GetEmployee(id);
 
             if (developerDto != null)
                 return Ok(developerDto);
@@ -59,11 +59,11 @@ namespace ProjectsMap.WebApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post([FromBody] DeveloperDto developer)
+        public IHttpActionResult Post([FromBody] EmployeeDto employee)
         {
-            int createdId = _service.Post(developer);
+            int createdId = _service.Post(employee);
 
-            return CreatedAtRoute("GetDeveloperById", new { id = createdId }, developer);
+            return CreatedAtRoute("GetDeveloperById", new { id = createdId }, employee);
         }
 
     }

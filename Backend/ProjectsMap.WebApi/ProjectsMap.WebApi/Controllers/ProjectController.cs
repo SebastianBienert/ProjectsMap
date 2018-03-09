@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 
@@ -41,7 +42,7 @@ namespace ProjectsMap.WebApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post(ProjectDto dtoProject)
+        public IHttpActionResult Post(CreateProject dtoProject)
         {
             int createdId = _repository.Add(dtoProject);
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);

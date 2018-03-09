@@ -7,13 +7,13 @@ namespace ProjectsMap.WebApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class wallAdded : IMigrationMetadata
+    public sealed partial class addedManager : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(wallAdded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addedManager));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803052012140_wallAdded"; }
+            get { return "201803082242581_addedManager"; }
         }
         
         string IMigrationMetadata.Source
