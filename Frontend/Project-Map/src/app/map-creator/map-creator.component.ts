@@ -1,3 +1,4 @@
+import { Wall } from './../common-interfaces/wall';
 import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
@@ -20,7 +21,6 @@ export class MapCreatorComponent implements OnInit {
   rects = Array();
   lines = Array();
   constructor(private roomService: RoomService) {
-
   }
   setDrawingRightNow(bool: boolean) {
     this.drawingRightNow = bool;
@@ -28,29 +28,51 @@ export class MapCreatorComponent implements OnInit {
   ngOnInit() {
     this.displayMap();
   }
-
+  /*
+    stopDrawingAtEnter(e, poly) {
+      if (e.keyCode == 13) {
+        poly.draw('done');
+        poly.off('drawstart');
+        this.drawingRightNow = false;
+        this.createdRooms.push(poly);
+        console.log(this.createdRooms.length);
+        document.addEventListener('keydown', this.stopDrawingAtEnter(e, poly);
+      }
+    }
+  */
   drawNewRoom() {
     this.drawMode = 'room';
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
     if (!this.drawingRightNow) {
-      var poly = this.drawnMap.polygon().draw({ snapToGrid: 10 }).fill('#00f').stroke({ width: 1 });
-      this.createdRooms.push(poly);
+
+      var poly = this.drawnMap.polygon().draw({ snapToGrid: 10 }).fill('#4f4').stroke({ width: 1 });
+
       this.drawingRightNow = true;
       var self = this;
       poly.on('drawstart', function (e) {
-        document.addEventListener('keydown', function (e) {
+        document.addEventListener('keydown', function stopDrawingAtEnter(e) {
           if (e.keyCode == 13) {
             poly.draw('done');
             poly.off('drawstart');
             self.drawingRightNow = false;
+            self.createdRooms.push(poly);
+            console.log(self.createdRooms.length);
+            document.removeEventListener('keydown', stopDrawingAtEnter);
+            //add seats TODO !!!
+            /*poly.click(function placeSeat(event) {
+              //seat size hardcoded to 10x10 for now !!! alligned to grid: 10
+              var seat = self.drawnMap.rect(10,10).move(( event.offsetX - event.offsetX%10), ( event.offsetY - event.offsetY%10));
+              //seat.draw();
+            })*/
           }
         });
-        document.addEventListener('keydown', function (e) {
+        document.addEventListener('keydown', function cancelDrawingAtEscape(e) {
           if (e.keyCode == 27) {
             poly.draw('cancel');
             poly.off('drawstart');
             self.drawingRightNow = false;
+            document.removeEventListener('keydown', cancelDrawingAtEscape);
           }
         });
       });
@@ -130,8 +152,63 @@ export class MapCreatorComponent implements OnInit {
     }
   }
 
+  //add allert so that user will know that saving map will end map creation!
   saveMap() {
+    var linesVertexes = Array();
+    //parse svg.js lines to LineMap
+    for (var i = 0; i < this.lines.length; i++) {
+      linesVertexes.push(this.coordinatesToLine(this.lines[i].attr('x1'),this.lines[i].attr('y1'),this.lines[i].attr('x2'),this.lines[i].attr('y2')));
+    }
+   //parse svg.js rects to LineMap
+    for (var i = 0; i < this.rects.length; i++) {
+      linesVertexes.push(...this.rectToLines(this.rects[i]));
+   }
+   //list lines
+    // for (var i = 0; i < linesVertexes.length; i++) {
+    //   console.log(linesVertexes[i].vertex1.X + ' ' + linesVertexes[i].vertex1.Y + ' ' + linesVertexes[i].vertex2.X + ' ' + linesVertexes[i].vertex2.Y);
+    // }
+    //console.log(this.createdRooms[0].attr());
+    //polygon to lines
+    var rooms = Array();
+    for (var i = 0; i < this.createdRooms.length; i++) {
+      var oneCoordinateAtTime = this.createdRooms[i].attr('points').split(/[\s,]+/);
+      var Walls = Array();
+      for (var j = 0; j < (oneCoordinateAtTime.length-2); j+=2) {
+        Walls.push(this.coordinatesToLine(oneCoordinateAtTime[j], oneCoordinateAtTime[j+1], oneCoordinateAtTime[j+2], oneCoordinateAtTime[j+3]));
+      }
+      Walls.push(this.coordinatesToLine(oneCoordinateAtTime[oneCoordinateAtTime.length-2], oneCoordinateAtTime[oneCoordinateAtTime.length-1], oneCoordinateAtTime[0], oneCoordinateAtTime[1]));
+      //push seats and Projects as empty
+      
+      var room: Room = {Walls} as Room;
+      console.log(room);
+      this.roomService.addRoom(room).subscribe();
+    }
 
+    //var floor: Floor = {rooms, linesVertexes} as Floor;
+    //inject floor service Rooms, Vertexes
+    //this.roomService
   }
-  
+
+  rectToLines(rect: Rect): Wall[]{
+      var lines = Array();
+
+      lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x') + rect.attr('width'), rect.attr('y')));
+      lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x'), rect.attr('y') + rect.attr('height')));
+      lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x') + rect.attr('width'), rect.attr('y') + rect.attr('height')));
+      lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y')+ rect.attr('height'), rect.attr('x') + rect.attr('width'), rect.attr('y') + rect.attr('height')));
+      return lines;
+  }
+
+  coordinatesToLine(x1, y1, x2, y2) : Wall{
+    var X = x1;
+    var Y = y1
+    var StartVertex = { X, Y } as Vertex;
+
+    X = x2;
+    Y = y2;
+    var EndVertex = { X, Y } as Vertex;
+
+    var line: Wall = { StartVertex, EndVertex } as Wall;
+    return line;
+  }
 }

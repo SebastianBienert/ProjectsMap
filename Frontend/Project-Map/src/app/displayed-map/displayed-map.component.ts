@@ -34,21 +34,20 @@ export class DisplayedMapComponent implements OnInit {
   displayMap() {
     this.drawnMap = SVG('canvas').size(800, 800).panZoom();
 
+    /*
+    walls for each
+    this.drawnMap
+    .line(line.vertex1.X + ',' + line.vertex1.Y + ','+ line.vertex2.X + ','+ line.vertex2.Y + ',')
+    .stroke({ width: 3 })
+    
+    */
     this.rooms.forEach(room => {
       //concatenate room vertices into polygon coordinates
       var arra = '';
-
-
-      arra = arra.concat(room.Walls[0].StartVertex.X + ',' + room.Walls[0].StartVertex.Y + ' ');
-      arra = arra.concat(room.Walls[0].EndVertex.X + ',' + room.Walls[0].EndVertex.Y + ' ');
-      room.Walls.slice(1,room.Walls.length - 1).forEach(wall => {
-        arra = arra.concat(wall.EndVertex.X + ',' + wall.EndVertex.Y + ' ');
-      })
-      
-      /*room.Vertexes.forEach(vertex => 
+      room.Walls.forEach(wall => 
         {
-        arra = arra.concat(vertex.X + ',' + vertex.Y + ' ')
-      });*/
+          arra = arra.concat(wall.StartVertex.X + ',' + wall.StartVertex.Y + ' ')
+      });
       //drawing room with mouseover and mouseout events
       this.drawnMap
       .polygon(arra).fill('#fff')

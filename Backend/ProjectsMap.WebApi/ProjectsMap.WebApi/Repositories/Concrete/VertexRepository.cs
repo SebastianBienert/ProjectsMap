@@ -28,8 +28,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var ctx = new EfDbContext())
             {
-                ctx.Vertexes.Add(vertex);
-                ctx.SaveChanges();
+				if (Get(vertex.X, vertex.Y) == null)
+				{
+					ctx.Vertexes.Add(vertex);
+					ctx.SaveChanges();
+				}
             }
         }
 

@@ -1,7 +1,17 @@
-<button  (click)='drawNewRoom()'>Create room</button>
-<button  (click)='deleteLastRoom()'>Delete last room</button>
-<button  (click)='chooseLine()'>Draw walls - line</button>
-<button  (click)='chooseSquare()'>Draw walls - square</button>
-<button  (click)='saveMap()'>Save Map</button>
+<div>
+<button (click)='drawNewRoom()'>Create room</button>
+<button (click)='deleteLastRoom()'>Delete last room</button>
+<button (click)='chooseLine()'>Draw walls - line</button>
+<button (click)='chooseSquare()'>Draw walls - square</button>
+<button (click)='saveMap()'>Save Map</button>
+<button (click)='placeSeat()'>Place seat</button>
+
 <div id="canvas" (click)="determineShape()">
 </div>
+</div>
+<!-- <span>{{lines[0].attr('x2')}}</span>
+<ul style="text-align: left;">
+    Lines:
+    <li *ngFor="let line of lines"></li>
+        {{line.attr('x2')}}
+</ul> -->

@@ -39,12 +39,12 @@ namespace ProjectsMap.WebApi.Controllers
                 return NotFound();
         }
 
-        [HttpPost]
+		[HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Room room)
+        public IHttpActionResult Post([FromBody] Room room)
         {
-            _service.Post(room);
-            return Ok();
+			int createdId = _service.Post(room);
+            return Ok();//for now
         }
 
     }
