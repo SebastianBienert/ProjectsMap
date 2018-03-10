@@ -13,7 +13,7 @@ namespace ProjectsMap.WebApi.DTOs
 
         public IEnumerable<BuildingDto> Buildings { get; set; }
 
-        public IEnumerable<DeveloperDto> Developers { get; set; }
+        public IEnumerable<EmployeeDto> Developers { get; set; }
 
         public IEnumerable<ProjectDtoShort> ProjectsId { get; set; }
     }

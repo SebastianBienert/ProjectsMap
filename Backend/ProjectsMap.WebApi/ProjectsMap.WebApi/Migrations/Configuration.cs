@@ -38,9 +38,9 @@ namespace ProjectsMap.WebApi.Migrations
                 }
             };
 
-            IList<Developer> developers = new List<Developer>()
+            IList<Employee> developers = new List<Employee>()
             {
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Witkor",
                     Surname = "Bukowski",
@@ -60,7 +60,7 @@ namespace ProjectsMap.WebApi.Migrations
                     },
                     Projects = new List<Project>()
                 },
-                new Developer()
+                new Employee()
                 {
                     FirstName = "Michal",
                     Surname = "Radziwilko",
@@ -88,7 +88,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                //     UserId = 1,
                     Created = DateTime.Now,
-                    Developer = developers[0],
+                    Employee = developers[0],
                     Username = "Wiktor",
                     Password = "secret",
                     Email = "michal@gmail.com"
@@ -97,7 +97,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                 //    UserId = 2,
                     Created = DateTime.Now,
-                    Developer = developers[1],
+                    Employee = developers[1],
                     Username = "Michal",
                     Password = "secret2",
                     Email = "wiktor@gmail.com"
@@ -106,7 +106,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                //     UserId = 0,
                     Created = DateTime.Now,
-                    Developer = null,
+                    Employee = null,
                     Username = "Wiktor",
                     Password = "secret",
                     Email = "michal@gmail.com"
@@ -118,13 +118,13 @@ namespace ProjectsMap.WebApi.Migrations
                 new Seat()
                 {
                     SeatId = 1,
-                    Developer = developers[0],
+                    Employee = developers[0],
                     Vertex = vertices[4]
                 },
                 new Seat()
                 {
                     SeatId = 2,
-                    Developer = developers[1],
+                    Employee = developers[1],
                     Vertex = vertices[5]
                 },
             };

@@ -11,9 +11,9 @@ namespace ProjectsMap.WebApi.Models
     {
         public Seat() { }
 
-        public Seat(Developer developer, int xCoordinate, int yCoordinate)
+        public Seat(Employee employee, int xCoordinate, int yCoordinate)
         {
-            Developer = developer;
+            Employee = employee;
             Vertex = new Vertex(xCoordinate, yCoordinate);
         }
 
@@ -27,8 +27,9 @@ namespace ProjectsMap.WebApi.Models
         public virtual Room Room { get; set; }
         public int RoomId { get; set; }
 
-        //One-zero to many relation (Seat - Developer)
+        //One-zero to many relation (Seat - Employee)
         public int? DeveloperId { get; set; }
-        public virtual Developer Developer { get; set; }
+        public int? DeveloperCompanyId { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
