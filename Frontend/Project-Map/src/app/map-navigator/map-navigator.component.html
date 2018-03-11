@@ -1,0 +1,8 @@
+<ul class="nav navbar-nav">
+  <li *ngFor="let floor of currentBuildingFloorsList" (click)="changeFloor(floor.Id)">
+    Floor id: {{floor.Id}}  Building id: {{floor.BuildingId}}
+  </li>
+</ul>
+<app-displayed-map
+  [floorToDisplay]= "selectedFloor">
+</app-displayed-map>

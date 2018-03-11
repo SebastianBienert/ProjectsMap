@@ -6,8 +6,9 @@
 <button (click)='saveMap()'>Save Map</button>
 <button (click)='placeSeat()'>Place seat</button>
 
-<div id="canvas" (click)="determineShape()">
-</div>
+<!-- <div id="canvas" (click)="determineShape()"> -->
+
+<svg style="border: 3px solid black;" width="800" height="800" id="createMap" (click)="determineShape()"></svg>
 </div>
 <!-- <span>{{lines[0].attr('x2')}}</span>
 <ul style="text-align: left;">

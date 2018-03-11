@@ -1,3 +1,5 @@
+import { FloorServiceService } from './../services/floor-service.service';
+import { Floor } from './../common-interfaces/floor';
 import { Wall } from './../common-interfaces/wall';
 import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
@@ -20,7 +22,7 @@ export class MapCreatorComponent implements OnInit {
   createdRooms = Array();
   rects = Array();
   lines = Array();
-  constructor(private roomService: RoomService) {
+  constructor(private roomService: RoomService, private floorService: FloorServiceService) {
   }
   setDrawingRightNow(bool: boolean) {
     this.drawingRightNow = bool;
@@ -88,8 +90,7 @@ export class MapCreatorComponent implements OnInit {
   }
 
   displayMap() {
-    this.drawnMap = SVG('canvas').size(800, 800);
-    this.drawnMap.rect(800, 800).fill('none').stroke({ width: 2 });
+    this.drawnMap =SVG.adopt(document.getElementById('createMap'));
   }
 
   chooseLine() {
@@ -163,13 +164,8 @@ export class MapCreatorComponent implements OnInit {
     for (var i = 0; i < this.rects.length; i++) {
       linesVertexes.push(...this.rectToLines(this.rects[i]));
    }
-   //list lines
-    // for (var i = 0; i < linesVertexes.length; i++) {
-    //   console.log(linesVertexes[i].vertex1.X + ' ' + linesVertexes[i].vertex1.Y + ' ' + linesVertexes[i].vertex2.X + ' ' + linesVertexes[i].vertex2.Y);
-    // }
-    //console.log(this.createdRooms[0].attr());
     //polygon to lines
-    var rooms = Array();
+    var Rooms = Array();
     for (var i = 0; i < this.createdRooms.length; i++) {
       var oneCoordinateAtTime = this.createdRooms[i].attr('points').split(/[\s,]+/);
       var Walls = Array();
@@ -178,15 +174,21 @@ export class MapCreatorComponent implements OnInit {
       }
       Walls.push(this.coordinatesToLine(oneCoordinateAtTime[oneCoordinateAtTime.length-2], oneCoordinateAtTime[oneCoordinateAtTime.length-1], oneCoordinateAtTime[0], oneCoordinateAtTime[1]));
       //push seats and Projects as empty
-      
-      var room: Room = {Walls} as Room;
-      console.log(room);
-      this.roomService.addRoom(room).subscribe();
+      var Seats = Array();
+      var room: Room = {Walls, Seats} as Room;
+      Rooms.push(room);
     }
 
-    //var floor: Floor = {rooms, linesVertexes} as Floor;
-    //inject floor service Rooms, Vertexes
-    //this.roomService
+    var floor: Floor = {Rooms, Walls:linesVertexes, BuildingId:1, Description:""} as Floor;
+    
+    console.log(floor);
+    this.floorService.addFloor(floor).subscribe();
+
+    //clear map
+    this.lines.length=0;
+    this.rects.length=0;
+    this.createdRooms.length=0;
+    this.drawnMap.clear();
   }
 
   rectToLines(rect: Rect): Wall[]{
@@ -194,7 +196,7 @@ export class MapCreatorComponent implements OnInit {
 
       lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x') + rect.attr('width'), rect.attr('y')));
       lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x'), rect.attr('y') + rect.attr('height')));
-      lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y'), rect.attr('x') + rect.attr('width'), rect.attr('y') + rect.attr('height')));
+      lines.push(this.coordinatesToLine(rect.attr('x') + rect.attr('width'), rect.attr('y'), rect.attr('x') + rect.attr('width'), rect.attr('y') + rect.attr('height')));
       lines.push(this.coordinatesToLine(rect.attr('x'), rect.attr('y')+ rect.attr('height'), rect.attr('x') + rect.attr('width'), rect.attr('y') + rect.attr('height')));
       return lines;
   }

@@ -196,6 +196,62 @@ namespace ProjectsMap.WebApi.Mappers
             return result;
         }
 
+		public static FloorDto GetFloorDto(Floor floor)
+		{
+			var result = new FloorDto()
+			{
+				Id = floor.FloorId,
+				Description = floor.Description,
+				BuildingId = floor.BuildingId,
+				Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
+				Rooms = GetRoomsDtoList(floor.Rooms.ToList())
+			};
+			return result;
+		}
+		public static FloorDto GetFloorDtoListElement(Floor floor)
+		{
+			var result = new FloorDto()
+			{
+				Id = floor.FloorId,
+				Description = floor.Description,
+				BuildingId = floor.BuildingId,
+			};
+			return result;
+		}
+		public static List<RoomDto> GetRoomsDtoList(List<Room> rooms)
+		{
+			var list = new List<RoomDto>();
+			foreach(Room room in rooms)
+			{
+				list.Add(GetRoomDto(room));
+			}
+			return list;
+		}
 
-    }
+		private static IEnumerable<WallDto> GetWallsDtoListNotSorted(List<Wall> listWalls)
+		{
+			var listWallsDto = new List<WallDto>();
+			foreach(Wall wall in listWalls)
+			{
+				listWallsDto.Add(GetWallDto(wall));
+			}
+			return listWallsDto;
+		}
+
+		/*public static List<WallDto> GetWallsDtoList(List<Wall> walls)
+        {
+            var list = new List<WallDto>();
+            var current = walls[0];
+            do
+            {
+                list.Add(GetWallDto(current));
+                var end = current.EndVertex;
+                var next = walls.FirstOrDefault(w => w.StartVertex.X == end.X && w.StartVertex.Y == end.Y);
+                current = next;
+            } while (list.Count < walls.Count);
+
+            return list;
+        }}*/
+
+	}
 }

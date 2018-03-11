@@ -8,7 +8,20 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Wall
     {
-        [Key]
+		private Vertex start;
+		private Vertex end;
+
+		public Wall(Vertex start, Vertex end)
+		{
+			this.StartVertex = start;
+			this.EndVertex = end;
+		}
+
+		public Wall()
+		{
+		}
+
+		[Key]
         public int WallId { get; set; }
 
         public int? StartVertexX { get; set; }
