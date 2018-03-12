@@ -23,7 +23,11 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_service.GetAllTechnologies());
+            return Ok(_service.GetAllTechnologies().Select(dto =>
+            {
+                dto.Url = Url.Link("GetTechnologyById", new {id = dto.Id});
+                return dto;
+            }).ToList());
         }
 
         [HttpGet]
@@ -33,7 +37,10 @@ namespace ProjectsMap.WebApi.Controllers
             var dto = _service.GetTechnology(id);
 
             if (dto != null)
+            {
+                dto.Url = Url.Link("GetTechnologyById", new { id = dto.Id });
                 return Ok(dto);
+            }
             else
                 return NotFound();
         }
@@ -42,7 +49,11 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("like/{technology}")]
         public IHttpActionResult Get(string technology)
         {
-            return Ok(_service.GetTechnologiesByName(technology));
+            return Ok(_service.GetTechnologiesByName(technology).Select(dto =>
+            {
+                dto.Url = Url.Link("GetTechnologyById", new {id = dto.Id});
+                return dto;
+            }).ToList());
         }
 
         [HttpPost]

@@ -11,6 +11,8 @@ namespace ProjectsMap.WebApi.DTOs
 
         public int CompanyId { get; set; }
 
+        public string Url { get; set; }
+
         public int? ManagerId { get; set; }
         public int? ManagerCompanyId { get; set; }
 

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Security.Policy;
 using System.Web;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
-
+using  System.Web.Http.Routing;
 namespace ProjectsMap.WebApi.Mappers
 {
     public class DTOMapper
@@ -29,7 +30,7 @@ namespace ProjectsMap.WebApi.Mappers
             var dto = new EmployeeDto()
             {
                 ManagerCompanyId = employee.ManagerCompanyId,
-                Id = employee.DeveloperId,
+                Id = employee.EmployeeId,     
                 ManagerId = employee.ManagerId,
                 CompanyId = employee.CompanyId,
                 FirstName = employee.FirstName,
@@ -47,7 +48,7 @@ namespace ProjectsMap.WebApi.Mappers
                 var seatDto = new SeatDto()
                 {
                     Id = employee.Seat.ToList()[0].SeatId,
-                    DeveloperId = employee.DeveloperId,
+                    DeveloperId = employee.EmployeeId,
                     Vertex = employee.Seat == null ? null : GetVertexDto(employee.Seat.ToList()[0].Vertex),
                     RooomId = employee.Seat.ToList()[0].SeatId
                 };
@@ -74,7 +75,7 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 Name = technology.Name,
                 Id = technology.TechnologyId,
-                DevelopersId = technology.Developers.Select(x => x.DeveloperId).ToList(),
+                EmployeesId = technology.Employees.Select(x => x.EmployeeId).ToList(),
                 ProjectsId = technology.Projects.Select(p => p.ProjectId).ToList()
             };
 
@@ -123,7 +124,7 @@ namespace ProjectsMap.WebApi.Mappers
             var result = new SeatDto()
             {
                 Id = seat.SeatId,
-                DeveloperId = seat.DeveloperId,
+                DeveloperId = seat.EmployeeId,
                 RooomId = seat.RoomId,
                 Vertex = GetVertexDto(seat.Vertex)
             };
@@ -146,7 +147,7 @@ namespace ProjectsMap.WebApi.Mappers
                 Id = company.CompanyId,
                 Name = company.Name,
                 Buildings = company.Buildings.Select(b => GetBuildingDto(b)).ToList(),
-                Developers = company.Developers.Select(d => GetEmployeeDto(d)).ToList(),
+                Developers = company.Employees.Select(d => GetEmployeeDto(d)).ToList(),
                 ProjectsId = company.Projects.Select(p =>
                 {
                     return new ProjectDtoShort()

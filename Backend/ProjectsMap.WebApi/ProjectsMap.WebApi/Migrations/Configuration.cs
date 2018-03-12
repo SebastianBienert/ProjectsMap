@@ -44,7 +44,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                     FirstName = "Witkor",
                     Surname = "Bukowski",
-                 //   DeveloperId = 1,
+                 //   EmployeeId = 1,
                     Technologies = new List<Technology>()
                     {
                         new Technology()
@@ -64,7 +64,7 @@ namespace ProjectsMap.WebApi.Migrations
                 {
                     FirstName = "Michal",
                     Surname = "Radziwilko",
-                  //  DeveloperId = 2,
+                  //  EmployeeId = 2,
                     Technologies = new List<Technology>()
                     {
                         new Technology()
@@ -157,7 +157,7 @@ namespace ProjectsMap.WebApi.Migrations
                 context.Users.Add(user);
 
             foreach (var dev in developers)
-                context.Developers.Add(dev);
+                context.Employees.Add(dev);
 
             context.SaveChanges();*/
         }

@@ -18,8 +18,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 using (var dbContext = new EfDbContext())
                 {
                     return dbContext.Companies
-                        .Include(c => c.Developers.Select(d => d.Technologies))
-                        .Include(c => c.Developers.Select(d => d.Seat.Select(s => s.Vertex)))
+                        .Include(c => c.Employees.Select(d => d.Technologies))
+                        .Include(c => c.Employees.Select(d => d.Seat.Select(s => s.Vertex)))
                         .Include(c => c.Buildings)
                         .Include(c => c.Projects).ToList();
                 }
@@ -32,8 +32,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             {
                 return dbContext.Companies
                     .Where(c => c.CompanyId == id)
-                    .Include(c => c.Developers.Select(d => d.Technologies))
-                    .Include(c => c.Developers.Select(d => d.Seat.Select(s => s.Vertex)))
+                    .Include(c => c.Employees.Select(d => d.Technologies))
+                    .Include(c => c.Employees.Select(d => d.Seat.Select(s => s.Vertex)))
                     .Include(c => c.Buildings)
                     .Include(c => c.Projects).FirstOrDefault();
             }
@@ -47,8 +47,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     Where(b => companyDto.Buildings.Select(dto => dto.Id).ToList().Contains(b.BuildingId))
                     .ToList();
 
-                var devs = dbContext.Developers
-                    .Where(d => companyDto.Developers.Select(dto => dto.Id).Contains(d.DeveloperId)).ToList();
+                var devs = dbContext.Employees
+                    .Where(d => companyDto.Developers.Select(dto => dto.Id).Contains(d.EmployeeId)).ToList();
 
                 var projects = dbContext.Projects.Where(p => companyDto.ProjectsId.Select(dto => dto.Id)
                     .Contains(p.ProjectId)).ToList();
@@ -58,7 +58,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     Buildings = buildings,
                     Name = companyDto.Name,
-                    Developers = devs,
+                    Employees = devs,
                     Projects = projects,
                 };
 

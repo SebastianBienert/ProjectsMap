@@ -23,7 +23,7 @@ namespace ProjectsMap.WebApi.Services
         public IEnumerable<EmployeeDto> GetAllEmployees()
         {
             var list = new List<EmployeeDto>();
-            foreach (var dev in _repository.Developers)
+            foreach (var dev in _repository.Employees)
             {
                 list.Add(DTOMapper.GetEmployeeDto(dev));
             }
@@ -42,7 +42,7 @@ namespace ProjectsMap.WebApi.Services
 
         public IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology)
         {
-            var list = _repository.Developers.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology)).ToList();
+            var list = _repository.Employees.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology)).ToList();
 
             if (list.Count() > 0)
             {
