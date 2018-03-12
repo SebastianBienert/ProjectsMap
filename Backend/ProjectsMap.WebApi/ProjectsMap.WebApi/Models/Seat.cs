@@ -28,8 +28,8 @@ namespace ProjectsMap.WebApi.Models
         public int RoomId { get; set; }
 
         //One-zero to many relation (Seat - Employee)
-        public int? DeveloperId { get; set; }
-        public int? DeveloperCompanyId { get; set; }
+        public int? EmployeeId { get; set; }
+        public int? EmployeeCompanyId { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

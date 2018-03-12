@@ -15,7 +15,7 @@ namespace ProjectsMap.WebApi.Models
         public string Name { get; set; }
 
         //Many to many relation (Employee - Technology)
-        public virtual ICollection<Employee> Developers{ get; set; }
+        public virtual ICollection<Employee> Employees{ get; set; }
 
         //Many to many relation (Project - Technology)
         public virtual ICollection<Project> Projects { get; set; }

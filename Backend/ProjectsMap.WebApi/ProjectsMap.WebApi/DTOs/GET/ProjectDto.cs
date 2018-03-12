@@ -9,6 +9,8 @@ namespace ProjectsMap.WebApi.DTOs
     {
         public int Id { get; set; }
 
+        public string Url { get; set; }
+
         public string Description { get; set; }
 
         public string RepositoryLink { get; set; }
@@ -17,7 +19,7 @@ namespace ProjectsMap.WebApi.DTOs
 
         public int? CompanyId { get; set; }
 
-        public IEnumerable<string> DevelopersNames { get; set; }
+        public IEnumerable<string> EmployeesNames { get; set; }
 
         public IEnumerable<RoomDto> Rooms { get; set; }
 
