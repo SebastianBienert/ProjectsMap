@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 
@@ -16,38 +17,41 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             get
             {
                 var dbContext = new EfDbContext();
-                return dbContext.Projects.ToList();
+                return dbContext.Projects
+                    .Include(p => p.ProjectRoles).ToList();
             }
         }
         public Project Get(int id)
         {
             var dbContext = new EfDbContext();
-            return dbContext.Projects.FirstOrDefault(x => x.ProjectId == id);
+            return dbContext.Projects.Include(p => p.ProjectRoles).FirstOrDefault(x => x.ProjectId == id);
         }
 
-        public int Add(ProjectDto projectDto)
+        public int Add(CreateProject projectDto)
         {
             Project project;
             using (var dbContext = new EfDbContext())
             {
-                var technologiesIds = projectDto.Technologies.Select(z => z.Id);
-                var developersIds = projectDto.Developers.Select(z => z.Id);
-                var roomsIds = projectDto.Rooms.Select(z => z.Id);
-
+                var technologiesIds = projectDto.TechnologiesIDs.ToList();
                 var technologies = dbContext.Technologies.Where(x => technologiesIds.Contains(x.TechnologyId)).ToList();
-                var developers = dbContext.Developers.Where(x => developersIds.Contains(x.DeveloperId)).ToList();
-                var rooms = dbContext.Rooms.Where(x => roomsIds.Contains(x.RoomId)).ToList();
 
+                var roles = new List<ProjectRole>();
+                foreach (var devRole in projectDto.DevelopersRoles)
+                {
+                    roles.Add(new ProjectRole()
+                    {
+                        Employee = dbContext.Developers.FirstOrDefault(d => d.DeveloperId == devRole.DeveloperId &&
+                                                                             d.CompanyId == devRole.CompanyId)
+                    });
+                }
                 project = new Project()
                 {
-                    Rooms = rooms,
+                    ProjectRoles = roles,
                     Technologies = technologies,
-                    Developers = developers,
                     Company = dbContext.Companies.Where(x => x.CompanyId == projectDto.CompanyId).FirstOrDefault(),
                     CompanyId = projectDto.CompanyId,
                     Description = projectDto.Description,
                     DocumentationLink = projectDto.DocumentationLink,
-                    ProductOwner = dbContext.Developers.Where(x => x.DeveloperId == projectDto.ProductOwnerId).FirstOrDefault(),
                     RepositoryLink = projectDto.RepositoryLink
                 };
 

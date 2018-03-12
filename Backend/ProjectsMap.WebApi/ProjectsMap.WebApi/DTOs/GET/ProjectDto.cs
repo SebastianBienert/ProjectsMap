@@ -15,14 +15,14 @@ namespace ProjectsMap.WebApi.DTOs
 
         public string DocumentationLink { get; set; }
 
-        public int? ProductOwnerId { get; set; }
-
         public int? CompanyId { get; set; }
 
-        public IEnumerable<DeveloperDto> Developers { get; set; }
+        public IEnumerable<string> DevelopersNames { get; set; }
 
         public IEnumerable<RoomDto> Rooms { get; set; }
 
         public IEnumerable<TechnologyDto> Technologies { get; set; }
     }
+
+
 }

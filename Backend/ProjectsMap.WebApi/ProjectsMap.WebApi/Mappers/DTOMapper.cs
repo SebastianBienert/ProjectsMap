@@ -16,36 +16,40 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 CompanyId = project.CompanyId,
                 Description = project.Description,
-                Developers = project.Developers?.ToList().Select(x => GetDeveloperDto(x)),
+                DevelopersNames = project.ProjectRoles.Select(x => x.Employee.Surname),
                 DocumentationLink = project.DocumentationLink,
                 Id = project.ProjectId,
-                ProductOwnerId = project.ProductOwner?.DeveloperId,
                 RepositoryLink = project.RepositoryLink,
-                Rooms = project.Rooms?.Select(x => GetRoomDto(x)),
                 Technologies = project.Technologies?.Select(x => GeTechnologyDto(x))
             };
         }
 
-        public static DeveloperDto GetDeveloperDto(Developer developer)
+        public static EmployeeDto GetEmployeeDto(Employee employee)
         {
-            var dto = new DeveloperDto()
+            var dto = new EmployeeDto()
             {
-                Id = developer.DeveloperId,
-                FirstName = developer.FirstName,
-                Surname = developer.Surname,
-                Technologies = developer.Technologies.Select(x => x.Name).ToList(),
+                ManagerCompanyId = employee.ManagerCompanyId,
+                Id = employee.DeveloperId,
+                ManagerId = employee.ManagerId,
+                CompanyId = employee.CompanyId,
+                FirstName = employee.FirstName,
+                Surname = employee.Surname,
+                Email = employee.Email,
+                CompanyName = employee.Company.Name,
+                JobTitle = employee.JobTitle,
+                Technologies = employee.Technologies.Select(x => x.Name).ToList(),
             };
 
-            if (developer.Seat == null || developer.Seat.Count == 0)
+            if (employee.Seat == null || employee.Seat.Count == 0)
                 dto.Seat = null;
             else
             {
                 var seatDto = new SeatDto()
                 {
-                    Id = developer.Seat.ToList()[0].SeatId,
-                    DeveloperId = developer.DeveloperId,
-                    Vertex = developer.Seat == null ? null : GetVertexDto(developer.Seat.ToList()[0].Vertex),
-                    RooomId = developer.Seat.ToList()[0].SeatId
+                    Id = employee.Seat.ToList()[0].SeatId,
+                    DeveloperId = employee.DeveloperId,
+                    Vertex = employee.Seat == null ? null : GetVertexDto(employee.Seat.ToList()[0].Vertex),
+                    RooomId = employee.Seat.ToList()[0].SeatId
                 };
                 dto.Seat = seatDto;
             }
@@ -94,7 +98,6 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 Id = room.RoomId,
                 Walls = GetWallsDtoList(room.Walls.ToList()),
-                Projects = room.Projects.Select(p => p.Description).ToList(),
                 Seats = room.Seats.Select(s => GetVertexDto(s.Vertex)).ToList()
             };
             return dto;
@@ -143,7 +146,7 @@ namespace ProjectsMap.WebApi.Mappers
                 Id = company.CompanyId,
                 Name = company.Name,
                 Buildings = company.Buildings.Select(b => GetBuildingDto(b)).ToList(),
-                Developers = company.Developers.Select(d => GetDeveloperDto(d)).ToList(),
+                Developers = company.Developers.Select(d => GetEmployeeDto(d)).ToList(),
                 ProjectsId = company.Projects.Select(p =>
                 {
                     return new ProjectDtoShort()

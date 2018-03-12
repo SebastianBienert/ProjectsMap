@@ -1,4 +1,5 @@
 ﻿using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
     {
         IEnumerable<ProjectDto> GetProjectsByName(string name);
         ProjectDto GetProject(int id);
-        int Post(ProjectDto Project);
+        int Post(CreateProject Project);
         void Delete(Project project);
         void Update(Project project);
         IEnumerable<ProjectDto> GetAllProjects();

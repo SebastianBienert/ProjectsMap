@@ -17,6 +17,6 @@ namespace ProjectsMap.WebApi.DTOs
 
         public DateTime CreatedAt { get; set; }
 
-        public DeveloperDto Developer { get; set; }
+        public EmployeeDto Employee { get; set; }
     }
 }

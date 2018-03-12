@@ -21,8 +21,5 @@ namespace ProjectsMap.WebApi.Models
 
         //One to many relation (Room - Seats)
         public virtual ICollection<Seat> Seats { get; set; }
-
-        //many to many relation (Room - Project)
-        public virtual ICollection<Project> Projects { get; set; }   
     }
 }

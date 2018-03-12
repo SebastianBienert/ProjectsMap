@@ -33,19 +33,35 @@ namespace ProjectsMap.WebApi.Migrations
                 c => new
                     {
                         DeveloperId = c.Int(nullable: false),
+                        CompanyId = c.Int(nullable: false),
                         FirstName = c.String(),
                         Surname = c.String(),
                         Email = c.String(),
                         WantToHelp = c.Boolean(nullable: false),
                         Photo = c.Binary(),
                         JobTitle = c.String(),
-                        CompanyId = c.Int(),
+                        User_UserId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.DeveloperId)
-                .ForeignKey("dbo.Companies", t => t.CompanyId)
-                .ForeignKey("dbo.Users", t => t.DeveloperId)
-                .Index(t => t.DeveloperId)
-                .Index(t => t.CompanyId);
+                .PrimaryKey(t => new { t.DeveloperId, t.CompanyId })
+                .ForeignKey("dbo.Companies", t => t.CompanyId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_UserId)
+                .Index(t => t.CompanyId)
+                .Index(t => t.User_UserId);
+            
+            CreateTable(
+                "dbo.ProjectRoles",
+                c => new
+                    {
+                        DeveloperId = c.Int(nullable: false),
+                        ProjectId = c.Int(nullable: false),
+                        DevelopersCompanyId = c.Int(nullable: false),
+                        Role = c.String(),
+                    })
+                .PrimaryKey(t => new { t.DeveloperId, t.ProjectId })
+                .ForeignKey("dbo.Developers", t => new { t.DeveloperId, t.DevelopersCompanyId }, cascadeDelete: true)
+                .ForeignKey("dbo.Projects", t => t.ProjectId, cascadeDelete: true)
+                .Index(t => new { t.DeveloperId, t.DevelopersCompanyId })
+                .Index(t => t.ProjectId);
             
             CreateTable(
                 "dbo.Projects",
@@ -57,12 +73,13 @@ namespace ProjectsMap.WebApi.Migrations
                         DocumentationLink = c.String(),
                         CompanyId = c.Int(),
                         ProductOwner_DeveloperId = c.Int(),
+                        ProductOwner_CompanyId = c.Int(),
                     })
                 .PrimaryKey(t => t.ProjectId)
                 .ForeignKey("dbo.Companies", t => t.CompanyId)
-                .ForeignKey("dbo.Developers", t => t.ProductOwner_DeveloperId)
+                .ForeignKey("dbo.Developers", t => new { t.ProductOwner_DeveloperId, t.ProductOwner_CompanyId })
                 .Index(t => t.CompanyId)
-                .Index(t => t.ProductOwner_DeveloperId);
+                .Index(t => new { t.ProductOwner_DeveloperId, t.ProductOwner_CompanyId });
             
             CreateTable(
                 "dbo.Rooms",
@@ -88,22 +105,23 @@ namespace ProjectsMap.WebApi.Migrations
                 .Index(t => t.BuildingId);
             
             CreateTable(
-                "dbo.Seats",
+                "dbo.Walls",
                 c => new
                     {
-                        SeatId = c.Int(nullable: false, identity: true),
-                        RoomId = c.Int(nullable: false),
-                        DeveloperId = c.Int(),
-                        Vertex_X = c.Int(nullable: false),
-                        Vertex_Y = c.Int(nullable: false),
+                        WallId = c.Int(nullable: false, identity: true),
+                        StartVertexX = c.Int(),
+                        StartVertexY = c.Int(),
+                        EndVertexX = c.Int(),
+                        EndVertexY = c.Int(),
+                        FloorId = c.Int(),
                     })
-                .PrimaryKey(t => t.SeatId)
-                .ForeignKey("dbo.Developers", t => t.DeveloperId)
-                .ForeignKey("dbo.Rooms", t => t.RoomId, cascadeDelete: true)
-                .ForeignKey("dbo.Vertices", t => new { t.Vertex_X, t.Vertex_Y })
-                .Index(t => t.RoomId)
-                .Index(t => t.DeveloperId)
-                .Index(t => new { t.Vertex_X, t.Vertex_Y });
+                .PrimaryKey(t => t.WallId)
+                .ForeignKey("dbo.Vertices", t => new { t.EndVertexX, t.EndVertexY })
+                .ForeignKey("dbo.Floors", t => t.FloorId)
+                .ForeignKey("dbo.Vertices", t => new { t.StartVertexX, t.StartVertexY })
+                .Index(t => new { t.StartVertexX, t.StartVertexY })
+                .Index(t => new { t.EndVertexX, t.EndVertexY })
+                .Index(t => t.FloorId);
             
             CreateTable(
                 "dbo.Vertices",
@@ -113,6 +131,25 @@ namespace ProjectsMap.WebApi.Migrations
                         Y = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.X, t.Y });
+            
+            CreateTable(
+                "dbo.Seats",
+                c => new
+                    {
+                        SeatId = c.Int(nullable: false, identity: true),
+                        RoomId = c.Int(nullable: false),
+                        DeveloperId = c.Int(),
+                        DeveloperCompanyId = c.Int(),
+                        Vertex_X = c.Int(nullable: false),
+                        Vertex_Y = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.SeatId)
+                .ForeignKey("dbo.Developers", t => new { t.DeveloperId, t.DeveloperCompanyId })
+                .ForeignKey("dbo.Rooms", t => t.RoomId, cascadeDelete: true)
+                .ForeignKey("dbo.Vertices", t => new { t.Vertex_X, t.Vertex_Y })
+                .Index(t => t.RoomId)
+                .Index(t => new { t.DeveloperId, t.DeveloperCompanyId })
+                .Index(t => new { t.Vertex_X, t.Vertex_Y });
             
             CreateTable(
                 "dbo.Technologies",
@@ -136,17 +173,16 @@ namespace ProjectsMap.WebApi.Migrations
                 .PrimaryKey(t => t.UserId);
             
             CreateTable(
-                "dbo.VertexRoom",
+                "dbo.WallRoom",
                 c => new
                     {
-                        VertexRefIdX = c.Int(nullable: false),
-                        VertexRefIdY = c.Int(nullable: false),
+                        WallRefId = c.Int(nullable: false),
                         RoomRefId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.VertexRefIdX, t.VertexRefIdY, t.RoomRefId })
-                .ForeignKey("dbo.Vertices", t => new { t.VertexRefIdX, t.VertexRefIdY }, cascadeDelete: true)
+                .PrimaryKey(t => new { t.WallRefId, t.RoomRefId })
+                .ForeignKey("dbo.Walls", t => t.WallRefId, cascadeDelete: true)
                 .ForeignKey("dbo.Rooms", t => t.RoomRefId, cascadeDelete: true)
-                .Index(t => new { t.VertexRefIdX, t.VertexRefIdY })
+                .Index(t => t.WallRefId)
                 .Index(t => t.RoomRefId);
             
             CreateTable(
@@ -176,29 +212,17 @@ namespace ProjectsMap.WebApi.Migrations
                 .Index(t => t.TechnologyRefId);
             
             CreateTable(
-                "dbo.DeveloperProject",
-                c => new
-                    {
-                        DeveloperRefId = c.Int(nullable: false),
-                        ProjectRefId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.DeveloperRefId, t.ProjectRefId })
-                .ForeignKey("dbo.Developers", t => t.DeveloperRefId, cascadeDelete: true)
-                .ForeignKey("dbo.Projects", t => t.ProjectRefId, cascadeDelete: true)
-                .Index(t => t.DeveloperRefId)
-                .Index(t => t.ProjectRefId);
-            
-            CreateTable(
                 "dbo.DeveloperTechnology",
                 c => new
                     {
                         DeveloperRefId = c.Int(nullable: false),
+                        DeveloperCompanyRefId = c.Int(nullable: false),
                         TechnologyRefId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.DeveloperRefId, t.TechnologyRefId })
-                .ForeignKey("dbo.Developers", t => t.DeveloperRefId, cascadeDelete: true)
+                .PrimaryKey(t => new { t.DeveloperRefId, t.DeveloperCompanyRefId, t.TechnologyRefId })
+                .ForeignKey("dbo.Developers", t => new { t.DeveloperRefId, t.DeveloperCompanyRefId }, cascadeDelete: true)
                 .ForeignKey("dbo.Technologies", t => t.TechnologyRefId, cascadeDelete: true)
-                .Index(t => t.DeveloperRefId)
+                .Index(t => new { t.DeveloperRefId, t.DeveloperCompanyRefId })
                 .Index(t => t.TechnologyRefId);
             
         }
@@ -206,57 +230,64 @@ namespace ProjectsMap.WebApi.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Buildings", "CompanyId", "dbo.Companies");
-            DropForeignKey("dbo.Developers", "DeveloperId", "dbo.Users");
+            DropForeignKey("dbo.Developers", "User_UserId", "dbo.Users");
             DropForeignKey("dbo.DeveloperTechnology", "TechnologyRefId", "dbo.Technologies");
-            DropForeignKey("dbo.DeveloperTechnology", "DeveloperRefId", "dbo.Developers");
-            DropForeignKey("dbo.DeveloperProject", "ProjectRefId", "dbo.Projects");
-            DropForeignKey("dbo.DeveloperProject", "DeveloperRefId", "dbo.Developers");
+            DropForeignKey("dbo.DeveloperTechnology", new[] { "DeveloperRefId", "DeveloperCompanyRefId" }, "dbo.Developers");
+            DropForeignKey("dbo.ProjectRoles", "ProjectId", "dbo.Projects");
             DropForeignKey("dbo.ProjectTechnology", "TechnologyRefId", "dbo.Technologies");
             DropForeignKey("dbo.ProjectTechnology", "ProjectRefId", "dbo.Projects");
             DropForeignKey("dbo.ProjectRoom", "RoomRefId", "dbo.Rooms");
             DropForeignKey("dbo.ProjectRoom", "ProjectRefId", "dbo.Projects");
-            DropForeignKey("dbo.Seats", new[] { "Vertex_X", "Vertex_Y" }, "dbo.Vertices");
-            DropForeignKey("dbo.VertexRoom", "RoomRefId", "dbo.Rooms");
-            DropForeignKey("dbo.VertexRoom", new[] { "VertexRefIdX", "VertexRefIdY" }, "dbo.Vertices");
-            DropForeignKey("dbo.Seats", "RoomId", "dbo.Rooms");
-            DropForeignKey("dbo.Seats", "DeveloperId", "dbo.Developers");
             DropForeignKey("dbo.Rooms", "FloorId", "dbo.Floors");
+            DropForeignKey("dbo.Walls", new[] { "StartVertexX", "StartVertexY" }, "dbo.Vertices");
+            DropForeignKey("dbo.WallRoom", "RoomRefId", "dbo.Rooms");
+            DropForeignKey("dbo.WallRoom", "WallRefId", "dbo.Walls");
+            DropForeignKey("dbo.Walls", "FloorId", "dbo.Floors");
+            DropForeignKey("dbo.Walls", new[] { "EndVertexX", "EndVertexY" }, "dbo.Vertices");
+            DropForeignKey("dbo.Seats", new[] { "Vertex_X", "Vertex_Y" }, "dbo.Vertices");
+            DropForeignKey("dbo.Seats", "RoomId", "dbo.Rooms");
+            DropForeignKey("dbo.Seats", new[] { "DeveloperId", "DeveloperCompanyId" }, "dbo.Developers");
             DropForeignKey("dbo.Floors", "BuildingId", "dbo.Buildings");
-            DropForeignKey("dbo.Projects", "ProductOwner_DeveloperId", "dbo.Developers");
+            DropForeignKey("dbo.Projects", new[] { "ProductOwner_DeveloperId", "ProductOwner_CompanyId" }, "dbo.Developers");
             DropForeignKey("dbo.Projects", "CompanyId", "dbo.Companies");
+            DropForeignKey("dbo.ProjectRoles", new[] { "DeveloperId", "DevelopersCompanyId" }, "dbo.Developers");
             DropForeignKey("dbo.Developers", "CompanyId", "dbo.Companies");
             DropIndex("dbo.DeveloperTechnology", new[] { "TechnologyRefId" });
-            DropIndex("dbo.DeveloperTechnology", new[] { "DeveloperRefId" });
-            DropIndex("dbo.DeveloperProject", new[] { "ProjectRefId" });
-            DropIndex("dbo.DeveloperProject", new[] { "DeveloperRefId" });
+            DropIndex("dbo.DeveloperTechnology", new[] { "DeveloperRefId", "DeveloperCompanyRefId" });
             DropIndex("dbo.ProjectTechnology", new[] { "TechnologyRefId" });
             DropIndex("dbo.ProjectTechnology", new[] { "ProjectRefId" });
             DropIndex("dbo.ProjectRoom", new[] { "RoomRefId" });
             DropIndex("dbo.ProjectRoom", new[] { "ProjectRefId" });
-            DropIndex("dbo.VertexRoom", new[] { "RoomRefId" });
-            DropIndex("dbo.VertexRoom", new[] { "VertexRefIdX", "VertexRefIdY" });
+            DropIndex("dbo.WallRoom", new[] { "RoomRefId" });
+            DropIndex("dbo.WallRoom", new[] { "WallRefId" });
             DropIndex("dbo.Seats", new[] { "Vertex_X", "Vertex_Y" });
-            DropIndex("dbo.Seats", new[] { "DeveloperId" });
+            DropIndex("dbo.Seats", new[] { "DeveloperId", "DeveloperCompanyId" });
             DropIndex("dbo.Seats", new[] { "RoomId" });
+            DropIndex("dbo.Walls", new[] { "FloorId" });
+            DropIndex("dbo.Walls", new[] { "EndVertexX", "EndVertexY" });
+            DropIndex("dbo.Walls", new[] { "StartVertexX", "StartVertexY" });
             DropIndex("dbo.Floors", new[] { "BuildingId" });
             DropIndex("dbo.Rooms", new[] { "FloorId" });
-            DropIndex("dbo.Projects", new[] { "ProductOwner_DeveloperId" });
+            DropIndex("dbo.Projects", new[] { "ProductOwner_DeveloperId", "ProductOwner_CompanyId" });
             DropIndex("dbo.Projects", new[] { "CompanyId" });
+            DropIndex("dbo.ProjectRoles", new[] { "ProjectId" });
+            DropIndex("dbo.ProjectRoles", new[] { "DeveloperId", "DevelopersCompanyId" });
+            DropIndex("dbo.Developers", new[] { "User_UserId" });
             DropIndex("dbo.Developers", new[] { "CompanyId" });
-            DropIndex("dbo.Developers", new[] { "DeveloperId" });
             DropIndex("dbo.Buildings", new[] { "CompanyId" });
             DropTable("dbo.DeveloperTechnology");
-            DropTable("dbo.DeveloperProject");
             DropTable("dbo.ProjectTechnology");
             DropTable("dbo.ProjectRoom");
-            DropTable("dbo.VertexRoom");
+            DropTable("dbo.WallRoom");
             DropTable("dbo.Users");
             DropTable("dbo.Technologies");
-            DropTable("dbo.Vertices");
             DropTable("dbo.Seats");
+            DropTable("dbo.Vertices");
+            DropTable("dbo.Walls");
             DropTable("dbo.Floors");
             DropTable("dbo.Rooms");
             DropTable("dbo.Projects");
+            DropTable("dbo.ProjectRoles");
             DropTable("dbo.Developers");
             DropTable("dbo.Companies");
             DropTable("dbo.Buildings");

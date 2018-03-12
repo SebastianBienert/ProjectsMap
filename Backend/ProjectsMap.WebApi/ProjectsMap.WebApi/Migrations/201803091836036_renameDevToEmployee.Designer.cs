@@ -7,13 +7,13 @@ namespace ProjectsMap.WebApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class wallFloor : IMigrationMetadata
+    public sealed partial class renameDevToEmployee : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(wallFloor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(renameDevToEmployee));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803052025424_wallFloor"; }
+            get { return "201803091836036_renameDevToEmployee"; }
         }
         
         string IMigrationMetadata.Source

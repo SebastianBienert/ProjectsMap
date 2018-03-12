@@ -13,15 +13,15 @@ namespace ProjectsMap.WebApi.Services.Concrete
     public class SeatService : ISeatService
     {
         private readonly ISeatRepository _seatRepository;
-        private readonly IDeveloperRepository _developerRepository;
+        private readonly IEmployeeRepository _employeeRepository;
         private readonly IRoomRepository _roomRepository;
         private readonly IVertexRepository _vertexRepository;
 
-        public SeatService(ISeatRepository seatRepository, IDeveloperRepository developerRepository,
+        public SeatService(ISeatRepository seatRepository, IEmployeeRepository employeeRepository,
                 IRoomRepository roomRepository, IVertexRepository vertexRepository)
         {
             _seatRepository = seatRepository;
-            _developerRepository = developerRepository;
+            _employeeRepository = employeeRepository;
             _roomRepository = roomRepository;
             _vertexRepository = vertexRepository;
         }

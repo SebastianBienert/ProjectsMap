@@ -11,10 +11,11 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int TechnologyId { get; set; }
 
+        [MaxLength(50)]
         public string Name { get; set; }
 
-        //Many to many relation (Developer - Technology)
-        public virtual ICollection<Developer> Developers{ get; set; }
+        //Many to many relation (Employee - Technology)
+        public virtual ICollection<Employee> Developers{ get; set; }
 
         //Many to many relation (Project - Technology)
         public virtual ICollection<Project> Projects { get; set; }

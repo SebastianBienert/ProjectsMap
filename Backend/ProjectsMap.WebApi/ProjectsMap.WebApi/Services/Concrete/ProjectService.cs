@@ -1,4 +1,5 @@
 ﻿using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Mappers;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
@@ -43,7 +44,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
             return DTOMapper.GetProjectDto(project);
         }
 
-        public int Post(ProjectDto Project)
+        public int Post(CreateProject Project)
         {
             return _repository.Add(Project);
         }

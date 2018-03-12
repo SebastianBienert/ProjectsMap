@@ -17,7 +17,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 using (var dbContext = new EfDbContext())
                 {
                     return dbContext.Rooms
-                        .Include(r => r.Projects)
                         .Include(r => r.Walls.Select(w => w.StartVertex))
                         .Include((r => r.Walls.Select(w => w.EndVertex)))
                         .Include(r => r.Seats.Select(s => s.Vertex)).ToList();
@@ -29,7 +28,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             using (var dbContext = new EfDbContext())
             {
                 return dbContext.Rooms
-                    .Include(r => r.Projects)
                     .Include(r => r.Walls.Select(w => w.StartVertex))
                     .Include((r => r.Walls.Select(w => w.EndVertex)))
                     .Include(r => r.Seats.Select(s => s.Vertex))
