@@ -13,11 +13,12 @@ namespace ProjectsMap.WebApi.Mappers
     {
         public static ProjectDto GetProjectDto(Project project)
         {
+
             return new ProjectDto()
             {
                 CompanyId = project.CompanyId,
                 Description = project.Description,
-                DevelopersNames = project.ProjectRoles.Select(x => x.Employee.Surname),
+                EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname),
                 DocumentationLink = project.DocumentationLink,
                 Id = project.ProjectId,
                 RepositoryLink = project.RepositoryLink,

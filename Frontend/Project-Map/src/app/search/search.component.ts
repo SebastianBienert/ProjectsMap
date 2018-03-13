@@ -1,3 +1,4 @@
+import { SearchType } from './../enums/SearchType';
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from './../services/employee.service';
 import { ProjectService } from './../services/project.service';
@@ -17,21 +18,56 @@ export class SearchComponent implements OnInit {
   employees: Employee[];
   private handleError: HandleError;
   filter: string;
+  searchTypeText: string = "Pracownicy - nazwiska";
+  selectedSearchType: SearchType = SearchType.employeeName;
   isEmp: boolean = false;
 
-  constructor(private employeeService: EmployeeService, private projectService : ProjectService, private sharedService: SharedService) { }
+  constructor(private employeeService: EmployeeService, private projectService: ProjectService, private sharedService: SharedService) { }
+
+  selectSearchType(selected: number, searchTypeText: string) {
+    this.searchTypeText = searchTypeText;
+
+    this.selectedSearchType = selected;
+    console.log(this.selectedSearchType);
+  }
+
 
   search(): void {
-    this.isEmp = !this.isEmp;
 
-    if (this.isEmp) {
-      this.employeeService.searchEmployeeByTechnology(this.filter)
-        .subscribe(x => this.sharedService.setFoundEmployees(x));
+    switch (this.selectedSearchType) {
+
+      case SearchType.employeeName:
+        this.employeeService.searchEmployeeByTechnology(this.filter)
+          .subscribe(x => this.sharedService.setFoundEmployees(x));
+        break;
+
+      case SearchType.employeeTechnology:
+        this.employeeService.searchEmployeeByTechnology(this.filter)
+          .subscribe(x => this.sharedService.setFoundEmployees(x));
+        break;
+
+      case SearchType.projectName:
+        this.projectService.searchProjectByName(this.filter)
+          .subscribe(x => this.sharedService.setFoundProjects(x));
+        break;
+
+      case SearchType.projectTechnology:
+        this.projectService.searchProjectByName(this.filter)
+          .subscribe(x => this.sharedService.setFoundProjects(x));
+        break;
     }
-    else {
-      this.projectService.searchProjectByName(this.filter)
-        .subscribe(x => this.sharedService.setFoundProjects(x));
-    }
+
+
+    // this.isEmp = !this.isEmp;
+
+    // if (this.isEmp) {
+    //   this.employeeService.searchEmployeeByTechnology(this.filter)
+    //     .subscribe(x => this.sharedService.setFoundEmployees(x));
+    // }
+    // else {
+    //   this.projectService.searchProjectByName(this.filter)
+    //     .subscribe(x => this.sharedService.setFoundProjects(x));
+    // }
 
   }
 
