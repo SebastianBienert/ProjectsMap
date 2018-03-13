@@ -121,7 +121,9 @@ namespace ProjectsMap.WebApi.Mappers
             return new BuildingDto()
             {
                 Id = building.BuildingId,
-                Address = building.Address
+                Address = building.Address,
+				FloorsIds = building.Floors.Select(f => f.FloorId).ToList(),
+				CompanyId = building.CompanyId
             };
         }
 
@@ -204,7 +206,8 @@ namespace ProjectsMap.WebApi.Mappers
 				Description = floor.Description,
 				BuildingId = floor.BuildingId,
 				Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
-				Rooms = GetRoomsDtoList(floor.Rooms.ToList())
+				Rooms = GetRoomsDtoList(floor.Rooms.ToList()),
+				FloorNumber = floor.FloorNumber
 			};
 			return result;
 		}
@@ -215,6 +218,7 @@ namespace ProjectsMap.WebApi.Mappers
 				Id = floor.FloorId,
 				Description = floor.Description,
 				BuildingId = floor.BuildingId,
+				FloorNumber = floor.FloorNumber
 			};
 			return result;
 		}

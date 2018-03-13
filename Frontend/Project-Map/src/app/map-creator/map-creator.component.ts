@@ -210,7 +210,7 @@ export class MapCreatorComponent implements OnInit {
     Y = y2;
     var EndVertex = { X, Y } as Vertex;
 
-    var line: Wall = { StartVertex, EndVertex } as Wall;
+    var line: Wall = { StartVertex , EndVertex } as Wall;
     return line;
   }
 }

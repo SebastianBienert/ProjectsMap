@@ -11,5 +11,9 @@ namespace ProjectsMap.WebApi.DTOs
 
         public string Address { get; set; }
 
-    }
+		public IEnumerable<int> FloorsIds { get; set; }
+
+		public int? CompanyId { get; set; }
+
+	}
 }

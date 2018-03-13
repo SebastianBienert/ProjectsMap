@@ -10,9 +10,10 @@ import { Injectable } from '@angular/core';
 export class FloorServiceService {
 
   floorUrl = 'http://localhost:58923/api/floor';  // For localhosted webapi
+  companyUrl = 'http://localhost:58923/api/company/1';
   //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
   private handleError: HandleError;
-
+  buildingUrl = 'http://localhost:58923/api/buildings';
   postFloorUrl = 'http://localhost:58923/api/floor';// !!! ???
   floorsListUrl = 'http://localhost:58923/api/floor/list';
 
@@ -44,11 +45,17 @@ export class FloorServiceService {
     })
   }
 
-  getFloorList (): Observable<string[]> {
-    return this.http.get<string[]>(this.floorUrl)
+  getBuildingFloorsList (buildingId : number): Observable<string[]> {
+    return this.http.get<string[]>(this.buildingUrl +"/" +buildingId + "/floors")
       .pipe(
-        catchError(this.handleError('getFloor', []))
+        catchError(this.handleError('getBuildingFloorsList', []))
       );
   }
 
+  getBuildingsList (): Observable<string[]> {
+    return this.http.get<string[]>(this.companyUrl +"/buildings")
+      .pipe(
+        catchError(this.handleError('getBuildingsList', []))
+      );
+    }
 }

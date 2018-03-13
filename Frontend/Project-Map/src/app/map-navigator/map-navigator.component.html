@@ -1,8 +1,15 @@
-<ul class="nav navbar-nav">
+<!-- <ul class="nav navbar-nav">
   <li *ngFor="let floor of currentBuildingFloorsList" (click)="changeFloor(floor.Id)">
     Floor id: {{floor.Id}}  Building id: {{floor.BuildingId}}
   </li>
-</ul>
+</ul> -->
+<div style="color: white">
+  <a class="building-button" *ngFor="let building of buildingsList" (click)="changeBuilding(building.Id)">{{building.Address}}</a>
+</div>
+<div style="color: white">
+  <a class="floor-button" *ngFor="let floor of currentBuildingFloorsList" (click)="changeFloor(floor.Id)">{{floor.Description}}</a>
+</div>
+<!-- <button (click)="debug()">print building</button> -->
 <app-displayed-map
   [floorToDisplay]= "selectedFloor">
 </app-displayed-map>

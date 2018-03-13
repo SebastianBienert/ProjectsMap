@@ -8,28 +8,49 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map-navigator.component.css']
 })
 export class MapNavigatorComponent implements OnInit {
-  createFloorButtons(){
-    throw new Error("Method not implemented.");
-  }
+  
   buildingsList = Array();
   currentBuildingFloorsList = Array();
-  selectedFloor : number = 1;
+  selectedFloor : number = 1;//change to read id of first floor in floors list and secure from null
+  selectedBuilding : number = 1;//change to read id of first building in buildings list and secure from null
   constructor(private floorService: FloorServiceService) { }
 
   ngOnInit() {
-    this.getFloorList();
+    this.getBuildingsList();
+    this.getFloorsList(1);
   }
 
 changeFloor(Id: number)
 {
   this.selectedFloor=Id;
-  this.getFloorList();
+  //this.getFloorsList(Id);///get outta hija
 }
-getFloorList(): void {
-  this.floorService.getFloorList()
+
+changeBuilding(Id: number)
+{
+  this.selectedBuilding = Id;
+  this.getFloorsList(Id);
+  //console.log(this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0]);
+  this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0];
+}
+debug()
+{
+  console.log(this.buildingsList[1]);
+}
+
+getFloorsList(BuildingId : number): void {
+  this.floorService.getBuildingFloorsList(BuildingId)//'1' for test purpose only !!!
     .subscribe(
-      FloorList => {
-        this.currentBuildingFloorsList = FloorList;
+      FloorsList => {
+        this.currentBuildingFloorsList = FloorsList;
+      });
+}
+
+getBuildingsList(): void {
+  this.floorService.getBuildingsList()
+    .subscribe(
+      BuildingsList => {
+        this.buildingsList = BuildingsList;
       });
 }
 

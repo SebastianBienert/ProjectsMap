@@ -15,5 +15,6 @@ namespace ProjectsMap.WebApi.Services.Abstract
 		int Post(FloorDto floorDto);
 		void Update(FloorDto floorDto);
 		IEnumerable<FloorDto> GetFloorsList();
+		IEnumerable<FloorDto> GetFloorsList(int buildingId);
 	}
 }

@@ -13,7 +13,9 @@ namespace ProjectsMap.WebApi.Models
 
         public string Description { get; set; }
 
-        public virtual Building Building { get; set; }
+		public int FloorNumber { get; set; }
+
+		public virtual Building Building { get; set; }
 
         public int BuildingId { get; set; }
 

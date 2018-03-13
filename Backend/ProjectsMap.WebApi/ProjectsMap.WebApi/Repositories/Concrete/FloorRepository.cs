@@ -12,20 +12,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 	public class FloorRepository : IFloorRepository
 
 	{
-		/*public IEnumerable<Room> Rooms
-        {
-            get
-            {
-                using (var dbContext = new EfDbContext())
-                {
-                    return dbContext.Rooms
-                        .Include(r => r.Projects)
-                        .Include(r => r.Walls.Select(w => w.StartVertex))
-                        .Include((r => r.Walls.Select(w => w.EndVertex)))
-                        .Include(r => r.Seats.Select(s => s.Vertex)).ToList();
-                }
-            }
-        }*/
 		public IEnumerable<Floor> Floors
 	{
 		get
@@ -167,7 +153,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 			}
 		}
 
-		public void Update(Floor floor)
+		public void Update(FloorDto floorDto)
 		{
 			throw new NotImplementedException();
 		}

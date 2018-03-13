@@ -18,7 +18,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
 		void Delete(int floorId);
 
-		void Update(Floor floor);
+		void Update(FloorDto floorDto);
 
 	}
 }
