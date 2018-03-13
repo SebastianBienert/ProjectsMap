@@ -17,14 +17,14 @@ namespace ProjectsMap.WebApi.DTOs.POST
 
         public int? CompanyId { get; set; }
 
-        public IEnumerable<DeveloperRole> DevelopersRoles { get; set; }
+        public IEnumerable<EmployeeRole> EmployeesRoles { get; set; }
 
         public IEnumerable<int> TechnologiesIDs { get; set; }
     }
 
-    public class DeveloperRole
+    public class EmployeeRole
     {
-        public int DeveloperId { get; set; }
+        public int EmployeeId { get; set; }
 
         public int CompanyId { get; set; }
 

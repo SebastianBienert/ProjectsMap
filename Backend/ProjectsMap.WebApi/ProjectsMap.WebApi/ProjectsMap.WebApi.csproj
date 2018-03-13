@@ -130,8 +130,9 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
-    <Compile Include="Controllers\DeveloperController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -154,29 +155,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappers\DTOMapper.cs" />
-    <Compile Include="Migrations\201803081958289_initial.cs" />
-    <Compile Include="Migrations\201803081958289_initial.Designer.cs">
-      <DependentUpon>201803081958289_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803082046309_removedProjectRoomRelation.cs" />
-    <Compile Include="Migrations\201803082046309_removedProjectRoomRelation.Designer.cs">
-      <DependentUpon>201803082046309_removedProjectRoomRelation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803082242581_addedManager.cs" />
-    <Compile Include="Migrations\201803082242581_addedManager.Designer.cs">
-      <DependentUpon>201803082242581_addedManager.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803091807533_addedIndexOnTechnology.cs" />
-    <Compile Include="Migrations\201803091807533_addedIndexOnTechnology.Designer.cs">
-      <DependentUpon>201803091807533_addedIndexOnTechnology.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803091836036_renameDevToEmployee.cs" />
-    <Compile Include="Migrations\201803091836036_renameDevToEmployee.Designer.cs">
-      <DependentUpon>201803091836036_renameDevToEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803131637380_added-floorNumber.cs" />
-    <Compile Include="Migrations\201803131637380_added-floorNumber.Designer.cs">
-      <DependentUpon>201803131637380_added-floorNumber.cs</DependentUpon>
+    <Compile Include="Migrations\201803132250193_Initial.cs" />
+    <Compile Include="Migrations\201803132250193_Initial.Designer.cs">
+      <DependentUpon>201803132250193_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Building.cs" />
@@ -242,23 +223,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803081958289_initial.resx">
-      <DependentUpon>201803081958289_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803082046309_removedProjectRoomRelation.resx">
-      <DependentUpon>201803082046309_removedProjectRoomRelation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803082242581_addedManager.resx">
-      <DependentUpon>201803082242581_addedManager.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803091807533_addedIndexOnTechnology.resx">
-      <DependentUpon>201803091807533_addedIndexOnTechnology.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803091836036_renameDevToEmployee.resx">
-      <DependentUpon>201803091836036_renameDevToEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803131637380_added-floorNumber.resx">
-      <DependentUpon>201803131637380_added-floorNumber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803132250193_Initial.resx">
+      <DependentUpon>201803132250193_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

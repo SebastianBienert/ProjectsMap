@@ -811,7 +811,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					Surname = "Bukowski",
 					Email = "wiktor@gmail.com",
 					JobTitle = "Spawacz",
-					DeveloperId = 1,
+                    EmployeeId = 1,
 					Technologies = new List<Technology>()
 					{
 					   technologies[0],technologies[3]
@@ -829,7 +829,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Michal",
 					Surname = "Radziwilko",
-					DeveloperId = 2,
+                    EmployeeId = 2,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -847,7 +847,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Jan",
 					Surname = "Kowalski",
-					DeveloperId = 3,
+                    EmployeeId = 3,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -865,7 +865,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Tadeusz",
 					Surname = "Nowak",
-					DeveloperId = 4,
+                    EmployeeId = 4,
 					Technologies = new List<Technology>()
 					{
 						technologies[0],technologies[4]
@@ -883,7 +883,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Kacper",
 					Surname = "Nowak",
-				   DeveloperId = 5,
+                   EmployeeId = 5,
 					Technologies = new List<Technology>()
 					{
 						technologies[2]
@@ -901,7 +901,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Joanna",
 					Surname = "Wojciechowska",
-					DeveloperId = 6,
+                    EmployeeId = 6,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -919,7 +919,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Katarzyna",
 					Surname = "Zajac",
-					DeveloperId = 7,
+                    EmployeeId = 7,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -937,7 +937,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Dawid",
 					Surname = "Olszewski",
-				   DeveloperId = 8,
+                   EmployeeId = 8,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -955,7 +955,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Michał",
 					Surname = "Wieczorek",
-					DeveloperId = 9,
+                    EmployeeId = 9,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1], technologies[4]
@@ -973,7 +973,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Daniel",
 					Surname = "Malinowski",
-					DeveloperId = 10,
+                    EmployeeId = 10,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -991,7 +991,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Dawid",
 					Surname = "Adamczyk",
-				   DeveloperId = 11,
+                   EmployeeId = 11,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1009,7 +1009,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Grzegorz",
 					Surname = "Piotrowski",
-				   DeveloperId = 12,
+                   EmployeeId = 12,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[4]
@@ -1027,7 +1027,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Adrian",
 					Surname = "Kowalski",
-				   DeveloperId = 13,
+                   EmployeeId = 13,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1], technologies[0],technologies[3]
@@ -1045,7 +1045,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Anna",
 					Surname = "Rutokowska",
-					DeveloperId = 14,
+                    EmployeeId = 14,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1063,7 +1063,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Tomasz",
 					Surname = "Grabowski",
-					DeveloperId = 15,
+                    EmployeeId = 15,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1081,7 +1081,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Natalia",
 					Surname = "Kozłowska",
-				   DeveloperId = 16,
+                   EmployeeId = 16,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[1],technologies[0]
@@ -1099,7 +1099,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Szymon",
 					Surname = "Zalewski",
-				   DeveloperId = 17,
+                   EmployeeId = 17,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[1]
@@ -1117,7 +1117,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Ewa",
 					Surname = "Witkowska",
-					DeveloperId = 18,
+                    EmployeeId = 18,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -1135,9 +1135,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 			foreach (var dev in developers)
 			{
-				dev.ProjectRoles.ToList()[0].DeveloperId = dev.DeveloperId;
+                dev.ProjectRoles.ToList()[0].EmployeeId = dev.EmployeeId;
 				dev.ProjectRoles.ToList()[0].Employee = dev;
-				if (dev.DeveloperId != 1)
+                if (dev.EmployeeId != 1)
 				{
 					dev.ManagerId = 1;
 					dev.Manager = developers[0];
@@ -1399,7 +1399,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			};
 
 
-			// projects[0].Developers = developers;
+             // projects[0].Employees = developers;
 			projects[0].Technologies = new List<Technology>()
 			{
 				developers.ToList()[0].Technologies.ToList()[0],
@@ -1998,6 +1998,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 								},
 								}
 							},
+                
 
 						}
 					},
@@ -2159,7 +2160,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						}
 					}
 				},
-				Developers = developers,
+				Employees = developers,
 				Projects = projects,
 				Name = "Nokia"
 

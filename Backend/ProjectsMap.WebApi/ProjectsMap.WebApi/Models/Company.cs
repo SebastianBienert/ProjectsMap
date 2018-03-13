@@ -15,7 +15,7 @@ namespace ProjectsMap.WebApi.Models
 
         public virtual ICollection<Building> Buildings { get; set; }
 
-        public virtual ICollection<Employee> Developers { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
         public virtual ICollection<Project> Projects { get; set; }
     }

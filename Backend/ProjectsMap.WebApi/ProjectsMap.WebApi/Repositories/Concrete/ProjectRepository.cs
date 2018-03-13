@@ -36,11 +36,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 var technologies = dbContext.Technologies.Where(x => technologiesIds.Contains(x.TechnologyId)).ToList();
 
                 var roles = new List<ProjectRole>();
-                foreach (var devRole in projectDto.DevelopersRoles)
+                foreach (var devRole in projectDto.EmployeesRoles)
                 {
                     roles.Add(new ProjectRole()
                     {
-                        Employee = dbContext.Developers.FirstOrDefault(d => d.DeveloperId == devRole.DeveloperId &&
+                        Employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeId == devRole.EmployeeId &&
                                                                              d.CompanyId == devRole.CompanyId)
                     });
                 }
