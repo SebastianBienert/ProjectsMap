@@ -20,6 +20,10 @@ export class ListingComponent implements OnInit {
 
   }
 
+  onScroll() {
+    console.log('scrolled!!')
+  }
+
   ngOnInit() {
     this.sharedService.employees.subscribe(x => {
       this.employees = x;

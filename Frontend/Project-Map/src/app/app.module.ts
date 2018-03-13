@@ -18,6 +18,7 @@ import { PersonCardComponent } from './person-card/person-card.component';
 import { EmployeeService } from './services/employee.service';
 import { SearchComponent } from './search/search.component';
 import { ProjectCardComponent } from './project-card/project-card.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ProjectCardComponent } from './project-card/project-card.component';
     HttpClientModule,
     BrowserModule,
     MDBBootstrapModule.forRoot(),
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule
   ],
   providers: [
     HttpErrorHandler,
