@@ -17,16 +17,19 @@ export class ListingComponent implements OnInit {
   private handleError: HandleError;
 
   constructor(private employeeService: EmployeeService, private sharedService: SharedService) {
-
+    this.employees = [];
   }
 
   onScroll() {
     console.log('scrolled!!')
+    this.sharedService.loadChunkOfData();
   }
 
   ngOnInit() {
     this.sharedService.employees.subscribe(x => {
-      this.employees = x;
+      x.forEach(element => {
+        this.employees.push(element); //concat doesnt work
+      });
       this.projects = []
     });
     this.sharedService.projects.subscribe(x => {

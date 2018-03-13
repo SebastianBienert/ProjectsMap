@@ -36,14 +36,14 @@ export class SearchComponent implements OnInit {
 
     switch (this.selectedSearchType) {
 
-      case SearchType.employeeName:
-        this.employeeService.searchEmployeeByTechnology(this.filter)
-          .subscribe(x => this.sharedService.setFoundEmployees(x));
-        break;
+      // case SearchType.employeeName:
+      //   this.employeeService.searchEmployeeByTechnology(this.filter)
+      //     .subscribe(x => this.sharedService.setFoundEmployees(x));
+      //   break;
 
       case SearchType.employeeTechnology:
-        this.employeeService.searchEmployeeByTechnology(this.filter)
-          .subscribe(x => this.sharedService.setFoundEmployees(x));
+        this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
+        this.sharedService.loadChunkOfData();
         break;
 
       case SearchType.projectName:

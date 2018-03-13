@@ -117,7 +117,7 @@ namespace ProjectsMap.WebApi.Controllers
                 return dto;
             }).ToList();
 
-
+            return Ok(result);
                 return Ok(new
                 {
                     TotalEmployees = totalCount,
