@@ -34,6 +34,19 @@ export class EmployeeService {
   
   searchedEmployees : Observable<Employee[]> = new Observable<Employee[]>();
   
+ public addEmployee(employee : Employee)
+  {
+    this.http.post(this.employeeUrl, employee).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
+  }
+
+
 
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {

@@ -1,0 +1,83 @@
+<div class="text-center">
+<button class="btn btn-primary waves-light w-50" type="button" (click)="addEmployee.toggle()" mdbRippleRadius>
+	Add new employee
+</button>
+</div>
+<div class="" [mdbCollapse]="isCollapsed" #addEmployee="bs-collapse">
+	<form [formGroup]="formAddEmployee" (ngSubmit)="onSubmit(formAddEmployee)">
+		<div class="md-form">
+			<i class="fa fa-hashtag prefix blue-text"></i>
+			<input type="text" class="form-control" id="DeveloperId" formControlName="DeveloperId" mdbActive>
+			<span *ngIf="formErrors.DeveloperId" class="alert alert-danger">{{ formErrors.DeveloperId }}</span>
+			<label for="DeveloperId">Developer ID</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-user prefix blue-text"></i>
+			<input type="text" class="form-control" id="FirstName" formControlName="FirstName" mdbActive>
+			<span *ngIf="formErrors.FirstName" class="alert alert-danger">{{ formErrors.FirstName }}</span>
+			<label for="FirstName">First Name</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-user-o prefix blue-text"></i>
+			<input type="text" class="form-control" id="Surname" formControlName="Surname" mdbActive>
+			<span *ngIf="formErrors.Surname" class="alert alert-danger">{{ formErrors.Surname }}</span>
+			<label for="Surname">Surname</label>
+		</div>
+
+		<div class="md-form">
+				<i class="fa fa-hashtag prefix blue-text"></i>
+				<input type="text" class="form-control" id="ManagerId" formControlName="ManagerId" mdbActive>
+				<span *ngIf="formErrors.ManagerId" class="alert alert-danger">{{ formErrors.ManagerId }}</span>
+				<label for="ManagerId">Manager ID</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-envelope prefix blue-text"></i>
+			<input type="text" class="form-control" id="Email" formControlName="Email" mdbActive>
+			<span *ngIf="formErrors.Email" class="alert alert-danger">{{ formErrors.Email }}</span>
+			<label for="Email">E-mail</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-question-circle prefix blue-text"></i>
+			<input type="text" class="form-control" id="WantToHelp" formControlName="WantToHelp" mdbActive>
+			<span *ngIf="formErrors.WantToHelp" class="alert alert-danger">{{ formErrors.WantToHelp }}</span>
+			<label for="WantToHelp">Wants to help</label>
+			<small id="passwordHelpInlineMD" class="text-muted">
+				If yes - write 1, othervise write 0
+			</small>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-id-badge prefix blue-text"></i>
+			<input type="text" class="form-control" id="JobTitle" formControlName="JobTitle" mdbActive>
+			<span *ngIf="formErrors.JobTitle" class="alert alert-danger">{{ formErrors.JobTitle }}</span>
+			<label for="JobTitle">Job Title</label>
+		</div>
+
+		<div formArrayName="Technologies" class="well well-lg">
+				<div *ngFor="let technologyForm of Technologies.controls; let i=index" [formGroupName]="i" >
+				  <!-- The repeated address template -->
+				  <h4>Technology #{{i + 1}}</h4>
+
+					<div class="md-form">
+						<i class="fa fa-id-badge prefix blue-text"></i>
+						<!-- <input type="text" class="form-control" id="Technology" formControlName="Name" mdbActive> -->
+						<select class="form-control" formControlName="Name" mdbActive>
+							<option *ngFor="let technology of allTechnologies" [value]="technology.Name">{{technology.Name}}</option>
+						 </select>
+						<label for="Technology">Technology</label>
+					</div>
+				  <button class="btn btn-red waves-light" (click)="removeTechnology(i)" type="button">Remove</button>
+				  <br>
+				  <!-- End of the repeated address template -->
+				</div>
+			<button class="btn btn-blue waves-light" (click)="addTechnology()" type="button">Add Technology</button>
+		</div>
+		<div class="text-center">
+		    <button [disabled]="!formAddEmployee.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>
+		</div>
+	</form>
+</div>

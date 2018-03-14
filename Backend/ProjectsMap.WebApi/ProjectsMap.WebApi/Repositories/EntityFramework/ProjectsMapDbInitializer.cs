@@ -2140,6 +2140,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                         }
                     }
                 },
+                Name = "PolProgramex",
                 Employees = developers,
                 Projects = projects
                 

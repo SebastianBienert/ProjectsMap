@@ -47,13 +47,18 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     CompanyId = dto.CompanyId,
                     EmployeeId = dto.Id,
+<<<<<<< HEAD
+                    Technologies = dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
+                    Seat = dto.Seat == null ? null :  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
+=======
                     ManagerId = dto.ManagerId,
                     ManagerCompanyId = dto.ManagerCompanyId,
                     JobTitle = dto.JobTitle,
                     Company = dbContext.Companies.FirstOrDefault(c => c.CompanyId == dto.CompanyId),
                     Email = dto.Email,
                     Technologies = dto.Technologies == null ? null : dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
-                    Seat = dto.Seat == null ? null:  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
+                    Seat = dto.Seat == null ? null : new List<Seat>() { dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)}
+>>>>>>> dev/forms
                 };
 
                     var user = new User

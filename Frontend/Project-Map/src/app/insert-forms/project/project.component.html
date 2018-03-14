@@ -1,0 +1,54 @@
+<div class="text-center">
+<button class="btn btn-primary waves-light w-50" type="button" (click)="addProject.toggle()" mdbRippleRadius>
+	Add new project
+</button>
+</div>
+<div class="" [mdbCollapse]="isCollapsed" #addProject="bs-collapse">
+	<form [formGroup]="formAddProject" (ngSubmit)="onSubmit(formAddProject)">
+		<div class="md-form">
+			<i class="fa fa-info-circle prefix blue-text"></i>
+			<input type="text" class="form-control" id="Description" formControlName="Description" mdbActive>
+			<span *ngIf="formErrors.Description" class="alert alert-danger">{{ formErrors.Description }}</span>
+			<label for="Description">Description</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-external-link prefix blue-text"></i>
+			<input type="text" class="form-control" id="RepositoryLink" formControlName="RepositoryLink" mdbActive>
+			<span *ngIf="formErrors.RepositoryLink" class="alert alert-danger">{{ formErrors.RepositoryLink }}</span>
+			<label for="RepositoryLink">Repository Link</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-external-link prefix blue-text"></i>
+			<input type="text" class="form-control" id="DocumentationLink" formControlName="DocumentationLink" mdbActive>
+			<span *ngIf="formErrors.DocumentationLink" class="alert alert-danger">{{ formErrors.DocumentationLink }}</span>
+			<label for="DocumentationLink">Documentation Link</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-user-circle prefix blue-text"></i>
+			<input type="text" class="form-control" id="ProductOwner" formControlName="ProductOwner" mdbActive>
+			<span *ngIf="formErrors.ProductOwner" class="alert alert-danger">{{ formErrors.ProductOwner }}</span>
+			<label for="ProductOwner">Product Owner</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-building-o prefix blue-text"></i>
+			<input type="text" class="form-control" id="Company" formControlName="Company" mdbActive>
+			<span *ngIf="formErrors.Company" class="alert alert-danger">{{ formErrors.Company }}</span>
+			<label for="Company">Company</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-hashtag prefix blue-text"></i>
+			<input type="text" class="form-control" id="CompanyId" formControlName="CompanyId" mdbActive>
+			<span *ngIf="formErrors.CompanyId" class="alert alert-danger">{{ formErrors.CompanyId }}</span>
+			<label for="CompanyId">Company ID</label>
+		</div>
+	
+		<div class="text-center">
+		    <button [disabled]="!formAddProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>
+		</div>
+	</form>
+</div>
