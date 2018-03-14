@@ -55,6 +55,24 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
+        public IEnumerable<EmployeeDto> GetEmployeesByName(string name)
+        {
+            name = name.ToLower();
+            var list = _repository.Employees
+                .Where(x => x.Surname.ToLower().Contains(name) || x.FirstName.ToLower().Contains(name))
+                .ToList();
+
+            if (list.Count() > 0)
+            {
+                var dtoS = list.Select(dev => DTOMapper.GetEmployeeDto(dev)).ToList();
+                return dtoS;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public int Post(EmployeeDto employee)
         {
            return  _repository.Add(employee);

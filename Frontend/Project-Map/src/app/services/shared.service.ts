@@ -12,6 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Project } from '../common-interfaces/project';
 import { EmployeeService } from './employee.service';
+import { ProjectService } from './project.service';
 
 
 const httpOptions = {
@@ -25,39 +26,64 @@ const httpOptions = {
 export class SharedService {
     private handleError: HandleError;
 
-    constructor(private employeeService: EmployeeService) {
-        
+    constructor(private employeeService: EmployeeService, private projectService: ProjectService) {
+
     }
 
-    private searchType : SearchType;
-    private filter : string;
+    private emps: Employee[] = [];
+    private projs: Project[] = [];
 
     private employeesSubject = new Subject<Employee[]>();
     private projectsSubject = new Subject<Project[]>();
-    private page : number = 0;
+    private page: number = 0;
 
-    employees = this.employeesSubject.asObservable();
-    projects = this.projectsSubject.asObservable();
+    employeesObservable = this.employeesSubject.asObservable();
+    projectsObservable = this.projectsSubject.asObservable();
+    searchType: SearchType;
+    filter: string;
 
-    setFoundEmployees(val : Employee[]) {
+    private setFoundEmployees(val: Employee[]) {
+        val.forEach(element => {
+           this.emps.push(element); 
+        });
         this.employeesSubject.next(val);
     }
 
-    setFoundProjects(val : Project[]) {
+    private setFoundProjects(val: Project[]) {
+        val.forEach(element => {
+            this.projs.push(element); 
+         });
         this.projectsSubject.next(val);
     }
 
-    setSearchParameters(filter: string, searchType : SearchType){
-        console.log("abubakar");
+    setSearchParameters(filter: string, searchType: SearchType) {
+        this.emps = [];
+        this.projs = [];
         this.page = 0;
         this.searchType = searchType;
         this.filter = filter;
     }
 
-    loadChunkOfData(){
-        this.employeeService.searchEmployeeByTechnology(this.filter, this.page)
-          .subscribe(x => this.setFoundEmployees(x));
+    loadChunkOfData() {
+        switch (this.searchType) {
+
+            case SearchType.employeeName:
+                this.employeeService.searchEmployeeByName(this.filter, this.page)
+                    .subscribe(x => this.setFoundEmployees(x));
+                break;
+
+            case SearchType.employeeTechnology:
+                this.employeeService.searchEmployeeByTechnology(this.filter, this.page)
+                    .subscribe(x => this.setFoundEmployees(x));
+                break;
+
+            case SearchType.projectName:
+                this.projectService.searchProjectByName(this.filter)
+                    .subscribe(x => this.setFoundProjects(x));
+                break;
+
+        }
+
         this.page++;
-        console.log("moze tu");
     }
 }

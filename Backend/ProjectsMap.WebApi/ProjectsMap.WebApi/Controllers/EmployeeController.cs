@@ -23,9 +23,7 @@ namespace ProjectsMap.WebApi.Controllers
         {
             _service = service;
         }
-
-
-
+        
         [HttpGet]
         [Route("pagination")]
         public IHttpActionResult GetAllPaingate(int page = 0, int pageSize = 10)
@@ -126,6 +124,51 @@ namespace ProjectsMap.WebApi.Controllers
                     NextPage = nextPage,
                     Result = result
                 });
+        }
+
+        [HttpGet]
+        [Route("{name}")]
+        public IHttpActionResult GetEmployeeByName(string name)
+        {
+            var allEmployees = _service.GetEmployeesByName(name);
+
+            if (allEmployees != null)
+                return Ok(allEmployees);
+
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Route("pagination/{name}", Name = "GetEmployeesByName")]
+        public IHttpActionResult GetEmployeeByName(string name, int page = 0, int pageSize = 10)
+        {
+            var allEmployees = _service.GetEmployeesByName(name);
+
+            if (allEmployees == null)
+                return NotFound();
+
+            var dtos = allEmployees.ToList();
+            var totalCount = dtos.ToList().Count;
+            var pageCount = Math.Ceiling((double)totalCount / pageSize);
+            var prevPage = page > 0 ? Url.Link("GetEmployeesByTechnology", new { name = name, page = page - 1, pageSize = pageSize }) : "";
+            var nextPage = page < pageCount - 1 ? Url.Link("GetEmployeesByTechnology", new { name = name, page = page + 1, pageSize = pageSize }) : "";
+
+            var filtered = dtos.Skip(page * pageSize).Take(pageSize);
+            var result = filtered.Select(dto =>
+            {
+                dto.Url = Url.Link("GetEmployeeById", new { id = dto.Id });
+                return dto;
+            }).ToList();
+
+            return Ok(result);
+            return Ok(new
+            {
+                TotalEmployees = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
         }
 
 

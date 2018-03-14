@@ -28,47 +28,13 @@ export class SearchComponent implements OnInit {
     this.searchTypeText = searchTypeText;
 
     this.selectedSearchType = selected;
-    console.log(this.selectedSearchType);
   }
 
 
   search(): void {
 
-    switch (this.selectedSearchType) {
-
-      // case SearchType.employeeName:
-      //   this.employeeService.searchEmployeeByTechnology(this.filter)
-      //     .subscribe(x => this.sharedService.setFoundEmployees(x));
-      //   break;
-
-      case SearchType.employeeTechnology:
-        this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
-        this.sharedService.loadChunkOfData();
-        break;
-
-      case SearchType.projectName:
-        this.projectService.searchProjectByName(this.filter)
-          .subscribe(x => this.sharedService.setFoundProjects(x));
-        break;
-
-      case SearchType.projectTechnology:
-        this.projectService.searchProjectByName(this.filter)
-          .subscribe(x => this.sharedService.setFoundProjects(x));
-        break;
-    }
-
-
-    // this.isEmp = !this.isEmp;
-
-    // if (this.isEmp) {
-    //   this.employeeService.searchEmployeeByTechnology(this.filter)
-    //     .subscribe(x => this.sharedService.setFoundEmployees(x));
-    // }
-    // else {
-    //   this.projectService.searchProjectByName(this.filter)
-    //     .subscribe(x => this.sharedService.setFoundProjects(x));
-    // }
-
+    this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
+    this.sharedService.loadChunkOfData();
   }
 
   ngOnInit() {

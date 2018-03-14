@@ -16,6 +16,8 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology);
 
+        IEnumerable<EmployeeDto> GetEmployeesByName(string name);
+
         int Post(EmployeeDto employee);
 
         void Delete(Employee employee);

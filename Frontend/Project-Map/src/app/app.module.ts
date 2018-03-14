@@ -19,6 +19,7 @@ import { EmployeeService } from './services/employee.service';
 import { SearchComponent } from './search/search.component';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProjectService } from './services/project.service';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MessageService,
     RoomService,
     EmployeeService,
+    ProjectService,
     SharedService],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

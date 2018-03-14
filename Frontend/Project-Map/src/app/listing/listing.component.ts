@@ -18,25 +18,23 @@ export class ListingComponent implements OnInit {
 
   constructor(private employeeService: EmployeeService, private sharedService: SharedService) {
     this.employees = [];
+    this.projects = [];
   }
 
   onScroll() {
-    console.log('scrolled!!')
     this.sharedService.loadChunkOfData();
   }
 
   ngOnInit() {
-    this.sharedService.employees.subscribe(x => {
-      x.forEach(element => {
-        this.employees.push(element); //concat doesnt work
-      });
-      this.projects = []
+
+    this.sharedService.employeesObservable.subscribe(x => {
+      this.employees = x;
+      this.projects = [];
     });
-    this.sharedService.projects.subscribe(x => {
+    this.sharedService.projectsObservable.subscribe(x => {
       this.projects = x;
       this.employees = []
     });
-    // this.sharedService.projects.subscribe(x => console.log(x));
   }
 
 

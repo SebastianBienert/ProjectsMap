@@ -57,4 +57,19 @@ export class EmployeeService {
       );
 
   }
+
+  searchEmployeeByName(name: string, page: number): Observable<Employee[]> {
+    let params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        pageSize: "7"
+      }
+    });
+
+    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/pagination/" + name, { params })
+      .pipe(
+        catchError(this.handleError('getEmployees', []))
+      );
+
+  }
 }
