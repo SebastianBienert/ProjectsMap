@@ -130,7 +130,6 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
@@ -156,6 +155,10 @@
     <Compile Include="Migrations\201803112224537_initial.Designer.cs">
       <DependentUpon>201803112224537_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803141448462_removedVertex.cs" />
+    <Compile Include="Migrations\201803141448462_removedVertex.Designer.cs">
+      <DependentUpon>201803141448462_removedVertex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Building.cs" />
     <Compile Include="Models\Company.cs" />
@@ -168,7 +171,6 @@
     <Compile Include="Models\Seat.cs" />
     <Compile Include="Models\Technology.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\Vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Abstract\ICompanyRepository.cs" />
     <Compile Include="Repositories\Abstract\IEmployeeRepository.cs" />
@@ -177,16 +179,15 @@
     <Compile Include="Repositories\Abstract\ISeatRepository.cs" />
     <Compile Include="Repositories\Abstract\ITechnologyRepository.cs" />
     <Compile Include="Repositories\Abstract\IUserRepository.cs" />
-    <Compile Include="Repositories\Abstract\IVertexRepository.cs" />
     <Compile Include="Repositories\Concrete\CompanyRepository.cs" />
     <Compile Include="Repositories\Concrete\EmployeeRepository.cs" />
     <Compile Include="Repositories\Concrete\RoomRepository.cs" />
     <Compile Include="Repositories\Concrete\ProjectRepository.cs" />
     <Compile Include="Repositories\Concrete\SeatRepository.cs" />
     <Compile Include="Repositories\Concrete\TechnologyRepository.cs" />
-    <Compile Include="Repositories\Concrete\VertexRepository.cs" />
     <Compile Include="Repositories\EntityFramework\EfDbContext.cs" />
     <Compile Include="Repositories\EntityFramework\ProjectsMapDbInitializer.cs" />
+    <Compile Include="Repositories\EntityFramework\Vertex.cs" />
     <Compile Include="Services\Abstract\ICompanyService.cs" />
     <Compile Include="Services\Abstract\IEmployeeService.cs" />
     <Compile Include="Services\Abstract\IRoomService.cs" />
@@ -214,6 +215,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803112224537_initial.resx">
       <DependentUpon>201803112224537_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803141448462_removedVertex.resx">
+      <DependentUpon>201803141448462_removedVertex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

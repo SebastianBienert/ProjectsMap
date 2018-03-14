@@ -11,13 +11,11 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int WallId { get; set; }
 
-        public int? StartVertexX { get; set; }
-        public int? StartVertexY { get; set; }
-        public virtual Vertex StartVertex { get; set; }
+        public int StartVertexX { get; set; }
+        public int StartVertexY { get; set; }
 
-        public int? EndVertexX { get; set; }
-        public int? EndVertexY { get; set; }
-        public virtual Vertex EndVertex { get; set; }
+        public int EndVertexX { get; set; }
+        public int EndVertexY { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; }
 

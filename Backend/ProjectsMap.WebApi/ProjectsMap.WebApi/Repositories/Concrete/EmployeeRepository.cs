@@ -21,7 +21,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     return dbContext.Employees
                         .Include(d => d.Technologies)
-                        .Include(d => d.Seat.Select(s => s.Vertex))
+                        .Include(d => d.Seat)
                         .Include(d => d.Company).ToList();
                 }
             }
@@ -33,7 +33,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             {
                 return dbContext.Employees.
                     Include(d => d.Technologies)
-                    .Include(d => d.Seat.Select(s => s.Vertex))
+                    .Include(d => d.Seat)
                     .Include(d => d.Company)
                     .FirstOrDefault(x => x.EmployeeId == id);
             }
@@ -48,7 +48,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     CompanyId = dto.CompanyId,
                     EmployeeId = dto.Id,
                     Technologies = dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
-                    Seat = dto.Seat == null ? null : new List<Seat>() { dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)}
+                    Seat = dto.Seat == null ? null :  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
                 };
 
                     var user = new User

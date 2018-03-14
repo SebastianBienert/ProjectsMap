@@ -27,16 +27,16 @@ namespace ProjectsMap.WebApi.Mappers
                 Technologies = employee.Technologies.Select(x => x.Name).ToList(),
             };
 
-            if (employee.Seat == null || employee.Seat.Count == 0)
+            if (employee.Seat == null)
                 dto.Seat = null;
             else
             {
                 var seatDto = new SeatDto()
                 {
-                    Id = employee.Seat.ToList()[0].SeatId,
+                    Id = employee.Seat.SeatId,
                     DeveloperId = employee.EmployeeId,
-                    Vertex = employee.Seat == null ? null : GetVertexDto(employee.Seat.ToList()[0].Vertex),
-                    RooomId = employee.Seat.ToList()[0].SeatId
+                    Vertex = employee.Seat == null ? null : GetVertexDto(employee.Seat.X, employee.Seat.Y),
+                    RooomId = employee.Seat.SeatId
                 };
                 dto.Seat = seatDto;
             }
@@ -45,12 +45,12 @@ namespace ProjectsMap.WebApi.Mappers
             return dto;
         }
 
-        public static VertexDto GetVertexDto(Vertex vertex)
+        public static VertexDto GetVertexDto(int x, int y)
         {
             var dto = new VertexDto()
             {
-                X = vertex.X,
-                Y = vertex.Y
+                X = x,
+                Y = y
             };
             return dto;
         }
@@ -73,8 +73,8 @@ namespace ProjectsMap.WebApi.Mappers
             var dto = new WallDto()
             {
                 Id = wall.WallId,
-                StartVertex = GetVertexDto(wall.StartVertex),
-                EndVertex = GetVertexDto(wall.EndVertex)
+                StartVertex = GetVertexDto(wall.StartVertexX, wall.StartVertexY),
+                EndVertex = GetVertexDto(wall.EndVertexX, wall.EndVertexY)
             };
             return dto;
         }
@@ -85,7 +85,7 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 Id = room.RoomId,
                 Walls = GetWallsDtoList(room.Walls.ToList()),
-                Seats = room.Seats.Select(s => GetVertexDto(s.Vertex)).ToList()
+                Seats = room.Seats.Select(s => GetVertexDto(s.X, s.Y)).ToList()
             };
             return dto;
         }
@@ -97,8 +97,9 @@ namespace ProjectsMap.WebApi.Mappers
             do
             {
                 list.Add(GetWallDto(current));
-                var end = current.EndVertex;
-                var next = walls.FirstOrDefault(w => w.StartVertex.X == end.X && w.StartVertex.Y == end.Y);
+                var endX = current.EndVertexX;
+                var endY = current.EndVertexY;
+                var next = walls.FirstOrDefault(w => w.StartVertexX == endX && w.StartVertexY == endY);
                 current = next;
             } while (list.Count < walls.Count);
 
@@ -112,7 +113,7 @@ namespace ProjectsMap.WebApi.Mappers
                 Id = seat.SeatId,
                 DeveloperId = seat.EmployeeId,
                 RooomId = seat.RoomId,
-                Vertex = GetVertexDto(seat.Vertex)
+                Vertex = GetVertexDto(seat.X, seat.Y)
             };
             return result;
         }
@@ -145,58 +146,6 @@ namespace ProjectsMap.WebApi.Mappers
             };
 
         }
-
-        public static List<VertexDto> GetSortedList(List<Vertex> vertices)
-        {
-          
-            var result = vertices.Select(v => GetVertexDto(v)).ToList();
-            result.Sort((pointA, pointB) =>
-            {
-                VertexDto center = new VertexDto()
-                {
-                    X = ((vertices.Max(v => v.X) - vertices.Min(v => v.X)) / 2) + vertices.Min(v => v.X),
-                    Y = (vertices.Max(v => v.Y) - vertices.Min(v => v.Y) / 2) + vertices.Min(v => v.Y)
-                };
-
-                if (pointA.X - center.X >= 0 && pointB.X - center.X < 0)
-                    return 1;
-                if (pointA.X - center.X < 0 && pointB.X - center.X >= 0)
-                    return -1;
-
-                if (pointA.X - center.X == 0 && pointB.X - center.X == 0)
-                {
-                    if (pointA.Y - center.Y >= 0 || pointB.Y - center.Y >= 0)
-                        if (pointA.Y > pointB.Y)
-                            return 1;
-                        else return -1;
-                    if (pointB.Y > pointA.Y)
-                        return 1;
-                    else return -1;
-                }
-
-                // compute the cross product of vectors (CenterPoint -> a) x (CenterPoint -> b)
-                double det = (pointA.X - center.X) * (pointB.Y - center.Y) -
-                             (pointB.X - center.X) * (pointA.Y - center.Y);
-                if (det < 0)
-                    return 1;
-                if (det > 0)
-                    return -1;
-
-                // points a and b are on the same line from the CenterPoint
-                // check which point is closer to the CenterPoint
-                double d1 = (pointA.X - center.X) * (pointA.X - center.X) +
-                            (pointA.Y - center.Y) * (pointA.Y - center.Y);
-                double d2 = (pointB.X - center.X) * (pointB.X - center.X) +
-                            (pointB.Y - center.Y) * (pointB.Y - center.Y);
-                if (d1 > d2)
-                    return 1;
-                else return -1;
-
-            });
-
-            return result;
-        }
-
 
     }
 }

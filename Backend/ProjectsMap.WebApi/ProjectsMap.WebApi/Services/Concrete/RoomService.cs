@@ -12,14 +12,12 @@ namespace ProjectsMap.WebApi.Services.Concrete
     public class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
-        private readonly IVertexRepository _vertexRepository;
         private readonly ISeatRepository _seatRepository;
 
-        public RoomService(IRoomRepository roomRepository, IVertexRepository vertexRepository,
+        public RoomService(IRoomRepository roomRepository,
             ISeatRepository seatRepository)
         {
             _roomRepository = roomRepository;
-            _vertexRepository = vertexRepository;
             _seatRepository = seatRepository;
         }
 

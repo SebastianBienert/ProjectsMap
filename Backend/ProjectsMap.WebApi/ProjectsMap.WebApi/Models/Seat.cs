@@ -14,14 +14,17 @@ namespace ProjectsMap.WebApi.Models
         public Seat(Employee employee, int xCoordinate, int yCoordinate)
         {
             Employee = employee;
-            Vertex = new Vertex(xCoordinate, yCoordinate);
+            xCoordinate = X;
+            yCoordinate = Y;
         }
 
         [Key]
         public int SeatId { get; set; }
+
         //Coordinate of the Seat on the given floor is described by (x,y) - left top corner of a square
-        //One to one or zero relation (Vertex - Seat)
-        public virtual Vertex Vertex { get; set; }
+        public int X { get; set; }
+
+        public int Y { get; set; }
 
         //One to many relation(Room - Seats)
         public virtual Room Room { get; set; }

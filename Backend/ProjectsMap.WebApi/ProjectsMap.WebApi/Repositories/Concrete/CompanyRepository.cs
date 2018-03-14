@@ -19,7 +19,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     return dbContext.Companies
                         .Include(c => c.Employees.Select(d => d.Technologies))
-                        .Include(c => c.Employees.Select(d => d.Seat.Select(s => s.Vertex)))
+                        .Include(c => c.Employees.Select(d => d.Seat))
                         .Include(c => c.Buildings)
                         .Include(c => c.Projects).ToList();
                 }
@@ -33,7 +33,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 return dbContext.Companies
                     .Where(c => c.CompanyId == id)
                     .Include(c => c.Employees.Select(d => d.Technologies))
-                    .Include(c => c.Employees.Select(d => d.Seat.Select(s => s.Vertex)))
+                    .Include(c => c.Employees.Select(d => d.Seat))
                     .Include(c => c.Buildings)
                     .Include(c => c.Projects).FirstOrDefault();
             }
