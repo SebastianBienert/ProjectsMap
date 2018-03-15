@@ -153,21 +153,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappers\DTOMapper.cs" />
-    <Compile Include="Migrations\201803112224537_initial.cs" />
-    <Compile Include="Migrations\201803112224537_initial.Designer.cs">
-      <DependentUpon>201803112224537_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803141448462_removedVertex.cs" />
-    <Compile Include="Migrations\201803141448462_removedVertex.Designer.cs">
-      <DependentUpon>201803141448462_removedVertex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803131637380_added-floorNumber.cs" />
-    <Compile Include="Migrations\201803131637380_added-floorNumber.Designer.cs">
-      <DependentUpon>201803131637380_added-floorNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803152057165_floor.cs" />
-    <Compile Include="Migrations\201803152057165_floor.Designer.cs">
-      <DependentUpon>201803152057165_floor.cs</DependentUpon>
+    <Compile Include="Migrations\201803152148414_initial.cs" />
+    <Compile Include="Migrations\201803152148414_initial.Designer.cs">
+      <DependentUpon>201803152148414_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Building.cs" />
@@ -231,17 +219,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803112224537_initial.resx">
-      <DependentUpon>201803112224537_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803141448462_removedVertex.resx">
-      <DependentUpon>201803141448462_removedVertex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803131637380_added-floorNumber.resx">
-      <DependentUpon>201803131637380_added-floorNumber.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803152057165_floor.resx">
-      <DependentUpon>201803152057165_floor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803152148414_initial.resx">
+      <DependentUpon>201803152148414_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
