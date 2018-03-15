@@ -10,7 +10,7 @@ namespace ProjectsMap.WebApi.Repositories
 {
     public class EfDbContext : DbContext
     {
-        public DbSet<Employee> Developers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Project> Projects { get; set; }
 
@@ -22,8 +22,6 @@ namespace ProjectsMap.WebApi.Repositories
 
         public DbSet<Technology> Technologies { get; set; }
 
-        public DbSet<Vertex> Vertexes { get; set; }
-
         public DbSet<Building> Buildings { get; set; }
 
         public DbSet<Company> Companies { get; set; }
@@ -31,6 +29,8 @@ namespace ProjectsMap.WebApi.Repositories
         public DbSet<Floor> Floors { get; set; }
 
         public DbSet<Wall> Walls { get; set; }
+
+        public DbSet<ProjectRole> ProjectRoles { get; set; }
 
         public EfDbContext() : base("name=ProjectsMapDbContext")
         {
@@ -44,8 +44,7 @@ namespace ProjectsMap.WebApi.Repositories
             //One to one or zero [Seat - Employee]
             modelBuilder.Entity<Seat>()
                 .HasOptional(s => s.Employee)
-                .WithMany(d => d.Seat)
-                .HasForeignKey(s => new{ s.DeveloperId, s.DeveloperCompanyId} );
+                .WithOptionalDependent(d => d.Seat);
 
             //One to many [Room - seat]
             modelBuilder.Entity<Seat>()
@@ -74,7 +73,7 @@ namespace ProjectsMap.WebApi.Repositories
             //One to many relation [Company - Employee]
             modelBuilder.Entity<Employee>()
                 .HasRequired<Company>(d => d.Company)
-                .WithMany(c => c.Developers)
+                .WithMany(c => c.Employees)
                 .HasForeignKey(d => d.CompanyId);
 
             //One to many relation [Company - Projects]
@@ -87,23 +86,6 @@ namespace ProjectsMap.WebApi.Repositories
             modelBuilder.Entity<User>()
                 .HasOptional(u => u.Employee)
                 .WithRequired(d => d.User);
-
-            //One to one or zero [Vertex - Seat]
-            modelBuilder.Entity<Vertex>()
-                .HasOptional(v => v.Seat)
-                .WithRequired(s => s.Vertex);
-
-            //One to many [VertexStart - Wall]
-            modelBuilder.Entity<Wall>()
-                .HasOptional(w => w.StartVertex)
-                .WithMany(v => v.StartWalls)
-                .HasForeignKey(w => new {w.StartVertexX, w.StartVertexY});
-
-            //One to many [VertexEnd - Wall]
-            modelBuilder.Entity<Wall>()
-                .HasOptional(w => w.EndVertex)
-                .WithMany(v => v.EndWalls)
-                .HasForeignKey(w => new {w.EndVertexX, w.EndVertexY});
 
             //One to many [Floor - Wall]
             modelBuilder.Entity<Wall>()
@@ -126,12 +108,12 @@ namespace ProjectsMap.WebApi.Repositories
             //Many to many [Employee - Technology]
             modelBuilder.Entity<Employee>()
                 .HasMany<Technology>(d => d.Technologies)
-                .WithMany(t => t.Developers)
+                .WithMany(t => t.Employees)
                 .Map(dt =>
                 {
-                    dt.MapLeftKey("DeveloperRefId", "DeveloperCompanyRefId");
+                    dt.MapLeftKey("EmployeeRefId", "EmployeeCompanyRefId");
                     dt.MapRightKey("TechnologyRefId");
-                    dt.ToTable("DeveloperTechnology");
+                    dt.ToTable("EmployeeTechnology");
                 });
 
             //Dev - manager
@@ -144,7 +126,7 @@ namespace ProjectsMap.WebApi.Repositories
             modelBuilder.Entity<ProjectRole>()
                 .HasRequired(r => r.Employee)
                 .WithMany(p => p.ProjectRoles)
-                .HasForeignKey(r => new {r.DeveloperId, r.DevelopersCompanyId} );
+                .HasForeignKey(r => new {r.EmployeeId, r.EmployeeCompanyId} );
 
             modelBuilder.Entity<ProjectRole>()
                 .HasRequired(r => r.Project)
@@ -168,18 +150,13 @@ namespace ProjectsMap.WebApi.Repositories
                 .HasIndex(t => t.Name)
                 .IsUnique();
 
-            //Composite Key Vertex [X,Y]
-            modelBuilder.Entity<Vertex>()
-                .HasKey(v => new { v.X, v.Y });
-
             //Composite Key Employee [devID, companyID]
             modelBuilder.Entity<Employee>()
-                .HasKey(d => new { d.DeveloperId, d.CompanyId });
+                .HasKey(d => new { d.EmployeeId, d.CompanyId });
 
             //Composite Key ProjectRole [devID, projectID]
             modelBuilder.Entity<ProjectRole>()
-                .HasKey(pr => new {pr.DeveloperId, pr.ProjectId});
-
+                .HasKey(pr => new {pr.EmployeeId, pr.ProjectId});
 
         }
     }

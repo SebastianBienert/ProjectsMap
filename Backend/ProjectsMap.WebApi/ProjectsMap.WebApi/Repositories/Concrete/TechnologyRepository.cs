@@ -18,7 +18,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 using (var dbContext = new EfDbContext())
                 {
                     return dbContext.Technologies
-                        .Include(t => t.Developers)
+                        .Include(t => t.Employees)
                         .Include(t => t.Projects)
                         .ToList();
                 }
@@ -30,7 +30,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             using (var dbContext = new EfDbContext())
             {
                 return dbContext.Technologies
-                    .Include(t => t.Developers)
+                    .Include(t => t.Employees)
                     .Include(t => t.Projects).
                     FirstOrDefault(t => t.TechnologyId == id);
             }
@@ -41,12 +41,12 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                var developersFromDataBase = dbContext.Developers.Where(x => technologyDto.DevelopersId.Contains(x.DeveloperId)).ToList();
+                var developersFromDataBase = dbContext.Employees.Where(x => technologyDto.EmployeesId.Contains(x.EmployeeId)).ToList();
                 var projectsFromDatabase = dbContext.Projects.Where(x => technologyDto.ProjectsId.Contains(x.ProjectId)).ToList();
                 var technology = new Technology()
                 {
                     Name = technologyDto.Name,
-                    Developers = technologyDto.DevelopersId.Count() == 0 ? null : developersFromDataBase, 
+                    Employees = technologyDto.EmployeesId.Count() == 0 ? null : developersFromDataBase, 
                     Projects = technologyDto.ProjectsId.Count() == 0 ? null : projectsFromDatabase
                 };
 
@@ -62,7 +62,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             using (var dbContext = new EfDbContext())
             {
                 return dbContext.Technologies
-                    .Include(t => t.Developers)
+                    .Include(t => t.Employees)
                     .Include(t => t.Projects)
                     .Where(t => t.Name.StartsWith(name)).ToList();
             }

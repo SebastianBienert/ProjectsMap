@@ -20,7 +20,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					var buildings = dbContext.Buildings
 						.Include(b => b.Company)
 						.Include(b => b.Floors)
-						.ToList();//!!!
+						.ToList();
 
 					return buildings;
 				}
@@ -55,7 +55,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 				var building = dbContext.Buildings
 					.Include(b => b.Company)
 					.Include(b => b.Floors)
-					.FirstOrDefault(b => b.BuildingId == id);//!!!
+					.FirstOrDefault(b => b.BuildingId == id);
 				return building;
 
 			}

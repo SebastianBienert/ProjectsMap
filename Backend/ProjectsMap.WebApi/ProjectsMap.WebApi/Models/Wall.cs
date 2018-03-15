@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectsMap.WebApi.Repositories.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,13 +9,12 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Wall
     {
-		private Vertex start;
-		private Vertex end;
-
 		public Wall(Vertex start, Vertex end)
 		{
-			this.StartVertex = start;
-			this.EndVertex = end;
+			this.StartVertexX = start.X;
+			this.StartVertexY = start.Y;
+			this.EndVertexX = end.X;
+			this.EndVertexY = end.Y;
 		}
 
 		public Wall()
@@ -24,13 +24,11 @@ namespace ProjectsMap.WebApi.Models
 		[Key]
         public int WallId { get; set; }
 
-        public int? StartVertexX { get; set; }
-        public int? StartVertexY { get; set; }
-        public virtual Vertex StartVertex { get; set; }
+        public int StartVertexX { get; set; }
+        public int StartVertexY { get; set; }
 
-        public int? EndVertexX { get; set; }
-        public int? EndVertexY { get; set; }
-        public virtual Vertex EndVertex { get; set; }
+        public int EndVertexX { get; set; }
+        public int EndVertexY { get; set; }
 
         public virtual ICollection<Room> Rooms { get; set; }
 

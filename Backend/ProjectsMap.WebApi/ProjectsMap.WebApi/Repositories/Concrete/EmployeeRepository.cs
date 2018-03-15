@@ -13,15 +13,15 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        public IEnumerable<Employee> Developers
+        public IEnumerable<Employee> Employees
         {
             get
             {
                 using (var dbContext = new EfDbContext())
                 {
-                    return dbContext.Developers
+                    return dbContext.Employees
                         .Include(d => d.Technologies)
-                        .Include(d => d.Seat.Select(s => s.Vertex))
+                        .Include(d => d.Seat)
                         .Include(d => d.Company).ToList();
                 }
             }
@@ -31,11 +31,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                return dbContext.Developers.
+                return dbContext.Employees.
                     Include(d => d.Technologies)
-                    .Include(d => d.Seat.Select(s => s.Vertex))
+                    .Include(d => d.Seat)
                     .Include(d => d.Company)
-                    .FirstOrDefault(x => x.DeveloperId == id);
+                    .FirstOrDefault(x => x.EmployeeId == id);
             }
         }
 
@@ -46,9 +46,9 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 var dev = new Employee(dto.FirstName, dto.Surname)
                 {
                     CompanyId = dto.CompanyId,
-                    DeveloperId = dto.Id,
+                    EmployeeId = dto.Id,
                     Technologies = dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
-                    Seat = dto.Seat == null ? null : new List<Seat>() { dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)}
+                    Seat = dto.Seat == null ? null :  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
                 };
 
                     var user = new User
@@ -59,10 +59,10 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     dev.User = user;
            
 
-                dbContext.Developers.Add(dev);
+                dbContext.Employees.Add(dev);
                 dbContext.SaveChanges();
 
-                return dev.DeveloperId;
+                return dev.EmployeeId;
             }
         }
 
@@ -70,10 +70,10 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                dbContext.Developers.Add(employee);
+                dbContext.Employees.Add(employee);
                 dbContext.SaveChanges();
 
-                return employee.DeveloperId;
+                return employee.EmployeeId;
             }
         }
 
@@ -81,7 +81,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                dbContext.Developers.Remove(employee);
+                dbContext.Employees.Remove(employee);
                 dbContext.SaveChanges();
             }
         }
@@ -90,7 +90,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                var dev = dbContext.Developers.FirstOrDefault(x => x.DeveloperId == employee.DeveloperId);
+                var dev = dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
                 dev = employee;
                 dbContext.SaveChanges();
             }

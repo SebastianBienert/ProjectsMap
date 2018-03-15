@@ -10,7 +10,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> Developers { get; }
+        IEnumerable<Employee> Employees { get; }
 
         Employee Get(int id);
 

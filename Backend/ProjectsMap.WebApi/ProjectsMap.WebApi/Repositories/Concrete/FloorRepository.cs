@@ -6,6 +6,7 @@ using System.Web;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.DTOs;
 using System.Data.Entity;
+using ProjectsMap.WebApi.Repositories.EntityFramework;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
@@ -20,12 +21,10 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 				using (var dbContext = new EfDbContext())
 				{
 					var floors = dbContext.Floors
-						.Include(f => f.Walls.Select(w => w.StartVertex))
-						.Include((f => f.Walls.Select(w => w.EndVertex)))
-						.Include(f => f.Rooms.Select(x => x.Walls.Select(v => v.StartVertex)))
-						.Include(f => f.Rooms.Select(x => x.Walls.Select(v => v.EndVertex)))
+						.Include(f => f.Walls)
+						.Include(f => f.Rooms.Select(x => x.Walls))
 						.Include(f => f.Building)
-						.Include(f => f.Rooms.Select(s => s.Seats.Select(v => v.Vertex)))
+						.Include(f => f.Rooms.Select(s => s.Seats))
 						.ToList()
 						;
 					return floors;
@@ -37,7 +36,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 		{
 			using (var dbContext = new EfDbContext())
 			{
-				dbContext.Vertexes.Load();
 				dbContext.Walls.Load();
 				dbContext.Rooms.Load();
 
@@ -47,38 +45,21 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					ICollection<Wall> roomWallsList = new List<Wall>();
 					for (int i = 0; i < roomDto.Walls.Count(); i++)
 					{
-						var x = roomDto.Walls.ElementAt(i).StartVertex.X;
-						var y = roomDto.Walls.ElementAt(i).StartVertex.Y;
-						Vertex start = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
-						if (start == null)
+						Wall wall = new Wall()
 						{
-							start = new Vertex(x, y);
-							dbContext.Vertexes.Local.Add(start);
-						}
-
-						x = roomDto.Walls.ElementAt(i).EndVertex.X;
-						y = roomDto.Walls.ElementAt(i).EndVertex.Y;
-						Vertex end = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
-						if (end == null)
-						{
-							end = new Vertex(x, y);
-							dbContext.Vertexes.Local.Add(end);
-						}
-						Wall wall = new Wall(start, end);
-						dbContext.Walls.Local.Add(wall);
+							StartVertexX = roomDto.Walls.ElementAt(i).StartVertex.X,
+							StartVertexY = roomDto.Walls.ElementAt(i).StartVertex.Y,
+							EndVertexX = roomDto.Walls.ElementAt(i).EndVertex.X,
+							EndVertexY = roomDto.Walls.ElementAt(i).EndVertex.Y,
+						};
+						//dbContext.Walls.Local.Add(wall);
 						roomWallsList.Add(wall);
 					}
 					ICollection<Seat> seatList = new List<Seat>();
 					for (int i = 0; i < roomDto.Seats.Count(); i++)
 					{
-						var x = roomDto.Seats.ElementAt(i).X;
-						var y = roomDto.Seats.ElementAt(i).Y;
-						Vertex seatVertex = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
-						if (seatVertex == null)
-						{
-							seatVertex = new Vertex(x, y);
-							dbContext.Vertexes.Local.Add(seatVertex);
-						}
+						Vertex seatVertex = new Vertex(roomDto.Seats.ElementAt(i).X, roomDto.Seats.ElementAt(i).Y);
+
 						Seat seat = new Seat(seatVertex);
 						seatList.Add(seat);
 					}
@@ -95,24 +76,13 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 				ICollection<Wall> wallsList = new List<Wall>();
 				for (int i = 0; i < floorDto.Walls.Count(); i++)
 				{
-					var x = floorDto.Walls.ElementAt(i).StartVertex.X;
-					var y = floorDto.Walls.ElementAt(i).StartVertex.Y;
-					Vertex start = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
-					if (start == null)
+					Wall wall = new Wall()
 					{
-						start = new Vertex(x, y);
-						dbContext.Vertexes.Local.Add(start);
-					}
-
-					x = floorDto.Walls.ElementAt(i).EndVertex.X;
-					y = floorDto.Walls.ElementAt(i).EndVertex.Y;
-					Vertex end = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
-					if (end == null)
-					{
-						end = new Vertex(x, y);
-						dbContext.Vertexes.Local.Add(end);
-					}
-					Wall wall = new Wall(start, end);
+						StartVertexX = floorDto.Walls.ElementAt(i).StartVertex.X,
+						StartVertexY = floorDto.Walls.ElementAt(i).StartVertex.Y,
+						EndVertexX = floorDto.Walls.ElementAt(i).EndVertex.X,
+						EndVertexY = floorDto.Walls.ElementAt(i).EndVertex.Y,
+					};
 					dbContext.Walls.Local.Add(wall);
 					wallsList.Add(wall);
 				}
@@ -141,12 +111,10 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 			using (var dbContext = new EfDbContext())
 			{
 				var floor = dbContext.Floors
-					.Include(f => f.Walls.Select(w => w.StartVertex))
-					.Include((f => f.Walls.Select(w => w.EndVertex)))
-					.Include(f => f.Rooms.Select(x => x.Walls.Select(v => v.StartVertex)))
-					.Include(f => f.Rooms.Select(x => x.Walls.Select(v => v.EndVertex)))
+					.Include(f => f.Walls)
+					.Include(f => f.Rooms.Select(x => x.Walls))
 					.Include(f => f.Building)
-					.Include(f => f.Rooms.Select(s => s.Seats.Select(v => v.Vertex)))
+					.Include(f => f.Rooms.Select(s => s.Seats))
 					.FirstOrDefault(x => x.FloorId == id);
 				return floor;
 

@@ -13,7 +13,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         Room Get(int id);
 
-        int Add(Room room);
+       // int Add(Room room);
 
         void Delete(Room room);
 

@@ -7,13 +7,13 @@ namespace ProjectsMap.WebApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addedManager : IMigrationMetadata
+    public sealed partial class removedVertex : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addedManager));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removedVertex));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803082242581_addedManager"; }
+            get { return "201803141448462_removedVertex"; }
         }
         
         string IMigrationMetadata.Source

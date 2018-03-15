@@ -9,7 +9,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
         void Delete(Room room);
         IEnumerable<RoomDto> GetAllRooms();
         RoomDto GetRoom(int id);
-        int Post(Room room);
+     //   int Post(Room room);
         void Update(Room room);
     }
 }

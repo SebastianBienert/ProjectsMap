@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectsMap.WebApi.Repositories.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,30 +13,36 @@ namespace ProjectsMap.WebApi.Models
 
 		public Seat() { }
 
-        public Seat(Employee employee, int xCoordinate, int yCoordinate)
+        public Seat(int xCoordinate, int yCoordinate)
         {
-            Employee = employee;
-            Vertex = new Vertex(xCoordinate, yCoordinate);
+			X = xCoordinate;
+            Y  = yCoordinate;
         }
-
-		public Seat(Vertex seatVertex)
+		public Seat(Vertex v)
+		{
+			X = v.X;
+			Y = v.Y;
+		}
+		/*public Seat(Vertex seatVertex)
 		{
 			this.Vertex = seatVertex;
-		}
+		}*/
 
 		[Key]
         public int SeatId { get; set; }
+
         //Coordinate of the Seat on the given floor is described by (x,y) - left top corner of a square
-        //One to one or zero relation (Vertex - Seat)
-        public virtual Vertex Vertex { get; set; }
+        public int X { get; set; }
+
+        public int Y { get; set; }
 
         //One to many relation(Room - Seats)
         public virtual Room Room { get; set; }
         public int RoomId { get; set; }
 
         //One-zero to many relation (Seat - Employee)
-        public int? DeveloperId { get; set; }
-        public int? DeveloperCompanyId { get; set; }
+        public int? EmployeeId { get; set; }
+        public int? EmployeeCompanyId { get; set; }
         public virtual Employee Employee { get; set; }
     }
 }

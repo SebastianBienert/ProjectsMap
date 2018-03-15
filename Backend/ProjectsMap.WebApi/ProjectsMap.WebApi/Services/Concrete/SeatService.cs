@@ -15,15 +15,13 @@ namespace ProjectsMap.WebApi.Services.Concrete
         private readonly ISeatRepository _seatRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IRoomRepository _roomRepository;
-        private readonly IVertexRepository _vertexRepository;
 
         public SeatService(ISeatRepository seatRepository, IEmployeeRepository employeeRepository,
-                IRoomRepository roomRepository, IVertexRepository vertexRepository)
+                IRoomRepository roomRepository)
         {
             _seatRepository = seatRepository;
             _employeeRepository = employeeRepository;
             _roomRepository = roomRepository;
-            _vertexRepository = vertexRepository;
         }
 
         public void Delete(SeatDto seatDto)

@@ -140,24 +140,32 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[3],
-							EndVertex = vertices[6]
+                            StartVertexX = vertices[3].X,
+                            StartVertexY = vertices[3].Y,
+                            EndVertexX = vertices[6].X,
+                            EndVertexY = vertices[6].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[0],
-							EndVertex = vertices[3]
+                            StartVertexX = vertices[0].X,
+                            StartVertexY = vertices[0].Y,
+                            EndVertexX = vertices[3].X,
+                            EndVertexY = vertices[3].Y
 						},
 
 						new Wall()
 						{
-							StartVertex = vertices[6],
-							EndVertex = vertices[7]
+                            StartVertexX = vertices[6].X,
+                            StartVertexY = vertices[6].Y,
+                            EndVertexX = vertices[7].X,
+                            EndVertexY = vertices[7].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[7],
-							EndVertex = vertices[0]
+                            StartVertexX = vertices[7].X,
+                            StartVertexY = vertices[7].Y,
+                            EndVertexX = vertices[0].X,
+                            EndVertexY = vertices[0].Y
 						},
 					}
                     //new List<Vertex>() {vertices[0],vertices[3],vertices[6],vertices[7]}
@@ -170,23 +178,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[48],
-							EndVertex = vertices[49]
+                            StartVertexX = vertices[48].X,
+                            StartVertexY = vertices[48].Y,
+                            EndVertexX = vertices[49].X,
+                            EndVertexY = vertices[49].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[49],
-							EndVertex = vertices[50]
+                            StartVertexX = vertices[49].X,
+                            StartVertexY = vertices[49].Y,
+                            EndVertexX = vertices[50].X,
+                            EndVertexY = vertices[50].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[50],
-							EndVertex = vertices[51]
+                            StartVertexX = vertices[50].X,
+                            StartVertexY = vertices[50].Y,
+                            EndVertexX = vertices[51].X,
+                            EndVertexY = vertices[51].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[51],
-							EndVertex = vertices[48]
+                            StartVertexX = vertices[51].X,
+                            StartVertexY = vertices[51].Y,
+                            EndVertexX = vertices[48].X,
+                            EndVertexY = vertices[48].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[48],vertices[49],vertices[50],vertices[51]}
@@ -199,23 +215,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[6],
-							EndVertex = vertices[7]
+                            StartVertexX = vertices[6].X,
+                            StartVertexY = vertices[6].Y,
+                            EndVertexX = vertices[7].X,
+                            EndVertexY = vertices[7].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[7],
-							EndVertex = vertices[9]
+                            StartVertexX = vertices[7].X,
+                            StartVertexY = vertices[7].Y,
+                            EndVertexX = vertices[9].X,
+                            EndVertexY = vertices[9].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[9],
-							EndVertex = vertices[8]
+                            StartVertexX = vertices[9].X,
+                            StartVertexY = vertices[9].Y,
+                            EndVertexX = vertices[8].X,
+                            EndVertexY = vertices[8].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[8],
-							EndVertex = vertices[6]
+                            StartVertexX = vertices[8].X,
+                            StartVertexY = vertices[8].Y,
+                            EndVertexX = vertices[6].X,
+                            EndVertexY = vertices[6].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[6],vertices[7],vertices[9],vertices[8]}
@@ -228,23 +252,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[9],
-							EndVertex = vertices[8]
+                            StartVertexX = vertices[9].X,
+                            StartVertexY = vertices[9].Y,
+                            EndVertexX = vertices[8].X,
+                            EndVertexY = vertices[8].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[8],
-							EndVertex = vertices[10]
+                            StartVertexX = vertices[8].X,
+                            StartVertexY = vertices[8].Y,
+                            EndVertexX = vertices[10].X,
+                            EndVertexY = vertices[10].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[10],
-							EndVertex = vertices[11]
+                            StartVertexX = vertices[10].X,
+                            StartVertexY = vertices[10].Y,
+                            EndVertexX = vertices[11].X,
+                            EndVertexY = vertices[11].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[11],
-							EndVertex = vertices[9]
+                            StartVertexX = vertices[11].X,
+                            StartVertexY = vertices[11].Y,
+                            EndVertexX = vertices[9].X,
+                            EndVertexY = vertices[9].Y
 						},
 					},
                     //Vertexes = new List<Vertex>() {vertices[9],vertices[8],vertices[10],vertices[11]}
@@ -257,23 +289,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[11],
-							EndVertex = vertices[10]
+                            StartVertexX = vertices[11].X,
+                            StartVertexY = vertices[11].Y,
+                            EndVertexX = vertices[10].X,
+                            EndVertexY = vertices[10].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[10],
-							EndVertex = vertices[12]
+                            StartVertexX = vertices[10].X,
+                            StartVertexY = vertices[10].Y,
+                            EndVertexX = vertices[12].X,
+                            EndVertexY = vertices[12].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[12],
-							EndVertex = vertices[13]
+                            StartVertexX = vertices[12].X,
+                            StartVertexY = vertices[12].Y,
+                            EndVertexX = vertices[13].X,
+                            EndVertexY = vertices[13].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[13],
-							EndVertex = vertices[11]
+                            StartVertexX = vertices[13].X,
+                            StartVertexY = vertices[13].Y,
+                            EndVertexX = vertices[11].X,
+                            EndVertexY = vertices[11].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[11],vertices[10],vertices[13],vertices[12]}
@@ -286,23 +326,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[13],
-							EndVertex = vertices[12]
+                            StartVertexX = vertices[13].X,
+                            StartVertexY = vertices[13].Y,
+                            EndVertexX = vertices[12].X,
+                            EndVertexY = vertices[12].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[12],
-							EndVertex = vertices[14]
+                            StartVertexX = vertices[12].X,
+                            StartVertexY = vertices[12].Y,
+                            EndVertexX = vertices[14].X,
+                            EndVertexY = vertices[14].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[14],
-							EndVertex = vertices[15]
+                            StartVertexX = vertices[14].X,
+                            StartVertexY = vertices[14].Y,
+                            EndVertexX = vertices[15].X,
+                            EndVertexY = vertices[15].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[15],
-							EndVertex = vertices[13]
+                            StartVertexX = vertices[15].X,
+                            StartVertexY = vertices[15].Y,
+                            EndVertexX = vertices[13].X,
+                            EndVertexY = vertices[13].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[13],vertices[12],vertices[14],vertices[15]}
@@ -315,23 +363,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[15],
-							EndVertex = vertices[14]
+                            StartVertexX = vertices[15].X,
+                            StartVertexY = vertices[15].Y,
+                            EndVertexX = vertices[14].X,
+                            EndVertexY = vertices[14].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[14],
-							EndVertex = vertices[20]
+                            StartVertexX = vertices[14].X,
+                            StartVertexY = vertices[14].Y,
+                            EndVertexX = vertices[20].X,
+                            EndVertexY = vertices[20].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[20],
-							EndVertex = vertices[21]
+                            StartVertexX = vertices[20].X,
+                            StartVertexY = vertices[20].Y,
+                            EndVertexX = vertices[21].X,
+                            EndVertexY = vertices[21].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[21],
-							EndVertex = vertices[15]
+                            StartVertexX = vertices[21].X,
+                            StartVertexY = vertices[21].Y,
+                            EndVertexX = vertices[5].X,
+                            EndVertexY = vertices[5].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[15],vertices[14], vertices[21], vertices[20] }
@@ -344,23 +400,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[3],
-							EndVertex = vertices[2]
+                            StartVertexX = vertices[3].X,
+                            StartVertexY = vertices[3].Y,
+                            EndVertexX = vertices[2].X,
+                            EndVertexY = vertices[2].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[2],
-							EndVertex = vertices[23]
+                            StartVertexX = vertices[2].X,
+                            StartVertexY = vertices[2].Y,
+                            EndVertexX = vertices[23].X,
+                            EndVertexY = vertices[23].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[23],
-							EndVertex = vertices[22]
+                            StartVertexX = vertices[23].X,
+                            StartVertexY = vertices[23].Y,
+                            EndVertexX = vertices[22].X,
+                            EndVertexY = vertices[22].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[22],
-							EndVertex = vertices[3]
+                            StartVertexX = vertices[22].X,
+                            StartVertexY = vertices[22].Y,
+                            EndVertexX = vertices[3].X,
+                            EndVertexY = vertices[3].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[3],vertices[2],vertices[23],vertices[22]}
@@ -373,23 +437,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[20],
-							EndVertex = vertices[18]
+                            StartVertexX = vertices[20].X,
+                            StartVertexY = vertices[20].Y,
+                            EndVertexX = vertices[18].X,
+                            EndVertexY = vertices[18].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[18],
-							EndVertex = vertices[24]
+                            StartVertexX = vertices[18].X,
+                            StartVertexY = vertices[18].Y,
+                            EndVertexX = vertices[24].X,
+                            EndVertexY = vertices[24].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[24],
-							EndVertex = vertices[25]
+                            StartVertexX = vertices[24].X,
+                            StartVertexY = vertices[24].Y,
+                            EndVertexX = vertices[25].X,
+                            EndVertexY = vertices[25].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[25],
-							EndVertex = vertices[20]
+                            StartVertexX = vertices[25].X,
+                            StartVertexY = vertices[25].Y,
+                            EndVertexX = vertices[20].X,
+                            EndVertexY = vertices[20].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[20],vertices[18],vertices[24],vertices[25]}
@@ -402,23 +474,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[27],
-							EndVertex = vertices[26]
+                            StartVertexX = vertices[27].X,
+                            StartVertexY = vertices[27].Y,
+                            EndVertexX = vertices[26].X,
+                            EndVertexY = vertices[26].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[26],
-							EndVertex = vertices[23]
+                            StartVertexX = vertices[26].X,
+                            StartVertexY = vertices[26].Y,
+                            EndVertexX = vertices[23].X,
+                            EndVertexY = vertices[23].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[23],
-							EndVertex = vertices[22]
+                            StartVertexX = vertices[23].X,
+                            StartVertexY = vertices[23].Y,
+                            EndVertexX = vertices[22].X,
+                            EndVertexY = vertices[22].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[22],
-							EndVertex = vertices[27]
+                            StartVertexX = vertices[22].X,
+                            StartVertexY = vertices[22].Y,
+                            EndVertexX = vertices[27].X,
+                            EndVertexY = vertices[27].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[23],vertices[22]}
@@ -431,23 +511,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[28],
-							EndVertex = vertices[29]
+                            StartVertexX = vertices[28].X,
+                            StartVertexY = vertices[28].Y,
+                            EndVertexX = vertices[29].X,
+                            EndVertexY = vertices[29].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[29],
-							EndVertex = vertices[30]
+                            StartVertexX = vertices[29].X,
+                            StartVertexY = vertices[29].Y,
+                            EndVertexX = vertices[30].X,
+                            EndVertexY = vertices[30].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[30],
-							EndVertex = vertices[31]
+                            StartVertexX = vertices[30].X,
+                            StartVertexY = vertices[30].Y,
+                            EndVertexX = vertices[31].X,
+                            EndVertexY = vertices[31].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[31],
-							EndVertex = vertices[28]
+                            StartVertexX = vertices[31].X,
+                            StartVertexY = vertices[31].Y,
+                            EndVertexX = vertices[28].X,
+                            EndVertexY = vertices[28].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[28],vertices[29],vertices[30],vertices[31]}
@@ -460,33 +548,45 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[27],
-							EndVertex = vertices[26]
+                            StartVertexX = vertices[27].X,
+                            StartVertexY = vertices[27].Y,
+                            EndVertexX = vertices[26].X,
+                            EndVertexY = vertices[26].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[26],
-							EndVertex = vertices[35]
+                            StartVertexX = vertices[26].X,
+                            StartVertexY = vertices[26].Y,
+                            EndVertexX = vertices[35].X,
+                            EndVertexY = vertices[35].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[35],
-							EndVertex = vertices[34]
+                            StartVertexX = vertices[35].X,
+                            StartVertexY = vertices[35].Y,
+                            EndVertexX = vertices[34].X,
+                            EndVertexY = vertices[34].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[34],
-							EndVertex = vertices[33]
+                            StartVertexX = vertices[34].X,
+                            StartVertexY = vertices[34].Y,
+                            EndVertexX = vertices[33].X,
+                            EndVertexY = vertices[33].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[33],
-							EndVertex = vertices[32]
+                            StartVertexX = vertices[33].X,
+                            StartVertexY = vertices[33].Y,
+                            EndVertexX = vertices[32].X,
+                            EndVertexY = vertices[32].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[32],
-							EndVertex = vertices[27]
+                            StartVertexX = vertices[32].X,
+                            StartVertexY = vertices[32].Y,
+                            EndVertexX = vertices[27].X,
+                            EndVertexY = vertices[27].Y
 						}
 					}
                     //Vertexes = new List<Vertex>() {vertices[27],vertices[26],vertices[35],vertices[34], vertices[33], vertices[32] }
@@ -499,23 +599,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[33],
-							EndVertex = vertices[34]
+                            StartVertexX = vertices[33].X,
+                            StartVertexY = vertices[33].Y,
+                            EndVertexX = vertices[34].X,
+                            EndVertexY = vertices[34].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[34],
-							EndVertex = vertices[36]
+                            StartVertexX = vertices[34].X,
+                            StartVertexY = vertices[34].Y,
+                            EndVertexX = vertices[36].X,
+                            EndVertexY = vertices[36].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[36],
-							EndVertex = vertices[37]
+                            StartVertexX = vertices[36].X,
+                            StartVertexY = vertices[36].Y,
+                            EndVertexX = vertices[37].X,
+                            EndVertexY = vertices[37].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[37],
-							EndVertex = vertices[33]
+                            StartVertexX = vertices[37].X,
+                            StartVertexY = vertices[37].Y,
+                            EndVertexX = vertices[33].X,
+                            EndVertexY = vertices[33].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[33],vertices[34],vertices[37],vertices[36]}
@@ -528,23 +636,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[37],
-							EndVertex = vertices[36]
+                            StartVertexX = vertices[37].X,
+                            StartVertexY = vertices[37].Y,
+                            EndVertexX = vertices[36].X,
+                            EndVertexY = vertices[36].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[36],
-							EndVertex = vertices[38]
+                            StartVertexX = vertices[36].X,
+                            StartVertexY = vertices[36].Y,
+                            EndVertexX = vertices[38].X,
+                            EndVertexY = vertices[38].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[38],
-							EndVertex = vertices[39]
+                            StartVertexX = vertices[38].X,
+                            StartVertexY = vertices[38].Y,
+                            EndVertexX = vertices[39].X,
+                            EndVertexY = vertices[39].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[39],
-							EndVertex = vertices[37]
+                            StartVertexX = vertices[39].X,
+                            StartVertexY = vertices[39].Y,
+                            EndVertexX = vertices[37].X,
+                            EndVertexY = vertices[37].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[37],vertices[36],vertices[38],vertices[39]}
@@ -557,23 +673,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[39],
-							EndVertex = vertices[38]
+                            StartVertexX = vertices[39].X,
+                            StartVertexY = vertices[39].Y,
+                            EndVertexX = vertices[38].X,
+                            EndVertexY = vertices[38].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[38],
-							EndVertex = vertices[40]
+                            StartVertexX = vertices[38].X,
+                            StartVertexY = vertices[38].Y,
+                            EndVertexX = vertices[40].X,
+                            EndVertexY = vertices[40].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[40],
-							EndVertex = vertices[41]
+                            StartVertexX = vertices[40].X,
+                            StartVertexY = vertices[40].Y,
+                            EndVertexX = vertices[41].X,
+                            EndVertexY = vertices[41].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[41],
-							EndVertex = vertices[39]
+                            StartVertexX = vertices[41].X,
+                            StartVertexY = vertices[41].Y,
+                            EndVertexX = vertices[39].X,
+                            EndVertexY = vertices[39].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[39],vertices[38],vertices[41],vertices[40]}
@@ -586,23 +710,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[41],
-							EndVertex = vertices[40]
+                            StartVertexX = vertices[41].X,
+                            StartVertexY = vertices[41].Y,
+                            EndVertexX = vertices[40].X,
+                            EndVertexY = vertices[40].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[40],
-							EndVertex = vertices[42]
+                            StartVertexX = vertices[40].X,
+                            StartVertexY = vertices[40].Y,
+                            EndVertexX = vertices[42].X,
+                            EndVertexY = vertices[42].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[42],
-							EndVertex = vertices[43]
+                            StartVertexX = vertices[42].X,
+                            StartVertexY = vertices[42].Y,
+                            EndVertexX = vertices[43].X,
+                            EndVertexY = vertices[43].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[43],
-							EndVertex = vertices[41]
+                            StartVertexX = vertices[43].X,
+                            StartVertexY = vertices[43].Y,
+                            EndVertexX = vertices[41].X,
+                            EndVertexY = vertices[41].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[41],vertices[40],vertices[42],vertices[43]}
@@ -615,33 +747,45 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[43],
-							EndVertex = vertices[42]
+                            StartVertexX = vertices[43].X,
+                            StartVertexY = vertices[43].Y,
+                            EndVertexX = vertices[42].X,
+                            EndVertexY = vertices[42].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[42],
-							EndVertex = vertices[47]
+                            StartVertexX = vertices[42].X,
+                            StartVertexY = vertices[42].Y,
+                            EndVertexX = vertices[47].X,
+                            EndVertexY = vertices[47].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[47],
-							EndVertex = vertices[31]
+                            StartVertexX = vertices[47].X,
+                            StartVertexY = vertices[47].Y,
+                            EndVertexX = vertices[31].X,
+                            EndVertexY = vertices[31].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[31],
-							EndVertex = vertices[30]
+                            StartVertexX = vertices[31].X,
+                            StartVertexY = vertices[31].Y,
+                            EndVertexX = vertices[30].X,
+                            EndVertexY = vertices[30].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[30],
-							EndVertex = vertices[44]
+                            StartVertexX = vertices[30].X,
+                            StartVertexY = vertices[30].Y,
+                            EndVertexX = vertices[44].X,
+                            EndVertexY = vertices[44].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[44],
-							EndVertex = vertices[43]
+                            StartVertexX = vertices[44].X,
+                            StartVertexY = vertices[44].Y,
+                            EndVertexX = vertices[43].X,
+                            EndVertexY = vertices[43].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[43],vertices[42],vertices[44],vertices[30], vertices[31], vertices[47] }
@@ -654,23 +798,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[50],
-							EndVertex = vertices[49]
+                            StartVertexX = vertices[50].X,
+                            StartVertexY = vertices[50].Y,
+                            EndVertexX = vertices[49].X,
+                            EndVertexY = vertices[49].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[49],
-							EndVertex = vertices[52]
+                            StartVertexX = vertices[49].X,
+                            StartVertexY = vertices[49].Y,
+                            EndVertexX = vertices[52].X,
+                            EndVertexY = vertices[52].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[52],
-							EndVertex = vertices[53]
+                            StartVertexX = vertices[52].X,
+                            StartVertexY = vertices[52].Y,
+                            EndVertexX = vertices[53].X,
+                            EndVertexY = vertices[53].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[53],
-							EndVertex = vertices[50]
+                            StartVertexX = vertices[53].X,
+                            StartVertexY = vertices[53].Y,
+                            EndVertexX = vertices[50].X,
+                            EndVertexY = vertices[50].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[50],vertices[49],vertices[53],vertices[52]}
@@ -683,23 +835,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[61],
-							EndVertex = vertices[54]
+                            StartVertexX = vertices[61].X,
+                            StartVertexY = vertices[61].Y,
+                            EndVertexX = vertices[54].X,
+                            EndVertexY = vertices[54].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[54],
-							EndVertex = vertices[55]
+                            StartVertexX = vertices[54].X,
+                            StartVertexY = vertices[54].Y,
+                            EndVertexX = vertices[55].X,
+                            EndVertexY = vertices[55].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[55],
-							EndVertex = vertices[56]
+                            StartVertexX = vertices[55].X,
+                            StartVertexY = vertices[55].Y,
+                            EndVertexX = vertices[56].X,
+                            EndVertexY = vertices[56].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[56],
-							EndVertex = vertices[61]
+                            StartVertexX = vertices[56].X,
+                            StartVertexY = vertices[56].Y,
+                            EndVertexX = vertices[61].X,
+                            EndVertexY = vertices[61].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[61],vertices[54],vertices[55],vertices[56]}
@@ -712,23 +872,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[54],
-							EndVertex = vertices[55]
+                            StartVertexX = vertices[54].X,
+                            StartVertexY = vertices[54].Y,
+                            EndVertexX = vertices[55].X,
+                            EndVertexY = vertices[55].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[55],
-							EndVertex = vertices[58]
+                            StartVertexX = vertices[55].X,
+                            StartVertexY = vertices[55].Y,
+                            EndVertexX = vertices[58].X,
+                            EndVertexY = vertices[58].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[58],
-							EndVertex = vertices[57]
+                            StartVertexX = vertices[58].X,
+                            StartVertexY = vertices[58].Y,
+                            EndVertexX = vertices[57].X,
+                            EndVertexY = vertices[57].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[57],
-							EndVertex = vertices[54]
+                            StartVertexX = vertices[57].X,
+                            StartVertexY = vertices[57].Y,
+                            EndVertexX = vertices[54].X,
+                            EndVertexY = vertices[54].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[54],vertices[55],vertices[58],vertices[57]}
@@ -741,23 +909,31 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					{
 						new Wall()
 						{
-							StartVertex = vertices[57],
-							EndVertex = vertices[58]
+                            StartVertexX = vertices[57].X,
+                            StartVertexY = vertices[57].Y,
+                            EndVertexX = vertices[58].X,
+                            EndVertexY = vertices[58].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[58],
-							EndVertex = vertices[59]
+                            StartVertexX = vertices[58].X,
+                            StartVertexY = vertices[58].Y,
+                            EndVertexX = vertices[59].X,
+                            EndVertexY = vertices[59].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[59],
-							EndVertex = vertices[60]
+                            StartVertexX = vertices[59].X,
+                            StartVertexY = vertices[59].Y,
+                            EndVertexX = vertices[60].X,
+                            EndVertexY = vertices[60].Y
 						},
 						new Wall()
 						{
-							StartVertex = vertices[60],
-							EndVertex = vertices[57]
+                            StartVertexX = vertices[60].X,
+                            StartVertexY = vertices[60].Y,
+                            EndVertexX = vertices[57].X,
+                            EndVertexY = vertices[57].Y
 						},
 					}
                    // Vertexes = new List<Vertex>() {vertices[57],vertices[58],vertices[60],vertices[59]}
@@ -811,7 +987,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					Surname = "Bukowski",
 					Email = "wiktor@gmail.com",
 					JobTitle = "Spawacz",
-					DeveloperId = 1,
+                    EmployeeId = 1,
 					Technologies = new List<Technology>()
 					{
 					   technologies[0],technologies[3]
@@ -829,7 +1005,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Michal",
 					Surname = "Radziwilko",
-					DeveloperId = 2,
+                    EmployeeId = 2,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -847,7 +1023,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Jan",
 					Surname = "Kowalski",
-					DeveloperId = 3,
+                    EmployeeId = 3,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -865,7 +1041,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Tadeusz",
 					Surname = "Nowak",
-					DeveloperId = 4,
+                    EmployeeId = 4,
 					Technologies = new List<Technology>()
 					{
 						technologies[0],technologies[4]
@@ -883,7 +1059,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Kacper",
 					Surname = "Nowak",
-				   DeveloperId = 5,
+                   EmployeeId = 5,
 					Technologies = new List<Technology>()
 					{
 						technologies[2]
@@ -901,7 +1077,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Joanna",
 					Surname = "Wojciechowska",
-					DeveloperId = 6,
+                    EmployeeId = 6,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -919,7 +1095,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Katarzyna",
 					Surname = "Zajac",
-					DeveloperId = 7,
+                    EmployeeId = 7,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -937,7 +1113,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Dawid",
 					Surname = "Olszewski",
-				   DeveloperId = 8,
+                   EmployeeId = 8,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -955,7 +1131,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Michał",
 					Surname = "Wieczorek",
-					DeveloperId = 9,
+                    EmployeeId = 9,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1], technologies[4]
@@ -973,7 +1149,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Daniel",
 					Surname = "Malinowski",
-					DeveloperId = 10,
+                    EmployeeId = 10,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1]
@@ -991,7 +1167,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Dawid",
 					Surname = "Adamczyk",
-				   DeveloperId = 11,
+                   EmployeeId = 11,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1009,7 +1185,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Grzegorz",
 					Surname = "Piotrowski",
-				   DeveloperId = 12,
+                   EmployeeId = 12,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[4]
@@ -1027,7 +1203,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Adrian",
 					Surname = "Kowalski",
-				   DeveloperId = 13,
+                   EmployeeId = 13,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1], technologies[0],technologies[3]
@@ -1045,7 +1221,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Anna",
 					Surname = "Rutokowska",
-					DeveloperId = 14,
+                    EmployeeId = 14,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1063,7 +1239,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Tomasz",
 					Surname = "Grabowski",
-					DeveloperId = 15,
+                    EmployeeId = 15,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[0]
@@ -1081,7 +1257,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Natalia",
 					Surname = "Kozłowska",
-				   DeveloperId = 16,
+                   EmployeeId = 16,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[1],technologies[0]
@@ -1099,7 +1275,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Szymon",
 					Surname = "Zalewski",
-				   DeveloperId = 17,
+                   EmployeeId = 17,
 					Technologies = new List<Technology>()
 					{
 						technologies[2],technologies[1]
@@ -1117,7 +1293,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					FirstName = "Ewa",
 					Surname = "Witkowska",
-					DeveloperId = 18,
+                    EmployeeId = 18,
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -1135,9 +1311,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 			foreach (var dev in developers)
 			{
-				dev.ProjectRoles.ToList()[0].DeveloperId = dev.DeveloperId;
+                dev.ProjectRoles.ToList()[0].EmployeeId = dev.EmployeeId;
 				dev.ProjectRoles.ToList()[0].Employee = dev;
-				if (dev.DeveloperId != 1)
+                if (dev.EmployeeId != 1)
 				{
 					dev.ManagerId = 1;
 					dev.Manager = developers[0];
@@ -1316,25 +1492,30 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 1,
 					Employee = developers[0],
-					Vertex = vertices[4]
+                    X = vertices[4].X,
+                    Y = vertices[4].Y,
+
 				},
 				new Seat()
 				{
 					SeatId = 2,
 					Employee = developers[1],
-					Vertex = vertices[5]
+                    X = vertices[5].X,
+                    Y = vertices[5].Y,
 				},
 				new Seat()
 				{
 					SeatId = 3,
 					Employee = developers[2],
-					Vertex = vertices[1]
+                    X = vertices[1].X,
+                    Y = vertices[1].Y,
 				},
 				new Seat()
 				{
 					SeatId = 4,
 					Employee = developers[3],
-					Vertex = vertices[71]
+                    X = vertices[71].X,
+                    Y = vertices[71].Y,
 				},
 			};
 			IList<Seat> seatsThirdRoom = new List<Seat>()
@@ -1343,13 +1524,15 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 5,
 					Employee = developers[10],
-					Vertex = vertices[16]
+                    X = vertices[16].X,
+                    Y = vertices[16].Y,
 				},
 				new Seat()
 				{
 					SeatId = 6,
 					Employee = developers[11],
-					Vertex = vertices[17]
+                    X = vertices[17].X,
+                    Y = vertices[17].Y,
 				},
 			};
 			IList<Seat> seatsFourthRoom = new List<Seat>()
@@ -1358,13 +1541,15 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 7,
 					Employee = null,
-					Vertex = vertices[19]
+                    X = vertices[19].X,
+                    Y = vertices[19].Y,
 				},
 				new Seat()
 				{
 					SeatId = 8,
 					Employee = null,
-					Vertex = vertices[62]
+                    X = vertices[62].X,
+                    Y = vertices[62].Y,
 				},
 			};
 			IList<Seat> seatsFifthRoom = new List<Seat>()
@@ -1373,13 +1558,15 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 9,
 					Employee = null,
-					Vertex = vertices[63]
+                    X = vertices[63].X,
+                    Y = vertices[63].Y,
 				},
 				new Seat()
 				{
 					SeatId = 10,
 					Employee = null,
-					Vertex = vertices[64]
+                    X = vertices[64].X,
+                    Y = vertices[64].Y,
 				},
 			};
 			IList<Seat> seatsSixthRoom = new List<Seat>()
@@ -1388,18 +1575,20 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 11,
 					Employee = null,
-					Vertex = vertices[65]
+                    X = vertices[65].X,
+                    Y = vertices[65].Y,
 				},
 				new Seat()
 				{
 					SeatId = 12,
 					Employee = null,
-					Vertex = vertices[66]
+                    X = vertices[66].X,
+                    Y = vertices[66].Y,
 				},
 			};
 
 
-			// projects[0].Developers = developers;
+             // projects[0].Employees = developers;
 			projects[0].Technologies = new List<Technology>()
 			{
 				developers.ToList()[0].Technologies.ToList()[0],
@@ -1414,26 +1603,30 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 13,
 					Employee = null,
-					Vertex = vertices[67]
+                    X = vertices[67].X,
+                    Y = vertices[67].Y,
 
 				},
 				new Seat()
 				{
 					SeatId = 14,
 					Employee = null,
-					Vertex = vertices[68]
+                    X = vertices[68].X,
+                    Y = vertices[68].Y,
 				},
 				new Seat()
 				{
 					SeatId = 15,
 					Employee = null,
-					Vertex = vertices[69]
+                    X = vertices[69].X,
+                    Y = vertices[69].Y,
 				},
 				new Seat()
 				{
 					SeatId = 16,
 					Employee = null,
-					Vertex = vertices[70]
+                    X = vertices[70].X,
+                    Y = vertices[70].Y,
 				},
 			};
 			IList<Seat> seatsSecondRoom = new List<Seat>()
@@ -1442,49 +1635,57 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 17,
 					Employee = developers[4],
-					Vertex = vertices[72]
+                    X = vertices[72].X,
+                    Y = vertices[72].Y,
 				},
 				new Seat()
 				{
 					SeatId = 18,
 					Employee = developers[5],
-					Vertex = vertices[73]
+                    X = vertices[73].X,
+                    Y = vertices[73].Y,
 				},
 				new Seat()
 				{
 					SeatId = 19,
 					Employee = developers[6],
-					Vertex = vertices[74]
+                    X = vertices[74].X,
+                    Y = vertices[74].Y,
 				},
 				new Seat()
 				{
 					SeatId = 20,
 					Employee = developers[7],
-					Vertex = vertices[75]
+                    X = vertices[75].X,
+                    Y = vertices[75].Y,
 				},
 				new Seat()
 				{
 					SeatId = 21,
 					Employee = developers[8],
-					Vertex = vertices[76]
+                    X = vertices[76].X,
+                    Y = vertices[76].Y,
 				},
 				new Seat()
 				{
 					SeatId = 22,
 					Employee = developers[9],
-					Vertex = vertices[77]
+                    X = vertices[77].X,
+                    Y = vertices[77].Y,
 				},
 				new Seat()
 				{
 					SeatId = 23,
 					Employee = null,
-					Vertex = vertices[78]
+                    X = vertices[78].X,
+                    Y = vertices[78].Y,
 				},
 				new Seat()
 				{
 					SeatId = 24,
 					Employee = null,
-					Vertex = vertices[79]
+                    X = vertices[79].X,
+                    Y = vertices[79].Y,
 				},
 			};
 			IList<Seat> seatsEighteenthRoom = new List<Seat>()
@@ -1493,49 +1694,57 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 25,
 					Employee = null,
-					Vertex = vertices[80]
+                    X = vertices[80].X,
+                    Y = vertices[80].Y,
 				},
 				new Seat()
 				{
 					SeatId = 26,
 					Employee = null,
-					Vertex = vertices[81]
+                    X = vertices[81].X,
+                    Y = vertices[81].Y,
 				},
 				new Seat()
 				{
 					SeatId = 27,
 					Employee = null,
-					Vertex = vertices[82]
+                    X = vertices[82].X,
+                    Y = vertices[82].Y,
 				},
 				new Seat()
 				{
 					SeatId = 28,
 					Employee = null,
-					Vertex = vertices[83]
+                    X = vertices[83].X,
+                    Y = vertices[83].Y,
 				},
 				new Seat()
 				{
 					SeatId = 29,
 					Employee = null,
-					Vertex = vertices[84]
+                    X = vertices[84].X,
+                    Y = vertices[84].Y,
 				},
 				new Seat()
 				{
 					SeatId = 30,
 					Employee = null,
-					Vertex = vertices[85]
+                    X = vertices[85].X,
+                    Y = vertices[85].Y,
 				},
 				new Seat()
 				{
 					SeatId = 31,
 					Employee = null,
-					Vertex = vertices[86]
+                    X = vertices[86].X,
+                    Y = vertices[86].Y,
 				},
 				new Seat()
 				{
 					SeatId = 32,
 					Employee = null,
-					Vertex = vertices[87]
+                    X = vertices[87].X,
+                    Y = vertices[87].Y,
 				},
 			};
 			IList<Seat> seatsEighthRoom = new List<Seat>()
@@ -1544,13 +1753,15 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 33,
 					Employee = developers[12],
-					Vertex = vertices[88]
+                    X = vertices[88].X,
+                    Y = vertices[88].Y,
 				},
 				new Seat()
 				{
 					SeatId = 34,
 					Employee = developers[13],
-					Vertex = vertices[89]
+                    X = vertices[89].X,
+                    Y = vertices[89].Y,
 				},
 			};
 			IList<Seat> seatsTenthRoom = new List<Seat>()
@@ -1559,13 +1770,15 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 35,
 					Employee = developers[14],
-					Vertex = vertices[90]
+                    X = vertices[90].X,
+                    Y = vertices[90].Y,
 				},
 				new Seat()
 				{
 					SeatId = 36,
 					Employee = developers[15],
-					Vertex = vertices[91]
+                    X = vertices[91].X,
+                    Y = vertices[91].Y,
 				},
 			};
 			IList<Seat> seatsThirteenthRoom = new List<Seat>()
@@ -1574,7 +1787,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 37,
 					Employee = developers[16],
-					Vertex = vertices[92]
+                    X = vertices[92].X,
+                    Y = vertices[92].Y,
 				},
 			};
 			IList<Seat> seatsFourteenthRoom = new List<Seat>()
@@ -1583,7 +1797,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 38,
 					Employee = developers[17],
-					Vertex = vertices[93]
+                    X = vertices[93].X,
+                    Y = vertices[93].Y,
 				},
 			};
 			IList<Seat> seatsFifteenthRoom = new List<Seat>()
@@ -1592,7 +1807,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 39,
 					Employee = null,
-					Vertex = vertices[94]
+                    X = vertices[94].X,
+                    Y = vertices[94].Y,
 				},
 			};
 			IList<Seat> seatsSixteenthRoom = new List<Seat>()
@@ -1601,7 +1817,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 40,
 					Employee = null,
-					Vertex = vertices[95]
+                    X = vertices[95].X,
+                    Y = vertices[95].Y,
 				},
 			};
 			IList<Seat> seatsTwelfthRoom = new List<Seat>()
@@ -1610,49 +1827,57 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 41,
 					Employee = null,
-					Vertex = vertices[96]
+                    X = vertices[96].X,
+                    Y = vertices[96].Y,
 				},
 				new Seat()
 				{
 					SeatId = 42,
 					Employee = null,
-					Vertex = vertices[97]
+                    X = vertices[97].X,
+                    Y = vertices[97].Y,
 				},
 				new Seat()
 				{
 					SeatId = 43,
 					Employee = null,
-					Vertex = vertices[98]
+                    X = vertices[98].X,
+                    Y = vertices[98].Y,
 				},
 				new Seat()
 				{
 					SeatId = 44,
 					Employee = null,
-					Vertex = vertices[99]
+                    X = vertices[99].X,
+                    Y = vertices[99].Y,
 				},
 				new Seat()
 				{
 					SeatId = 45,
 					Employee = null,
-					Vertex = vertices[100]
+                    X = vertices[100].X,
+                    Y = vertices[100].Y,
 				},
 				new Seat()
 				{
 					SeatId = 46,
 					Employee = null,
-					Vertex = vertices[101]
+                    X = vertices[101].X,
+                    Y = vertices[101].Y,
 				},
 				new Seat()
 				{
 					SeatId = 47,
 					Employee = null,
-					Vertex = vertices[102]
+                    X = vertices[102].X,
+                    Y = vertices[102].Y,
 				},
 				new Seat()
 				{
 					SeatId = 48,
 					Employee = null,
-					Vertex = vertices[103]
+                    X = vertices[103].X,
+                    Y = vertices[103].Y,
 				},
 			};
 			IList<Seat> seatsSeventeenthRoom = new List<Seat>()
@@ -1661,49 +1886,57 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 49,
 					Employee = null,
-					Vertex = vertices[104]
+                    X = vertices[104].X,
+                    Y = vertices[104].Y,
 				},
 				new Seat()
 				{
 					SeatId = 50,
 					Employee = null,
-					Vertex = vertices[105]
+                    X = vertices[105].X,
+                    Y = vertices[105].Y,
 				},
 				new Seat()
 				{
 					SeatId = 51,
 					Employee = null,
-					Vertex = vertices[106]
+                    X = vertices[106].X,
+                    Y = vertices[106].Y,
 				},
 				new Seat()
 				{
 					SeatId = 52,
 					Employee = null,
-					Vertex = vertices[107]
+                    X = vertices[107].X,
+                    Y = vertices[107].Y,
 				},
 				new Seat()
 				{
 					SeatId = 53,
 					Employee = null,
-					Vertex = vertices[108]
+                    X = vertices[108].X,
+                    Y = vertices[108].Y,
 				},
 				new Seat()
 				{
 					SeatId = 54,
 					Employee = null,
-					Vertex = vertices[109]
+                    X = vertices[109].X,
+                    Y = vertices[109].Y,
 				},
 				new Seat()
 				{
 					SeatId = 55,
 					Employee = null,
-					Vertex = vertices[110]
+                    X = vertices[110].X,
+                    Y = vertices[110].Y,
 				},
 				new Seat()
 				{
 					SeatId = 56,
 					Employee = null,
-					Vertex = vertices[111]
+                    X = vertices[111].X,
+                    Y = vertices[111].Y,
 				},
 			};
 
@@ -1848,41 +2081,41 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			seatsSeventeenthRoom[7].Room = rooms[16];
 
 			developers[0].User = users[0];
-			developers[0].Seat = new List<Seat>() { seatsFirstRoom[0] };
+            developers[0].Seat = seatsFirstRoom[0];
 			developers[1].User = users[1];
-			developers[1].Seat = new List<Seat>() { seatsFirstRoom[1] };
+            developers[1].Seat = seatsFirstRoom[1];
 			developers[1].User = users[1];
-			developers[2].Seat = new List<Seat>() { seatsFirstRoom[2] };
+            developers[2].Seat = seatsFirstRoom[2];
 			developers[2].User = users[2];
-			developers[3].Seat = new List<Seat>() { seatsFirstRoom[3] };
+            developers[3].Seat = seatsFirstRoom[3];
 			developers[3].User = users[3];
-			developers[4].Seat = new List<Seat>() { seatsSecondRoom[0] };
+            developers[4].Seat = seatsSecondRoom[0];
 			developers[4].User = users[4];
-			developers[5].Seat = new List<Seat>() { seatsSecondRoom[1] };
+            developers[5].Seat = seatsSecondRoom[1];
 			developers[5].User = users[5];
-			developers[6].Seat = new List<Seat>() { seatsSecondRoom[2] };
+            developers[6].Seat = seatsSecondRoom[2];
 			developers[6].User = users[6];
-			developers[7].Seat = new List<Seat>() { seatsSecondRoom[3] };
+            developers[7].Seat = seatsSecondRoom[3];
 			developers[7].User = users[7];
-			developers[8].Seat = new List<Seat>() { seatsSecondRoom[4] };
+            developers[8].Seat = seatsSecondRoom[4];
 			developers[8].User = users[8];
-			developers[9].Seat = new List<Seat>() { seatsSecondRoom[5] };
+            developers[9].Seat = seatsSecondRoom[5];
 			developers[9].User = users[9];
-			developers[10].Seat = new List<Seat>() { seatsThirdRoom[0] };
+            developers[10].Seat = seatsThirdRoom[0];
 			developers[10].User = users[10];
-			developers[11].Seat = new List<Seat>() { seatsThirdRoom[1] };
+            developers[11].Seat = seatsThirdRoom[1];
 			developers[11].User = users[11];
-			developers[12].Seat = new List<Seat>() { seatsEighthRoom[0] };
+            developers[12].Seat = seatsEighthRoom[0];
 			developers[12].User = users[12];
-			developers[13].Seat = new List<Seat>() { seatsEighthRoom[1] };
+            developers[13].Seat = seatsEighthRoom[1];
 			developers[13].User = users[13];
-			developers[14].Seat = new List<Seat>() { seatsTenthRoom[0] };
+            developers[14].Seat = seatsTenthRoom[0];
 			developers[14].User = users[14];
-			developers[15].Seat = new List<Seat>() { seatsTenthRoom[1] };
+            developers[15].Seat = seatsTenthRoom[1];
 			developers[15].User = users[15];
-			developers[16].Seat = new List<Seat>() { seatsThirteenthRoom[0] };
+            developers[16].Seat = seatsThirteenthRoom[0];
 			developers[16].User = users[16];
-			developers[17].Seat = new List<Seat>() { seatsFourteenthRoom[0] };
+            developers[17].Seat = seatsFourteenthRoom[0];
 			developers[17].User = users[17];
 
 			var company = new Company()
@@ -1921,33 +2154,17 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												new Seat()
 												{
 													SeatId = 112,
-													Employee = developers[0],
-													Vertex = new Vertex (11, 15 )
+													Employee = null,
+													X =10,
+													Y = 15
 												},
 										},
 										Walls = new List<Wall>
 										{
-											new Wall()
-											{
-												StartVertex = vertices[3],
-												EndVertex = vertices[6]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[0],
-												EndVertex = vertices[3]
-											},
-
-											new Wall()
-											{
-												StartVertex = vertices[6],
-												EndVertex = vertices[7]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[7],
-												EndVertex = vertices[0]
-											},
+											new Wall(vertices[3], vertices[6]),
+											new Wall(vertices[0], vertices[3]),
+											new Wall(vertices[6], vertices[7]),
+											new Wall(vertices[7], vertices[0]),
 										}
 								},
 								}
@@ -1967,36 +2184,21 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												new Seat()
 												{
 													SeatId = 112,
-													Employee = developers[0],
-													Vertex = new Vertex (12, 15 )
+													Employee = null,
+													X = 12,
+													Y = 15,
 												},
 										},
 										Walls = new List<Wall>
 										{
-											new Wall()
-											{
-												StartVertex = vertices[3],
-												EndVertex = vertices[6]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[0],
-												EndVertex = vertices[3]
-											},
-
-											new Wall()
-											{
-												StartVertex = vertices[6],
-												EndVertex = vertices[7]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[7],
-												EndVertex = vertices[0]
-											},
+											new Wall(vertices[3], vertices[6]),
+											new Wall(vertices[0], vertices[3]),
+											new Wall(vertices[6], vertices[7]),
+											new Wall(vertices[7], vertices[0]),
 										}
 								},
 								}
+
 							},
 
 						}
@@ -2024,42 +2226,19 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												new Seat()
 												{
 													SeatId = 112,
-													Employee = developers[0],
-													Vertex = new Vertex (14, 15 )
+													Employee = null,
+													X = 14,
+													Y = 19
 												},
 										},
 										Walls = new List<Wall>
 										{
-											new Wall()
-											{
-												StartVertex = vertices[27],
-												EndVertex = vertices[26]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[26],
-												EndVertex = vertices[35]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[35],
-												EndVertex = vertices[34]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[34],
-												EndVertex = vertices[33]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[33],
-												EndVertex = vertices[32]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[32],
-												EndVertex = vertices[27]
-											}
+											new Wall(vertices[27], vertices[26]),
+											new Wall(vertices[26], vertices[35]),
+											new Wall(vertices[35], vertices[34]),
+											new Wall(vertices[34], vertices[33]),
+											new Wall(vertices[33], vertices[32]),
+											new Wall(vertices[32], vertices[27]),
 										}
 								},
 								}
@@ -2079,87 +2258,25 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												new Seat()
 												{
 													SeatId = 112,
-													Employee = developers[0],
-													Vertex = new Vertex (11, 11 )
+													Employee = null,
+													X = 11,
+													Y = 22
 												},
 										},
 										Walls = new List<Wall>
 										{
-											new Wall()
-											{
-												StartVertex = vertices[27],
-												EndVertex = vertices[26]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[26],
-												EndVertex = vertices[23]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[23],
-												EndVertex = vertices[22]
-											},
-											new Wall()
-											{
-												StartVertex = vertices[22],
-												EndVertex = vertices[27]
-											},
+											new Wall(vertices[27], vertices[26]),
+											new Wall(vertices[26], vertices[23]),
+											new Wall(vertices[23], vertices[22]),
+											new Wall(vertices[22], vertices[27]),
 										}
 								},
 								}
 							},
-							//new Floor()
-							//{
-							//	BuildingId = 1,
-							//	Description = "Pietro 3",
-							//	FloorId = 6,
-							//	FloorNumber = 3,
-							//	Rooms = new List<Room>()
-							//	{
-							//		new Room(){
-							//			RoomId = 116,
-							//			Seats = new List<Seat>
-							//			{
-							//					new Seat()
-							//					{
-							//						SeatId = 112,
-							//						Employee = developers[0],
-							//						Vertex = new Vertex (12, 25 )
-							//					},
-							//			},
-							//			Walls = new List<Wall>
-							//			{
-							//				new Wall()
-							//				{
-							//					StartVertex = vertices[3],
-							//					EndVertex = vertices[6]
-							//				},
-							//				new Wall()
-							//				{
-							//					StartVertex = vertices[0],
-							//					EndVertex = vertices[3]
-							//				},
-
-							//				new Wall()
-							//				{
-							//					StartVertex = vertices[6],
-							//					EndVertex = vertices[7]
-							//				},
-							//				new Wall()
-							//				{
-							//					StartVertex = vertices[7],
-							//					EndVertex = vertices[0]
-							//				},
-							//			}
-							//	},
-							//	}
-							//},
-
 						}
 					}
 				},
-				Developers = developers,
+				Employees = developers,
 				Projects = projects,
 				Name = "Nokia"
 
