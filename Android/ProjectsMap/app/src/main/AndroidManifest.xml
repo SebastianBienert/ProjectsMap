@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AllDevelopers" />
-        <activity android:name=".SerachDeveloper"></activity>
+        <activity android:name=".SerachDeveloper" />
+        <activity android:name=".SearchDeveloperAfterTechnology"></activity>
     </application>
 
 </manifest>

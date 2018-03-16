@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.projectsmap.SearchDeveloperAfterTechnology">
+
+    <EditText
+        android:id="@+id/editTextTechnologyName"
+        android:hint="@string/nazwa_technologi"
+        android:layout_width="202dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/buttonSearch"
+        android:layout_toStartOf="@+id/buttonSearch"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonBack"
+        android:layout_alignBottom="@+id/buttonBack"
+        android:layout_toLeftOf="@+id/buttonBack"
+        android:layout_toStartOf="@+id/buttonBack"
+        android:text="@string/szukaj"
+        tools:layout_editor_absoluteX="204dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <ListView
+        android:id="@+id/listDevelopers"
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        android:layout_below="@+id/buttonSearch"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp"></ListView>
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextTechnologyName"
+        android:layout_alignBottom="@+id/editTextTechnologyName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/cofnij"
+        tools:layout_editor_absoluteX="292dp"
+        tools:layout_editor_absoluteY="3dp" />
+</RelativeLayout>
