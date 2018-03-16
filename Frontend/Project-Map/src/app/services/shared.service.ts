@@ -46,14 +46,14 @@ export class SharedService {
         val.forEach(element => {
            this.emps.push(element); 
         });
-        this.employeesSubject.next(val);
+        this.employeesSubject.next(this.emps);
     }
 
     private setFoundProjects(val: Project[]) {
         val.forEach(element => {
             this.projs.push(element); 
          });
-        this.projectsSubject.next(val);
+        this.projectsSubject.next(this.projs);
     }
 
     setSearchParameters(filter: string, searchType: SearchType) {
@@ -78,7 +78,7 @@ export class SharedService {
                 break;
 
             case SearchType.projectName:
-                this.projectService.searchProjectByName(this.filter)
+                this.projectService.searchSetOfProjectsByName(this.filter, this.page)
                     .subscribe(x => this.setFoundProjects(x));
                 break;
 

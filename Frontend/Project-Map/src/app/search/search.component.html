@@ -62,8 +62,9 @@
 
         <!-- Search form -->
         <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
-            <input [(ngModel)]="filter" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
+            <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
                 aria-label="Search">
+                <!-- [(ngModel)]="filter" -->
             <button (click)='search()' class="btn btn-outline-success btn-sm my-0 waves-light" type="submit" mdbRippleRadius>Szukaj</button>
         </form>
     </links>

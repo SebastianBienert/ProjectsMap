@@ -56,6 +56,40 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
 
+        [HttpGet]
+        [Route("pagination/{name}", Name = "GetProjectsByName")]
+        public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)
+        {
+            var allEmployees = _service.GetProjectsByName(name);
+
+            if (allEmployees == null)
+                return NotFound();
+
+            var dtos = allEmployees.ToList();
+            var totalCount = dtos.ToList().Count;
+            var pageCount = Math.Ceiling((double)totalCount / pageSize);
+            var prevPage = page > 0 ? Url.Link("GetProjectByName", new { name = name, page = page - 1, pageSize = pageSize }) : "";
+            var nextPage = page < pageCount - 1 ? Url.Link("GetProjectByName", new { name = name, page = page + 1, pageSize = pageSize }) : "";
+
+            var filtered = dtos.Skip(page * pageSize).Take(pageSize);
+            var result = filtered.Select(dto =>
+            {
+                dto.Url = Url.Link("GetProjectById", new { id = dto.Id });
+                return dto;
+            }).ToList();
+
+            return Ok(result);
+            return Ok(new
+            {
+                TotalEmployees = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
+        }
+
+
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post(CreateProject dtoProject)

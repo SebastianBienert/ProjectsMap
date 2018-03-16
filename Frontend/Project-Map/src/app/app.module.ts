@@ -20,6 +20,7 @@ import { SearchComponent } from './search/search.component';
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProjectService } from './services/project.service';
+import { ReactiveFormsModule }  from '@angular/forms';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ProjectService } from './services/project.service';
     ProjectCardComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     BrowserModule,
