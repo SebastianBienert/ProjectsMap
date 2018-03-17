@@ -16,16 +16,28 @@
         android:layout_alignRight="@+id/buttonSearchDeveloper"
         android:layout_alignStart="@+id/buttonSearchDeveloper"
         android:layout_marginBottom="89dp"
+        android:width="200dp"
         android:text="@string/wszyscy_pracownicy" />
 
     <Button
         android:id="@+id/buttonSearchDeveloper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="190dp"
+        android:layout_centerVertical="true"
+        android:width="200dp"
         android:text="@string/wyszukaj_pracownika" />
+
+    <Button
+        android:id="@+id/buttonSearchDeveloperAfterTechnology"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSearchDeveloper"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/buttonSearchDeveloper"
+        android:layout_marginBottom="100dp"
+        android:width="200dp"
+        android:text="Wyszukaj pracownika po technologii" />
 
 
 </RelativeLayout>

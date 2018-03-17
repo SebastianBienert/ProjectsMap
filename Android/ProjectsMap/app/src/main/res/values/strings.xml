@@ -9,4 +9,11 @@
     <string name="cofnij">Cofnij</string>
     <string name="numer_id">numer_id</string>
     <string name="informacje_o_pracowniku">Informacje o pracowniku</string>
+    <string name="nazwa_technologi">nazwa technologi</string>
+    <string name="szukanie_po">Szukanie po:</string>
+    <string-array name="selected_method">
+        <item>Id</item>
+        <item>Technology</item>
+        <item>Other</item>
+    </string-array>
 </resources>
