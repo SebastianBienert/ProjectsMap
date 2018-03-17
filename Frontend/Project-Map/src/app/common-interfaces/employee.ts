@@ -3,8 +3,15 @@ import { Technology } from './../common-interfaces/technology';
 
 export interface Employee{
     Id : number,
+    CompanyId : number,
+    Url : string,
+    ManagerId : number,
+    ManagerCompanyId : number,
     FirstName : string,
     Surname : string,
+    Email : string,
+    JobTitle : string,
+    CompanyName : string,
     Technologies : Technology[],
     Seat : Seat
 }

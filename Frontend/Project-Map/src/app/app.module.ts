@@ -18,6 +18,10 @@ import { ListingComponent } from './listing/listing.component';
 import { PersonCardComponent } from './person-card/person-card.component';
 import { EmployeeService } from './services/employee.service';
 import { SearchComponent } from './search/search.component';
+import { ProjectCardComponent } from './project-card/project-card.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProjectService } from './services/project.service';
+import { ReactiveFormsModule }  from '@angular/forms';
 import { MapNavigatorComponent } from './map-navigator/map-navigator.component';
 
 
@@ -30,20 +34,24 @@ import { MapNavigatorComponent } from './map-navigator/map-navigator.component';
     ListingComponent,
     PersonCardComponent,
     SearchComponent,
-    MapNavigatorComponent
+    MapNavigatorComponent,
+    ProjectCardComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
     BrowserModule,
     MDBBootstrapModule.forRoot(),
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule
   ],
   providers: [
     HttpErrorHandler,
     MessageService,
     RoomService,
     EmployeeService,
+    ProjectService,
     SharedService,
     FloorServiceService],
   bootstrap: [AppComponent],

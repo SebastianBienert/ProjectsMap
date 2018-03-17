@@ -14,4 +14,8 @@ export class PersonCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  showMore(){
+    
+  }
+
 }

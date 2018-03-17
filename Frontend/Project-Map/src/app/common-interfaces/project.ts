@@ -4,12 +4,14 @@ import { Technology } from "./Technology";
 
 export interface Project{
     Id : number,
+    Url : string,
+
     Description : string,
     RepositoryLink : string,
     DocumentationLink : string,
     ProductOwnerId : Employee,
     CompanyId : number,
-    Developers : Employee[],
+    EmployeesNames : string[],
     Rooms : Room,
     Technologies : Technology
 }
