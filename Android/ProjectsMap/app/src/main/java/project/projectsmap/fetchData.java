@@ -62,6 +62,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
         for(int i=0; i<dataList.size();i++) {
             AllDevelopers.custom.list.add(new singleRow(dataList.get(i).developerDescription()));
         }
+        AllDevelopers.DisableProgressBar();
         AllDevelopers.custom.notifyDataSetChanged();
     }
 }

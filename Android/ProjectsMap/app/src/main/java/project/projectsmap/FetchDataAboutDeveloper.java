@@ -32,11 +32,14 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        if(inputData.isEmpty()){
+        if(inputData.isEmpty()&&!choice.equals("Wszystko")){
             errorText = "Wprowadź dane";
         }else{
             try {
                 URL url = setURLAdress();
+                if(url==null){
+                    return null;
+                }
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -70,19 +73,19 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     }
     private URL setURLAdress(){
         try{
-            if(choice.equals("Technology")){
+            if(choice.equals("Technologia")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
             }else if(choice.equals("Id")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-            }else if(choice.equals("All")){
+            }else if(choice.equals("Wszystko")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
             }else{
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
     public void setChoice(String name){
         choice = name;
@@ -98,6 +101,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
         }
         SearchDevelopers.adapter.notifyDataSetChanged();
+        SearchDevelopers.DisableProgressBar();
     }
     public void setStatement(TextView statement) { this.statement = statement;}
 }

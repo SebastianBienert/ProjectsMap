@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class SearchDevelopers extends AppCompatActivity {
     public static customAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
     String choice="";
+    static ProgressBar waitForData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,13 @@ public class SearchDevelopers extends AppCompatActivity {
             spinner = (Spinner) findViewById(R.id.spinnerSelectionMethod);
             arrayAdapter = ArrayAdapter.createFromResource(this, R.array.selected_method, android.R.layout.simple_spinner_item);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
+            waitForData.setVisibility(View.INVISIBLE);
             spinner.setAdapter(arrayAdapter);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
+                    //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                     choice = (String) adapterView.getItemAtPosition(position);
                     setInputDataField();
                 }
@@ -58,6 +62,7 @@ public class SearchDevelopers extends AppCompatActivity {
             clickSerach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    waitForData.setVisibility(View.VISIBLE);
                     adapter.list.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                     process.setChoice(choice);
@@ -79,7 +84,7 @@ public class SearchDevelopers extends AppCompatActivity {
         }else{
             inputDataField.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        if(choice.equals("All")){
+        if(choice.equals("Wszystko")){
             inputDataField.setEnabled(false);
             inputDataField.setFocusable(false);
             inputDataField.setCursorVisible(false);
@@ -90,5 +95,8 @@ public class SearchDevelopers extends AppCompatActivity {
             inputDataField.setCursorVisible(true);
             inputDataField.setHint("Podaj " + choice);
         }
+    }
+    static public void DisableProgressBar(){
+        waitForData.setVisibility(View.INVISIBLE);
     }
 }

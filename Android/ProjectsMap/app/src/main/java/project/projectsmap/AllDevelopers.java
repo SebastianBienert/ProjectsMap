@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class AllDevelopers extends AppCompatActivity {
     public static TextView data;
     ListView listView;
     public static customAdapter custom;
+    static ProgressBar waitForData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class AllDevelopers extends AppCompatActivity {
         clickBack = (Button) findViewById(R.id.buttonBack);
 
         listView = (ListView) findViewById(R.id.listview);
-
+        waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
+        waitForData.setVisibility(View.INVISIBLE);
         custom = new customAdapter(this);
 
         listView.setAdapter(custom);
@@ -38,6 +41,7 @@ public class AllDevelopers extends AppCompatActivity {
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                waitForData.setVisibility(View.VISIBLE);
                 custom.list.clear();
                 fetchData process = new fetchData();
                 process.execute();
@@ -49,6 +53,9 @@ public class AllDevelopers extends AppCompatActivity {
                 AllDevelopers.super.finish();
             }
         });
+    }
+    static public void DisableProgressBar(){
+        waitForData.setVisibility(View.INVISIBLE);
     }
 }
 
@@ -101,4 +108,5 @@ class customAdapter extends BaseAdapter {
 
         return row;
     }
+
 }

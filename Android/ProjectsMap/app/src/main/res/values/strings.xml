@@ -13,8 +13,8 @@
     <string name="szukanie_po">Szukanie po:</string>
     <string-array name="selected_method">
         <item>Id</item>
-        <item>Technology</item>
-        <item>Other</item>
-        <item>All</item>
+        <item>Technologia</item>
+        <item>Inne</item>
+        <item>Wszystko</item>
     </string-array>
 </resources>
