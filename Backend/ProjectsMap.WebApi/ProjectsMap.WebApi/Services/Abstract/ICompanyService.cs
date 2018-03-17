@@ -19,5 +19,5 @@ namespace ProjectsMap.WebApi.Services.Abstract
         void Delete(CompanyDto company);
 
         void Update(CompanyDto company);
-    }
+	}
 }

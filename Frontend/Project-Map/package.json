@@ -33,6 +33,7 @@
     "svg.draw.js": "^2.0.3",
     "svg.js": "^2.6.4",
     "svg.panzoom.js": "^1.2.0",
+    "svg.resize.js": "^1.4.1",
     "svg.select.js": "^2.1.2",
     "zone.js": "^0.8.19"
   },

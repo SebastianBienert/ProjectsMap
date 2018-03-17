@@ -7,6 +7,7 @@ using System.Web.Http;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services.Concrete;
+using ProjectsMap.WebApi.DTOs;
 
 namespace ProjectsMap.WebApi.Controllers
 {
@@ -39,12 +40,12 @@ namespace ProjectsMap.WebApi.Controllers
                 return NotFound();
         }
 
-        [HttpPost]
+		[HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Room room)
+        public IHttpActionResult Post([FromBody] RoomDto roomDto)
         {
-            _service.Post(room);
-            return Ok();
+			//int createdId = _service.Post(roomDto);
+            return Ok();//for now
         }
 
     }

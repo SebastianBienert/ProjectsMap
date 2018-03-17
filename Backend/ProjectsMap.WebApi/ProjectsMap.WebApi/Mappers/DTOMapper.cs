@@ -6,7 +6,9 @@ using System.Security.Policy;
 using System.Web;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
-using  System.Web.Http.Routing;
+using System.Web.Http.Routing;
+using ProjectsMap.WebApi.Repositories.EntityFramework;
+
 namespace ProjectsMap.WebApi.Mappers
 {
     public class DTOMapper
@@ -35,23 +37,13 @@ namespace ProjectsMap.WebApi.Mappers
                 {
                     Id = employee.Seat.SeatId,
                     DeveloperId = employee.EmployeeId,
-                    Vertex = employee.Seat == null ? null : GetVertexDto(employee.Seat.X, employee.Seat.Y),
+                    Vertex = employee.Seat == null ? null : new Vertex(employee.Seat.X, employee.Seat.Y),
                     RooomId = employee.Seat.SeatId
                 };
                 dto.Seat = seatDto;
             }
 
 
-            return dto;
-        }
-
-        public static VertexDto GetVertexDto(int x, int y)
-        {
-            var dto = new VertexDto()
-            {
-                X = x,
-                Y = y
-            };
             return dto;
         }
 
@@ -73,9 +65,9 @@ namespace ProjectsMap.WebApi.Mappers
             var dto = new WallDto()
             {
                 Id = wall.WallId,
-                StartVertex = GetVertexDto(wall.StartVertexX, wall.StartVertexY),
-                EndVertex = GetVertexDto(wall.EndVertexX, wall.EndVertexY)
-            };
+                StartVertex = new Vertex(wall.StartVertexX, wall.StartVertexY),
+                EndVertex = new Vertex(wall.EndVertexX, wall.EndVertexY)
+			};
             return dto;
         }
 
@@ -85,7 +77,7 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 Id = room.RoomId,
                 Walls = GetWallsDtoList(room.Walls.ToList()),
-                Seats = room.Seats.Select(s => GetVertexDto(s.X, s.Y)).ToList()
+                Seats = room.Seats.Select(s => new Vertex(s.X, s.Y)).ToList()
             };
             return dto;
         }
@@ -108,12 +100,12 @@ namespace ProjectsMap.WebApi.Mappers
 
         public static SeatDto GetSeatDto(Seat seat)
         {
-            var result = new SeatDto()
-            {
-                Id = seat.SeatId,
-                DeveloperId = seat.EmployeeId,
-                RooomId = seat.RoomId,
-                Vertex = GetVertexDto(seat.X, seat.Y)
+			var result = new SeatDto()
+			{
+				Id = seat.SeatId,
+				DeveloperId = seat.EmployeeId,
+				RooomId = seat.RoomId,
+				Vertex = new Vertex(seat.X, seat.Y)
             };
             return result;
         }
@@ -123,7 +115,9 @@ namespace ProjectsMap.WebApi.Mappers
             return new BuildingDto()
             {
                 Id = building.BuildingId,
-                Address = building.Address
+                Address = building.Address,
+				FloorsIds = building.Floors.Select(f => f.FloorId).ToList(),
+				CompanyId = building.CompanyId
             };
         }
 
@@ -147,5 +141,50 @@ namespace ProjectsMap.WebApi.Mappers
 
         }
 
-    }
+
+		public static FloorDto GetFloorDto(Floor floor)
+		{
+			var result = new FloorDto()
+			{
+				Id = floor.FloorId,
+				Description = floor.Description,
+				BuildingId = floor.BuildingId,
+				Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
+				Rooms = GetRoomsDtoList(floor.Rooms.ToList()),
+				FloorNumber = floor.FloorNumber
+			};
+			return result;
+		}
+		public static FloorDto GetFloorDtoListElement(Floor floor)
+		{
+			var result = new FloorDto()
+			{
+				Id = floor.FloorId,
+				Description = floor.Description,
+				BuildingId = floor.BuildingId,
+				FloorNumber = floor.FloorNumber
+			};
+			return result;
+		}
+		public static List<RoomDto> GetRoomsDtoList(List<Room> rooms)
+		{
+			var list = new List<RoomDto>();
+			foreach(Room room in rooms)
+			{
+				list.Add(GetRoomDto(room));
+			}
+			return list;
+		}
+
+		private static IEnumerable<WallDto> GetWallsDtoListNotSorted(List<Wall> listWalls)
+		{
+			var listWallsDto = new List<WallDto>();
+			foreach(Wall wall in listWalls)
+			{
+				listWallsDto.Add(GetWallDto(wall));
+			}
+			return listWallsDto;
+		}
+
+	}
 }

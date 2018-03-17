@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectsMap.WebApi.Repositories.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,16 +10,25 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Seat
     {
-        public Seat() { }
 
-        public Seat(Employee employee, int xCoordinate, int yCoordinate)
+		public Seat() { }
+
+        public Seat(int xCoordinate, int yCoordinate)
         {
-            Employee = employee;
-            xCoordinate = X;
-            yCoordinate = Y;
+			X = xCoordinate;
+            Y  = yCoordinate;
         }
+		public Seat(Vertex v)
+		{
+			X = v.X;
+			Y = v.Y;
+		}
+		/*public Seat(Vertex seatVertex)
+		{
+			this.Vertex = seatVertex;
+		}*/
 
-        [Key]
+		[Key]
         public int SeatId { get; set; }
 
         //Coordinate of the Seat on the given floor is described by (x,y) - left top corner of a square

@@ -34,8 +34,11 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
             return DTOMapper.GetRoomDto(room);
         }
-
-        public void Post(Room room)
+		/*public int Post(Room room)
+		{
+			return _roomRepository.Add(room);
+		}*/
+		/*public void Post(Room room)
         {
             //var result = _roomRepository.Rooms.FirstOrDefault(r => r.RoomId == room.Id);
            /* if (result != null)
@@ -87,7 +90,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
 
 
-        }
+        //}
 
         public void Delete(Room room)
         {

@@ -20,7 +20,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     return dbContext.Companies
                         .Include(c => c.Employees.Select(d => d.Technologies))
                         .Include(c => c.Employees.Select(d => d.Seat))
-                        .Include(c => c.Buildings)
+                        .Include(c => c.Buildings.Select(d => d.Floors))
                         .Include(c => c.Projects).ToList();
                 }
             }
@@ -84,5 +84,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             throw new NotImplementedException();
         }
-    }
+
+	}
 }

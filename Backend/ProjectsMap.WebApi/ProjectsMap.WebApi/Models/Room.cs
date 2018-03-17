@@ -8,7 +8,12 @@ namespace ProjectsMap.WebApi.Models
 {
     public class Room
     {
-        [Key]
+		public Room() { }
+		public Room(ICollection<Wall> walls)
+		{
+			Walls = walls;
+		}
+		[Key]
         public int RoomId { get; set; }
 
         //One to many relation [Floor - Room]

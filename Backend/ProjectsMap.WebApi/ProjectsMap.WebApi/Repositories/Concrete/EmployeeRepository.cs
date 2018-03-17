@@ -7,7 +7,6 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using ProjectsMap.WebApi.DTOs;
-using ProjectsMap.WebApi.Migrations;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
