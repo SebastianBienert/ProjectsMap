@@ -69,17 +69,17 @@ export class SharedService {
 
             case SearchType.employeeName:
                 this.employeeService.searchEmployeeByName(this.filter, this.page)
-                    .subscribe(x => this.setFoundEmployees(x));
+                    .subscribe(x => this.setFoundEmployees(x.Result));
                 break;
 
             case SearchType.employeeTechnology:
                 this.employeeService.searchEmployeeByTechnology(this.filter, this.page)
-                    .subscribe(x => this.setFoundEmployees(x));
+                    .subscribe(x => this.setFoundEmployees(x.Result));
                 break;
 
             case SearchType.projectName:
                 this.projectService.searchSetOfProjectsByName(this.filter, this.page)
-                    .subscribe(x => this.setFoundProjects(x));
+                    .subscribe(x => this.setFoundProjects(x.Result));
                 break;
 
         }

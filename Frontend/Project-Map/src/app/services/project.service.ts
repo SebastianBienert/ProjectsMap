@@ -41,7 +41,7 @@ export class ProjectService {
   }
 
 
-  searchSetOfProjectsByName(name: string, page: number): Observable<Project[]> {
+  searchSetOfProjectsByName(name: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {
         page: page.toString(),
@@ -49,7 +49,7 @@ export class ProjectService {
       }
     });
 
-    return this.http.get<Project[]>(this.projectUrl + "/pagination/" + name, { params })
+    return this.http.get<any>(this.projectUrl + "/pagination/" + name, { params })
       .pipe(
         catchError(this.handleError('getEmployees', []))
       );

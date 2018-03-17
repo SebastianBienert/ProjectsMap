@@ -17,13 +17,13 @@ namespace ProjectsMap.WebApi.Controllers
     public class EmployeeController : ApiController
     {
         private IEmployeeService _service;
-        
+
 
         public EmployeeController(IEmployeeService service)
         {
             _service = service;
         }
-        
+
         [HttpGet]
         [Route("pagination")]
         public IHttpActionResult GetAllPaingate(int page = 0, int pageSize = 10)
@@ -59,13 +59,13 @@ namespace ProjectsMap.WebApi.Controllers
             var allEmployees = _service.GetAllEmployees().ToList();
             var result = allEmployees.Select(dto =>
             {
-                dto.Url = Url.Link("GetEmployeeById", new {id = dto.Id});
+                dto.Url = Url.Link("GetEmployeeById", new { id = dto.Id });
                 return dto;
             }).ToList();
 
             return Ok(result);
         }
-    
+
         [HttpGet]
         [Route("{id:int}", Name = "GetEmployeeById")]
         public IHttpActionResult Get(int id)
@@ -74,10 +74,10 @@ namespace ProjectsMap.WebApi.Controllers
 
             if (developerDto != null)
             {
-                developerDto.Url = Url.Link("GetEmployeeById", new {id = developerDto.Id});
+                developerDto.Url = Url.Link("GetEmployeeById", new { id = developerDto.Id });
                 return Ok(developerDto);
             }
-                return NotFound();
+            return NotFound();
         }
 
 
@@ -105,7 +105,7 @@ namespace ProjectsMap.WebApi.Controllers
             var dtos = allEmployees.ToList();
             var totalCount = dtos.ToList().Count;
             var pageCount = Math.Ceiling((double)totalCount / pageSize);
-            var prevPage = page > 0 ? Url.Link("GetEmployeesByTechnology", new {technology = technology, page = page - 1, pageSize = pageSize }) : "";
+            var prevPage = page > 0 ? Url.Link("GetEmployeesByTechnology", new { technology = technology, page = page - 1, pageSize = pageSize }) : "";
             var nextPage = page < pageCount - 1 ? Url.Link("GetEmployeesByTechnology", new { technology = technology, page = page + 1, pageSize = pageSize }) : "";
 
             var filtered = dtos.Skip(page * pageSize).Take(pageSize);
@@ -115,15 +115,14 @@ namespace ProjectsMap.WebApi.Controllers
                 return dto;
             }).ToList();
 
-            return Ok(result);
-                return Ok(new
-                {
-                    TotalEmployees = totalCount,
-                    TotalPages = pageCount,
-                    PreviousPage = prevPage,
-                    NextPage = nextPage,
-                    Result = result
-                });
+            return Ok(new
+            {
+                TotalEmployees = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
         }
 
         [HttpGet]
@@ -160,7 +159,6 @@ namespace ProjectsMap.WebApi.Controllers
                 return dto;
             }).ToList();
 
-            return Ok(result);
             return Ok(new
             {
                 TotalEmployees = totalCount,

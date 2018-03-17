@@ -43,7 +43,7 @@ export class EmployeeService {
       );
   }
 
-  searchEmployeeByTechnology(technology: string, page: number): Observable<Employee[]> {
+  searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {
         page: page.toString(),
@@ -51,14 +51,14 @@ export class EmployeeService {
       }
     });
 
-    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/technology/pagination/" + technology, { params })
+    return this.searchedEmployees = this.http.get<any>(this.employeeUrl + "/technology/pagination/" + technology, { params })
       .pipe(
         catchError(this.handleError('getEmployees', []))
       );
 
   }
 
-  searchEmployeeByName(name: string, page: number): Observable<Employee[]> {
+  searchEmployeeByName(name: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {
         page: page.toString(),
@@ -66,7 +66,7 @@ export class EmployeeService {
       }
     });
 
-    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/pagination/" + name, { params })
+    return this.searchedEmployees = this.http.get<any>(this.employeeUrl + "/pagination/" + name, { params })
       .pipe(
         catchError(this.handleError('getEmployees', []))
       );

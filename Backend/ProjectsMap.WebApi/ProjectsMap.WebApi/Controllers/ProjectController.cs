@@ -60,12 +60,12 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("pagination/{name}", Name = "GetProjectsByName")]
         public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)
         {
-            var allEmployees = _service.GetProjectsByName(name);
+            var projects = _service.GetProjectsByName(name);
 
-            if (allEmployees == null)
+            if (projects == null)
                 return NotFound();
 
-            var dtos = allEmployees.ToList();
+            var dtos = projects.ToList();
             var totalCount = dtos.ToList().Count;
             var pageCount = Math.Ceiling((double)totalCount / pageSize);
             var prevPage = page > 0 ? Url.Link("GetProjectByName", new { name = name, page = page - 1, pageSize = pageSize }) : "";
@@ -77,11 +77,10 @@ namespace ProjectsMap.WebApi.Controllers
                 dto.Url = Url.Link("GetProjectById", new { id = dto.Id });
                 return dto;
             }).ToList();
-
-            return Ok(result);
+            
             return Ok(new
             {
-                TotalEmployees = totalCount,
+                TotalProjects = totalCount,
                 TotalPages = pageCount,
                 PreviousPage = prevPage,
                 NextPage = nextPage,
