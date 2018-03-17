@@ -79,8 +79,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
             }else if(choice.equals("Wszystko")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
-            }else{
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            }else if(choice.equals("Nazwisko")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){
             e.printStackTrace();

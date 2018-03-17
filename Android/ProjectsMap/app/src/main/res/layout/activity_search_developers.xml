@@ -92,7 +92,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewStatement"
-        android:layout_toLeftOf="@+id/buttonSearch"
-        android:layout_toStartOf="@+id/buttonSearch" />
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_toEndOf="@+id/textViewNameChoice"
+        android:layout_toRightOf="@+id/textViewNameChoice" />
 </RelativeLayout>
 
