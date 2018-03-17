@@ -43,6 +43,9 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
+                var existingTechnologies = dbContext.Technologies.ToList();
+                var existingTechnologiesNames = existingTechnologies.Select(x => x.Name).ToList();
+                var newTechnologiesNames = dto.Technologies.Except(existingTechnologiesNames).ToList();
                 var dev = new Employee(dto.FirstName, dto.Surname)
                 {
                     CompanyId = dto.CompanyId,
@@ -52,21 +55,30 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     JobTitle = dto.JobTitle,
                     Company = dbContext.Companies.FirstOrDefault(c => c.CompanyId == dto.CompanyId),
                     Email = dto.Email,
-                    Technologies = dto.Technologies == null ? null : dbContext.Technologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
+                    Technologies = dto.Technologies == null ? null : existingTechnologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
                     Seat = dto.Seat == null ? null:  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
                 };
 
-                    var user = new User
-                    {                       
-                        Created = DateTime.Now,
-                        Employee = dev
+                var user = new User
+                {
+                    Created = DateTime.Now,
+                    Employee = dev
+                };
+                dev.User = user;
+
+                //ADD NEW TECHNOLOGIES
+                foreach (var technology in newTechnologiesNames)
+                {
+                    Technology tech = new Technology()
+                    {
+                        Name = technology,
+                        Employees = new List<Employee>() {dev},
                     };
-                    dev.User = user;
-           
+                    dev.Technologies.Add(tech);
+                }
 
                 dbContext.Employees.Add(dev);
                 dbContext.SaveChanges();
-
                 return dev.EmployeeId;
             }
         }

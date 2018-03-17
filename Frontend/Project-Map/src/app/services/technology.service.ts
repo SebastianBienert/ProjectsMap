@@ -41,4 +41,10 @@ export class TechnologyService {
           catchError(this.handleError('getTechnologies', []))
         );
     }
+
+    getTechnologiesNames(): Observable<string[]>{
+      return this.http.get<Technology[]>(this.technologyUrl)
+      .map((technologies : Technology[]) => technologies.map(t => t.Name));
+      
+    }
 }

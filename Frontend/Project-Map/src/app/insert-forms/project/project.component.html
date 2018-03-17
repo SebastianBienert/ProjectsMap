@@ -27,13 +27,57 @@
 		</div>
 
 		<div class="md-form">
+			<i class="fa fa fa-industry prefix blue-text" ></i>
+			<tag-input
+					 	name="Technologies"
+						style="margin-left: 3rem; padding: 0 !important"
+						inputId ="Technologies"
+						formControlName="Technologies"
+						secondaryPlaceholder = "Technologies"
+						placeholder = "Add Technology"
+						modelAsStrings = "true"
+					   [addOnBlur]="true"
+					   [clearOnBlur]="true">
+				<tag-input-dropdown [autocompleteItems]="allTechnologies">
+				</tag-input-dropdown>
+			</tag-input>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-user-circle prefix blue-text" ></i>
+			<tag-input 	formControlName = "Employees"
+						name="Employees"
+						style="margin-left: 3rem; padding: 0 !important"
+						inputId ="Employees"
+						secondaryPlaceholder = "Employees"
+						placeholder = "Add Employee"
+						[addOnBlur]="true"
+						[clearOnBlur]="true"
+						[onlyFromAutocomplete]="true"
+					   [separatorKeyCodes]='[9, 188, 32]'>
+                <ng-template let-item="item">
+					{{item.display}}
+                </ng-template>
+				<tag-input-dropdown showDropdownIfEmpty = "false"
+									focusFirstElement ="true"
+									limitItemsTo ="8"
+									matchinFn="matching"
+									[autocompleteObservable]='requestAutocompleteItems'>
+                    <ng-template let-item="item" let-index="index">
+						{{item.display}}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+		</div>
+
+		<!-- <div class="md-form">
 			<i class="fa fa-user-circle prefix blue-text"></i>
 			<input type="text" class="form-control" id="ProductOwner" formControlName="ProductOwner" mdbActive>
 			<span *ngIf="formErrors.ProductOwner" class="alert alert-danger">{{ formErrors.ProductOwner }}</span>
 			<label for="ProductOwner">Product Owner</label>
-		</div>
+		</div> -->
 
-		<div class="md-form">
+		<!-- <div class="md-form">
 			<i class="fa fa-building-o prefix blue-text"></i>
 			<input type="text" class="form-control" id="Company" formControlName="Company" mdbActive>
 			<span *ngIf="formErrors.Company" class="alert alert-danger">{{ formErrors.Company }}</span>
@@ -45,7 +89,7 @@
 			<input type="text" class="form-control" id="CompanyId" formControlName="CompanyId" mdbActive>
 			<span *ngIf="formErrors.CompanyId" class="alert alert-danger">{{ formErrors.CompanyId }}</span>
 			<label for="CompanyId">Company ID</label>
-		</div>
+		</div> -->
 	
 		<div class="text-center">
 		    <button [disabled]="!formAddProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>

@@ -190,11 +190,13 @@
     <Compile Include="Repositories\EntityFramework\Vertex.cs" />
     <Compile Include="Services\Abstract\ICompanyService.cs" />
     <Compile Include="Services\Abstract\IEmployeeService.cs" />
+    <Compile Include="Services\Abstract\IProjectService.cs" />
     <Compile Include="Services\Abstract\IRoomService.cs" />
     <Compile Include="Services\Abstract\ISeatService.cs" />
     <Compile Include="Services\Abstract\ITechnologyService.cs" />
     <Compile Include="Services\Concrete\CompanyService.cs" />
     <Compile Include="Services\Concrete\EmployeeService.cs" />
+    <Compile Include="Services\Concrete\ProjectService.cs" />
     <Compile Include="Services\Concrete\RoomService.cs" />
     <Compile Include="Services\Concrete\SeatService.cs" />
     <Compile Include="Services\Concrete\TechnologyService.cs" />

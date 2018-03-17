@@ -46,8 +46,6 @@ export class EmployeeService {
     );
   }
 
-
-
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeeUrl)
@@ -57,12 +55,17 @@ export class EmployeeService {
   }
 
   searchEmployeeByTechnology(technology : string): Observable<Employee[]> {
-    
-
     return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/technology/" + technology)
     .pipe(
       catchError(this.handleError('getEmployees', []))
     );
-    
   }
+
+  public getEmployeesByQuery(query : string) : Observable<Employee[]>{
+    return this.http.get<Employee[]>(this.employeeUrl + "/like/" + query)
+    .pipe(
+      catchError(this.handleError('getEmployees', [])));
+  }
+
+
 }

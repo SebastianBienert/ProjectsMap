@@ -7,7 +7,6 @@ export interface Project{
     Description : string,
     RepositoryLink : string,
     DocumentationLink : string,
-    ProductOwnerId : Employee,
     CompanyId : number,
     Developers : Employee[],
     Rooms : Room,

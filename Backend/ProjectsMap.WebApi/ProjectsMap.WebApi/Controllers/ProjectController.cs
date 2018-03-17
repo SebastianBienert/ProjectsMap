@@ -8,30 +8,31 @@ using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/project")]
     public class ProjectController : ApiController
     {
-        private IProjectRepository _repository;
+        private IProjectService _service;
 
-        public ProjectController(IProjectRepository repository)
+        public ProjectController(IProjectService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Projects);
+            return Ok(_service.GetAllProjects());
         }
 
         [Route("{id:int}", Name = "GetProjectById")]
         public IHttpActionResult Get(int id)
         {
-            var project = _repository.Get(id);
+            var project = _service.GetProject(id);
 
             if (project != null)
                 return Ok(project);
@@ -44,7 +45,7 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("")]
         public IHttpActionResult Post(CreateProject dtoProject)
         {
-            int createdId = _repository.Add(dtoProject);
+            int createdId = _service.Post(dtoProject);
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
         }
 

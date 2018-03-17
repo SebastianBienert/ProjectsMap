@@ -58,6 +58,7 @@ namespace ProjectsMap.WebApi.App_Start
 
             kernel.Bind<ICompanyService>().To<CompanyService>();
             kernel.Bind<IRoomService>().To<RoomService>();
+            kernel.Bind<IProjectService>().To<ProjectService>();
             kernel.Bind<IEmployeeService>().To<EmployeeService>();
             kernel.Bind<ISeatService>().To<SeatService>();
             kernel.Bind<ITechnologyService>().To<TechnologyService>();

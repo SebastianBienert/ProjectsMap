@@ -4,6 +4,9 @@ import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../common-interfaces/employee';
 import { Technology } from '../../common-interfaces/technology';
 import { TechnologyService } from '../../services/technology.service';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 @Component({
   moduleId: module.id,
   selector: 'form-employee',
@@ -14,14 +17,13 @@ export class EmployeeComponent implements OnInit {
 
   formAddEmployee : FormGroup;
   companyId : number = 1;
-  allTechnologies : Technology[];
+  allTechnologies : string[];
   formErrors = {
     DeveloperId: '',
     FirstName: '',
     Surname: '',
     ManagerId: '',
     Email: '',
-    WantToHelp: '',
     JobTitle: ''
   }
 
@@ -41,9 +43,6 @@ export class EmployeeComponent implements OnInit {
     ManagerId:{
       
     },
-    WantToHelp: {
-      required: 'Wants To Help form cannot be empty'
-    },
     JobTitle: {
       required: 'Job Title cannot be empty'
     }
@@ -53,37 +52,33 @@ export class EmployeeComponent implements OnInit {
      private service : EmployeeService,
     private technologyService : TechnologyService) {}
   
-    removeTechnology(i : number)
-    {
-      this.Technologies.removeAt(i);
-    }
-
   ngOnInit() {
     this.formAddEmployee = this.formBuilder.group({
      DeveloperId: ['', Validators.required],
      FirstName: ['', Validators.required],
      Surname: ['', Validators.required],
-     Technologies: this.formBuilder.array([]),
+     Technologies: [''],
      Email: ['', Validators.required],
-     WantToHelp: ['', Validators.required],
      JobTitle: ['', Validators.required],
      ManagerId: ['']
    });
    
+ 
+
    this.formAddEmployee.valueChanges.debounceTime(500).subscribe((value) => {
     this.onControlValueChanged();
    });
    this.onControlValueChanged();
 
-   this.technologyService.getTechnologies().subscribe(x => this.allTechnologies = x);
+   this.technologyService.getTechnologiesNames().subscribe(x => this.allTechnologies = x);
 
   }
 
   onSubmit(form) {
     //console.log(form);
     const formModel = this.formAddEmployee.value;
-   var developersTechnologies = form.value.Technologies.map(x => x.Name);
-   console.log("Lista: " + JSON.stringify(developersTechnologies));
+   var developersTechnologies = form.value.Technologies;
+   //console.log(developersTechnologies);
 
     var emp = {
       FirstName : form.value.FirstName,
@@ -94,9 +89,9 @@ export class EmployeeComponent implements OnInit {
       ManagerId : form.value.ManagerId,
       Email : form.value.Email,
       JobTitle : form.value.JobTitle,
-      Technologies : developersTechnologies
+      Technologies : form.value.Technologies
     } as Employee;
-    console.log(emp);
+    //console.log(emp);
     this.service.addEmployee(emp);
   }
 
@@ -104,13 +99,6 @@ export class EmployeeComponent implements OnInit {
     return this.formAddEmployee.get('Technologies') as FormArray;
   };
 
-  addTechnology() {
-    this.Technologies.push(this.formBuilder.group(
-      {
-        Name : ['']
-    }));
-  }
-  
   onControlValueChanged() : void {
   const form = this.formAddEmployee;
 
