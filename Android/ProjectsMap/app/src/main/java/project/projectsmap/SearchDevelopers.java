@@ -2,6 +2,7 @@ package project.projectsmap;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,7 +44,7 @@ public class SearchDevelopers extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                     choice = (String) adapterView.getItemAtPosition(position);
-                    inputDataField.setHint("Podaj " + choice);
+                    setInputDataField();
                 }
 
                 @Override
@@ -52,11 +53,12 @@ public class SearchDevelopers extends AppCompatActivity {
                 }
             });
             adapter = new customAdapter(this);
+            listDevelopers.setAdapter(adapter);
 
             clickSerach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listDevelopers.setAdapter(adapter);
+                    adapter.list.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                     process.setChoice(choice);
                     process.setInputData(inputDataField.getText().toString());
@@ -69,5 +71,24 @@ public class SearchDevelopers extends AppCompatActivity {
                     SearchDevelopers.super.finish();
                 }
             });
+    }
+    private void setInputDataField(){
+        inputDataField.setText("");
+        if(choice.equals("Id")){
+            inputDataField.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }else{
+            inputDataField.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+        if(choice.equals("All")){
+            inputDataField.setEnabled(false);
+            inputDataField.setFocusable(false);
+            inputDataField.setCursorVisible(false);
+            inputDataField.setHint("");
+        }else{
+            inputDataField.setEnabled(true);
+            inputDataField.setFocusableInTouchMode(true);
+            inputDataField.setCursorVisible(true);
+            inputDataField.setHint("Podaj " + choice);
+        }
     }
 }

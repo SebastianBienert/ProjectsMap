@@ -15,5 +15,6 @@
         <item>Id</item>
         <item>Technology</item>
         <item>Other</item>
+        <item>All</item>
     </string-array>
 </resources>

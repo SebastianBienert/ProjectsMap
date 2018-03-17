@@ -25,69 +25,64 @@ import javax.net.ssl.HttpsURLConnection;
 public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     TextView statement;
     String data ="";
-    String singleParsed = "";
     String choice = "";
     String inputData = "";
     String errorText = "";
-    ArrayList<String> dataList = new ArrayList<String>();
+    ArrayList<Developer> dataList = new ArrayList<Developer>();
 
     @Override
     protected Void doInBackground(Void... voids) {
-
-        try {
-            URL url;
-            if(inputData.isEmpty()){
-                url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
-            }else{
-                if(choice.equals("Technology")){
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
-                }else if(choice.equals("Id")){
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-                }else{
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+        if(inputData.isEmpty()){
+            errorText = "Wprowadź dane";
+        }else{
+            try {
+                URL url = setURLAdress();
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = "";
+                while(line != null) {
+                    line = bufferedReader.readLine();
+                    data = data + line;
                 }
-            }
-            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-            InputStream inputStream = httpsURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while(line != null) {
-                line = bufferedReader.readLine();
-                data = data + line;
-            }
 
-            Object json = new JSONTokener(data).nextValue();
-            if( json instanceof JSONObject){
-                JSONObject JO = new JSONObject(data);
-                singleParsed = "Id:" + JO.get("Id") + "\n"+
-                        "FirstName:" + JO.get("FirstName") + "\n"+
-                        "Surname:" + JO.get("Surname") + "\n"+
-                        "Technologies:" + JO.get("Technologies") + "\n"+
-                        "Seat:" + JO.get("Seat") + "\n";
-                dataList.add(singleParsed);
-            }else if(json instanceof JSONArray){
-                JSONArray JA = new JSONArray(data);
-                for(int i=0;i<JA.length(); i++){
-                    JSONObject JO = (JSONObject) JA.get(i);
-                    singleParsed = "Id:" + JO.get("Id") + "\n"+
-                            "FirstName:" + JO.get("FirstName") + "\n"+
-                            "Surname:" + JO.get("Surname") + "\n"+
-                            "Technologies:" + JO.get("Technologies") + "\n"+
-                            "Seat:" + JO.get("Seat") + "\n";
-                    dataList.add(singleParsed);
+                Object json = new JSONTokener(data).nextValue();
+                if( json instanceof JSONObject){
+                    dataList.add(new Developer(new JSONObject(data)));
+                }else if(json instanceof JSONArray){
+                    JSONArray JA = new JSONArray(data);
+                    for(int i=0;i<JA.length(); i++){
+                        dataList.add(new Developer((JSONObject) JA.get(i)));
+                    }
                 }
+            } catch (MalformedURLException e) {
+                errorText = "MalformedURLException";
+                e.printStackTrace();
+            } catch (IOException e) {
+                errorText = "IOException";
+                e.printStackTrace();
+            } catch (JSONException e) {
+                errorText = "JSONException";
+                e.printStackTrace();
             }
-        } catch (MalformedURLException e) {
-            errorText = "MalformedURLException";
-            e.printStackTrace();
-        } catch (IOException e) {
-            errorText = "IOException";
-            e.printStackTrace();
-        } catch (JSONException e) {
-            errorText = "JSONException";
-            e.printStackTrace();
         }
         return null;
+    }
+    private URL setURLAdress(){
+        try{
+            if(choice.equals("Technology")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
+            }else if(choice.equals("Id")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+            }else if(choice.equals("All")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            }else{
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            }
+        }catch(MalformedURLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
     public void setChoice(String name){
         choice = name;
@@ -100,7 +95,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         super.onPostExecute(aVoid);
         statement.setText(errorText);   // tutaj ustawiany tekst bo w metodzie doInBackground rzuca błędem
         for(int i=0; i<dataList.size();i++) {
-            SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i)));
+            SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
         }
         SearchDevelopers.adapter.notifyDataSetChanged();
     }

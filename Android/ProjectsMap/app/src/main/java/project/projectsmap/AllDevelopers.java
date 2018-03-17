@@ -38,6 +38,7 @@ public class AllDevelopers extends AppCompatActivity {
         click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                custom.list.clear();
                 fetchData process = new fetchData();
                 process.execute();
             }
