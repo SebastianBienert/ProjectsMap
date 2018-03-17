@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".AllDevelopers" />
         <activity android:name=".SerachDeveloper" />
-        <activity android:name=".SearchDeveloperAfterTechnology"></activity>
+        <activity android:name=".SearchDevelopers"></activity>
     </application>
 
 </manifest>

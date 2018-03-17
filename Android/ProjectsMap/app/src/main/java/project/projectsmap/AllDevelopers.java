@@ -28,7 +28,6 @@ public class AllDevelopers extends AppCompatActivity {
 
         click = (Button) findViewById(R.id.button);
         clickBack = (Button) findViewById(R.id.buttonBack);
-//        data = (TextView) findViewById(R.id.fetcheddata);
 
         listView = (ListView) findViewById(R.id.listview);
 

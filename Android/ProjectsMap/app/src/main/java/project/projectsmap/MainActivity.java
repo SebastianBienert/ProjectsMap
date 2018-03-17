@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         clickSerachDeveloperAfterTechnology = (Button) findViewById(R.id.buttonSearchDeveloperAfterTechnology);
-
         clickSerachDeveloperAfterTechnology.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SearchDeveloperAfterTechnology.class);
+                Intent intent = new Intent(MainActivity.this, SearchDevelopers.class);
                 startActivity(intent);
             }
         });
+
 
     }
 
