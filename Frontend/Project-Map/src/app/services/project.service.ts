@@ -20,8 +20,8 @@ const httpOptions = {
 
 @Injectable()
 export class ProjectService {
-  projectUrl = 'http://localhost:58923/api/project';  // For localhosted webapi
- // projectUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  //projectUrl = 'http://localhost:58923/api/project';  // For localhosted webapi
+  projectUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
   private handleError: HandleError;
 
   constructor(

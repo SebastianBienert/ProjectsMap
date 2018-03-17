@@ -20,8 +20,8 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
-  employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
-  // employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  //employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
+  employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
   private handleError: HandleError;
 
   constructor(
