@@ -1,15 +1,27 @@
-<!-- <ul class="nav navbar-nav">
-  <li *ngFor="let floor of currentBuildingFloorsList" (click)="changeFloor(floor.Id)">
-    Floor id: {{floor.Id}}  Building id: {{floor.BuildingId}}
-  </li>
-</ul> -->
 <div style="color: white">
-  <a class="building-button" *ngFor="let building of buildingsList" (click)="changeBuilding(building.Id)">{{building.Address}}</a>
+  <ul>
+    <li  *ngFor="let building of buildingsList" [ngClass]="{'building-button':true, 'selected-button': building.Id === selectedBuilding}"  (click)="changeBuilding(building.Id)">{{building.Address}}</li>
+    <li   [ngClass]="{'building-button':true,'plus-button':true,  'selected-button': selectedBuilding === 0}" (click)="addNewBuilding()">+</li>
+  </ul>
 </div>
 <div style="color: white">
-  <a class="floor-button" *ngFor="let floor of currentBuildingFloorsList" (click)="changeFloor(floor.Id)">{{floor.Description}}</a>
+  <ul>
+    <li *ngFor="let floor of currentBuildingFloorsList" [ngClass]="{'floor-button':true, 'selected-button': floor.Id === selectedFloor}" (click)="changeFloor(floor.Id)">Floor {{floor.FloorNumber}}</li>
+    <li *ngIf='selectedBuilding !== 0' [ngClass]="{'floor-button':true, 'plus-button':true, 'selected-button': selectedFloor === 0}" (click)="addNewFloor()">+</li> 
+  </ul>
 </div>
 <!-- <button (click)="debug()">print building</button> -->
-<app-displayed-map
-  [floorToDisplay]= "selectedFloor">
-</app-displayed-map>
+<div [ngSwitch]="displayMode">
+  <app-displayed-map *ngSwitchCase="'display'"
+    [floorToDisplay]= "selectedFloor">
+  </app-displayed-map>
+  <app-map-creator *ngSwitchCase="'create'"
+    [floorDescription] = "'hell'"
+    [buildingId] = "selectedBuilding"
+    (mapCreated)="mapCreated($event)">
+  </app-map-creator>
+  <div *ngSwitchCase="'addBuilding'">
+      <input [(ngModel)]="buildingAddress" #ctrl="ngModel" required placeholder="Address">
+      <button (click)='saveNewBuilding()'>OK</button>
+  </div>
+</div>

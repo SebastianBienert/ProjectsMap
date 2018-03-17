@@ -93,6 +93,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					Walls = wallsList,
 					BuildingId = floorDto.BuildingId,
 					Description = floorDto.Description,	
+					FloorNumber = floorDto.FloorNumber
 				};
 
 				dbContext.Floors.Add(floor);

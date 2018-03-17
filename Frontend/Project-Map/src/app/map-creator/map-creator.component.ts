@@ -5,8 +5,9 @@ import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
 import { Scale, Doc, PointArray, Rect, Line } from './../../../node_modules/svg.js/svg.js.d';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Room } from '../common-interfaces/room';
+import { Seat } from '../common-interfaces/seat';
 declare const SVG: any;
 
 @Component({
@@ -15,6 +16,13 @@ declare const SVG: any;
   styleUrls: ['./map-creator.component.css']
 })
 export class MapCreatorComponent implements OnInit {
+  
+  @Input() buildingId : number;
+  @Output() mapCreated = new EventEmitter<boolean>();
+  floorNumber : number;
+  floorDescription : string;
+  removalMode : boolean = false;
+  deleteKeyPressed : boolean;
   drawnMap;
   rooms: Room[];
   drawMode: string;
@@ -29,27 +37,37 @@ export class MapCreatorComponent implements OnInit {
   }
   ngOnInit() {
     this.displayMap();
+    this.addEventHandlers();
   }
-  /*
-    stopDrawingAtEnter(e, poly) {
-      if (e.keyCode == 13) {
-        poly.draw('done');
-        poly.off('drawstart');
-        this.drawingRightNow = false;
-        this.createdRooms.push(poly);
-        console.log(this.createdRooms.length);
-        document.addEventListener('keydown', this.stopDrawingAtEnter(e, poly);
+  addEventHandlers() {
+    var self = this;
+    document.onkeydown =function stopDrawingAtEnter(e) {
+      if(self.removalMode) return;
+      if (e.keyCode == 68) {
+        self.removalMode = true;
       }
-    }
-  */
+    };
+    document.onkeyup = function(e){
+      if (e.keyCode == 68) {
+        self.removalMode = false;
+      }
+    };
+  }
+  switchOnRemovalMode(){
+    this.drawnMap.off("mousedown");
+    this.drawnMap.off("mouseup");
+    this.removalMode = !this.removalMode;
+
+  }
+
   drawNewRoom() {
     this.drawMode = 'room';
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
     if (!this.drawingRightNow) {
 
-      var poly = this.drawnMap.polygon().draw({ snapToGrid: 10 }).fill('#4f4').stroke({ width: 1 });
-
+      var group = this.drawnMap.group();
+      var poly = this.drawnMap.polygon().draw({ snapToGrid: 10 }).fill('#4f4').stroke({ width: 1 }).mouseover(f => {if(this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index,1); group.remove();}});
       this.drawingRightNow = true;
       var self = this;
       poly.on('drawstart', function (e) {
@@ -58,17 +76,24 @@ export class MapCreatorComponent implements OnInit {
             poly.draw('done');
             poly.off('drawstart');
             self.drawingRightNow = false;
-            self.createdRooms.push(poly);
+            var room = new MapCreatorComponent.RoomWithSeats;
+            room.polygon = poly;
+            self.createdRooms.push(room);
             console.log(self.createdRooms.length);
             document.removeEventListener('keydown', stopDrawingAtEnter);
-            //add seats TODO !!!
-            /*poly.click(function placeSeat(event) {
+            
+            group.add(poly);
+            poly.click(function placeSeat(event) {
               //seat size hardcoded to 10x10 for now !!! alligned to grid: 10
               var seat = self.drawnMap.rect(10,10).move(( event.offsetX - event.offsetX%10), ( event.offsetY - event.offsetY%10));
-              //seat.draw();
-            })*/
+              console.log(seat.attr().x);
+              var seatVertex= {X: seat.attr().x, Y: seat.attr().y} as Vertex;
+              room.seats.push(seatVertex);
+              group.add(seat);
+            })
           }
         });
+        
         document.addEventListener('keydown', function cancelDrawingAtEscape(e) {
           if (e.keyCode == 27) {
             poly.draw('cancel');
@@ -82,12 +107,6 @@ export class MapCreatorComponent implements OnInit {
     }
   }
 
-  deleteLastRoom() {
-    if (this.createdRooms.length > 0) {
-      this.createdRooms[this.createdRooms.length - 1].remove();
-      this.createdRooms.pop();
-    }
-  }
 
   displayMap() {
     this.drawnMap =SVG.adopt(document.getElementById('createMap'));
@@ -98,7 +117,7 @@ export class MapCreatorComponent implements OnInit {
     this.drawMode = 'line';
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
-    var line = this.drawnMap.line().fill('none').stroke({ width: 3 });
+    var line = this.drawnMap.line().fill('none').stroke({ width: 3 }).mouseover(f => {if(this.removalMode) { var index = this.lines.findIndex((x) => x.attr().id === line.attr().id);this.lines.splice(index,1); line.remove();}});
     this.drawnMap.on(
       "mousedown",
       function (e) {
@@ -122,7 +141,7 @@ export class MapCreatorComponent implements OnInit {
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
     this.drawMode = 'square';
-    var rect = this.drawnMap.rect().fill('none').stroke({ width: 3 });
+    var rect = this.drawnMap.rect().fill('none').stroke({ width: 3 }).mouseover(f => {if(this.removalMode) {rect.remove(); var index = this.rects.findIndex((x) => x.attr().id === rect.attr().id); this.rects.splice(index,1)}});
     this.drawnMap.on(
       "mousedown",
       function (e) {
@@ -143,6 +162,9 @@ export class MapCreatorComponent implements OnInit {
 
 
   determineShape() {
+    if(this.removalMode) {
+      return
+    }
     switch (this.drawMode) {
       case 'square':
         this.chooseSquare();
@@ -167,22 +189,22 @@ export class MapCreatorComponent implements OnInit {
     //polygon to lines
     var Rooms = Array();
     for (var i = 0; i < this.createdRooms.length; i++) {
-      var oneCoordinateAtTime = this.createdRooms[i].attr('points').split(/[\s,]+/);
+      var oneCoordinateAtTime = this.createdRooms[i].polygon.attr('points').split(/[\s,]+/);
       var Walls = Array();
       for (var j = 0; j < (oneCoordinateAtTime.length-2); j+=2) {
         Walls.push(this.coordinatesToLine(oneCoordinateAtTime[j], oneCoordinateAtTime[j+1], oneCoordinateAtTime[j+2], oneCoordinateAtTime[j+3]));
       }
       Walls.push(this.coordinatesToLine(oneCoordinateAtTime[oneCoordinateAtTime.length-2], oneCoordinateAtTime[oneCoordinateAtTime.length-1], oneCoordinateAtTime[0], oneCoordinateAtTime[1]));
       //push seats and Projects as empty
-      var Seats = Array();
-      var room: Room = {Walls, Seats} as Room;
+      var Seats = this.createdRooms[i].seats;
+      var room: Room = {Walls, Seats} as Room;//!!! Seats
       Rooms.push(room);
     }
 
-    var floor: Floor = {Rooms, Walls:linesVertexes, BuildingId:1, Description:""} as Floor;
+
+    var floor: Floor = {Rooms, Walls:linesVertexes, BuildingId:this.buildingId, Description:this.floorDescription, FloorNumber: this.floorNumber} as Floor;
     
-    console.log(floor);
-    this.floorService.addFloor(floor).subscribe();
+    this.floorService.addFloor(floor).subscribe( mapCreated => {this.mapCreated.emit(true);});
 
     //clear map
     this.lines.length=0;
@@ -213,4 +235,12 @@ export class MapCreatorComponent implements OnInit {
     var line: Wall = { StartVertex , EndVertex } as Wall;
     return line;
   }
+
+  static RoomWithSeats = class {
+    polygon;
+    seats = Array();
+  }
+
+
 }
+

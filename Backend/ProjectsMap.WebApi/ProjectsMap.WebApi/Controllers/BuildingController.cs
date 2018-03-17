@@ -1,4 +1,5 @@
-﻿using ProjectsMap.WebApi.Services.Abstract;
+﻿using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,18 @@ namespace ProjectsMap.WebApi.Controllers
 		{
 			var buildingFloorList = _floorService.GetFloorsList(id);
 			return Ok(buildingFloorList);
+			/*if (companyBuildingsList)
+				return Ok(companyDto);
+			else
+				return NotFound();*/
+		}
+
+		[HttpPost]
+		[Route("")]
+		public IHttpActionResult Post([FromBody] BuildingDto buildingDto)
+		{
+			int createdId = _buildingService.Post(buildingDto);
+			return Ok(createdId);
 			/*if (companyBuildingsList)
 				return Ok(companyDto);
 			else

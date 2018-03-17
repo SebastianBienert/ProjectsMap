@@ -14,7 +14,7 @@ export class FloorServiceService {
   //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
   private handleError: HandleError;
   buildingUrl = 'http://localhost:58923/api/buildings';
-  postFloorUrl = 'http://localhost:58923/api/floor';// !!! ???
+  postFloorUrl = 'http://localhost:58923/api/floor';
   floorsListUrl = 'http://localhost:58923/api/floor/list';
 
   constructor(
@@ -23,13 +23,6 @@ export class FloorServiceService {
     this.handleError = httpErrorHandler.createHandleError('FloorService');
   }
 
-  /** GET rooms from the server */
- /* getFloors (): Observable<Floor[]> {
-    return this.http.get<Floor[]>(this.floorUrl)
-      .pipe(
-        catchError(this.handleError('getFloors', []))
-      );
-  }*/
   getFloor (id: number): Observable<Floor> {
     return this.http.get<Floor>(this.floorUrl + "/"  + id)
       .pipe(
@@ -41,7 +34,15 @@ export class FloorServiceService {
       'Walls' : Floor.Walls,
       'Rooms' : Floor.Rooms,
       'Description' : Floor.Description,
-      'BuildingId' : Floor.BuildingId
+      'BuildingId' : Floor.BuildingId,
+      'FloorNumber' : Floor.FloorNumber
+    })
+  }
+
+  public addBuilding(Building) {
+    return this.http.post<any>(this.buildingUrl, {
+      'Address' : Building.Address,
+      'CompanyId' : Building.CompanyId,
     })
   }
 

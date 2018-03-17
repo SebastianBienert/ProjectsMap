@@ -40,7 +40,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
 		public int Post(BuildingDto buildingDto)
 		{
-			throw new NotImplementedException();
+			return _buildingRepository.Add(buildingDto);
 		}
 
 		public void Update(BuildingDto buildingDto)

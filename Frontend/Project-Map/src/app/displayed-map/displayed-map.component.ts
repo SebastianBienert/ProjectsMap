@@ -23,8 +23,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
-   // this.getRooms();
-    this.getFloor();//!!!
+    this.getFloor();
   }
 
   getFloor(): void {
@@ -37,37 +36,16 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
-    console.log("am here");
-    
     for (let propName in changes) {
       let changedProp = changes[propName];
-      this.floorToDisplay = changedProp.currentValue;//!!!
+      this.floorToDisplay = changedProp.currentValue;
       this.getFloor();
-      console.log("niby po" + this.floorToDisplay)
     }
   }
-/*
-  getRooms(): void {
-    this.roomService.getRooms()
-      .subscribe(
-        Rooms => {
-          this.rooms = Rooms;
-          this.displayMap()
-        });
-  }*/
 
   displayMap() {
-    this.drawnMap = SVG.adopt(document.getElementById('svg'));
+    this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 2});
     this.drawnMap.clear();
-    //this.drawnMap = SVG('canvas').size(800, 800).panZoom();
-
-    /*
-    walls for each
-    this.drawnMap
-    .line(line.vertex1.X + ',' + line.vertex1.Y + ','+ line.vertex2.X + ','+ line.vertex2.Y + ',')
-    .stroke({ width: 3 })
-    
-    */
     this.floor.Rooms.forEach(room => {
       //concatenate room vertices into polygon coordinates
       var arra = '';
@@ -77,11 +55,11 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
       });
       //drawing room with mouseover and mouseout events
       this.drawnMap
-      .polygon(arra).fill('#fff')
+      .polygon(arra).fill('#999')
       .mouseover(function () {
-        this.fill({ color: '#1f2' })
+        this.fill({ color: '#AAA' })
       .mouseout(function () {
-          this.fill({ color: '#fff' })
+          this.fill({ color: '#999' })
         })
       })
       .stroke({ width: 2 })

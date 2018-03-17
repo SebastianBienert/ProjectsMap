@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./map-navigator.component.css']
 })
 export class MapNavigatorComponent implements OnInit {
-  
+  buildingAddress : string;
+  displayMode = "display";
+  hell : boolean = true;
   buildingsList = Array();
   currentBuildingFloorsList = Array();
   selectedFloor : number = 1;//change to read id of first floor in floors list and secure from null
@@ -20,17 +22,33 @@ export class MapNavigatorComponent implements OnInit {
     this.getFloorsList(1);
   }
 
+  addNewFloor()
+  {
+    this.displayMode = "create";
+    this.selectedFloor = 0;
+  }
+
+  addNewBuilding()
+  {
+    this.selectedBuilding = 0;
+    this.currentBuildingFloorsList.length =0;
+    this.displayMode = "addBuilding";
+  }
+  saveNewBuilding() {
+    var building =  {Address: this.buildingAddress, CompanyId: 1}//companyId==1 for test purposes
+    this.floorService.addBuilding(building).subscribe(fun => {this.getBuildingsList()});
+  }
 changeFloor(Id: number)
 {
+  this.displayMode = "display";
   this.selectedFloor=Id;
-  //this.getFloorsList(Id);///get outta hija
 }
 
 changeBuilding(Id: number)
 {
+  this.displayMode = "display";
   this.selectedBuilding = Id;
   this.getFloorsList(Id);
-  //console.log(this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0]);
   this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0];
 }
 debug()
@@ -39,7 +57,7 @@ debug()
 }
 
 getFloorsList(BuildingId : number): void {
-  this.floorService.getBuildingFloorsList(BuildingId)//'1' for test purpose only !!!
+  this.floorService.getBuildingFloorsList(BuildingId)
     .subscribe(
       FloorsList => {
         this.currentBuildingFloorsList = FloorsList;
@@ -52,6 +70,11 @@ getBuildingsList(): void {
       BuildingsList => {
         this.buildingsList = BuildingsList;
       });
+}
+mapCreated(mapCreated: boolean) {
+  if (mapCreated) {
+    this.getFloorsList(this.selectedBuilding);
+  }
 }
 
 }
