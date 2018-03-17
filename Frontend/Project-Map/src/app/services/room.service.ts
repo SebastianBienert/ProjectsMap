@@ -19,9 +19,12 @@ const httpOptions = {
 
 @Injectable()
 export class RoomService {
-  //roomUrl = 'http://localhost:58923/api/room';  // For localhosted webapi
-  roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
+  roomUrl = 'http://localhost:58923/api/room';  // For localhosted webapi
+  //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
   private handleError: HandleError;
+
+  postRoomUrl = 'http://localhost:58923/api/room';// !!! ???
+
 
   constructor(
     private http: HttpClient,
@@ -35,5 +38,12 @@ export class RoomService {
       .pipe(
         catchError(this.handleError('getRooms', []))
       );
+  }
+
+  public addRoom(Room) {
+    console.log('Whaaat the')
+    return this.http.post<Room>(this.postRoomUrl, {
+      'Walls' : Room.Walls
+    })
   }
 }

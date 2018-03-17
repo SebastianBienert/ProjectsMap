@@ -1,31 +1,29 @@
 ﻿using ProjectsMap.WebApi.DTOs;
-using ProjectsMap.WebApi.Mapper;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectsMap.WebApi.Mappers;
 
 namespace ProjectsMap.WebApi.Services.Concrete
 {
     public class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
-        private readonly IVertexRepository _vertexRepository;
         private readonly ISeatRepository _seatRepository;
 
-        public RoomService(IRoomRepository roomRepository, IVertexRepository vertexRepository,
+        public RoomService(IRoomRepository roomRepository,
             ISeatRepository seatRepository)
         {
             _roomRepository = roomRepository;
-            _vertexRepository = vertexRepository;
             _seatRepository = seatRepository;
         }
 
         public IEnumerable<RoomDto> GetAllRooms()
         {
-            return _roomRepository.Rooms.Select(x => RoomMapper.GetRoomDto(x));
+            return _roomRepository.Rooms.Select(x => DTOMapper.GetRoomDto(x));
         }
 
         public RoomDto GetRoom(int id)
@@ -34,10 +32,13 @@ namespace ProjectsMap.WebApi.Services.Concrete
             if (room == null)
                 return null;
 
-            return RoomMapper.GetRoomDto(room);
+            return DTOMapper.GetRoomDto(room);
         }
-
-        public void Post(Room room)
+		/*public int Post(Room room)
+		{
+			return _roomRepository.Add(room);
+		}*/
+		/*public void Post(Room room)
         {
             //var result = _roomRepository.Rooms.FirstOrDefault(r => r.RoomId == room.Id);
            /* if (result != null)
@@ -89,7 +90,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
 
 
-        }
+        //}
 
         public void Delete(Room room)
         {

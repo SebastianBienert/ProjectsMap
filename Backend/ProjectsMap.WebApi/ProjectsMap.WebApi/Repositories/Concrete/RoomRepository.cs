@@ -17,9 +17,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 using (var dbContext = new EfDbContext())
                 {
                     return dbContext.Rooms
-                        .Include(r => r.Projects)
-                        .Include(r => r.Vertexes)
-                        .Include(r => r.Seats.Select(s => s.Vertex)).ToList();
+                        .Include(r => r.Walls)
+                        .Include(r => r.Seats).ToList();
                 }
             }
         }
@@ -28,23 +27,61 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             using (var dbContext = new EfDbContext())
             {
                 return dbContext.Rooms
-                    .Include(r => r.Projects)
-                    .Include(r => r.Vertexes)
-                    .Include(r => r.Seats.Select(s => s.Vertex))
+                    .Include(r => r.Walls)
+                    .Include(r => r.Seats)
                     .FirstOrDefault(x => x.RoomId == id);
             }
         }
 
-        public void Add(Room room)
+        /*public void Add(Room room)
         {
             using (var dbContext = new EfDbContext())
             {
                 dbContext.Rooms.Add(room);
                 dbContext.SaveChanges();
             }
-        }
+        }*/
+		/*public int Add(Room room)
+		{
+			using (var dbContext = new EfDbContext())
+			{
+				dbContext.Vertexes.Load();
 
-        public void Delete(Room room)
+				for (int i = 0; i < room.Walls.Count; i++)
+				{
+					var x = room.Walls.ElementAt(i).StartVertex.X;
+					var y = room.Walls.ElementAt(i).StartVertex.Y;
+					Vertex start = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
+					if (start != null)
+					{
+						room.Walls.ElementAt(i).StartVertex = start;
+					}
+					else
+					{
+						dbContext.Vertexes.Local.Add(room.Walls.ElementAt(i).StartVertex);
+					}
+
+					x = room.Walls.ElementAt(i).EndVertex.X;
+					y = room.Walls.ElementAt(i).EndVertex.Y;
+					Vertex end = dbContext.Vertexes.Local.Where(v => v.X == x && v.Y == y).FirstOrDefault();
+					if (end != null)
+					{
+						room.Walls.ElementAt(i).EndVertex = end;
+					}
+					else
+					{
+						dbContext.Vertexes.Local.Add(room.Walls.ElementAt(i).EndVertex);
+					}
+			}
+				dbContext.Rooms.Add(room);
+				dbContext.SaveChanges();
+
+				return room.RoomId;
+			}
+		}*/
+
+
+		public void Delete(Room room)
         {
             using (var dbContext = new EfDbContext())
             {
@@ -62,5 +99,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 dbContext.SaveChanges();
             }
         }
-    }
+
+	}
 }

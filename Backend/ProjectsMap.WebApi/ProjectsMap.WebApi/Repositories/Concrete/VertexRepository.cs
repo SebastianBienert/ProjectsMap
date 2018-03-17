@@ -18,18 +18,21 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             }
         }
 
-        public Vertex Get(int id)
+        public Vertex Get(int x, int y)
         {
             var ctx = new EfDbContext();
-            return ctx.Vertexes.FirstOrDefault(v => v.VertexId == id);
+            return ctx.Vertexes.FirstOrDefault(v => v.X == x && v.Y == y);
         }
 
         public void Add(Vertex vertex)
         {
             using (var ctx = new EfDbContext())
             {
-                ctx.Vertexes.Add(vertex);
-                ctx.SaveChanges();
+				if (Get(vertex.X, vertex.Y) == null)
+				{
+					ctx.Vertexes.Add(vertex);
+					ctx.SaveChanges();
+				}
             }
         }
 

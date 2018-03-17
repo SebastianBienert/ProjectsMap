@@ -1,20 +1,28 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<app-search></app-search>
 
-
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo justify-content-between">
-    <logo>
-        <a class="navbar-brand" href="">Navbar</a>
-    </logo>
-    <links>
-        <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success btn-sm my-0 waves-light" type="submit" mdbRippleRadius>Search</button>
-        </form>
-    </links>
-</mdb-navbar>
-<app-displayed-map></app-displayed-map>
 <!-- <app-map-creator></app-map-creator> -->
 <!-- <app-Room></app-Room>   -->
-</div>
+<div class="wrapper">
 
+    <app-listing></app-listing>
+    <div id="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                        <i class="glyphicon glyphicon-align-left"></i>
+                        Toggle Sidebar
+                    </button> -->
+                    <app-map-navigator></app-map-navigator>
+                    <!-- <app-map-creator></app-map-creator>
+                    <app-displayed-map></app-displayed-map> -->
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>

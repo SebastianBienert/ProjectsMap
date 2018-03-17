@@ -30,6 +30,6 @@ namespace ProjectsMap.WebApi.Models
 
         public DateTime Created { get; set; }
 
-        public virtual Developer Developer{get; set; }
+        public virtual Employee Employee{get; set; }
     }
 }

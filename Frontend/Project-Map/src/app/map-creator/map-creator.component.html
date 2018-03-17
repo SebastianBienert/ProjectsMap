@@ -1,2 +1,9 @@
-<div id="canvas" (click)='drawPolygon()'>
+<div style="margin-top: 35px">
+<button (click)='drawNewRoom()'>Create room</button>
+<button (click)='chooseLine()'>Line</button>
+<button (click)='chooseSquare()'>Square</button>
+<button (click)='saveMap()'>Save Map</button>
+<input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
+<input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
+<svg style="border: 3px solid black;" width="800" height="800" id="createMap" (click)="determineShape()"></svg>
 </div>

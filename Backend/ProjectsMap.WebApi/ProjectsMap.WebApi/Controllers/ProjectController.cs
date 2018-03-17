@@ -4,32 +4,35 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.DTOs.POST;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/project")]
     public class ProjectController : ApiController
     {
-        private IProjectRepository _repository;
+        private IProjectService _service;
 
-        public ProjectController(IProjectRepository repository)
+        public ProjectController(IProjectService service)
         {
-            _repository = repository;
+            _service = service;
         }
 
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            return Ok(_repository.Projects);
+            return Ok(_service.GetAllProjects());
         }
 
-        [Route("{id:int}")]
+        [Route("{id:int}", Name = "GetProjectById")]
         public IHttpActionResult Get(int id)
         {
-            var project = _repository.Get(id);
+            var project = _service.GetProject(id);
 
             if (project != null)
                 return Ok(project);
@@ -37,29 +40,62 @@ namespace ProjectsMap.WebApi.Controllers
                 return NotFound();
         }
 
+        [HttpGet]
+        [Route("name/{name}")]
+        public IHttpActionResult Get(string name)
+        {
+            var result = _service.GetProjectsByName(name);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
+        [HttpGet]
+        [Route("pagination/{name}", Name = "GetProjectsByName")]
+        public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)
+        {
+            var projects = _service.GetProjectsByName(name);
+
+            if (projects == null)
+                return NotFound();
+
+            var dtos = projects.ToList();
+            var totalCount = dtos.ToList().Count;
+            var pageCount = Math.Ceiling((double)totalCount / pageSize);
+            var prevPage = page > 0 ? Url.Link("GetProjectByName", new { name = name, page = page - 1, pageSize = pageSize }) : "";
+            var nextPage = page < pageCount - 1 ? Url.Link("GetProjectByName", new { name = name, page = page + 1, pageSize = pageSize }) : "";
+
+            var filtered = dtos.Skip(page * pageSize).Take(pageSize);
+            var result = filtered.Select(dto =>
+            {
+                dto.Url = Url.Link("GetProjectById", new { id = dto.Id });
+                return dto;
+            }).ToList();
+            
+            return Ok(new
+            {
+                TotalProjects = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
+        }
+
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Post(Project project)
+        public IHttpActionResult Post(CreateProject dtoProject)
         {
-            _repository.Add(project);
-            return Ok();
+            int createdId = _service.Post(dtoProject);
+            return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
         }
 
-        [HttpDelete]
-        [Route("")]
-        public IHttpActionResult Delete(Project project)
-        {
-            _repository.Delete(project);
-            return Ok();
-        }
-
-        [HttpPut]
-        [Route("")]
-        public IHttpActionResult Update(Project project)
-        {
-            _repository.Update(project);
-            return Ok();
-        }
     }
 }

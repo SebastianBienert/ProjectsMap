@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button clickAllDeveloper;
     Button clickSerachDeveloper;
+    Button clickSerachDeveloperAfterTechnology;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +35,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         clickSerachDeveloper = (Button) findViewById(R.id.buttonSearchDeveloper);
 
         clickSerachDeveloper.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SerachDeveloper.class);
                 startActivity(intent);
             }
         });
+
+        clickSerachDeveloperAfterTechnology = (Button) findViewById(R.id.buttonSearchDeveloperAfterTechnology);
+        clickSerachDeveloperAfterTechnology.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchDevelopers.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

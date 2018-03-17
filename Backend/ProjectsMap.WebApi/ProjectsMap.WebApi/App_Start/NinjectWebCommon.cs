@@ -49,18 +49,25 @@ namespace ProjectsMap.WebApi.App_Start
         {
             //kernel.Bind<IRepo>().ToMethod(ctx => new Repo("Ninject Rocks!"));
             
-            kernel.Bind<IDeveloperRepository>().To<DeveloperRepository>();
+            kernel.Bind<IEmployeeRepository>().To<EmployeeRepository>();
             kernel.Bind<IProjectRepository>().To<ProjectRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
             kernel.Bind<ISeatRepository>().To<SeatRepository>();
-            kernel.Bind<IVertexRepository>().To<VertexRepository>();
             kernel.Bind<ITechnologyRepository>().To<TechnologyRepository>();
+            kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
+			kernel.Bind<IFloorRepository>().To<FloorRepository>();
+			kernel.Bind<IBuildingRepository>().To<BuildingRepository>();
 
+
+			kernel.Bind<ICompanyService>().To<CompanyService>();
             kernel.Bind<IRoomService>().To<RoomService>();
-            kernel.Bind<IDeveloperService>().To<DeveloperService>();
+            kernel.Bind<IEmployeeService>().To<EmployeeService>();
             kernel.Bind<ISeatService>().To<SeatService>();
             kernel.Bind<ITechnologyService>().To<TechnologyService>();
+            kernel.Bind<IProjectService>().To<ProjectService>();
+			kernel.Bind<IFloorService>().To<FloorService>();
+			kernel.Bind<IBuildingService>().To<BuildingService>();
 
-        }
+		}
     }
 }
