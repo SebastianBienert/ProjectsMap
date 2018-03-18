@@ -22,7 +22,8 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
         public IEnumerable<ProjectDto> GetProjectsByName(string name)
         {
-            var list = _repository.Projects.ToList();
+            name = name.ToLower();
+            var list = _repository.Projects.Where(x => x.Description.ToLower().Contains(name)).ToList();
 
             if (list.Count() > 0)
             {
@@ -62,6 +63,22 @@ namespace ProjectsMap.WebApi.Services.Concrete
         public IEnumerable<ProjectDto> GetAllProjects()
         {
             return _repository.Projects.Select(x => DTOMapper.GetProjectDto(x)).ToList();
+        }
+
+        public IEnumerable<ProjectDto> GetProjectsByTechnology(string technology)
+        {
+                technology = technology.ToLower();
+                var list = _repository.Projects.Where(x => x.Technologies.Select(t => t.Name.ToLower()).ToList().Any(s => s.Contains(technology))).ToList();
+
+                if (list.Count() > 0)
+                {
+                    var dtoS = list.Select(x => DTOMapper.GetProjectDto(x)).ToList();
+                    return dtoS;
+                }
+                else
+                {
+                    return null;
+                }
         }
     }
 }

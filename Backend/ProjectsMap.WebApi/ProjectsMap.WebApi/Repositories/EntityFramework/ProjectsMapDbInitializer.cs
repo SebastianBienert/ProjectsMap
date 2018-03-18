@@ -940,44 +940,77 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 }
 			};
 
-			IList<Project> projects = new List<Project>()
-			{
-				new Project()
-				{
+            IList<Technology> technologies = new List<Technology>()
+            {
+                new Technology()
+                {
+                    Name = "Angular"
+                },
+                new Technology()
+                {
+                    Name = "HTML"
+                },
+                new Technology()
+                {
+                    Name = "C#"
+                },
+                new Technology()
+                {
+                    Name = "Java"
+                },
+                new Technology()
+                {
+                    Name = "C++"
+                },
+                new Technology()
+                {
+                    Name = "CSS"
+                },
+                new Technology()
+                {
+                    Name = "JavaScript"
+                }
+            };
+
+            IList<Project> projects = new List<Project>()
+            {
+                new Project()
+                {
+                    ProjectId = 1,
 					Description = "ProjectsMap - projekt zespolowy",
 					DocumentationLink = "documentationlink",
-					RepositoryLink = "repositoryLink"
-				}
-			};
-
-			IList<Technology> technologies = new List<Technology>()
-			{
-				new Technology()
-				{
-					Name = "Angular"
-				},
-				new Technology()
-				{
-					Name = "HTML"
-				},
-				new Technology()
-				{
-					Name = "C#"
-				},
-				new Technology()
-				{
-					Name = "Java"
-				},
-				new Technology()
-				{
-					Name = "C++"
-				},
-				new Technology()
-				{
-					Name = "CSS"
-				}
-			};
-
+					RepositoryLink = "repositoryLink",
+                    CompanyId = 1,
+                    Technologies = new List<Technology>()
+                    {
+                       technologies[0],technologies[1],technologies[3],technologies[5]
+                    }
+                },
+                new Project()
+                {
+                    ProjectId = 2,
+                    Description = "Wypożyczalnia sprzetu turystycznego",
+                    DocumentationLink = "documentationlink2",
+                    RepositoryLink = "repositoryLink2",
+                    CompanyId = 1,
+                    Technologies = new List<Technology>()
+                    {
+                       technologies[3]
+                    }
+                },
+                new Project()
+                {
+                    ProjectId = 3,
+                    Description = "TSP-solving-algorithms",
+                    DocumentationLink = "documentationlink3",
+                    RepositoryLink = "repositoryLink3",
+                    CompanyId = 1,
+                    Technologies = new List<Technology>()
+                    {
+                       technologies[3]
+                    }
+                }
+            };
 
 			IList<Employee> developers = new List<Employee>()
 			{
@@ -1008,7 +1041,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     EmployeeId = 2,
 					Technologies = new List<Technology>()
 					{
-						technologies[5],technologies[1]
+						technologies[5],technologies[1],technologies[6]
 					},
 					ProjectRoles = new List<ProjectRole>()
 					{
@@ -1044,8 +1077,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     EmployeeId = 4,
 					Technologies = new List<Technology>()
 					{
-						technologies[0],technologies[4]
-					},
+						technologies[0],technologies[4],technologies[6]
+                    },
 					ProjectRoles = new List<ProjectRole>()
 					{
 						new ProjectRole()
@@ -1069,7 +1102,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						new ProjectRole()
 						{
 							Role = "Employee",
-							Project = projects[0]
+							Project = projects[1]
 						}
 					}
 				},
@@ -1080,14 +1113,14 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                     EmployeeId = 6,
 					Technologies = new List<Technology>()
 					{
-						technologies[5],technologies[1]
-					},
+						technologies[5],technologies[1],technologies[6]
+                    },
 					ProjectRoles = new List<ProjectRole>()
 					{
 						new ProjectRole()
 						{
 							Role = "Employee",
-							Project = projects[0]
+							Project = projects[1]
 						}
 					}
 				},
@@ -1105,7 +1138,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						new ProjectRole()
 						{
 							Role = "Employee",
-							Project = projects[0]
+							Project = projects[2]
 						}
 					}
 				},
@@ -1123,7 +1156,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						new ProjectRole()
 						{
 							Role = "Employee",
-							Project = projects[0]
+							Project = projects[2]
 						}
 					}
 				},
@@ -1141,7 +1174,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						new ProjectRole()
 						{
 							Role = "Employee",
-							Project = projects[0]
+							Project = projects[2]
 						}
 					}
 				},
@@ -2118,6 +2151,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             developers[17].Seat = seatsFourteenthRoom[0];
 			developers[17].User = users[17];
 
+
+
 			var company = new Company()
 			{
 				CompanyId = 1,
@@ -2282,6 +2317,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				Name = "Nokia"
 
 			};
+
 			projects.ToList()[0].Company = company;
 			company.Buildings.ToList()[0].Floors.ToList()[0].Building = company.Buildings.ToList()[0];
 

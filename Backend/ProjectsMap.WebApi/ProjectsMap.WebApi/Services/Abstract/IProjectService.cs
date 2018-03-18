@@ -16,5 +16,6 @@ namespace ProjectsMap.WebApi.Services.Abstract
         void Delete(Project project);
         void Update(Project project);
         IEnumerable<ProjectDto> GetAllProjects();
+        IEnumerable<ProjectDto> GetProjectsByTechnology(string technology);
     }
 }

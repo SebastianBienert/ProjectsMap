@@ -27,7 +27,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         public Project Get(int id)
         {
             var dbContext = new EfDbContext();
-            return dbContext.Projects.Include(p => p.ProjectRoles).FirstOrDefault(x => x.ProjectId == id);
+            return dbContext.Projects
+                    .Include(p => p.ProjectRoles.Select(x => x.Employee))
+                    .Include(p => p.Technologies.Select(x => x.Projects))
+                    .Include(p => p.Technologies.Select(x => x.Employees))
+                    .FirstOrDefault(x => x.ProjectId == id);
         }
 
         public int Add(CreateProject projectDto)

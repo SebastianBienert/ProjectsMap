@@ -20,11 +20,11 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 CompanyId = project.CompanyId,
                 Description = project.Description,
-                EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname),
+                EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname).ToList(),
                 DocumentationLink = project.DocumentationLink,
                 Id = project.ProjectId,
                 RepositoryLink = project.RepositoryLink,
-                Technologies = project.Technologies?.Select(x => GeTechnologyDto(x))
+                Technologies = project.Technologies?.Select(x => GeTechnologyDto(x)).ToList()
             };
         }
 

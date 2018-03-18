@@ -55,6 +55,17 @@ namespace ProjectsMap.WebApi.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("technology/{technology}")]
+        public IHttpActionResult GetProjectsByTechnology(string technology)
+        {
+            var allProjects = _service.GetProjectsByTechnology(technology);
+
+            if (allProjects != null)
+                return Ok(allProjects);
+
+            return NotFound();
+        }
 
         [HttpGet]
         [Route("pagination/{name}", Name = "GetProjectsByName")]
