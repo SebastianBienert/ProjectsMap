@@ -95,9 +95,9 @@ export class EmployeeComponent implements OnInit {
     this.service.addEmployee(emp);
   }
 
-  get Technologies(): FormArray {
-    return this.formAddEmployee.get('Technologies') as FormArray;
-  };
+  // get Technologies(): FormArray {
+  //   return this.formAddEmployee.get('Technologies') as FormArray;
+  // };
 
   onControlValueChanged() : void {
   const form = this.formAddEmployee;

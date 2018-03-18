@@ -19,21 +19,13 @@ export class ProjectComponent implements OnInit {
   formAddProject : FormGroup;
   companyId : number = 1;
   allTechnologies : string[];
-
-  addedEmployees = [];
-  itemsAsObjects = [{FirstName: 'Pracownik3 ', Id: 3, Surname: 'Nazwisko3'}];
-
-
-  autocompleteItemsAsObjects = [
-    {FirstName: 'Pracownik1 ', Id: 0, Surname: 'Nazwisko1'},
-    {FirstName: 'Pracownik2', Id: 1, Surname: 'Nazwisko'},
-    'item3'
-  ];
+  selectedEmployee = null;
 
   formErrors = {
     Description: '',
     RepositoryLink: '',
     DocumentationLink: '',
+    EmployeeRole: ''
   }
 
   private validationMessages = {
@@ -59,32 +51,39 @@ export class ProjectComponent implements OnInit {
      RepositoryLink: ['', Validators.required],
      DocumentationLink: ['', Validators.required],
      Technologies: [''],
-     Employees: ['']
+     Employees: [''],
+     EmployeeRole: ['']
    });
    
-   this.formAddProject.valueChanges.debounceTime(500).subscribe((value) => {
+    this.formAddProject.valueChanges.debounceTime(500).subscribe((value) => {
+      this.onControlValueChanged();
+    });
     this.onControlValueChanged();
-   });
-   this.onControlValueChanged();
-
-   this.technologyService.getTechnologiesNames().subscribe(x => this.allTechnologies = x);
+    this.technologyService.getTechnologiesNames().subscribe(x => this.allTechnologies = x);
   }
 
   public requestAutocompleteItems = (text: string): Observable<any[]> => {
     return this.employeeService.getEmployeesByQuery(text).map(array => array.map(employee => {
       return {
         value: employee.Id,
-        display: '#ID: ' + employee.Id + ', ' + employee.FirstName + ' ' + employee.Surname
+        display: '#ID: ' + employee.Id + ', ' + employee.FirstName + ' ' + employee.Surname,
+        role: 'Developer'
       }
     }));
   };
 
 
+  public onSelect(item)
+  {
+    console.log('tag selected: value is ' + JSON.stringify(item));
+    this.selectedEmployee = item;
+  }
+
   onSubmit(form) {
     var employees = form.value.Employees.map(x =>{
       return {
         EmployeeId: x.value,
-        Role: 'Developer',         //TODO
+        Role: x.role,        
         ProjectId: 0,
         CompanyId: this.companyId
       }
@@ -103,10 +102,6 @@ export class ProjectComponent implements OnInit {
     this.projectService.addProject(project);
   }
   
-  get Technologies(): FormArray {
-    return this.formAddProject.get('Technologies') as FormArray;
-  };
-
   onControlValueChanged() : void {
   const form = this.formAddProject;
 

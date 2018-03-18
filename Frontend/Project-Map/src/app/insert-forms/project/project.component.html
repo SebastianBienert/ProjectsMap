@@ -54,6 +54,7 @@
 						[addOnBlur]="true"
 						[clearOnBlur]="true"
 						[onlyFromAutocomplete]="true"
+						(onSelect)="onSelect($event)"
 					   [separatorKeyCodes]='[9, 188, 32]'>
                 <ng-template let-item="item">
 					{{item.display}}
@@ -70,26 +71,13 @@
             </tag-input>
 		</div>
 
-		<!-- <div class="md-form">
-			<i class="fa fa-user-circle prefix blue-text"></i>
-			<input type="text" class="form-control" id="ProductOwner" formControlName="ProductOwner" mdbActive>
-			<span *ngIf="formErrors.ProductOwner" class="alert alert-danger">{{ formErrors.ProductOwner }}</span>
-			<label for="ProductOwner">Product Owner</label>
-		</div> -->
 
-		<!-- <div class="md-form">
-			<i class="fa fa-building-o prefix blue-text"></i>
-			<input type="text" class="form-control" id="Company" formControlName="Company" mdbActive>
-			<span *ngIf="formErrors.Company" class="alert alert-danger">{{ formErrors.Company }}</span>
-			<label for="Company">Company</label>
+		<div class="md-form" *ngIf="selectedEmployee">
+			<i class="fa fa-puzzle-piece prefix blue-text"></i>
+			<input type="text" class="form-control" id="EmployeeRole" [(ngModel)]="selectedEmployee.role" formControlName="EmployeeRole" mdbActive>
+			<span *ngIf="formErrors.EmployeeRole" class="alert alert-danger">{{ formErrors.EmployeeRole }}</span>
+			<label for="EmployeeRole">#{{selectedEmployee.value}} Employee Role</label>
 		</div>
-
-		<div class="md-form">
-			<i class="fa fa-hashtag prefix blue-text"></i>
-			<input type="text" class="form-control" id="CompanyId" formControlName="CompanyId" mdbActive>
-			<span *ngIf="formErrors.CompanyId" class="alert alert-danger">{{ formErrors.CompanyId }}</span>
-			<label for="CompanyId">Company ID</label>
-		</div> -->
 	
 		<div class="text-center">
 		    <button [disabled]="!formAddProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>
