@@ -42,7 +42,8 @@ namespace ProjectsMap.WebApi.Services
 
         public IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology)
         {
-            var list = _repository.Employees.Where(x => x.Technologies.Select(t => t.Name).ToList().Contains(technology)).ToList();
+            technology = technology.ToLower();
+            var list = _repository.Employees.Where(x => x.Technologies.Select(t => t.Name.ToLower()).ToList().Any(s => s.Contains(technology))).ToList();
 
             if (list.Count() > 0)
             {
@@ -57,10 +58,22 @@ namespace ProjectsMap.WebApi.Services
 
         public IEnumerable<EmployeeDto> GetEmployeesByName(string name)
         {
+            List<Employee> list;
             name = name.ToLower();
-            var list = _repository.Employees
-                .Where(x => x.Surname.ToLower().Contains(name) || x.FirstName.ToLower().Contains(name))
+            String[] fullName = null;
+            fullName = name.Split(' ');
+            if (fullName.Length >= 2)
+            {
+                list = _repository.Employees
+                .Where(x => (x.Surname.ToLower().Contains(fullName[0]) && x.FirstName.ToLower().Contains(fullName[1]) || x.Surname.ToLower().Contains(fullName[1]) && x.FirstName.ToLower().Contains(fullName[0])))
                 .ToList();
+            }else
+            {
+                list = _repository.Employees
+                .Where(x => (x.Surname.ToLower().Contains(fullName[0]) || x.FirstName.ToLower().Contains(fullName[0])))
+                .ToList();
+            }
+            //var list = _repository.Emloyees.Where(x => (x.Surname.ToLower().Contains(name) || x.FirstName.ToLower().Contains(name)).ToList();
 
             if (list.Count() > 0)
             {
