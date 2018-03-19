@@ -9,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-Room',
-  templateUrl: './Room.component.html',
+  templateUrl: './room.component.html',
   providers: [ RoomService ],
-  styleUrls: ['./Room.component.css']
+  styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
   rooms: Room [];

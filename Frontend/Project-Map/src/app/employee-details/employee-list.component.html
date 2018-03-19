@@ -1,0 +1,12 @@
+<div class="jumbotron">
+	<h1 class="h1-responsive">List of Employees</h1>
+	<hr class="my-2">
+	<div class="list-group">
+	<a class="list-group-item" *ngFor="let emp of employee$"
+    	[class.selected]="emp.Id === selectedId" [routerLink]="['/employee', emp.Id]">
+    	  <span class="badge badge-primary badge-pill">{{ emp.Id }}</span> {{ emp.FirstName }} {{ emp.Surname }}
+  	</a>
+	</div>
+	<hr class="my-3">
+	<a routerLink="/StephenHawking" class="btn btn-primary waves-light" mdbRippleRadius>Go to Stephen Hawking</a>
+</div>

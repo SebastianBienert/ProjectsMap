@@ -43,6 +43,13 @@ export class EmployeeService {
       );
   }
 
+  getEmployee(id: number): Observable<Employee> {
+    return this.http.get<Employee>(this.employeeUrl + "/" + id)
+      .pipe(
+        catchError(this.handleError<Employee>('getEmployee'))
+      );
+  }
+
   searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {

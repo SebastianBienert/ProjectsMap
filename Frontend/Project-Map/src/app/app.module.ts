@@ -8,6 +8,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
 
 import { AppComponent } from './app.component';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
@@ -23,7 +25,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ProjectService } from './services/project.service';
 import { ReactiveFormsModule }  from '@angular/forms';
 import { MapNavigatorComponent } from './map-navigator/map-navigator.component';
-
+import { PageNotFoundComponent } from './not-found.component';
 
 @NgModule({
   declarations: [
@@ -35,16 +37,18 @@ import { MapNavigatorComponent } from './map-navigator/map-navigator.component';
     PersonCardComponent,
     SearchComponent,
     MapNavigatorComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
     HttpClientModule,
-    BrowserModule,
     MDBBootstrapModule.forRoot(),
     FormsModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    EmployeeDetailsModule,
+    AppRoutingModule
   ],
   providers: [
     HttpErrorHandler,
