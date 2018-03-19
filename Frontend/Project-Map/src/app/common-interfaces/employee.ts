@@ -12,6 +12,6 @@ export interface Employee{
     Email : string,
     JobTitle : string,
     CompanyName : string,
-    Technologies : Technology[],
+    Technologies : string[],
     Seat : Seat
 }

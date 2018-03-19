@@ -1016,9 +1016,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			{
 				new Employee()
 				{
-					FirstName = "Witkor",
+					Email = "zenon@gnail.ru", FirstName = "Witkor",
 					Surname = "Bukowski",
-					Email = "wiktor@gmail.com",
 					JobTitle = "Spawacz",
                     EmployeeId = 1,
 					Technologies = new List<Technology>()
@@ -1036,7 +1035,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Michal",
+					Email = "zenon@gnail.ru", FirstName = "Michal",
 					Surname = "Radziwilko",
                     EmployeeId = 2,
 					Technologies = new List<Technology>()
@@ -1054,7 +1053,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Jan",
+					Email = "zenon@gnail.ru", FirstName = "Jan",
 					Surname = "Kowalski",
                     EmployeeId = 3,
 					Technologies = new List<Technology>()
@@ -1072,7 +1071,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Tadeusz",
+					Email = "zenon@gnail.ru", FirstName = "Tadeusz",
 					Surname = "Nowak",
                     EmployeeId = 4,
 					Technologies = new List<Technology>()
@@ -1090,7 +1089,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Kacper",
+					Email = "zenon@gnail.ru", FirstName = "Kacper",
 					Surname = "Nowak",
                    EmployeeId = 5,
 					Technologies = new List<Technology>()
@@ -1108,7 +1107,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Joanna",
+					Email = "zenon@gnail.ru", FirstName = "Joanna",
 					Surname = "Wojciechowska",
                     EmployeeId = 6,
 					Technologies = new List<Technology>()
@@ -1126,7 +1125,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Katarzyna",
+					Email = "zenon@gnail.ru", FirstName = "Katarzyna",
 					Surname = "Zajac",
                     EmployeeId = 7,
 					Technologies = new List<Technology>()
@@ -1144,7 +1143,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Dawid",
+					Email = "zenon@gnail.ru", FirstName = "Dawid",
 					Surname = "Olszewski",
                    EmployeeId = 8,
 					Technologies = new List<Technology>()
@@ -1162,7 +1161,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Michał",
+					Email = "zenon@gnail.ru", FirstName = "Michał",
 					Surname = "Wieczorek",
                     EmployeeId = 9,
 					Technologies = new List<Technology>()
@@ -1180,7 +1179,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Daniel",
+					Email = "zenon@gnail.ru", FirstName = "Daniel",
 					Surname = "Malinowski",
                     EmployeeId = 10,
 					Technologies = new List<Technology>()
@@ -1198,7 +1197,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Dawid",
+					Email = "zenon@gnail.ru", FirstName = "Dawid",
 					Surname = "Adamczyk",
                    EmployeeId = 11,
 					Technologies = new List<Technology>()
@@ -1216,7 +1215,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Grzegorz",
+					Email = "zenon@gnail.ru", FirstName = "Grzegorz",
 					Surname = "Piotrowski",
                    EmployeeId = 12,
 					Technologies = new List<Technology>()
@@ -1234,7 +1233,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Adrian",
+					Email = "zenon@gnail.ru", FirstName = "Adrian",
 					Surname = "Kowalski",
                    EmployeeId = 13,
 					Technologies = new List<Technology>()
@@ -1252,7 +1251,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Anna",
+					Email = "zenon@gnail.ru", FirstName = "Anna",
 					Surname = "Rutokowska",
                     EmployeeId = 14,
 					Technologies = new List<Technology>()
@@ -1270,7 +1269,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Tomasz",
+					Email = "zenon@gnail.ru", FirstName = "Tomasz",
 					Surname = "Grabowski",
                     EmployeeId = 15,
 					Technologies = new List<Technology>()
@@ -1288,7 +1287,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Natalia",
+					Email = "zenon@gnail.ru", FirstName = "Natalia",
 					Surname = "Kozłowska",
                    EmployeeId = 16,
 					Technologies = new List<Technology>()
@@ -1306,7 +1305,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Szymon",
+					Email = "zenon@gnail.ru", FirstName = "Szymon",
 					Surname = "Zalewski",
                    EmployeeId = 17,
 					Technologies = new List<Technology>()
@@ -1324,7 +1323,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 				new Employee()
 				{
-					FirstName = "Ewa",
+					Email = "zenon@gnail.ru", FirstName = "Ewa",
 					Surname = "Witkowska",
                     EmployeeId = 18,
 					Technologies = new List<Technology>()

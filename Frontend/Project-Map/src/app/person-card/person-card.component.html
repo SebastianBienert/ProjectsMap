@@ -1,10 +1,21 @@
-<div (click)='showMore()' class="card text-center custom-card" style="width: 20rem;">
+<div (click)='showMore()' class="zoom card text-center custom-card" style="width: 20rem;">
   <div class="card-block">
     <h4 class="card-title">{{employee.FirstName}} {{employee.Surname}}</h4>
     <!-- <p class="card-text">{{employee.Techologies[0]}}</p> -->
-
-    <p *ngFor="let tech of employee.Technologies">
-      {{tech.Name}}aaa
-    </p>
+    <div class="card-section-left">
+      <div class="card-info-group">
+          <div class="card-label">Email: </div>
+          <div class="card-content">{{employee.Email}}</div>
+      </div>
+      <div class="card-info-group">
+          <div class="card-label">Tytuł:</div>
+          <div class="card-content">{{employee.JobTitle}}robol</div>
+      </div>
+    </div>
+    <div class="card-section-right">
+      <div *ngFor="let tech of employee.Technologies" class="tag">
+        {{tech}}
+      </div>
+    </div>
   </div>
 </div>
