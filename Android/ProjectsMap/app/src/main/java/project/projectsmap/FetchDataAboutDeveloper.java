@@ -107,8 +107,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             for(int i=0; i<dataList.size();i++) {
                 data+=dataList.get(i).developerDescription();
             }
-            SaveToFile savefile = new SaveToFile();
-            savefile.saveFile(context,fileName,data,append);
+            SaveToFile.saveDataToFile(context,fileName,data,append);
             SaveToFile.DisableProgressBar();
         }else{
             for(int i=0; i<dataList.size();i++) {

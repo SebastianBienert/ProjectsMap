@@ -62,12 +62,12 @@ public class SaveToFile extends AppCompatActivity {
             });
             saveData.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    saveFile(getApplicationContext(), "plikTestowy", dataToFile.getText().toString(), append);
+                    saveDataToFile(getApplicationContext(), "plikTestowy", dataToFile.getText().toString(), append);
                 }
             });
             loadData.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    dataFromFile.setText(load(getApplicationContext(), "plikTestowy"));
+                    dataFromFile.setText(loadDataFromFile(getApplicationContext(), "plikTestowy"));
                 }
             });
             clickSaveToFile.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class SaveToFile extends AppCompatActivity {
         }
 
     }
-    public boolean saveFile(Context context, String fileName, String text, boolean append){
+    static public boolean saveDataToFile(Context context, String fileName, String text, boolean append){
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
@@ -112,7 +112,7 @@ public class SaveToFile extends AppCompatActivity {
             return false;
         }
     }
-    public String load(Context context, String fileName){
+    static public String loadDataFromFile(Context context, String fileName){
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
