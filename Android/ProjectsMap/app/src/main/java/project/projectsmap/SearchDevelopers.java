@@ -65,6 +65,7 @@ public class SearchDevelopers extends AppCompatActivity {
                     waitForData.setVisibility(View.VISIBLE);
                     adapter.list.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                    process.setSaveDataToFile(false);
                     process.setChoice(choice);
                     process.setInputData(inputDataField.getText().toString());
                     process.setStatement(statement);

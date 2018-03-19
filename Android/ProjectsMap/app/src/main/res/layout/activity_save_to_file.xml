@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.projectsmap.SaveToFile">
+
+    <Button
+        android:id="@+id/buttonSaveData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextToSave"
+        android:layout_alignBottom="@+id/editTextToSave"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/buttonLoadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonSaveData"
+        android:text="Load" />
+
+    <EditText
+        android:id="@+id/editTextToSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radioGroup"
+        android:layout_toLeftOf="@+id/buttonSaveData"
+        android:layout_toStartOf="@+id/buttonSaveData"
+        android:ems="10"
+        android:hint="data to save"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonLoadData"
+        android:text="back" />
+
+    <TextView
+        android:id="@+id/textViewTextFromFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonBack"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:text="Data from file"
+        android:textSize="14sp" />
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup">
+
+        <RadioButton
+            android:id="@+id/radioAppendTrue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/radioGroup"
+            android:width="200dp"
+            android:checked="true"
+            android:text="Yes" />
+
+        <RadioButton
+            android:id="@+id/radioAppendFalse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="200dp"
+            android:text="No" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewInformationAboutChoiceAppend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:text="Append data to the file?"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonSaveToFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="Pobierz dane o pracownikach do pliku" />
+
+    <ProgressBar
+        android:id="@+id/progressBarProgressSave"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSaveData"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>

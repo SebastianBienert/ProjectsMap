@@ -1,5 +1,7 @@
 package project.projectsmap;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -29,6 +31,13 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     String inputData = "";
     String errorText = "";
     ArrayList<Developer> dataList = new ArrayList<Developer>();
+
+    /*      dodane do zapisu do pliku       */
+    boolean saveDataToFile = false;
+    Context context;
+    String fileName;
+    boolean append;
+    /*--------------------------------------*/
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -87,21 +96,40 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        if(statement!=null){
+            statement.setText(errorText);
+        }
+        if(saveDataToFile){ //dodane do zapisu do pliku
+            String data = "";
+            for(int i=0; i<dataList.size();i++) {
+                data+=dataList.get(i).developerDescription();
+            }
+            SaveToFile savefile = new SaveToFile();
+            savefile.saveFile(context,fileName,data,append);
+            SaveToFile.DisableProgressBar();
+        }else{
+            for(int i=0; i<dataList.size();i++) {
+                SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
+            }
+            SearchDevelopers.adapter.notifyDataSetChanged();
+            SearchDevelopers.DisableProgressBar();
+        }
+    }
+    public void setStatement(TextView statement) { this.statement = statement;}
     public void setChoice(String name){
         choice = name;
     }
     public void setInputData(String name){
         inputData = name;
     }
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        statement.setText(errorText);   // tutaj ustawiany tekst bo w metodzie doInBackground rzuca błędem
-        for(int i=0; i<dataList.size();i++) {
-            SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
-        }
-        SearchDevelopers.adapter.notifyDataSetChanged();
-        SearchDevelopers.DisableProgressBar();
-    }
-    public void setStatement(TextView statement) { this.statement = statement;}
+
+    /*      dodane do zapisu do pliku       */
+    public void setSaveDataToFile(boolean choice){saveDataToFile = choice; }
+    public void setcontext(Context con){context = con;}
+    public void setFileName(String name){fileName = name;}
+    public void setAppend(boolean ap){append = ap;}
+    /*--------------------------------------*/
 }
