@@ -82,6 +82,19 @@ namespace ProjectsMap.WebApi.Controllers
 
 
         [HttpGet]
+        [Route("like/{query}")]
+        public IHttpActionResult GetSearchedEmployee(string query)
+        {
+            var allEmployees = _service.GetEmployeesByQuery(query);
+
+            if (allEmployees != null)
+                return Ok(allEmployees);
+
+            return NotFound();
+        }
+
+
+        [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult Get(string technology)
         {

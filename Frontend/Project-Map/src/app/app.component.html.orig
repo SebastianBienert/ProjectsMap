@@ -1,0 +1,52 @@
+<app-search></app-search>
+<!-- <app-map-creator></app-map-creator> -->
+<!-- <app-Room></app-Room>   -->
+<!-- <div class="wrapper">
+
+<<<<<<< HEAD
+    <app-listing></app-listing>
+=======
+    <nav id="sidebar" class="scrollable">
+        <div class="sidebar-header">
+            <h3>Collapsible Sidebar</h3>>
+        </div>
+        <app-listing></app-listing>
+    </nav>
+
+>>>>>>> tags
+    <div id="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                     <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                        <i class="glyphicon glyphicon-align-left"></i>
+                        Toggle Sidebar
+                    </button> -->
+<<<<<<< HEAD
+                    <app-map-navigator></app-map-navigator>
+                    <!-- <app-map-creator></app-map-creator>
+                    <app-displayed-map></app-displayed-map> -->
+=======
+                    <!-- <app-displayed-map></app-displayed-map>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img class="card-img-top"  alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                            <p class="card-text">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </p>
+                        </div>
+                    </div>
+>>>>>>> tags
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> --> 
+
+<app-insert-forms></app-insert-forms>

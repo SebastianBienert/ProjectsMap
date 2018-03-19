@@ -1,0 +1,26 @@
+<div class="text-center">
+<button class="btn btn-primary waves-light w-50" type="button" (click)="addTechnology.toggle()" mdbRippleRadius>
+	Add new technology
+</button>
+</div>
+<div class="" [mdbCollapse]="isCollapsed" #addTechnology="bs-collapse">
+	<form [formGroup]="formAddTechnology" (ngSubmit)="onSubmit(formAddTechnology)">
+		<div class="md-form">
+			<i class="fa fa-hashtag prefix blue-text"></i>
+			<input type="text" class="form-control" id="TechnologyId" formControlName="TechnologyId" mdbActive>
+			<span *ngIf="formErrors.TechnologyId" class="alert alert-danger">{{ formErrors.TechnologyId }}</span>
+			<label for="TechnologyId">Technology ID</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-info-circle prefix blue-text"></i>
+			<input type="text" class="form-control" id="Name" formControlName="Name" mdbActive>
+			<span *ngIf="formErrors.Name" class="alert alert-danger">{{ formErrors.Name }}</span>
+			<label for="Name">Technology Name</label>
+		</div>
+	
+		<div class="text-center">
+		    <button [disabled]="!formAddTechnology.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>
+		</div>
+	</form>
+</div>

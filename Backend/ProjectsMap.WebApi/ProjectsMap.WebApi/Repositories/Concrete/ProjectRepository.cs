@@ -39,21 +39,12 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             Project project;
             using (var dbContext = new EfDbContext())
             {
-                var technologiesIds = projectDto.TechnologiesIDs.ToList();
-                var technologies = dbContext.Technologies.Where(x => technologiesIds.Contains(x.TechnologyId)).ToList();
+                var existingTechnologiesNames = dbContext.Technologies.Select(x => x.Name).ToList();
+                var newTechnologiesNames = projectDto.Technologies.Where(x => !existingTechnologiesNames.Contains(x));
 
-                var roles = new List<ProjectRole>();
-                foreach (var devRole in projectDto.EmployeesRoles)
-                {
-                    roles.Add(new ProjectRole()
-                    {
-                        Employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeId == devRole.EmployeeId &&
-                                                                             d.CompanyId == devRole.CompanyId)
-                    });
-                }
+                var technologies = dbContext.Technologies.Where(x => projectDto.Technologies.Contains(x.Name)).ToList();
                 project = new Project()
                 {
-                    ProjectRoles = roles,
                     Technologies = technologies,
                     Company = dbContext.Companies.Where(x => x.CompanyId == projectDto.CompanyId).FirstOrDefault(),
                     CompanyId = projectDto.CompanyId,
@@ -61,6 +52,37 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     DocumentationLink = projectDto.DocumentationLink,
                     RepositoryLink = projectDto.RepositoryLink
                 };
+                var roles = new List<ProjectRole>();
+                foreach (var devRole in projectDto.EmployeesRoles)
+                {
+                    var employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeId == devRole.EmployeeId &&
+                                                                           d.CompanyId == devRole.CompanyId);
+                    var projectRoleEntity = new ProjectRole()
+                    {
+                        Employee = employee,
+                        EmployeeId = devRole.EmployeeId,
+                        EmployeeCompanyId = devRole.CompanyId,
+                        ProjectId = project.ProjectId,
+                        Project = project,
+                        Role = devRole.Role
+                    };
+                    roles.Add(projectRoleEntity);
+                    if (employee?.ProjectRoles == null)
+                        employee.ProjectRoles = new List<ProjectRole>(){projectRoleEntity};
+                    else
+                        employee?.ProjectRoles.Add(projectRoleEntity);
+                }
+                project.ProjectRoles = roles;
+
+                foreach (var tech in newTechnologiesNames)
+                {
+                    var newTechnology = new Technology()
+                    {
+                        Name = tech,
+                        Projects = new List<Project>() { project }
+                    };
+                    project.Technologies.Add(newTechnology);
+                }
 
                 dbContext.Projects.Add(project);
                 dbContext.SaveChanges();
@@ -78,23 +100,22 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             }
         }
 
-        public void Delete(Project project)
+        public void Delete(int id)
         {
             using (var dbContext = new EfDbContext())
             {
-                dbContext.Projects.Remove(project);
-                dbContext.SaveChanges();
-            }
+                var entityToRemove = dbContext.Projects.FirstOrDefault(x => x.ProjectId == id);
+                if (entityToRemove != null)
+                {
+                    dbContext.Projects.Remove(entityToRemove);
+                    dbContext.SaveChanges();
+                }
+             }
         }
 
-        public void Update(Project project)
+        public void Update(CreateProject project)
         {
-            using (var dbContext = new EfDbContext())
-            {
-                var dev = dbContext.Projects.FirstOrDefault(x => x.ProjectId == project.ProjectId);
-                dev = project;
-                dbContext.SaveChanges();
-            }
+            throw new NotImplementedException();
         }
     }
 }

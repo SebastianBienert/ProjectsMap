@@ -5,7 +5,7 @@ import { MessageService } from './services/message.service';
 import { RoomService } from './services/room.service';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -25,14 +25,19 @@ import { ListingComponent } from './listing/listing.component';
 import { PersonCardComponent } from './person-card/person-card.component';
 import { EmployeeService } from './services/employee.service';
 import { SearchComponent } from './search/search.component';
+<<<<<<< HEAD
 import { ProjectCardComponent } from './project-card/project-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ProjectService } from './services/project.service';
 import { ReactiveFormsModule }  from '@angular/forms';
 import { MapNavigatorComponent } from './map-navigator/map-navigator.component';
+=======
 import { TechnologyService } from './services/technology.service';
+
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ProjectService } from './services/project.service';
+>>>>>>> tags
 
 
 @NgModule({
@@ -47,10 +52,14 @@ import { ProjectService } from './services/project.service';
     MapCreatorComponent,
     SearchComponent,
     ListingComponent,
+<<<<<<< HEAD
     PersonCardComponent,
     SearchComponent,
     MapNavigatorComponent,
     ProjectCardComponent
+=======
+    PersonCardComponent
+>>>>>>> tags
   ],
   imports: [
     ReactiveFormsModule,
@@ -61,10 +70,13 @@ import { ProjectService } from './services/project.service';
     FormsModule,
     BrowserModule,
     MDBBootstrapModule.forRoot(),
+<<<<<<< HEAD
     FormsModule,
-    InfiniteScrollModule,
+    InfiniteScrollModule
+=======
     TagInputModule, 
     BrowserAnimationsModule,
+>>>>>>> tags
   ],
   providers: [
     HttpErrorHandler,
@@ -73,8 +85,11 @@ import { ProjectService } from './services/project.service';
     EmployeeService,
     ProjectService,
     SharedService,
-    FloorServiceService,
+<<<<<<< HEAD
+    FloorServiceService],
+=======
     TechnologyService],
+>>>>>>> tags
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

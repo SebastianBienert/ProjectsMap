@@ -20,8 +20,8 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
-  employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
-  //employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  //employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
+  employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
   private handleError: HandleError;
 
   constructor(
@@ -31,9 +31,14 @@ export class EmployeeService {
 
     this.searchedEmployees = this.getEmployees();
   }
+<<<<<<< HEAD
 
   searchedEmployees: Observable<Employee[]> = new Observable<Employee[]>();
 
+=======
+  
+  searchedEmployees : Observable<Employee[]> = new Observable<Employee[]>();
+  
  public addEmployee(employee : Employee)
   {
     this.http.post(this.employeeUrl, employee).subscribe(
@@ -45,6 +50,7 @@ export class EmployeeService {
       }
     );
   }
+>>>>>>> tags
 
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
@@ -54,6 +60,7 @@ export class EmployeeService {
       );
   }
 
+<<<<<<< HEAD
   searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {
@@ -81,6 +88,14 @@ export class EmployeeService {
       .pipe(
         catchError(this.handleError('getEmployees', []))
       );
+
+=======
+  searchEmployeeByTechnology(technology : string): Observable<Employee[]> {
+    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/technology/" + technology)
+    .pipe(
+      catchError(this.handleError('getEmployees', []))
+    );
+>>>>>>> tags
   }
 
   public getEmployeesByQuery(query : string) : Observable<Employee[]>{

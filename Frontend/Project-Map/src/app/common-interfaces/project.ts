@@ -9,7 +9,6 @@ export interface Project{
     Description : string,
     RepositoryLink : string,
     DocumentationLink : string,
-    ProductOwnerId : Employee,
     CompanyId : number,
     EmployeesNames : string[],
     Rooms : Room,

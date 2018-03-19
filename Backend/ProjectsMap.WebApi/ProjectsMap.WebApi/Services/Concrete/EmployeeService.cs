@@ -100,5 +100,28 @@ namespace ProjectsMap.WebApi.Services
         {
             _repository.Update(employee);
         }
+
+        public IEnumerable<EmployeeDto> GetEmployeesByQuery(string query)
+        {
+            //Query by id
+            List<Employee> result;
+            if (int.TryParse(query, out int n))
+            {
+                result = _repository.Employees.Where(e => e.EmployeeId.ToString().StartsWith(query)).ToList();
+            }
+            else
+            {
+                result = _repository.Employees.Where(e => e.FirstName.StartsWith(query) || e.Surname.StartsWith(query))
+                    .ToList();
+            }
+
+            var dtos = new List<EmployeeDto>();
+            foreach (var entity in result)
+            {
+                dtos.Add(DTOMapper.GetEmployeeDto(entity));
+            }
+
+            return dtos;
+        }
     }
 }

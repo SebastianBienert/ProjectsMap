@@ -24,5 +24,6 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         void Update(Employee employee);
 
+        IEnumerable<EmployeeDto> GetEmployeesByQuery(string query);
     }
 }
