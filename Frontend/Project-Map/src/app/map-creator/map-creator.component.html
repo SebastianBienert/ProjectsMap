@@ -1,9 +1,30 @@
 <div style="margin-top: 35px">
-<button (click)='drawNewRoom()'>Create room</button>
-<button (click)='chooseLine()'>Line</button>
-<button (click)='chooseSquare()'>Square</button>
-<button (click)='saveMap()'>Save Map</button>
-<input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
-<input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
-<svg style="border: 3px solid black;" width="800" height="800" id="createMap" (click)="determineShape()"></svg>
+    <button (click)='drawNewRoom()'>Create room</button>
+    <button (click)='chooseLine()'>Line</button>
+    <button (click)='chooseSquare()'>Square</button>
+    <button (click)='saveMap()'>Save Map</button>
+    <button (click)='placingSeatEnabled = !placingSeatEnabled'>Place seat</button>
+    <button (click)='clearMap()'>Clear</button>
+    <button (click)='test()'>Testing</button>
+    <button (click)='moveImage(-5, 0)'>left</button>
+    <button (click)='moveImage(5, 0)'>right</button>
+    <button (click)='moveImage(0, -5)'>up</button>
+    <button (click)='moveImage(0, 5)'>down</button>
+    
+    
+    <div>
+        <input type="checkbox" id="displayGridCheckBox" [checked]="displayGrid" (change)="gridOnOff()" />
+        <label for="displayGridCheckBox">Display grid</label>
+    </div>
+    <div>
+        <input type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
+        <label for="subscribeNews">Display background image</label>
+    </div>
+    <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
+    <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
+    <svg style="border: 3px solid black;" width="800" height="800" id="createMap" (click)="determineShape()"></svg>
+</div>
+<div>
+    <label for="files" class="btn" style="background-color: blue; color: aqua">Select background image</label>
+    <input type='file' id="files" (change)="onSelectFile($event)" style="visibility:hidden;">
 </div>

@@ -58,7 +58,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					ICollection<Seat> seatList = new List<Seat>();
 					for (int i = 0; i < roomDto.Seats.Count(); i++)
 					{
-						Vertex seatVertex = new Vertex(roomDto.Seats.ElementAt(i).X, roomDto.Seats.ElementAt(i).Y);
+						Vertex seatVertex = new Vertex(roomDto.Seats.ElementAt(i).Vertex.X, roomDto.Seats.ElementAt(i).Vertex.Y);
 
 						Seat seat = new Seat(seatVertex);
 						seatList.Add(seat);
@@ -124,7 +124,73 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 
 		public void Update(FloorDto floorDto)
 		{
-			throw new NotImplementedException();
+			using (var dbContext = new EfDbContext())
+			{
+
+				var existingFloor = dbContext.Floors.Where(F => F.FloorId == floorDto.Id).FirstOrDefault();
+				if (existingFloor != null)
+				{
+					dbContext.Walls.Load();
+					dbContext.Rooms.Load();
+					ICollection<Room> roomsList = new List<Room>();
+					foreach (RoomDto roomDto in floorDto.Rooms)
+					{
+						
+
+						
+						ICollection<Wall> roomWallsList = new List<Wall>();
+						for (int i = 0; i < roomDto.Walls.Count(); i++)
+						{
+							Wall wall = new Wall()
+							{
+								StartVertexX = roomDto.Walls.ElementAt(i).StartVertex.X,
+								StartVertexY = roomDto.Walls.ElementAt(i).StartVertex.Y,
+								EndVertexX = roomDto.Walls.ElementAt(i).EndVertex.X,
+								EndVertexY = roomDto.Walls.ElementAt(i).EndVertex.Y,
+							};
+							//dbContext.Walls.Local.Add(wall);
+							roomWallsList.Add(wall);
+						}
+						ICollection<Seat> seatList = new List<Seat>();
+						for (int i = 0; i < roomDto.Seats.Count(); i++)
+						{
+							Vertex seatVertex = new Vertex(roomDto.Seats.ElementAt(i).Vertex.X, roomDto.Seats.ElementAt(i).Vertex.Y);
+
+							Seat seat = new Seat(seatVertex);
+							if (roomDto.Seats.ElementAt(i).Id != 0) seat.SeatId = roomDto.Seats.ElementAt(i).Id;
+							seatList.Add(seat);
+						}
+						var Room = new Room()
+						{
+							FloorId = floorDto.Id,
+							Walls = roomWallsList,
+							Seats = seatList
+						};
+						dbContext.Rooms.Local.Add(Room);
+						roomsList.Add(Room);
+					}
+
+					ICollection<Wall> wallsList = new List<Wall>();
+					for (int i = 0; i < floorDto.Walls.Count(); i++)
+					{
+						Wall wall = new Wall()
+						{
+							StartVertexX = floorDto.Walls.ElementAt(i).StartVertex.X,
+							StartVertexY = floorDto.Walls.ElementAt(i).StartVertex.Y,
+							EndVertexX = floorDto.Walls.ElementAt(i).EndVertex.X,
+							EndVertexY = floorDto.Walls.ElementAt(i).EndVertex.Y,
+						};
+						dbContext.Walls.Local.Add(wall);
+						wallsList.Add(wall);
+					}
+
+					existingFloor.FloorNumber = floorDto.FloorNumber;
+					existingFloor.Description = floorDto.Description;
+					existingFloor.Rooms = roomsList;
+					existingFloor.Walls = wallsList;
+					dbContext.SaveChanges();
+				}
+			}
 		}
 	}
 }

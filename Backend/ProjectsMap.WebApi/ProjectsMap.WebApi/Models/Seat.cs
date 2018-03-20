@@ -44,5 +44,6 @@ namespace ProjectsMap.WebApi.Models
         public int? EmployeeId { get; set; }
         public int? EmployeeCompanyId { get; set; }
         public virtual Employee Employee { get; set; }
-    }
+		public object Vertex { get; internal set; }
+	}
 }

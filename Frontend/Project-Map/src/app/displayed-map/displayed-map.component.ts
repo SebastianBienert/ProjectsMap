@@ -23,6 +23,8 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
+    this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 2});
+    this.drawnMap.circle(100).move(350, 350);
     this.getFloor();
   }
 
@@ -44,25 +46,26 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   }
 
   displayMap() {
-    this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 2});
     this.drawnMap.clear();
     this.floor.Rooms.forEach(room => {
       //concatenate room vertices into polygon coordinates
       var arra = '';
-      room.Walls.forEach(wall => 
-        {
-          arra = arra.concat(wall.StartVertex.X + ',' + wall.StartVertex.Y + ' ')
-      });
+      if(room.Walls.length != 0) {
+        room.Walls.forEach(wall => 
+          {
+            arra = arra.concat(wall.StartVertex.X + ',' + wall.StartVertex.Y + ' ')
+        });
+      }
       //drawing room with mouseover and mouseout events
       this.drawnMap
-      .polygon(arra).fill('#999')
+      .polygon(arra).fill('#99ccff')
       .mouseover(function () {
-        this.fill({ color: '#AAA' })
+        this.fill({ color: '#77aaff' })
       .mouseout(function () {
-          this.fill({ color: '#999' })
+          this.fill({ color: '#99ccff' })
         })
       })
-      .stroke({ width: 2 })
+      .stroke({ width: 2, color: '#fff' })
     });
 
     this.floor.Walls.forEach(wall => {
@@ -77,8 +80,8 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
       room.Seats.forEach(seat => {
         this.drawnMap
         .rect(10, 10)
-        .move(seat.X, seat.Y)
-        .fill('#123')
+        .move(seat.Vertex.X, seat.Vertex.Y)
+        .fill('#004080')
         .stroke({ width: 0 })
         .draggable(function(x, y){
           //function to move seats snapped to grid
@@ -89,10 +92,9 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
       })
       .click(function() {
         //will be changed to displaying Employee information TODO
-        console.log(seat.Id);
+        //console.log(seat.DeveloperId);
       });
       });
     });
-    
   }
 }

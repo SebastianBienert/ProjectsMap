@@ -12,7 +12,7 @@ namespace ProjectsMap.WebApi.Controllers
 {
 	[RoutePrefix("api/floor")]
 	public class FloorController : ApiController
-    {
+	{
 		private IFloorService _service;
 
 		public FloorController(IFloorService floorService)
@@ -38,6 +38,15 @@ namespace ProjectsMap.WebApi.Controllers
 				return Ok(floor);
 			else
 				return NotFound();
+		}
+
+		[HttpPut]
+		[Route("{id:int}")]
+		public IHttpActionResult Put(FloorDto floorDto)
+		{
+			_service.Update(floorDto);
+
+			return Ok();
 		}
 
 		[HttpPost]
