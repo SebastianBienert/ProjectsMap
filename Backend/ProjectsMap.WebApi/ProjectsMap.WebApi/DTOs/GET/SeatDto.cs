@@ -12,7 +12,7 @@ namespace ProjectsMap.WebApi.DTOs
 
 		public Vertex Vertex { get; set; }
 
-		public int RooomId { get; set; }
+		public int RoomId { get; set; }
 
         public int? DeveloperId { get; set; }
     }

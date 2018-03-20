@@ -386,8 +386,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 						{
                             StartVertexX = vertices[21].X,
                             StartVertexY = vertices[21].Y,
-                            EndVertexX = vertices[5].X,
-                            EndVertexY = vertices[5].Y
+                            EndVertexX = vertices[15].X,
+                            EndVertexY = vertices[15].Y
 						},
 					}
                     //Vertexes = new List<Vertex>() {vertices[15],vertices[14], vertices[21], vertices[20] }

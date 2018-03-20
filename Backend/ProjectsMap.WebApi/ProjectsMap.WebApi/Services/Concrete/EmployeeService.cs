@@ -59,7 +59,7 @@ namespace ProjectsMap.WebApi.Services
         public IEnumerable<EmployeeDto> GetEmployeesByName(string name)
         {
             List<Employee> list;
-            name = name.ToLower();
+            name = name.ToLower().TrimStart();
             String[] fullName = null;
             fullName = name.Split(' ');
             if (fullName.Length >= 2)
