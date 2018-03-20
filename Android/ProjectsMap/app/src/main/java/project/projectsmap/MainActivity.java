@@ -27,10 +27,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button clickAllDeveloper;
-    Button clickSerachDeveloper;
-    Button clickSerachDeveloperAfterTechnology,clickSave;
-    //Button clickPaint;
+    //Button clickShowMap, clickShowFloor;
+    Button clickSearchDevelopers, clickSave;
     Toast toast;
 
     @Override
@@ -38,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        clickAllDeveloper = (Button) findViewById(R.id.buttonAllDevelopers);
-        clickSerachDeveloper = (Button) findViewById(R.id.buttonSearchDeveloper);
-        clickSerachDeveloperAfterTechnology = (Button) findViewById(R.id.buttonSearchDeveloperAfterTechnology);
-        //clickPaint = (Button) findViewById(R.id.buttonPaint);
+        //clickShowMap = (Button) findViewById(R.id.buttonShowMap);
+        //clickShowFloor = (Button) findViewById(R.id.buttonShowFloor);
+        clickSearchDevelopers = (Button) findViewById(R.id.buttonSearchDevelopers);
         clickSave = (Button) findViewById(R.id.buttonSaveTest);
 
         if(!isNetworkAvailable()){
@@ -52,34 +49,28 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         }
 
-        clickAllDeveloper.setOnClickListener(new View.OnClickListener() {
+        /*clickShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AllDevelopers.class);
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });*/
+        clickSearchDevelopers.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchDevelopersActivity.class);
                 startActivity(intent);
             }
         });
-        clickSerachDeveloper.setOnClickListener(new View.OnClickListener() {
+        /*clickShowFloor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SerachDeveloper.class);
-                startActivity(intent);
-            }
-        });
-        clickSerachDeveloperAfterTechnology.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SearchDevelopers.class);
-                startActivity(intent);
-            }
-        });
-        /*clickPaint.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PaintExample.class);
+                Intent intent = new Intent(MainActivity.this, SearchFloorActivity.class);
                 startActivity(intent);
             }
         });*/
         clickSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SaveToFile.class);
+                Intent intent = new Intent(MainActivity.this, SaveToFileActivity.class);
                 startActivity(intent);
             }
         });

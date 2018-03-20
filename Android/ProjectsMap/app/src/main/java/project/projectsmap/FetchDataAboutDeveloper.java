@@ -39,31 +39,54 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     boolean append;
     /*--------------------------------------*/
 
+    public void setStatement(TextView statement) {
+        this.statement = statement;
+    }
+    public void setChoice(String name){
+        choice = name;
+    }
+    public void setInputData(String name){
+        inputData = name;
+    }
+
+    /*      dodane do zapisu do pliku       */
+    public void setSaveDataToFile(boolean choice){
+        saveDataToFile = choice;
+    }
+    public void setcontext(Context con){
+        context = con;
+    }
+    public void setFileName(String name){
+        fileName = name;
+    }
+    public void setAppend(boolean ap){append = ap;
+    }
+    /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
-        if(inputData.isEmpty()&&!choice.equals("Wszystko")){
+        if (inputData.isEmpty() && !choice.equals("Wszystko")) {
             errorText = "Wprowadź dane";
-        }else{
+        } else {
             try {
                 URL url = setURLAdress();
-                if(url==null){
+                if (url == null) {
                     return null;
                 }
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
-                while(line != null) {
+                while (line != null) {
                     line = bufferedReader.readLine();
                     data = data + line;
                 }
 
                 Object json = new JSONTokener(data).nextValue();
-                if( json instanceof JSONObject){
+                if (json instanceof JSONObject) {
                     dataList.add(new Developer(new JSONObject(data)));
-                }else if(json instanceof JSONArray){
+                } else if (json instanceof JSONArray) {
                     JSONArray JA = new JSONArray(data);
-                    for(int i=0;i<JA.length(); i++){
+                    for (int i = 0; i < JA.length(); i++) {
                         dataList.add(new Developer((JSONObject) JA.get(i)));
                     }
                 }
@@ -80,22 +103,6 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
-    private URL setURLAdress(){
-        try{
-            if(choice.equals("Technologia")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
-            }else if(choice.equals("Id")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-            }else if(choice.equals("Wszystko")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
-            }else if(choice.equals("Nazwisko")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-            }
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
@@ -103,32 +110,39 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             statement.setText(errorText);
         }
         if(saveDataToFile){ //dodane do zapisu do pliku
-            String data = "";
+            /*String data = "";
             for(int i=0; i<dataList.size();i++) {
-                data+=dataList.get(i).developerDescription();
-            }
-            SaveToFile.saveDataToFile(context,fileName,data,append);
-            SaveToFile.DisableProgressBar();
+                data+=dataList.get(i).description();
+            }*/
+            SaveToFileActivity.saveDataToFile(context,fileName,this.data,append);
+            SaveToFileActivity.DisableProgressBar();
         }else{
             for(int i=0; i<dataList.size();i++) {
-                SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
+                SearchDevelopersActivity.adapter.list.add(new SingleRow(dataList.get(i).description()));
             }
-            SearchDevelopers.adapter.notifyDataSetChanged();
-            SearchDevelopers.DisableProgressBar();
+            SearchDevelopersActivity.adapter.notifyDataSetChanged();
+            SearchDevelopersActivity.DisableProgressBar();
         }
     }
-    public void setStatement(TextView statement) { this.statement = statement;}
-    public void setChoice(String name){
-        choice = name;
-    }
-    public void setInputData(String name){
-        inputData = name;
+    private URL setURLAdress(){
+        try{
+            if(choice.equals("Technologia")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
+                //return new URL("http://localhost:58923/api/developers/technology/"+inputData);
+            }else if(choice.equals("Id")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+                //return new URL("http://localhost:58923/api/developers/"+inputData);
+            }else if(choice.equals("Wszystko")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+                //return new URL("http://localhost:58923/api/developers");
+            }else if(choice.equals("Nazwisko")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+                //return new URL("http://localhost:58923/api/developers/"+inputData);
+            }
+        }catch(MalformedURLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
-    /*      dodane do zapisu do pliku       */
-    public void setSaveDataToFile(boolean choice){saveDataToFile = choice; }
-    public void setcontext(Context con){context = con;}
-    public void setFileName(String name){fileName = name;}
-    public void setAppend(boolean ap){append = ap;}
-    /*--------------------------------------*/
 }

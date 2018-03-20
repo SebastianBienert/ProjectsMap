@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SearchDevelopers extends AppCompatActivity {
+public class SearchDevelopersActivity extends AppCompatActivity {
 
     Spinner spinner;
     Button clickSerach;
@@ -22,7 +22,7 @@ public class SearchDevelopers extends AppCompatActivity {
     TextView statement;
     public static TextView data;
     ListView listDevelopers;
-    public static customAdapter adapter;
+    public static CustomAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
     String choice="";
     static ProgressBar waitForData;
@@ -56,7 +56,7 @@ public class SearchDevelopers extends AppCompatActivity {
 
                 }
             });
-            adapter = new customAdapter(this);
+            adapter = new CustomAdapter(this);
             listDevelopers.setAdapter(adapter);
 
             clickSerach.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,7 @@ public class SearchDevelopers extends AppCompatActivity {
             });
             clickBack.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    SearchDevelopers.super.finish();
+                    SearchDevelopersActivity.super.finish();
                 }
             });
     }

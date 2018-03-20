@@ -3,30 +3,31 @@ package project.projectsmap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Mateusz on 05.03.2018.
  */
 
-public class Developer {
-    public int DeveloperId ;
+public class Developer implements Serializable {
+    int DeveloperId ;
 
-    public String FirstName;
+    String FirstName;
 
-    public String Surname;
+    String Surname;
 
-    public String Email;
+    String Email;
 
-    public boolean WantToHelp;
+    boolean WantToHelp;
 
-    public byte[] Photo;
+    byte[] Photo;
 
-    public String JobTitle;
+    String JobTitle;
 
-    public int CompanyId;
+    int CompanyId;
 
-    public ArrayList<String> Technologies;    // docelowo później String zmienić na technology
+    ArrayList<String> Technologies;    // docelowo później String zmienić na technology
 
     //public virtual User User { get; set; }
     //public virtual Company Company { get; set; }
@@ -34,8 +35,97 @@ public class Developer {
     //public virtual ICollection<Project> Projects { get; set; }
     //One to many relation(Seat-Developer)
     //public virtual ICollection<Seat> Seat { get; set; }
-
     Developer(JSONObject developerData) throws JSONException {
+        convertJSON(developerData);
+    }
+
+    public int getDeveloperId() {
+        return DeveloperId;
+    }
+
+    public int getCompanyId() {
+        return CompanyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        CompanyId = companyId;
+    }
+
+    public ArrayList<String> getTechnologies() {
+        return Technologies;
+    }
+
+    public void setTechnologies(ArrayList<String> technologies) {
+        Technologies = technologies;
+    }
+
+    public void setWantToHelp(boolean wantToHelp) {
+        WantToHelp = wantToHelp;
+    }
+
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public String getSurname() {
+        return Surname;
+    }
+
+    public void setSurname(String surname) {
+        Surname = surname;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public byte[] getPhoto() {
+        return Photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        Photo = photo;
+    }
+
+    public String getJobTitle() {
+        return JobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        JobTitle = jobTitle;
+    }
+
+    public String description(){
+        String description;
+        description = "Id: " + DeveloperId + "\n"+
+                "FirstName: " + FirstName + "\n"+
+                "Surname: " + Surname + "\n"+
+                "Email: " + Email + "\n"+
+                "JobTitle: " + JobTitle + "\n"+
+                "WantToHelp: " + WantToHelp + "\n";
+        if(CompanyId != -1) {
+            description += "CompanyId: " + CompanyId + "\n";
+        }
+        if(Technologies!=null){
+            description += "Technologies: " + "\n";
+            for(int i = 0; i < Technologies.size(); i++){
+                description += Technologies.get(i) + "\n";;
+            }
+        }else{
+            description += "Technologies: brak danych" + "\n";
+        }
+        return description;
+    }
+
+    private void convertJSON(JSONObject developerData) throws JSONException {
         DeveloperId = (int) developerData.get("Id");
         if(developerData.has("FirstName")){
             if(!developerData.isNull("FirstName")){
@@ -110,6 +200,7 @@ public class Developer {
             Technologies = null;;
         }
     }
+
     private ArrayList<String> divisinOfTechnologies(String text){
         String[] table;
         ArrayList<String> newArray = new ArrayList<String>();
@@ -119,26 +210,5 @@ public class Developer {
             newArray.add(table[i]);
         }
         return newArray;
-    }
-    public String developerDescription(){
-        String description;
-        description = "Id: " + DeveloperId + "\n"+
-                    "FirstName: " + FirstName + "\n"+
-                    "Surname: " + Surname + "\n"+
-                    "Email: " + Email + "\n"+
-                    "JobTitle: " + JobTitle + "\n"+
-                    "WantToHelp: " + WantToHelp + "\n";
-        if(CompanyId != -1) {
-            description += "CompanyId: " + CompanyId + "\n";
-        }
-        if(Technologies!=null){
-            description += "Technologies: " + "\n";
-            for(int i = 0; i < Technologies.size(); i++){
-                description += Technologies.get(i) + "\n";;
-            }
-        }else{
-            description += "Technologies: brak danych" + "\n";
-        }
-        return description;
     }
 }
