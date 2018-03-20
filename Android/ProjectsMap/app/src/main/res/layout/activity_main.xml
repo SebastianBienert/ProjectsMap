@@ -11,11 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/buttonSearchDeveloper"
-        android:layout_alignEnd="@+id/buttonSearchDeveloper"
         android:layout_alignLeft="@+id/buttonSearchDeveloper"
-        android:layout_alignRight="@+id/buttonSearchDeveloper"
         android:layout_alignStart="@+id/buttonSearchDeveloper"
-        android:layout_marginBottom="89dp"
+        android:layout_marginBottom="33dp"
         android:width="200dp"
         android:text="@string/wszyscy_pracownicy" />
 
@@ -23,21 +21,44 @@
         android:id="@+id/buttonSearchDeveloper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSearchDeveloperAfterTechnology"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="26dp"
         android:width="200dp"
-        android:text="@string/wyszukaj_pracownika" />
+        android:text="Wyszukaj Pracownika po id" />
 
     <Button
         android:id="@+id/buttonSearchDeveloperAfterTechnology"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/buttonSearchDeveloper"
-        android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/buttonSearchDeveloper"
-        android:layout_marginBottom="100dp"
+        android:layout_centerVertical="true"
         android:width="200dp"
-        android:text="Wyszukaj pracownika po technologii" />
+        android:text="Wyszukaj pracownika" />
+    <!--
+        <Button
+            android:id="@+id/buttonPaint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/buttonSearchDeveloperAfterTechnology"
+            android:layout_alignStart="@+id/buttonSearchDeveloperAfterTechnology"
+            android:layout_below="@+id/buttonSearchDeveloperAfterTechnology"
+            android:width="200dp"
+            android:text="Rysuj" /> -->
 
+    <Button
+        android:id="@+id/buttonSaveTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonSearchDeveloperAfterTechnology"
+        android:layout_alignStart="@+id/buttonSearchDeveloperAfterTechnology"
+        android:layout_below="@+id/buttonSearchDeveloperAfterTechnology"
+        android:layout_marginTop="22dp"
+        android:width="200dp"
+        android:text="Zapis" />
+    <!-- android:layout_alignLeft="@+id/buttonPaint"
+    android:layout_alignStart="@+id/buttonPaint"
+    android:layout_below="@+id/buttonPaint"-->
 
 </RelativeLayout>

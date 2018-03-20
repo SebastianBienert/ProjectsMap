@@ -37,8 +37,7 @@
         android:layout_height="495dp"
         android:layout_alignLeft="@+id/editTextInputData"
         android:layout_alignStart="@+id/editTextInputData"
-        android:layout_below="@+id/textViewStatement"
-        android:layout_marginTop="12dp"
+        android:layout_below="@+id/editTextInputData"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"></ListView>
 
@@ -83,6 +82,19 @@
         android:layout_alignRight="@+id/listDevelopers"
         android:layout_alignStart="@+id/listDevelopers"
         android:layout_below="@+id/editTextInputData"
+        android:textAlignment="center"
+        android:textStyle="bold|italic"
         android:textSize="18sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBarWaitForData"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewStatement"
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_toEndOf="@+id/textViewNameChoice"
+        android:layout_toRightOf="@+id/textViewNameChoice" />
 </RelativeLayout>
 

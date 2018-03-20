@@ -13,6 +13,21 @@ namespace ProjectsMap.WebApi.Mappers
 {
     public class DTOMapper
     {
+        public static ProjectDto GetProjectDto(Project project)
+        {
+
+            return new ProjectDto()
+            {
+                CompanyId = project.CompanyId,
+                Description = project.Description,
+                EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname).ToList(),
+                DocumentationLink = project.DocumentationLink,
+                Id = project.ProjectId,
+                RepositoryLink = project.RepositoryLink,
+                Technologies = project.Technologies?.Select(x => GeTechnologyDto(x)).ToList()
+            };
+        }
+
         public static EmployeeDto GetEmployeeDto(Employee employee)
         {
             var dto = new EmployeeDto()

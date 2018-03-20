@@ -19,7 +19,7 @@ namespace ProjectsMap.WebApi.DTOs.POST
 
         public IEnumerable<EmployeeRole> EmployeesRoles { get; set; }
 
-        public IEnumerable<int> TechnologiesIDs { get; set; }
+        public IEnumerable<string> Technologies { get; set; }
     }
 
     public class EmployeeRole

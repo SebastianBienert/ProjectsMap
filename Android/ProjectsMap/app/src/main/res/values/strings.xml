@@ -11,9 +11,13 @@
     <string name="informacje_o_pracowniku">Informacje o pracowniku</string>
     <string name="nazwa_technologi">nazwa technologi</string>
     <string name="szukanie_po">Szukanie po:</string>
+    <string name="button">Button</string>
+    <string name="row_data">Row data</string>
+    <string name="todo">TODO</string>
     <string-array name="selected_method">
         <item>Id</item>
-        <item>Technology</item>
-        <item>Other</item>
+        <item>Technologia</item>
+        <item>Nazwisko</item>
+        <item>Wszystko</item>
     </string-array>
 </resources>

@@ -21,8 +21,6 @@ namespace ProjectsMap.WebApi.DTOs
 
         public IEnumerable<string> EmployeesNames { get; set; }
 
-        public IEnumerable<RoomDto> Rooms { get; set; }
-
         public IEnumerable<TechnologyDto> Technologies { get; set; }
     }
 

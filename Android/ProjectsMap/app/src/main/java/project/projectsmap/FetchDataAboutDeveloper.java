@@ -1,5 +1,7 @@
 package project.projectsmap;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -25,84 +27,108 @@ import javax.net.ssl.HttpsURLConnection;
 public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     TextView statement;
     String data ="";
-    String singleParsed = "";
     String choice = "";
     String inputData = "";
     String errorText = "";
-    ArrayList<String> dataList = new ArrayList<String>();
+    ArrayList<Developer> dataList = new ArrayList<Developer>();
+
+    /*      dodane do zapisu do pliku       */
+    boolean saveDataToFile = false;
+    Context context;
+    String fileName;
+    boolean append;
+    /*--------------------------------------*/
 
     @Override
     protected Void doInBackground(Void... voids) {
-
-        try {
-            URL url;
-            if(inputData.isEmpty()){
-                url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
-            }else{
-                if(choice.equals("Technology")){
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
-                }else if(choice.equals("Id")){
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-                }else{
-                    url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+        if(inputData.isEmpty()&&!choice.equals("Wszystko")){
+            errorText = "Wprowadź dane";
+        }else{
+            try {
+                URL url = setURLAdress();
+                if(url==null){
+                    return null;
                 }
-            }
-            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-            InputStream inputStream = httpsURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while(line != null) {
-                line = bufferedReader.readLine();
-                data = data + line;
-            }
-
-            Object json = new JSONTokener(data).nextValue();
-            if( json instanceof JSONObject){
-                JSONObject JO = new JSONObject(data);
-                singleParsed = "Id:" + JO.get("Id") + "\n"+
-                        "FirstName:" + JO.get("FirstName") + "\n"+
-                        "Surname:" + JO.get("Surname") + "\n"+
-                        "Technologies:" + JO.get("Technologies") + "\n"+
-                        "Seat:" + JO.get("Seat") + "\n";
-                dataList.add(singleParsed);
-            }else if(json instanceof JSONArray){
-                JSONArray JA = new JSONArray(data);
-                for(int i=0;i<JA.length(); i++){
-                    JSONObject JO = (JSONObject) JA.get(i);
-                    singleParsed = "Id:" + JO.get("Id") + "\n"+
-                            "FirstName:" + JO.get("FirstName") + "\n"+
-                            "Surname:" + JO.get("Surname") + "\n"+
-                            "Technologies:" + JO.get("Technologies") + "\n"+
-                            "Seat:" + JO.get("Seat") + "\n";
-                    dataList.add(singleParsed);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String line = "";
+                while(line != null) {
+                    line = bufferedReader.readLine();
+                    data = data + line;
                 }
+
+                Object json = new JSONTokener(data).nextValue();
+                if( json instanceof JSONObject){
+                    dataList.add(new Developer(new JSONObject(data)));
+                }else if(json instanceof JSONArray){
+                    JSONArray JA = new JSONArray(data);
+                    for(int i=0;i<JA.length(); i++){
+                        dataList.add(new Developer((JSONObject) JA.get(i)));
+                    }
+                }
+            } catch (MalformedURLException e) {
+                errorText = "MalformedURLException";
+                e.printStackTrace();
+            } catch (IOException e) {
+                errorText = "IOException";
+                e.printStackTrace();
+            } catch (JSONException e) {
+                errorText = "JSONException";
+                e.printStackTrace();
             }
-        } catch (MalformedURLException e) {
-            errorText = "MalformedURLException";
-            e.printStackTrace();
-        } catch (IOException e) {
-            errorText = "IOException";
-            e.printStackTrace();
-        } catch (JSONException e) {
-            errorText = "JSONException";
+        }
+        return null;
+    }
+    private URL setURLAdress(){
+        try{
+            if(choice.equals("Technologia")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
+            }else if(choice.equals("Id")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+            }else if(choice.equals("Wszystko")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            }else if(choice.equals("Nazwisko")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+            }
+        }catch(MalformedURLException e){
             e.printStackTrace();
         }
         return null;
     }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        if(statement!=null){
+            statement.setText(errorText);
+        }
+        if(saveDataToFile){ //dodane do zapisu do pliku
+            String data = "";
+            for(int i=0; i<dataList.size();i++) {
+                data+=dataList.get(i).developerDescription();
+            }
+            SaveToFile.saveDataToFile(context,fileName,data,append);
+            SaveToFile.DisableProgressBar();
+        }else{
+            for(int i=0; i<dataList.size();i++) {
+                SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
+            }
+            SearchDevelopers.adapter.notifyDataSetChanged();
+            SearchDevelopers.DisableProgressBar();
+        }
+    }
+    public void setStatement(TextView statement) { this.statement = statement;}
     public void setChoice(String name){
         choice = name;
     }
     public void setInputData(String name){
         inputData = name;
     }
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        statement.setText(errorText);   // tutaj ustawiany tekst bo w metodzie doInBackground rzuca błędem
-        for(int i=0; i<dataList.size();i++) {
-            SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i)));
-        }
-        SearchDevelopers.adapter.notifyDataSetChanged();
-    }
-    public void setStatement(TextView statement) { this.statement = statement;}
+
+    /*      dodane do zapisu do pliku       */
+    public void setSaveDataToFile(boolean choice){saveDataToFile = choice; }
+    public void setcontext(Context con){context = con;}
+    public void setFileName(String name){fileName = name;}
+    public void setAppend(boolean ap){append = ap;}
+    /*--------------------------------------*/
 }

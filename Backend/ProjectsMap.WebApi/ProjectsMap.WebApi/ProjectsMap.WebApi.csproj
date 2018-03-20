@@ -193,6 +193,7 @@
     <Compile Include="Services\Abstract\IBuildingService.cs" />
     <Compile Include="Services\Abstract\ICompanyService.cs" />
     <Compile Include="Services\Abstract\IEmployeeService.cs" />
+    <Compile Include="Services\Abstract\IProjectService.cs" />
     <Compile Include="Services\Abstract\IFloorService.cs" />
     <Compile Include="Services\Abstract\IRoomService.cs" />
     <Compile Include="Services\Abstract\ISeatService.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Services\Concrete\BuildingService.cs" />
     <Compile Include="Services\Concrete\CompanyService.cs" />
     <Compile Include="Services\Concrete\EmployeeService.cs" />
+    <Compile Include="Services\Concrete\ProjectService.cs" />
     <Compile Include="Services\Concrete\FloorService.cs" />
     <Compile Include="Services\Concrete\RoomService.cs" />
     <Compile Include="Services\Concrete\SeatService.cs" />

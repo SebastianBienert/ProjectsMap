@@ -13,4 +13,6 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 })
 export class AppComponent {
   title = 'Projects map';
+
+
 }

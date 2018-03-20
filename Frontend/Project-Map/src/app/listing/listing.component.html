@@ -1,8 +1,8 @@
-<!-- <ul style="text-align: left;">
-  Rooms:
-  <li *ngFor="let employee of employees">
-    <app-person-card [employee]='employee'></app-person-card>
-  </li>
-  
-</ul> -->
-<app-person-card *ngFor="let employee of employees" [employee]='employee'></app-person-card>
+
+<nav id="sidebar" class="scrollable" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+  [scrollWindow]="false">
+  <div class="sidebar-header">
+    <app-person-card *ngFor="let employee of employees" [employee]='employee'></app-person-card>
+    <app-project-card *ngFor="let project of projects" [project]='project'></app-project-card>
+  </div>
+</nav>

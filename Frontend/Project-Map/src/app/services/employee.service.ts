@@ -21,7 +21,7 @@ const httpOptions = {
 @Injectable()
 export class EmployeeService {
   employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
- // employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  //employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
   private handleError: HandleError;
 
   constructor(
@@ -31,9 +31,20 @@ export class EmployeeService {
 
     this.searchedEmployees = this.getEmployees();
   }
-  
-  searchedEmployees : Observable<Employee[]> = new Observable<Employee[]>();
-  
+
+  searchedEmployees: Observable<Employee[]> = new Observable<Employee[]>();
+
+ public addEmployee(employee : Employee)
+  {
+    this.http.post(this.employeeUrl, employee).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error occured");
+      }
+    );
+  }
 
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
@@ -43,13 +54,40 @@ export class EmployeeService {
       );
   }
 
-  searchEmployeeByTechnology(technology : string): Observable<Employee[]> {
-    
+  searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
+    let params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        pageSize: "7"
+      }
+    });
 
-    return this.searchedEmployees = this.http.get<Employee[]>(this.employeeUrl + "/technology/" + technology)
-    .pipe(
-      catchError(this.handleError('getEmployees', []))
-    );
-    
+    return this.searchedEmployees = this.http.get<any>(this.employeeUrl + "/technology/pagination/" + technology, { params })
+      .pipe(
+        catchError(this.handleError('getEmployees', []))
+      );
+
   }
+
+  searchEmployeeByName(name: string, page: number): Observable<any> {
+    let params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        pageSize: "7"
+      }
+    });
+
+    return this.searchedEmployees = this.http.get<any>(this.employeeUrl + "/pagination/" + name, { params })
+      .pipe(
+        catchError(this.handleError('getEmployees', []))
+      );
+  }
+
+  public getEmployeesByQuery(query : string) : Observable<Employee[]>{
+    return this.http.get<Employee[]>(this.employeeUrl + "/like/" + query)
+    .pipe(
+      catchError(this.handleError('getEmployees', [])));
+  }
+
+
 }

@@ -23,7 +23,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class fetchData extends AsyncTask<Void,Void,Void> {
     String data ="";
     String singleParsed = "";
-    ArrayList<String> dataList = new ArrayList<String>();
+    ArrayList<Developer> dataList = new ArrayList<Developer>();
 
     @Override
     protected Void doInBackground(Void... voids) {
@@ -41,13 +41,7 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
 
             JSONArray JA = new JSONArray(data);
             for(int i=0;i<JA.length(); i++){
-                JSONObject JO = (JSONObject) JA.get(i);
-                singleParsed = "Id:" + JO.get("Id") + "\n"+
-                        "FirstName:" + JO.get("FirstName") + "\n"+
-                        "Surname:" + JO.get("Surname") + "\n"+
-                        "Technologies:" + JO.get("Technologies") + "\n"+
-                        "Seat:" + JO.get("Seat") + "\n";
-                dataList.add(singleParsed);
+                dataList.add(new Developer((JSONObject) JA.get(i)));
             }
 
         } catch (MalformedURLException e) {
@@ -66,8 +60,9 @@ public class fetchData extends AsyncTask<Void,Void,Void> {
 
         //MainActivity.data.setText(this.dataParsed);
         for(int i=0; i<dataList.size();i++) {
-            AllDevelopers.custom.list.add(new singleRow(dataList.get(i)));
+            AllDevelopers.custom.list.add(new singleRow(dataList.get(i).developerDescription()));
         }
+        AllDevelopers.DisableProgressBar();
         AllDevelopers.custom.notifyDataSetChanged();
     }
 }
