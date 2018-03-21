@@ -177,7 +177,9 @@ namespace ProjectsMap.WebApi.Mappers
 				Id = floor.FloorId,
 				Description = floor.Description,
 				BuildingId = floor.BuildingId,
-				FloorNumber = floor.FloorNumber
+                Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
+                Rooms = GetRoomsDtoList(floor.Rooms.ToList()),
+                FloorNumber = floor.FloorNumber
 			};
 			return result;
 		}
