@@ -26,7 +26,7 @@ export class EmployeeDetailComponent implements OnInit {
           .subscribe(Employee => this.employee$ = Employee);
   }
 
-  goBack() {
-    this.router.navigate(['/employee']);
+  hideDetails() {
+    this.router.navigate(['/']);
   }
 }

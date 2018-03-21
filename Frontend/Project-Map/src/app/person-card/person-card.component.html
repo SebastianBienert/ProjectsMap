@@ -6,5 +6,8 @@
     <p *ngFor="let tech of employee.Technologies">
       {{tech.Name}}aaa
     </p>
+    <a class="btn btn-primary waves-light" [routerLink]="['/employee', employee.Id]">
+    	  Show details
+  	</a>
   </div>
 </div>
