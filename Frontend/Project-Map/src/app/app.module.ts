@@ -17,8 +17,6 @@ import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
 import { InsertFormsComponent } from './insert-forms/insert-forms.component';
 import { EmployeeComponent } from './insert-forms/employee/employee.component';
 import { ProjectComponent } from './insert-forms/project/project.component';
-import { TechnologyComponent } from './insert-forms/technology/technology.component';
-import { RoomComponent } from './room/room.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MapCreatorComponent } from './map-creator/map-creator.component';
 import { ListingComponent } from './listing/listing.component';
@@ -33,24 +31,50 @@ import { TechnologyService } from './services/technology.service';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ProjectService } from './services/project.service';
+import { ManagementPageComponent } from './management-page/management-page.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+
+
+const routes: Routes = [
+  { path: '', redirectTo: '/main', pathMatch: 'full'},
+  { path: 'main', 
+      component: MainLayoutComponent,
+      children: [
+        {path: 'displayMap', component: DisplayedMapComponent}, 
+        {path: '', component: DisplayedMapComponent}, 
+      ]
+    },
+  { path: 'managementPage', 
+    component: ManagementPageComponent,
+    children: [
+      {path: '', component: MapCreatorComponent}, 
+      {path: 'projects', component: ProjectComponent}, 
+      {path: 'employees', component: EmployeeComponent}, 
+      {path: 'mapCreator', component: MapCreatorComponent}, 
+  ]}
+]
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayedMapComponent,
-    RoomComponent,
     InsertFormsComponent,
     EmployeeComponent,
     ProjectComponent,
-    TechnologyComponent,
     MapCreatorComponent,
     SearchComponent,
     ListingComponent,
     PersonCardComponent,
     SearchComponent,
     MapNavigatorComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ManagementPageComponent,
+    SidebarComponent,
+    MainLayoutComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -61,6 +85,7 @@ import { ProjectService } from './services/project.service';
     FormsModule,
     BrowserModule,
     MDBBootstrapModule.forRoot(),
+    RouterModule.forRoot(routes),
     FormsModule,
     InfiniteScrollModule,
     TagInputModule, 

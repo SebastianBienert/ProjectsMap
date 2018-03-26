@@ -1,4 +1,3 @@
-import { RoomComponent } from './room/room.component';
 import { Component, ViewChild } from '@angular/core';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
 import { BrowserModule } from '@angular/platform-browser';
