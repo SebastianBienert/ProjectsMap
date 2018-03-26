@@ -83,7 +83,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                     line = bufferedReader.readLine();
                     data = data + line;
                 }
-
+                dataList = new ArrayList<Developer>();
                 Object json = new JSONTokener(data).nextValue();
                 if (json instanceof JSONObject) {
                     dataList.add(new Developer(new JSONObject(data)));
