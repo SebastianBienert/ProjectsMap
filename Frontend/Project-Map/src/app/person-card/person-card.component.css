@@ -51,5 +51,6 @@
 
 .card-info-group{
     display: block;
+    clear: left;
 }
 
