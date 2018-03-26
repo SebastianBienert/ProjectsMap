@@ -14,10 +14,15 @@
     <string name="button">Button</string>
     <string name="row_data">Row data</string>
     <string name="todo">TODO</string>
-    <string-array name="selected_method">
+    <string-array name="selected_method_developer">
         <item>Id</item>
         <item>Technologia</item>
-        <item>Nazwisko</item>
-        <item>Wszystko</item>
+        <item>Imię lub nazwisko</item>
+        <item>Wszyscy</item>
+    </string-array>
+    <string-array name="selected_method_project">
+        <item>Id</item>
+        <item>Nazwa</item>
+        <item>Wszystkie</item>
     </string-array>
 </resources>

@@ -13,6 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+/**
+ * Created by Mateusz on 14.03.2018.
+ */
+
 public class SearchDevelopersActivity extends AppCompatActivity {
 
     Spinner spinner;
@@ -20,12 +26,13 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     Button clickBack;
     TextView inputDataField;
     TextView statement;
-    public static TextView data;
+    TextView data;
     ListView listDevelopers;
-    public static CustomAdapter adapter;
+    CustomAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
     String choice="";
-    static ProgressBar waitForData;
+    ProgressBar waitForData;
+    ArrayList<Developer> arrayDevelopers = new ArrayList<Developer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +45,9 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             statement = (TextView) findViewById(R.id.textViewStatement);
             listDevelopers = (ListView) findViewById(R.id.listDevelopers);
             spinner = (Spinner) findViewById(R.id.spinnerSelectionMethod);
-            arrayAdapter = ArrayAdapter.createFromResource(this, R.array.selected_method, android.R.layout.simple_spinner_item);
+            arrayAdapter = ArrayAdapter.createFromResource(this, R.array.selected_method_developer, android.R.layout.simple_spinner_item);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(arrayAdapter);
             waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
             waitForData.setVisibility(View.INVISIBLE);
             spinner.setAdapter(arrayAdapter);
@@ -68,7 +76,8 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                     process.setSaveDataToFile(false);
                     process.setChoice(choice);
                     process.setInputData(inputDataField.getText().toString());
-                    process.setStatement(statement);
+                    process.setcontext(SearchDevelopersActivity.this);
+                    process.setTextViewStatement(statement);
                     process.execute();
                 }
             });
@@ -78,6 +87,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                 }
             });
     }
+
     private void setInputDataField(){
         inputDataField.setText("");
         if(choice.equals("Id")){
@@ -85,7 +95,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         }else{
             inputDataField.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        if(choice.equals("Wszystko")){
+        if(choice.equals("Wszyscy")){
             inputDataField.setEnabled(false);
             inputDataField.setFocusable(false);
             inputDataField.setCursorVisible(false);
@@ -97,7 +107,16 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             inputDataField.setHint("Podaj " + choice);
         }
     }
-    static public void DisableProgressBar(){
+    public void DisableProgressBar(){
         waitForData.setVisibility(View.INVISIBLE);
+    }
+
+    public void notifyDataSetChanged() {
+        adapter.notifyDataSetChanged();
+    }
+
+    public void addDeveloper(Developer developer) {
+        adapter.list.add(developer.description());
+        arrayDevelopers.add(developer);
     }
 }

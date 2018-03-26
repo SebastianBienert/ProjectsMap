@@ -13,15 +13,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Created by Mateusz on 20.03.2018.
+ * Created by Mateusz on 25.03.2018.
  */
 
-public class CustomAdapter extends BaseAdapter {
-
+public class ProjectAdapter extends BaseAdapter {
     ArrayList<String> list;
     Context c;
 
-    CustomAdapter(Context context){
+    ProjectAdapter(Context context){
         c = context;
         list = new ArrayList<String>();
         ////////////// minuta 16:00 link: https://www.youtube.com/watch?v=vpfeDoIWT0U !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -43,25 +42,23 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        final View row = layoutInflater.inflate(R.layout.singlerow,parent,false);
+        View row = layoutInflater.inflate(R.layout.activity_single_row_project,parent,false);
 
-        TextView rowData = (TextView)row.findViewById(R.id.rowData);
-        Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowOnMap);
+        TextView rowData = (TextView)row.findViewById(R.id.textViewRowData);
+
+        Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowDevelopers);
         btnShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent i = new Intent(c, MapActivity.class);
-                    c.startActivity(i);
+                Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
             }
         });
-        //String tmp = list.get(position);
 
         rowData.setText(list.get(position));
 
         return row;
     }
-
 }

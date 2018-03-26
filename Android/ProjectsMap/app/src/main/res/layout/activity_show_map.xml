@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project.projectsmap.ShowMapActivity">
+
+    <Spinner
+        android:id="@+id/spinnerBuildings"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/spinnerFloors"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/spinnerFloors"
+        android:layout_marginTop="13dp"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="4dp" />
+
+    <Spinner
+        android:id="@+id/spinnerFloors"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/spinnerBuildings"
+        android:layout_marginEnd="91dp"
+        android:layout_marginRight="91dp"
+        android:layout_marginTop="16dp"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="42dp" />
+
+    <TextView
+        android:id="@+id/textViewBuliding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/spinnerBuildings"
+        android:text="Budynek"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonBack"
+        android:layout_alignBottom="@+id/buttonBack"
+        android:layout_alignStart="@+id/textViewBuliding"
+        android:text="Piętro"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonLoadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:width="100dp"
+        android:text="Pobierz" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonShowMap"
+        android:layout_alignRight="@+id/buttonShowMap"
+        android:layout_below="@+id/buttonLoadData"
+        android:width="100dp"
+        android:text="Cofnij" />
+
+    <!--<TextView
+        android:id="@+id/textViewBuildingDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progressBarWaitForData"
+        android:layout_toStartOf="@+id/spinnerFloors" />-->
+
+    <LinearLayout
+        android:id="@+id/rect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/progressBarWaitForData"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarWaitForData"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonBack"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonShowMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/buttonBack"
+        android:width="100dp"
+        android:text="Wyświetl" />
+
+    <TextView
+        android:id="@+id/textViewStatement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textViewFloor"
+        android:layout_alignTop="@+id/progressBarWaitForData"
+        android:layout_marginTop="14dp"
+        android:layout_toStartOf="@id/buttonShowMap"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+</RelativeLayout>
