@@ -2,6 +2,8 @@ package project.projectsmap;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -21,11 +23,11 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by mateusz on 14.03.2018.
+ * Created by Mateusz on 14.03.2018.
  */
 
 public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
-    TextView statement;
+    TextView TextViewStatement;
     String data ="";
     String choice = "";
     String inputData = "";
@@ -35,35 +37,59 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     /*      dodane do zapisu do pliku       */
     boolean saveDataToFile = false;
     Context context;
+    Context toSavecontext;
     String fileName;
     boolean append;
     /*--------------------------------------*/
 
+    public void setTextViewStatement(TextView statement) {
+        this.TextViewStatement = statement;
+    }
+    public void setChoice(String name){
+        choice = name;
+    }
+    public void setInputData(String name){
+        inputData = name;
+    }
+
+    /*      dodane do zapisu do pliku       */
+    public void setSaveDataToFile(boolean choice){
+        saveDataToFile = choice;
+    }
+    public void setcontext(Context con){
+        context = con;
+    }
+    public void setFileName(String name){
+        fileName = name;
+    }
+    public void setAppend(boolean ap){append = ap;
+    }
+    /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
-        if(inputData.isEmpty()&&!choice.equals("Wszystko")){
+        if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
             errorText = "Wprowadź dane";
-        }else{
+        } else {
             try {
                 URL url = setURLAdress();
-                if(url==null){
+                if (url == null) {
                     return null;
                 }
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
-                while(line != null) {
+                while (line != null) {
                     line = bufferedReader.readLine();
                     data = data + line;
                 }
-
+                dataList = new ArrayList<Developer>();
                 Object json = new JSONTokener(data).nextValue();
-                if( json instanceof JSONObject){
+                if (json instanceof JSONObject) {
                     dataList.add(new Developer(new JSONObject(data)));
-                }else if(json instanceof JSONArray){
+                } else if (json instanceof JSONArray) {
                     JSONArray JA = new JSONArray(data);
-                    for(int i=0;i<JA.length(); i++){
+                    for (int i = 0; i < JA.length(); i++) {
                         dataList.add(new Developer((JSONObject) JA.get(i)));
                     }
                 }
@@ -80,55 +106,69 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        showErrorStatement();
+        if(saveDataToFile){ //dodane do zapisu do pliku
+            /*String data = "";
+            for(int i=0; i<dataList.size();i++) {
+                data+=dataList.get(i).description();
+            }*/
+            ((SaveToFileActivity)context).DisableProgressBar();
+            ((SaveToFileActivity)context).saveDataToFile(toSavecontext,fileName,this.data,append);
+            //SaveToFileActivity.saveDataToFile(context,fileName,this.data,append);
+            //SaveToFileActivity.DisableProgressBar();
+        }else{
+            for(int i=0; i<dataList.size();i++) {
+                ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
+                //SearchDevelopersActivity.adapter.list.add(dataList.get(i).description());
+            }
+            //SearchDevelopersActivity.adapter.notifyDataSetChanged();
+            ((SearchDevelopersActivity)context).notifyDataSetChanged();
+            ((SearchDevelopersActivity)context).DisableProgressBar();
+            //SearchDevelopersActivity.DisableProgressBar();
+        }
+    }
+
+    private void showErrorStatement() {
+        if(TextViewStatement!=null){
+            if(isNetworkAvailable()){
+                TextViewStatement.setText(errorText);
+            }else{
+                TextViewStatement.setText("Brak internetu");
+            }
+        }
+    }
+
     private URL setURLAdress(){
         try{
             if(choice.equals("Technologia")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
+                //return new URL("http://localhost:58923/api/developers/technology/"+inputData);
             }else if(choice.equals("Id")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
-            }else if(choice.equals("Wszystko")){
+                //return new URL("http://localhost:58923/api/developers/"+inputData);
+            }else if(choice.equals("Wszyscy")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
-            }else if(choice.equals("Nazwisko")){
+                //return new URL("http://localhost:58923/api/developers");
+            }else if(choice.equals("Imię lub nazwisko")){
                 return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+                //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
         }
         return null;
     }
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        if(statement!=null){
-            statement.setText(errorText);
-        }
-        if(saveDataToFile){ //dodane do zapisu do pliku
-            String data = "";
-            for(int i=0; i<dataList.size();i++) {
-                data+=dataList.get(i).developerDescription();
-            }
-            SaveToFile.saveDataToFile(context,fileName,data,append);
-            SaveToFile.DisableProgressBar();
-        }else{
-            for(int i=0; i<dataList.size();i++) {
-                SearchDevelopers.adapter.list.add(new singleRow(dataList.get(i).developerDescription()));
-            }
-            SearchDevelopers.adapter.notifyDataSetChanged();
-            SearchDevelopers.DisableProgressBar();
-        }
-    }
-    public void setStatement(TextView statement) { this.statement = statement;}
-    public void setChoice(String name){
-        choice = name;
-    }
-    public void setInputData(String name){
-        inputData = name;
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    /*      dodane do zapisu do pliku       */
-    public void setSaveDataToFile(boolean choice){saveDataToFile = choice; }
-    public void setcontext(Context con){context = con;}
-    public void setFileName(String name){fileName = name;}
-    public void setAppend(boolean ap){append = ap;}
-    /*--------------------------------------*/
+    public void setToSavecontext(Context toSavecontext) {
+        this.toSavecontext = toSavecontext;
+    }
 }

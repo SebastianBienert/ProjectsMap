@@ -21,18 +21,20 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.file.Path;
 
-public class SaveToFile extends AppCompatActivity {
+/**
+ * Created by Mateusz on 19.03.2018.
+ */
+
+public class SaveToFileActivity extends AppCompatActivity {
     Button clickBack, saveData, loadData;
     TextView dataFromFile;
     TextView dataToFile;
     RadioButton buttonYes, buttonNo;
     Button clickSaveToFile;
     Boolean append = true;
-    static ProgressBar waitForSaveData;
+    ProgressBar waitForSaveData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_save_to_file);
             clickBack = (Button) findViewById(R.id.buttonBack);
@@ -57,7 +59,7 @@ public class SaveToFile extends AppCompatActivity {
             clickSaveToFile = findViewById(R.id.buttonSaveToFile);
             clickBack.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    SaveToFile.super.finish();
+                    SaveToFileActivity.super.finish();
                 }
             });
             saveData.setOnClickListener(new View.OnClickListener() {
@@ -76,25 +78,22 @@ public class SaveToFile extends AppCompatActivity {
                     waitForSaveData.setVisibility(View.VISIBLE);
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                     process.setSaveDataToFile(true);
-                    process.setcontext(getApplicationContext());
+                    process.setToSavecontext(getApplicationContext());
+                    process.setcontext(SaveToFileActivity.this);
                     process.setFileName("plikTestowy");
                     process.setChoice("Wszystko");
                     process.setAppend(append);
                     //process.setInputData("1");
-                    process.setStatement(null);
+                    process.setTextViewStatement(null);
                     process.execute();
                 }
             });
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
     }
     static public boolean saveDataToFile(Context context, String fileName, String text, boolean append){
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
-            File file = new File(files[1], "/" + fileName+".txt");
+            File file = new File(files[0], "/" + fileName+".json");
             FileOutputStream fos = new FileOutputStream(file, append);//context.openFileOutput(context.getFilesDir().getAbsolutePath() + "/" + fileName +".txt",Context.MODE_PRIVATE);
             //FileOutputStream fos = openFileOutput(files[1] + "/" + fileName+".txt", MODE_APPEND);
             Writer out = new OutputStreamWriter(fos);
@@ -116,7 +115,7 @@ public class SaveToFile extends AppCompatActivity {
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
-            File file = new File(files[1], "/" + fileName+".txt");
+            File file = new File(files[0], "/" + fileName+".json");
             //FileInputStream fis = context.openFileInput(context.getFilesDir().getAbsolutePath() + "/" + fileName + ".txt");
             FileInputStream fis = new FileInputStream (file);
             BufferedReader r = new BufferedReader(new InputStreamReader(fis));
@@ -135,7 +134,7 @@ public class SaveToFile extends AppCompatActivity {
             return null;
         }
     }
-    static public void DisableProgressBar(){
+    public void DisableProgressBar(){
         waitForSaveData.setVisibility(View.INVISIBLE);
     }
 }

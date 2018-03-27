@@ -1,9 +1,5 @@
-<div class="text-center">
-<button class="btn btn-primary waves-light w-50" type="button" (click)="addProject.toggle()" mdbRippleRadius>
-	Add new project
-</button>
-</div>
-<div class="" [mdbCollapse]="isCollapsed" #addProject="bs-collapse">
+
+<div class="" >
 	<form [formGroup]="formAddProject" (ngSubmit)="onSubmit(formAddProject)">
 		<div class="md-form">
 			<i class="fa fa-info-circle prefix blue-text"></i>

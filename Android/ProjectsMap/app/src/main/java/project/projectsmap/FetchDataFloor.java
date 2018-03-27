@@ -1,5 +1,6 @@
 package project.projectsmap;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -16,20 +17,26 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Mateusz on 2018-02-28.
+ * Created by Mateusz on 19.03.2018.
  */
 
-public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
+public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     String data ="";
     String numberId;
-    Developer developer;
+    Floor floor;
+    Context context;
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     String description = null;
     @Override
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/" + numberId);
-            //URL url = new URL("http://localhost:58923/api/developers/" + numberId);
+            URL url = new URL("https://projectsmapwebapi.azurewebsites.net/api/floor/" + numberId);
+            //URL url = new URL("http://localhost:58923/api/floor/" + numberId);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             InputStream inputStream = httpsURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -40,7 +47,7 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
             }
 
             JSONObject jsonObject = new JSONObject(data);
-            developer = new Developer(jsonObject);
+            floor = new Floor(jsonObject);
         } catch (FileNotFoundException e){
             description = "Brak pracownika o podanych danych.";
             e.printStackTrace();
@@ -53,16 +60,28 @@ public class fetchDataDeveloper extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
-    public void setNumberId(String number){
-        numberId = number;
-    }
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         if(description==null){
-            SerachDeveloper.data.setText(developer.developerDescription());
+        if(floor!=null){
+            ((SearchFloorActivity)context).showDescription(floor.allDescription());
+            //SearchFloorActivity.data.setText(floor.allDescription());
+        }else{
+            ((SearchFloorActivity)context).showDescription("Brak piętra o tym numerze");
+            //SearchFloorActivity.data.setText("Brak piętra o tym numerze");
         }else{
             SerachDeveloper.data.setText(description);
         }
+
+        ((SearchFloorActivity)context).DisableProgressBar();
+        ((SearchFloorActivity)context).setFloor(floor);
+        //SearchFloorActivity.DisableProgressBar();
+        //SearchFloorActivity.floor = floor;
+        //ShowMapActivity.DisableProgressBar();
+        //ShowMapActivity.floor = floor;
+    }
+    public void setNumberId(String number){
+        numberId = number;
     }
 }

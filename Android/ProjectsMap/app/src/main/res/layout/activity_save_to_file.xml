@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.projectsmap.SaveToFile">
+    tools:context="project.projectsmap.SaveToFileActivity">
 
     <Button
         android:id="@+id/buttonSaveData"
@@ -47,17 +47,6 @@
         android:layout_below="@+id/buttonLoadData"
         android:text="back" />
 
-    <TextView
-        android:id="@+id/textViewTextFromFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonBack"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:text="Data from file"
-        android:textSize="14sp" />
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_marginTop="70dp"
         android:layout_width="wrap_content"
@@ -116,4 +105,36 @@
         android:layout_below="@+id/buttonSaveData"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonBack"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textViewTextFromFile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/buttonBack"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginStart="12dp"
+                    android:text="Data from file"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </RelativeLayout>

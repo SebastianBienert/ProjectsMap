@@ -34,6 +34,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     .Where(c => c.CompanyId == id)
                     .Include(c => c.Employees.Select(d => d.Technologies))
                     .Include(c => c.Employees.Select(d => d.Seat))
+                    .Include(c => c.Buildings.Select(d => d.Floors))
                     .Include(c => c.Buildings)
                     .Include(c => c.Projects).FirstOrDefault();
             }

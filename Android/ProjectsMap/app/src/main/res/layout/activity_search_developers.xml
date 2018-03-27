@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.projectsmap.SearchDevelopers">
+    tools:context="project.projectsmap.SearchDevelopersActivity">
 
-    <EditText
+<!--    <EditText
         android:id="@+id/editTextInputData"
         android:layout_width="202dp"
         android:layout_height="45dp"
@@ -18,26 +18,31 @@
         android:hint="@string/nazwa_technologi"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="3dp"
-        tools:layout_editor_absoluteY="3dp" />
+        tools:layout_editor_absoluteY="3dp" />-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        />
 
-    <Button
-        android:id="@+id/buttonSearch"
-        android:layout_width="wrap_content"
+    <com.miguelcatalan.materialsearchview.MaterialSearchView
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editTextInputData"
-        android:layout_toLeftOf="@+id/buttonBack"
-        android:layout_toStartOf="@+id/buttonBack"
-        android:text="@string/szukaj"
-        tools:layout_editor_absoluteX="204dp"
-        tools:layout_editor_absoluteY="3dp" />
+        app:searchBackground="@color/colorPrimary"
+        app:searchSuggestionBackground="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        />
 
     <ListView
         android:id="@+id/listDevelopers"
         android:layout_width="368dp"
         android:layout_height="495dp"
-        android:layout_alignLeft="@+id/editTextInputData"
-        android:layout_alignStart="@+id/editTextInputData"
-        android:layout_below="@+id/editTextInputData"
+        android:layout_alignLeft="@+id/textViewStatement"
+        android:layout_alignStart="@+id/toolbar"
+        android:layout_below="@+id/spinnerSelectionMethod"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"></ListView>
 
@@ -45,29 +50,29 @@
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonSearch"
-        android:layout_alignBottom="@+id/buttonSearch"
+        android:layout_below="@+id/spinnerSelectionMethod"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="@string/cofnij"
         tools:layout_editor_absoluteX="292dp"
-        tools:layout_editor_absoluteY="3dp" />
+        tools:layout_editor_absoluteY="3dp"
+        />
 
     <Spinner
         android:id="@+id/spinnerSelectionMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/editTextInputData"
-        android:layout_toRightOf="@+id/editTextInputData" />
+        android:layout_below="@+id/toolbar"
+        android:layout_toEndOf="@+id/textViewNameChoice"
+        android:layout_toRightOf="@+id/textViewNameChoice" />
 
     <TextView
         android:id="@+id/textViewNameChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editTextInputData"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editTextInputData"
+        android:layout_alignLeft="@+id/toolbar"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignStart="@+id/toolbar"
         android:layout_marginLeft="39dp"
         android:layout_marginStart="39dp"
         android:text="@string/szukanie_po"
@@ -81,7 +86,7 @@
         android:layout_alignLeft="@+id/listDevelopers"
         android:layout_alignRight="@+id/listDevelopers"
         android:layout_alignStart="@+id/listDevelopers"
-        android:layout_below="@+id/editTextInputData"
+        android:layout_below="@+id/toolbar"
         android:textAlignment="center"
         android:textStyle="bold|italic"
         android:textSize="18sp" />

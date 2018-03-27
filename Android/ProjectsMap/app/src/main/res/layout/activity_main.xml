@@ -7,56 +7,75 @@
     tools:context="project.projectsmap.MainActivity">
 
     <Button
-        android:id="@+id/buttonAllDevelopers"
+        android:id="@+id/buttonShowFloor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSearchDeveloper"
-        android:layout_alignLeft="@+id/buttonSearchDeveloper"
-        android:layout_alignStart="@+id/buttonSearchDeveloper"
-        android:layout_marginBottom="33dp"
+        android:layout_alignLeft="@+id/buttonSaveTest"
+        android:layout_alignStart="@+id/buttonSaveTest"
+        android:layout_below="@+id/buttonSaveTest"
         android:width="200dp"
-        android:text="@string/wszyscy_pracownicy" />
+        android:text="Wyświetl piętro" />
 
     <Button
-        android:id="@+id/buttonSearchDeveloper"
+        android:id="@+id/buttonShowMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSearchDeveloperAfterTechnology"
+        android:layout_alignLeft="@+id/buttonShowFloor"
+        android:layout_alignStart="@+id/buttonShowFloor"
+        android:layout_below="@+id/buttonSaveTest"
+        android:layout_marginTop="57dp"
+        android:width="200dp"
+        android:text="Wyświetl mape" />
+
+    <Button
+        android:id="@+id/buttonSearchDevelopers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:width="200dp"
-        android:text="Wyszukaj Pracownika po id" />
-
-    <Button
-        android:id="@+id/buttonSearchDeveloperAfterTechnology"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSearchDeveloper"
-        android:layout_alignStart="@+id/buttonSearchDeveloper"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="152dp"
         android:width="200dp"
         android:text="Wyszukaj pracownika" />
-    <!--
-        <Button
-            android:id="@+id/buttonPaint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/buttonSearchDeveloperAfterTechnology"
-            android:layout_alignStart="@+id/buttonSearchDeveloperAfterTechnology"
-            android:layout_below="@+id/buttonSearchDeveloperAfterTechnology"
-            android:width="200dp"
-            android:text="Rysuj" /> -->
 
     <Button
         android:id="@+id/buttonSaveTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSearchDeveloperAfterTechnology"
-        android:layout_alignStart="@+id/buttonSearchDeveloperAfterTechnology"
-        android:layout_below="@+id/buttonSearchDeveloperAfterTechnology"
-        android:layout_marginTop="22dp"
+        android:layout_alignLeft="@+id/buttonSearchDevelopers"
+        android:layout_alignStart="@+id/buttonSearchDevelopers"
+        android:layout_below="@+id/buttonSearchDevelopers"
         android:width="200dp"
-        android:text="Zapis" />
+        android:text="Zapis do pliku" />
+
+    <Button
+        android:id="@+id/buttonSearchProjects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonSaveTest"
+        android:layout_alignEnd="@+id/buttonSearchDevelopers"
+        android:layout_alignLeft="@+id/buttonSearchDevelopers"
+        android:layout_alignRight="@+id/buttonSearchDevelopers"
+        android:layout_alignStart="@+id/buttonSearchDevelopers"
+        android:layout_marginBottom="51dp"
+        android:text="Wyszukaj projekty" />
+
+    <Switch
+        android:id="@+id/switchOnlineWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:width="150dp"
+        android:height="50dp"
+        android:showText="true"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:text="Praca online"
+        android:textAlignment="center"
+        android:textOff="Off"
+        android:textOn="On"
+        android:textStyle="bold" />
     <!-- android:layout_alignLeft="@+id/buttonPaint"
     android:layout_alignStart="@+id/buttonPaint"
     android:layout_below="@+id/buttonPaint"-->
