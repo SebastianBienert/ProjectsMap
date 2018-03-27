@@ -28,18 +28,19 @@
             android:name=".SearchDevelopersActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
-        <!-- <activity android:name=".MapActivity" /> -->
+        <activity android:name=".MapActivity" />
         <activity
             android:name=".SaveToFileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".SingleRowProject" />
-        <!--
-            <activity android:name=".SearchFloorActivity"
+        <activity
+            android:name=".SearchFloorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"></activity>
-        -->
-        <activity android:name=".ShowMapActivity"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ShowMapActivity" />
+        <activity android:name=".SearchProjectsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -29,6 +29,7 @@ public class Developer implements Serializable {
 
     ArrayList<String> Technologies;    // docelowo później String zmienić na technology
 
+    Seat Place;
     //public virtual User User { get; set; }
     //public virtual Company Company { get; set; }
     //Many to many relation (Project - Developer)
@@ -37,6 +38,14 @@ public class Developer implements Serializable {
     //public virtual ICollection<Seat> Seat { get; set; }
     Developer(JSONObject developerData) throws JSONException {
         convertJSON(developerData);
+    }
+
+    public Seat getSeat() {
+        return Place;
+    }
+
+    public void setSeat(Seat place) {
+        this.Place = place;
     }
 
     public int getDeveloperId() {
@@ -122,6 +131,11 @@ public class Developer implements Serializable {
         }else{
             description += "Technologies: brak danych" + "\n";
         }
+        if(Place!=null){
+            description += "Seat: \n Number seat" + Place.seatId + " \n Number room" + Place.roomId + "\n";
+        }else{
+            description += "Seat: brak danych" + "\n";
+        }
         return description;
     }
 
@@ -172,17 +186,25 @@ public class Developer implements Serializable {
         }else{
             Photo = null;
         }
-        if(developerData.has("JobTitle")){
-            if(!developerData.isNull("JobTitle")){
-                JobTitle = developerData.getString("JobTitle");
+        if(developerData.has("Seat")){
+            if(!developerData.isNull("Seat")){
+                Place = new Seat(developerData.getJSONObject("Seat"));
             }else{
-                JobTitle = "brak danych";
+                Place = null;
             }
         }else{
-            JobTitle = "brak danych";
+            Place = null;
         }
         if(developerData.has("CompanyId")){
-            if(!developerData.isNull("CompanyId")){
+            if(developerData.has("JobTitle")){
+                if(!developerData.isNull("JobTitle")){
+                    JobTitle = developerData.getString("JobTitle");
+                }else{
+                    JobTitle = "brak danych";
+                }
+            }else{
+                JobTitle = "brak danych";
+            }  if(!developerData.isNull("CompanyId")){
                 CompanyId = developerData.getInt("CompanyId");
             }else{
                 CompanyId = -1;

@@ -1,4 +1,56 @@
 .custom-card{
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: 5px;
 }
+
+.zoom {
+    transition: transform .2s; /* Animation */
+}
+
+.zoom:hover {
+    transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.card-section-left{
+    width: 60%;
+    float: left;
+    padding: 10px;
+    
+}
+
+.card-section-right{
+    width: 40%;
+    float: left;
+    padding: 10px;
+    padding-right: 7px;
+}
+
+.tag{
+    font-size: 12px;
+    border-radius: 5px;
+    background-color: gainsboro;
+    width: auto;
+    display: inline-block;
+    margin: 2px;
+    padding: 4px;
+    float: right;
+}
+
+.card-label{
+    float: left;
+    font-size: 15px;
+}
+
+.card-content{
+    float: left;
+    font-size: 15px;
+    color: darkgray;
+    margin-left: 3px;
+}
+
+.card-info-group{
+    display: block;
+    clear: left;
+}
+

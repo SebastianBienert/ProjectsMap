@@ -1,6 +1,5 @@
 package project.projectsmap;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,21 +22,20 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 /**
- * Created by Mateusz on 14.03.2018.
+ * Created by Mateusz on 25.03.2018.
  */
 
-public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
+public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     TextView TextViewStatement;
     String data ="";
     String choice = "";
     String inputData = "";
     String errorText = "";
-    ArrayList<Developer> dataList = new ArrayList<Developer>();
+    ArrayList<Project> dataList = new ArrayList<Project>();
 
     /*      dodane do zapisu do pliku       */
     boolean saveDataToFile = false;
     Context context;
-    Context toSavecontext;
     String fileName;
     boolean append;
     /*--------------------------------------*/
@@ -67,7 +65,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
-        if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
+        if (inputData.isEmpty() && !choice.equals("Wszystkie")) {
             errorText = "Wprowadź dane";
         } else {
             try {
@@ -83,14 +81,14 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                     line = bufferedReader.readLine();
                     data = data + line;
                 }
-                dataList = new ArrayList<Developer>();
+
                 Object json = new JSONTokener(data).nextValue();
                 if (json instanceof JSONObject) {
-                    dataList.add(new Developer(new JSONObject(data)));
+                    dataList.add(new Project(new JSONObject(data)));
                 } else if (json instanceof JSONArray) {
                     JSONArray JA = new JSONArray(data);
                     for (int i = 0; i < JA.length(); i++) {
-                        dataList.add(new Developer((JSONObject) JA.get(i)));
+                        dataList.add(new Project((JSONObject) JA.get(i)));
                     }
                 }
             } catch (MalformedURLException e) {
@@ -115,22 +113,18 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             for(int i=0; i<dataList.size();i++) {
                 data+=dataList.get(i).description();
             }*/
+            ((SaveToFileActivity)context).saveDataToFile(context,fileName,this.data,append);
             ((SaveToFileActivity)context).DisableProgressBar();
-            ((SaveToFileActivity)context).saveDataToFile(toSavecontext,fileName,this.data,append);
-            //SaveToFileActivity.saveDataToFile(context,fileName,this.data,append);
-            //SaveToFileActivity.DisableProgressBar();
         }else{
             for(int i=0; i<dataList.size();i++) {
-                ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
-                //SearchDevelopersActivity.adapter.list.add(dataList.get(i).description());
+                //SearchProjectsActivity.adapter.list.add(dataList.get(i).description());
+                ((SearchProjectsActivity)context).addProject(dataList.get(i));
             }
-            //SearchDevelopersActivity.adapter.notifyDataSetChanged();
-            ((SearchDevelopersActivity)context).notifyDataSetChanged();
-            ((SearchDevelopersActivity)context).DisableProgressBar();
-            //SearchDevelopersActivity.DisableProgressBar();
+            //SearchProjectsActivity.adapter.notifyDataSetChanged();
+            ((SearchProjectsActivity)context).notifyDataSetChanged();
+            ((SearchProjectsActivity)context).DisableProgressBar();
         }
     }
-
     private void showErrorStatement() {
         if(TextViewStatement!=null){
             if(isNetworkAvailable()){
@@ -140,20 +134,16 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             }
         }
     }
-
     private URL setURLAdress(){
         try{
-            if(choice.equals("Technologia")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
-                //return new URL("http://localhost:58923/api/developers/technology/"+inputData);
-            }else if(choice.equals("Id")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+            if(choice.equals("Id")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
-            }else if(choice.equals("Wszyscy")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+            }else if(choice.equals("Wszystkie")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project");
                 //return new URL("http://localhost:58923/api/developers");
-            }else if(choice.equals("Imię lub nazwisko")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+            }else if(choice.equals("Nazwa")){
+                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project/name/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){
@@ -166,9 +156,5 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-    public void setToSavecontext(Context toSavecontext) {
-        this.toSavecontext = toSavecontext;
     }
 }
