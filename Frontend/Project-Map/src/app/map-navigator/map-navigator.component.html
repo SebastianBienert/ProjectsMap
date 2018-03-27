@@ -12,14 +12,30 @@
 </div>
 <!-- <button (click)="debug()">print building</button> -->
 <div [ngSwitch]="displayMode">
-  <app-displayed-map *ngSwitchCase="'display'"
+    <div  *ngSwitchCase="'loading'">
+        <p>Am loading</p>
+      </div>
+  <div  *ngSwitchCase="'displayMap'">
+    <button (click)=editMap()>Edit map</button>
+    <app-displayed-map
     [floorToDisplay]= "selectedFloor">
-  </app-displayed-map>
-  <app-map-creator *ngSwitchCase="'create'"
-    [floorDescription] = "'hell'"
-    [buildingId] = "selectedBuilding"
-    (mapCreated)="mapCreated($event)">
-  </app-map-creator>
+    </app-displayed-map>
+  </div>
+  <div  *ngSwitchCase="'create'">
+      <app-map-creator
+      [floorDescription] = "'hell'"
+      [buildingId] = "selectedBuilding"
+      (mapCreated)="mapCreated($event)">
+    </app-map-creator>
+  </div>
+  <div  *ngSwitchCase="'edit'">
+      <app-map-creator
+      [floorDescription] = "'hell'"
+      [buildingId] = "selectedBuilding"
+      [loadedFloorId] = "selectedFloor"
+      (mapCreated)="mapCreated($event)">
+    </app-map-creator>
+  </div>
   <div *ngSwitchCase="'addBuilding'">
       <input [(ngModel)]="buildingAddress" #ctrl="ngModel" required placeholder="Address">
       <button (click)='saveNewBuilding()'>OK</button>

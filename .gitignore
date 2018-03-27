@@ -261,3 +261,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+Frontend/Project-Map/src/assets/images/Sample_Floorplan.jpg
+Frontend/Project-Map/src/assets/images/LibMap3.svg
+Frontend/Project-Map/src/assets/images/LibMap3.jpg

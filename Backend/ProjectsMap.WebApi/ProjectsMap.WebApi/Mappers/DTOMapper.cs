@@ -53,6 +53,7 @@ namespace ProjectsMap.WebApi.Mappers
                     Id = employee.Seat.SeatId,
                     DeveloperId = employee.EmployeeId,
                     Vertex = employee.Seat == null ? null : new Vertex(employee.Seat.X, employee.Seat.Y),
+
                     RoomId = employee.Seat.SeatId
                 };
                 dto.Seat = seatDto;
@@ -92,7 +93,7 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 Id = room.RoomId,
                 Walls = GetWallsDtoList(room.Walls.ToList()),
-                Seats = room.Seats.Select(s => new Vertex(s.X, s.Y)).ToList()
+                Seats = room.Seats.Select(s => GetSeatDto(s)).ToList()
             };
             return dto;
         }
@@ -118,7 +119,7 @@ namespace ProjectsMap.WebApi.Mappers
 			var result = new SeatDto()
 			{
 				Id = seat.SeatId,
-				DeveloperId = seat.EmployeeId,
+				//DeveloperId = seat.EmployeeId,
 				RoomId = seat.RoomId,
 				Vertex = new Vertex(seat.X, seat.Y)
             };

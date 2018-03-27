@@ -54,7 +54,8 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
 		public void Update(FloorDto floorDto)
 		{
-			throw new NotImplementedException();
+			_floorRepository.Update(floorDto);
 		}
+
 	}
 }

@@ -12,6 +12,6 @@ namespace ProjectsMap.WebApi.DTOs
 
         public IEnumerable<WallDto> Walls { get; set; }
 
-        public IEnumerable<Vertex> Seats { get; set; }
+        public IEnumerable<SeatDto> Seats { get; set; }
     }
 }
