@@ -1,6 +1,6 @@
 $topnav-background-color: #3f51b5;
 .sidebar {
-    font-size: 2rem;
+    font-size: 1rem;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
@@ -26,7 +26,7 @@ $topnav-background-color: #3f51b5;
             background: $topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #999;
+            color: #FFF;
             text-decoration: none;
             .fa {
                 margin-right: 10px;

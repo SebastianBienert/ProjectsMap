@@ -49,10 +49,10 @@ const routes: Routes = [
   { path: 'managementPage', 
     component: ManagementPageComponent,
     children: [
-      {path: '', component: MapCreatorComponent}, 
+      {path: '', component: MapNavigatorComponent}, 
       {path: 'projects', component: ProjectComponent}, 
       {path: 'employees', component: EmployeeComponent}, 
-      {path: 'mapCreator', component: MapCreatorComponent}, 
+      {path: 'mapCreator', component: MapNavigatorComponent}, 
   ]}
 ]
 
