@@ -1,0 +1,50 @@
+<div class="jumbotron">
+  <h1 class="h1-responsive">Employee Details</h1>
+  <hr class="my-2">
+  <table class="table table-bordered" *ngIf="employee$ as emp">
+    <tbody>
+      <tr class="table-success">
+        <td><i class="fa fa-user pr-2" aria-hidden="true"></i>ID</td>
+        <td>{{ emp.Id }}</td>
+      </tr>
+      <tr class="table-danger">
+        <td>Name</td>
+        <td>{{ emp.FirstName }}</td>
+      </tr>
+      <tr class="table-info">
+        <td>Surname</td>
+        <td>{{ emp.Surname }}</td>
+      </tr>
+      <tr class="table-secondary">
+        <td>E-mail</td>
+        <td>{{ emp.Email }}</td>
+      </tr>
+      <tr class="table-primary">
+        <td>Job Title</td>
+        <td>{{ emp.JobTitle }}</td>
+      </tr>
+      <tr class="table-warning">
+        <td>Manager</td>
+        <td>{{ emp.ManagerId }}</td>
+      </tr>
+      <tr class="table-success">
+        <td>Manager Company ID</td>
+        <td>{{ emp.ManagerCompanyId }}</td>
+      </tr>
+      <tr class="table-danger">
+        <td>Company Name</td>
+        <td>{{ emp.CompanyName }}</td>
+      </tr>
+      <tr class="table-info">
+        <td>Technologies</td>
+        <td>
+          <p *ngFor="let tech of emp.Technologies">
+             - {{tech.Name}} -
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="my-6">
+  <a (click)="hideDetails()" class="btn btn-primary waves-light" mdbRippleRadius>Hide</a>
+</div>

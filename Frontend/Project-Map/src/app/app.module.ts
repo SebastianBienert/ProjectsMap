@@ -10,7 +10,9 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import "rxjs/Rx";
-
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
 
 import { AppComponent } from './app.component';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
@@ -35,7 +37,7 @@ import { ManagementPageComponent } from './management-page/management-page.compo
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
-
+import { PageNotFoundComponent } from './not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -57,7 +59,6 @@ const routes: Routes = [
 ]
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,22 +75,22 @@ const routes: Routes = [
     ProjectCardComponent,
     ManagementPageComponent,
     SidebarComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    PageNotFoundComponent
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
-    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
-    BrowserModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
-    FormsModule,
     InfiniteScrollModule,
     TagInputModule, 
     BrowserAnimationsModule,
+    EmployeeDetailsModule,
+    AppRoutingModule
   ],
   providers: [
     HttpErrorHandler,
