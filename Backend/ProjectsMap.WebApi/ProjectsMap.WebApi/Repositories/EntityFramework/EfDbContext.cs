@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.EntityFramework;
 
+
 namespace ProjectsMap.WebApi.Repositories
 {
-    public class EfDbContext : DbContext
+    public class EfDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Project> Projects { get; set; }
 
         public DbSet<Room> Rooms { get; set; }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Seat> Seats { get; set; }
 
@@ -32,15 +33,21 @@ namespace ProjectsMap.WebApi.Repositories
 
         public DbSet<ProjectRole> ProjectRoles { get; set; }
 
-        public EfDbContext() : base("name=ProjectsMapDbContext")
+        public EfDbContext() : base("name=ProjectsMapDbContext", throwIfV1Schema: false)
         {
             Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
             this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new ProjectsMapDbInitializer());
         }
 
+        public static EfDbContext Create()
+        {
+            return new EfDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //One to one or zero [Seat - Employee]
             modelBuilder.Entity<Seat>()
                 .HasOptional(s => s.Employee)
@@ -82,10 +89,7 @@ namespace ProjectsMap.WebApi.Repositories
                 .WithMany(c => c.Projects)
                 .HasForeignKey(p => p.CompanyId);
 
-            //One to one or zero [User - Employee]
-            modelBuilder.Entity<User>()
-                .HasOptional(u => u.Employee)
-                .WithRequired(d => d.User);
+            
 
             //One to many [Floor - Wall]
             modelBuilder.Entity<Wall>()

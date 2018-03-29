@@ -1,5 +1,9 @@
 namespace ProjectsMap.WebApi.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using ProjectsMap.WebApi.Infrastructure;
+    using ProjectsMap.WebApi.Repositories;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,10 +18,31 @@ namespace ProjectsMap.WebApi.Migrations
 
         protected override void Seed(ProjectsMap.WebApi.Repositories.EfDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new EfDbContext()));
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data.
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new EfDbContext()));
+
+            var user = new ApplicationUser()
+            {
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3)
+            };
+
+            manager.Create(user, "MySuperP@ss!1");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByName("SuperPowerUser");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+            
         }
     }
 }

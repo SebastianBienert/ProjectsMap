@@ -57,14 +57,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     Technologies = dto.Technologies == null ? null : existingTechnologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
                     Seat = dto.Seat == null ? null:  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
                 };
-
-                var user = new User
-                {
-                    Created = DateTime.Now,
-                    Employee = dev
-                };
-                dev.User = user;
-
+                
                 //ADD NEW TECHNOLOGIES
                 foreach (var technology in newTechnologiesNames)
                 {

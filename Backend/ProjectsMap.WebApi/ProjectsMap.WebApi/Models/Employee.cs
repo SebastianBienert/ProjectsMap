@@ -22,8 +22,6 @@ namespace ProjectsMap.WebApi.Models
         [Key]
         public int EmployeeId { get; set; }
 
-        public virtual User User { get; set; }
-
         public string FirstName { get; set; }
 
         public string Surname { get; set; }
