@@ -17,7 +17,7 @@
         {{tech}}
       </div>
     </div>
-    <a class="btn btn-primary waves-light" [routerLink]="['/employee', employee.Id]">
+    <a class="btn btn-primary waves-light" [routerLink]="['/main',{outlets: {right: [employee.Id]} }]">
         Show details
     </a>
   </div>

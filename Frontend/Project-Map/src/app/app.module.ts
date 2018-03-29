@@ -10,8 +10,6 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import "rxjs/Rx";
-
-import { AppRoutingModule } from './app-routing.module';
 import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
 
 import { AppComponent } from './app.component';
@@ -38,14 +36,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
+import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
       component: MainLayoutComponent,
       children: [
-        {path: 'displayMap', component: DisplayedMapComponent}, 
-        {path: '', component: DisplayedMapComponent}, 
+        {path: 'displayMap', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
+        {path: '', component: DisplayedMapComponent, outlet: 'center'}, 
+        { path: '**', component: PageNotFoundComponent, outlet: 'center' },
+        { path: '**', component: PageNotFoundComponent, outlet: 'right' }
       ]
     },
   { path: 'managementPage', 
@@ -55,7 +57,9 @@ const routes: Routes = [
       {path: 'projects', component: ProjectComponent}, 
       {path: 'employees', component: EmployeeComponent}, 
       {path: 'mapCreator', component: MapNavigatorComponent}, 
-  ]}
+  ]},
+  { path: '**', component: PageNotFoundComponent }
+
 ]
 
 
@@ -89,8 +93,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     TagInputModule, 
     BrowserAnimationsModule,
-    EmployeeDetailsModule,
-    AppRoutingModule
+    EmployeeDetailsModule
   ],
   providers: [
     HttpErrorHandler,
