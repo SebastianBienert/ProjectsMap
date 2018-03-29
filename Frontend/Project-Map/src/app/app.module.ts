@@ -36,14 +36,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
+import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
       component: MainLayoutComponent,
       children: [
-        {path: 'displayMap', component: DisplayedMapComponent}, 
-        {path: '', component: DisplayedMapComponent}, 
+        {path: 'displayMap', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
+        {path: '', component: DisplayedMapComponent, outlet: 'center'}, 
+        { path: '**', component: PageNotFoundComponent, outlet: 'center' },
+        { path: '**', component: PageNotFoundComponent, outlet: 'right' }
       ]
     },
   { path: 'managementPage', 
