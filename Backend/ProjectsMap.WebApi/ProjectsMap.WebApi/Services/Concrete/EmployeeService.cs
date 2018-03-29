@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
+using System.Web.Hosting;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Mappers;
 using ProjectsMap.WebApi.Models;
@@ -84,6 +86,43 @@ namespace ProjectsMap.WebApi.Services
             {
                 return null;
             }
+        }
+
+
+
+        public bool AddPhotoToEmployee(int id, string path)
+        {
+           var employee = _repository.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            if (employee != null)
+            {
+                employee.Photo = path;
+                _repository.Update(employee);
+                return true;
+            }
+
+            return false;
+        }
+
+        public string GetPhotoPath(int id)
+        {
+            var path =  _repository.Employees.FirstOrDefault(e => e.EmployeeId == id)?.Photo;
+     
+            return path == null ? null : HostingEnvironment.MapPath(path);
+        }
+
+        public bool DeletePhoto(int id)
+        {
+            var employee = _repository.Employees.FirstOrDefault(e => e.EmployeeId == id);
+
+            if (employee != null && employee.Photo != null)
+            {
+                var filePath = HostingEnvironment.MapPath(employee.Photo);
+                File.Delete(filePath);
+                employee.Photo = null;
+                _repository.Update(employee);
+                return true;
+            }
+                return false;
         }
 
         public int Post(EmployeeDto employee)

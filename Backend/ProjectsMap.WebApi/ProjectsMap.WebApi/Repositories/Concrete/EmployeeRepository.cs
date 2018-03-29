@@ -106,8 +106,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                var dev = dbContext.Employees.FirstOrDefault(x => x.EmployeeId == employee.EmployeeId);
-                dev = employee;
+                dbContext.Entry(employee).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.ExceptionServices;
 using System.Security.Policy;
 using System.Web;
@@ -9,13 +10,23 @@ using ProjectsMap.WebApi.Models;
 using System.Web.Http.Routing;
 using ProjectsMap.WebApi.Repositories.EntityFramework;
 
+
 namespace ProjectsMap.WebApi.Mappers
 {
     public class DTOMapper
     {
+        private static UrlHelper Url
+        {
+            get
+            {
+               var httpRequestMessage = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
+               var _urlHelper = new UrlHelper(httpRequestMessage);
+               return _urlHelper;
+            }
+        }
+
         public static ProjectDto GetProjectDto(Project project)
         {
-
             return new ProjectDto()
             {
                 CompanyId = project.CompanyId,
@@ -34,6 +45,8 @@ namespace ProjectsMap.WebApi.Mappers
             {
                 ManagerCompanyId = employee.ManagerCompanyId,
                 Id = employee.EmployeeId,     
+                Url = Url.Link("GetEmployeeById", new { id = employee.EmployeeId }),
+                PhotoUrl = employee.Photo == null ? null : Url.Link("GetEmployeePhoto", new { id = employee.EmployeeId }),
                 ManagerId = employee.ManagerId,
                 CompanyId = employee.CompanyId,
                 FirstName = employee.FirstName,
