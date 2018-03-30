@@ -13,7 +13,7 @@ namespace ProjectsMap.WebApi.Controllers
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
-        [Authorize]
+        [ClaimsAuthorization(ClaimType = "FTE", ClaimValue = "1")]
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
@@ -102,8 +102,6 @@ namespace ProjectsMap.WebApi.Controllers
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
-            //Only SuperAdmin or Admin can delete users (Later when implement roles)
-
             var appUser = await this.AppUserManager.FindByIdAsync(id);
 
             if (appUser != null)
@@ -191,6 +189,67 @@ namespace ProjectsMap.WebApi.Controllers
             {
                 ModelState.AddModelError("", "Failed to add user roles");
                 return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}/assignclaims")]
+        [HttpPut]
+        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToAssign)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var appUser = await this.AppUserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            foreach (ClaimBindingModel claimModel in claimsToAssign)
+            {
+                if (appUser.Claims.Any(c => c.ClaimType == claimModel.Type))
+                {
+
+                    await this.AppUserManager.RemoveClaimAsync(id, ExtendedClaimsProvider.CreateClaim(claimModel.Type, claimModel.Value));
+                }
+
+                await this.AppUserManager.AddClaimAsync(id, ExtendedClaimsProvider.CreateClaim(claimModel.Type, claimModel.Value));
+            }
+
+            return Ok();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id:guid}/removeclaims")]
+        [HttpPut]
+        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<ClaimBindingModel> claimsToRemove)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var appUser = await this.AppUserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            foreach (ClaimBindingModel claimModel in claimsToRemove)
+            {
+                if (appUser.Claims.Any(c => c.ClaimType == claimModel.Type))
+                {
+                    await this.AppUserManager.RemoveClaimAsync(id, ExtendedClaimsProvider.CreateClaim(claimModel.Type, claimModel.Value));
+                }
             }
 
             return Ok();

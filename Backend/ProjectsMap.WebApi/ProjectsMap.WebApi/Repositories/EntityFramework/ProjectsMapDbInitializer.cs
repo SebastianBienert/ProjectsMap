@@ -28,7 +28,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 JoinDate = DateTime.Now.AddYears(-3)
             };
 
+            var user2 = new ApplicationUser()
+            {
+                UserName = "AverageUser",
+                Email = "avg@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3)
+            };
+
             manager.Create(user, "MySuperP@ss!1");
+            manager.Create(user2, "MySuperP@ss!1");
 
             if (roleManager.Roles.Count() == 0)
             {

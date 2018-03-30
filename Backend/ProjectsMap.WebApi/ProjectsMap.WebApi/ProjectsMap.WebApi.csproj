@@ -182,6 +182,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ClaimsController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\FloorController.cs" />
@@ -208,6 +209,8 @@
     <Compile Include="Infrastructure\ApplicationRoleManager.cs" />
     <Compile Include="Infrastructure\ApplicationUser.cs" />
     <Compile Include="Infrastructure\ApplicationUserManager.cs" />
+    <Compile Include="Infrastructure\ClaimsAuthorizationAttribute.cs" />
+    <Compile Include="Infrastructure\ExtendedClaimProvider.cs" />
     <Compile Include="Infrastructure\ModelFactory.cs" />
     <Compile Include="Mappers\DTOMapper.cs" />
     <Compile Include="Migrations\201803281549210_init.cs" />
@@ -216,6 +219,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authentication\ChangePasswordBindingModel.cs" />
+    <Compile Include="Models\Authentication\ClaimBingingModel.cs" />
     <Compile Include="Models\Authentication\CreateUserBindingModel.cs" />
     <Compile Include="Models\Authentication\RoleBindingModels.cs" />
     <Compile Include="Models\Building.cs" />
