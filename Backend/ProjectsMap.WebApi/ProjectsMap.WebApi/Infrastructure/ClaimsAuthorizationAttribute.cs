@@ -32,8 +32,7 @@ namespace ProjectsMap.WebApi.Infrastructure
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
                 return Task.FromResult<object>(null);
             }
-
-            //User is Authorized, complete execution
+            
             return Task.FromResult<object>(null);
 
         }

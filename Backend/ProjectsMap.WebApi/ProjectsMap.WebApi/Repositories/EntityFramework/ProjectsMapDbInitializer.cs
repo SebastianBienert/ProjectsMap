@@ -19,40 +19,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-
-            var user = new ApplicationUser()
-            {
-                UserName = "SuperPowerUser",
-                Email = "taiseer.joudeh@gmail.com",
-                EmailConfirmed = true,
-                JoinDate = DateTime.Now.AddYears(-3)
-            };
-
-            var user2 = new ApplicationUser()
-            {
-                UserName = "AverageUser",
-                Email = "avg@gmail.com",
-                EmailConfirmed = true,
-                JoinDate = DateTime.Now.AddYears(-3)
-            };
-
-            manager.Create(user, "MySuperP@ss!1");
-            manager.Create(user2, "MySuperP@ss!1");
-
-            if (roleManager.Roles.Count() == 0)
-            {
-                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
-            }
-
-            var adminUser = manager.FindByName("SuperPowerUser");
-
-            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
-
-
-
-
+            
             // base.Seed(context);
             IList<Vertex> vertices = new List<Vertex>()
 			{
@@ -1380,7 +1347,60 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 			};
 
-			foreach (var dev in developers)
+
+
+
+
+
+
+
+
+            var user = new ApplicationUser()
+            {
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3),
+                Employee = developers[0]
+            };
+
+            var user2 = new ApplicationUser()
+            {
+                UserName = "AverageUser",
+                Email = "avg@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3),
+                Employee = developers[1]
+            };
+
+            
+            manager.Create(user, "MySuperP@ss!1");
+            manager.Create(user2, "MySuperP@ss!1");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByName("SuperPowerUser");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+
+            developers.First().ApplicationUser = user;
+            foreach(var dev in developers.Skip(1))
+            {
+                dev.ApplicationUser = user2;
+            }
+
+
+
+
+
+
+
+            foreach (var dev in developers)
 			{
                 dev.ProjectRoles.ToList()[0].EmployeeId = dev.EmployeeId;
 				dev.ProjectRoles.ToList()[0].Employee = dev;

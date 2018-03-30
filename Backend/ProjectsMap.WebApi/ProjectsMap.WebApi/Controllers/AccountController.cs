@@ -17,7 +17,6 @@ namespace ProjectsMap.WebApi.Controllers
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
-            var xx = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u));
             return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
         }
 

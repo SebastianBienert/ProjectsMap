@@ -22,8 +22,7 @@ namespace ProjectsMap.WebApi.Infrastructure
         {
             var appDbContext = context.Get<EfDbContext>();
             var appUserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(appDbContext));
-
-            //Rest of code is removed for clarity
+            
             appUserManager.EmailService = new EmailService();
 
             var dataProtectionProvider = options.DataProtectionProvider;

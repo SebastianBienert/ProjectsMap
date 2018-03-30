@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectsMap.WebApi.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -39,6 +40,8 @@ namespace ProjectsMap.WebApi.Models
         public string JobTitle { get; set; }
 
         public virtual Company Company { get; set; }
+        
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public int CompanyId { get; set; }
 

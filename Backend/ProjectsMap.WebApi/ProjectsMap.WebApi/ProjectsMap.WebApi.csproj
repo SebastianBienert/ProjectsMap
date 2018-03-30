@@ -213,9 +213,9 @@
     <Compile Include="Infrastructure\ExtendedClaimProvider.cs" />
     <Compile Include="Infrastructure\ModelFactory.cs" />
     <Compile Include="Mappers\DTOMapper.cs" />
-    <Compile Include="Migrations\201803281549210_init.cs" />
-    <Compile Include="Migrations\201803281549210_init.Designer.cs">
-      <DependentUpon>201803281549210_init.cs</DependentUpon>
+    <Compile Include="Migrations\201803301705545_init.cs" />
+    <Compile Include="Migrations\201803301705545_init.Designer.cs">
+      <DependentUpon>201803301705545_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authentication\ChangePasswordBindingModel.cs" />
@@ -287,8 +287,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201803281549210_init.resx">
-      <DependentUpon>201803281549210_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803301705545_init.resx">
+      <DependentUpon>201803301705545_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
