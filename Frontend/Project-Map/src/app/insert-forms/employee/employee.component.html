@@ -1,5 +1,18 @@
 <div class="" >
 	<form [formGroup]="formAddEmployee" (ngSubmit)="onSubmit(formAddEmployee)">
+
+			<div class="md-form">
+					<div class="file-field">
+						<div class="btn btn-primary btn-sm float-left">
+							<span>Choose file</span>
+							<input formControlName="PhotoInput" type="file" (change)="onFileChange($event)" >
+						</div>
+						<div class="file-path-wrapper">
+						   <input formControlName="PhotoName" class="file-path validate" type="text" placeholder="Upload your photo">
+						</div>
+					</div>
+			</div>
+
 		<div class="md-form">
 			<i class="fa fa-hashtag prefix blue-text"></i>
 			<input type="text" class="form-control" id="DeveloperId" formControlName="DeveloperId" mdbActive>
@@ -34,16 +47,6 @@
 			<span *ngIf="formErrors.Email" class="alert alert-danger">{{ formErrors.Email }}</span>
 			<label for="Email">E-mail</label>
 		</div>
-
-		<!-- <div class="md-form">
-			<i class="fa fa-question-circle prefix blue-text"></i>
-			<input type="text" class="form-control" id="WantToHelp" formControlName="WantToHelp" mdbActive>
-			<span *ngIf="formErrors.WantToHelp" class="alert alert-danger">{{ formErrors.WantToHelp }}</span>
-			<label for="WantToHelp">Wants to help</label>
-			<small id="passwordHelpInlineMD" class="text-muted">
-				If yes - write 1, othervise write 0
-			</small>
-		</div> -->
 
 		<div class="md-form">
 			<i class="fa fa-id-badge prefix blue-text"></i>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
-
+import { ResponseContentType } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
@@ -34,11 +34,13 @@ export class EmployeeService {
 
   searchedEmployees: Observable<Employee[]> = new Observable<Employee[]>();
 
- public addEmployee(employee : Employee)
+ public addEmployee(fileToUpload: File, employee : Employee)
   {
     this.http.post(this.employeeUrl, employee).subscribe(
       res => {
         console.log(res);
+        if(fileToUpload != null )  //check if file is not empty
+          this.uploadEmployeePhoto(fileToUpload, employee.Id);
       },
       err => {
         console.log("Error occured");
@@ -96,5 +98,18 @@ export class EmployeeService {
       catchError(this.handleError('getEmployees', [])));
   }
 
+  uploadEmployeePhoto(fileToUpload: File, id: number) {
+    let input = new FormData();
+    input.append('file', fileToUpload, fileToUpload.name);
+    const url = this.employeeUrl + "/photo/" + id;
+    this.http.post(url, input).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log("Error during uploading photo occured...");
+      }
+    );;
+}
 
 }

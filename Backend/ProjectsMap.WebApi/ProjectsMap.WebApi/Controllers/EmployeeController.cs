@@ -174,13 +174,16 @@ namespace ProjectsMap.WebApi.Controllers
             {
                 var result = new HttpResponseMessage(HttpStatusCode.OK);
 
-                FileStream fileStream = new FileStream(path, FileMode.Open);
-                Image image = Image.FromStream(fileStream);
-                MemoryStream memoryStream = new MemoryStream();
-                image.Save(memoryStream, ImageFormat.Jpeg);
 
-                result.Content = new ByteArrayContent(memoryStream.ToArray());
-                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                using (var filestream = File.Open(path, FileMode.Open))
+                {
+                    Image image = Image.FromStream(filestream);
+                    MemoryStream memoryStream = new MemoryStream();
+                    image.Save(memoryStream, ImageFormat.Jpeg);
+                    result.Content = new ByteArrayContent(memoryStream.ToArray());
+                    result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                }
+
                 return ResponseMessage(result);
             }
 

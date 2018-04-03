@@ -3,6 +3,10 @@
   <hr class="my-2">
   <table class="table table-bordered" *ngIf="employee$ as emp">
     <tbody>
+        <tr class="table-success" *ngIf="emp.PhotoUrl" >
+            <td><i class="fa fa-user pr-2" aria-hidden="true"></i>Photo</td>
+            <td><img class="photo" [attr.src]="emp.PhotoUrl"/></td>
+          </tr>
       <tr class="table-success">
         <td><i class="fa fa-user pr-2" aria-hidden="true"></i>ID</td>
         <td>{{ emp.Id }}</td>
@@ -39,7 +43,7 @@
         <td>Technologies</td>
         <td>
           <p *ngFor="let tech of emp.Technologies">
-             - {{tech.Name}} -
+             - {{tech}} -
           </p>
         </td>
       </tr>

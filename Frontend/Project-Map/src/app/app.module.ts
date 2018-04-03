@@ -38,6 +38,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
 import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
