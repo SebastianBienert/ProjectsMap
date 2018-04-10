@@ -35,6 +35,9 @@ import { ManagementPageComponent } from './management-page/management-page.compo
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { SecurityService } from './security/security.service';
+import { LoginComponent } from './security/login.component';
+import { AuthGuard } from './security/auth.guard';
 
 
 const routes: Routes = [
@@ -48,12 +51,17 @@ const routes: Routes = [
     },
   { path: 'managementPage', 
     component: ManagementPageComponent,
+    canActivate: [AuthGuard],
+    data: { claimType: 'canAccessProducts' },
     children: [
       {path: '', component: MapNavigatorComponent}, 
       {path: 'projects', component: ProjectComponent}, 
-      {path: 'employees', component: EmployeeComponent}, 
+      {path: 'employees', component: EmployeeComponent},
       {path: 'mapCreator', component: MapNavigatorComponent}, 
-  ]}
+  ]},
+  { path: 'login', 
+    component: LoginComponent
+  }
 ]
 
 
@@ -74,7 +82,8 @@ const routes: Routes = [
     ProjectCardComponent,
     ManagementPageComponent,
     SidebarComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    LoginComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -99,7 +108,9 @@ const routes: Routes = [
     ProjectService,
     SharedService,
     FloorServiceService,
-    TechnologyService],
+    TechnologyService,
+    SecurityService,
+    AuthGuard],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

@@ -1023,6 +1023,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			{
 				new Employee()
 				{
+                    
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Witkor",
 					Surname = "Bukowski",
                     EmployeeId = 1,
@@ -1332,6 +1333,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Ewa",
 					Surname = "Witkowska",
                     EmployeeId = 18,
+                    
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -1354,44 +1356,49 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 
 
-
             var user = new ApplicationUser()
             {
                 UserName = "SuperPowerUser",
                 Email = "taiseer.joudeh@gmail.com",
                 EmailConfirmed = true,
                 JoinDate = DateTime.Now.AddYears(-3),
-                Employee = developers[0]
             };
 
-            var user2 = new ApplicationUser()
-            {
-                UserName = "AverageUser",
-                Email = "avg@gmail.com",
-                EmailConfirmed = true,
-                JoinDate = DateTime.Now.AddYears(-3),
-                Employee = developers[1]
-            };
 
-            
+
             manager.Create(user, "MySuperP@ss!1");
-            manager.Create(user2, "MySuperP@ss!1");
+            var first = manager.Users.First();
+            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canAccessProducts", "true"));
 
-            if (roleManager.Roles.Count() == 0)
-            {
-                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
-            }
 
-            var adminUser = manager.FindByName("SuperPowerUser");
 
-            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+            //if (roleManager.Roles.Count() == 0)
+            //{
+            //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+            //    roleManager.Create(new IdentityRole { Name = "Admin" });
+            //    roleManager.Create(new IdentityRole { Name = "User" });
+            //}
+
+            //var adminUser = manager.FindByName("SuperPowerUser");
+
+            //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
 
             developers.First().ApplicationUser = user;
-            foreach(var dev in developers.Skip(1))
+
+            int i = 0;
+            foreach (var dev in developers.Skip(1))
             {
+                var user2 = new ApplicationUser()
+                {
+                    UserName = $"AverageUser{i}",
+                    Email = $"avg{i}@gmail.com",
+                    EmailConfirmed = true,
+                    JoinDate = DateTime.Now.AddYears(-3)
+                };
+                
+                manager.Create(user2, "MySuperP@ss!1");
                 dev.ApplicationUser = user2;
+                i++;
             }
 
 

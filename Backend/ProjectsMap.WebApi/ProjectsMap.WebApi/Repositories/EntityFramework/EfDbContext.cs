@@ -90,9 +90,9 @@ namespace ProjectsMap.WebApi.Repositories
                 .HasForeignKey(p => p.CompanyId);
 
             //One to zero one relation [ApplicationUser - Employee]
-            modelBuilder.Entity<ApplicationUser>()
-                .HasRequired(u => u.Employee)
-                .WithOptional(e => e.ApplicationUser);
+            modelBuilder.Entity<Employee>()
+                .HasRequired(u => u.ApplicationUser)
+                .WithOptional(e => e.Employee);
 
             //One to many [Floor - Wall]
             modelBuilder.Entity<Wall>()

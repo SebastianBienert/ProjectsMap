@@ -25,14 +25,14 @@ namespace ProjectsMap.WebApi
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
 
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             ConfigureOAuthTokenGeneration(app);
 
             ConfigureOAuthTokenConsumption(app);
 
             ConfigureWebApi(httpConfig);
-
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
+            
             app.UseWebApi(httpConfig);
 
         }
