@@ -188,7 +188,8 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					existingFloor.Description = floorDto.Description;
 					existingFloor.Rooms = roomsList;
 					existingFloor.Walls = wallsList;
-					dbContext.SaveChanges();
+					int count = dbContext.SaveChanges();
+					count++;
 				}
 			}
 		}

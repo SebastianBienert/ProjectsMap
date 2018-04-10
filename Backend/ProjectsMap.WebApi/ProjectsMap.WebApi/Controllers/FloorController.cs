@@ -54,7 +54,7 @@ namespace ProjectsMap.WebApi.Controllers
 		public IHttpActionResult Post([FromBody] FloorDto floorDto)
 		{
 			int createdId = _service.Post(floorDto);
-			return Ok();//for now
+			return Ok(createdId);//for now
 		}
 
 	}

@@ -9,13 +9,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FloorServiceService {
 
-  floorUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor';  // For localhosted webapi
-  companyUrl = 'https://projectsmapwebapi.azurewebsites.net/api/company/1';
-  //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
+  floorUrl = 'http://localhost:58923/api/floor';  // For localhosted webapi
+  companyUrl = 'http://localhost:58923/api/company/1';
+  //roomUrl = 'http://localhost:58923/api/room';  // For localhosted webapi
   private handleError: HandleError;
-  buildingUrl = 'https://projectsmapwebapi.azurewebsites.net/api/buildings';
-  postFloorUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor';
-  floorsListUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor/list';
+  buildingUrl = 'http://localhost:58923/api/buildings';
+  postFloorUrl = 'http://localhost:58923/api/floor';
+  floorsListUrl = 'http://localhost:58923/api/floor/list';
 
   constructor(
     private http: HttpClient,
@@ -39,7 +39,7 @@ export class FloorServiceService {
     // };
     
     // this.toTestData(json);
-    return this.http.post<Floor>(this.postFloorUrl, {
+    return this.http.post<number>(this.postFloorUrl, {
       'Walls' : Floor.Walls,
       'Rooms' : Floor.Rooms,
       'Description' : Floor.Description,

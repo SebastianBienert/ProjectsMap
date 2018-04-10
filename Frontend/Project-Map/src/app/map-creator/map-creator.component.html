@@ -3,13 +3,8 @@
     <button (click)='chooseLine()'>Line</button>
     <button (click)='chooseSquare()'>Square</button>
     <button (click)='saveMap()'>Save Map</button>
-    <button (click)='placingSeatEnabled = !placingSeatEnabled'>Place seat</button>
     <button (click)='clearMap()'>Clear</button>
     <button (click)='test()'>Testing</button>
-    <button (click)='moveImage(-5, 0)'>left</button>
-    <button (click)='moveImage(5, 0)'>right</button>
-    <button (click)='moveImage(0, -5)'>up</button>
-    <button (click)='moveImage(0, 5)'>down</button>
     
     
     <div>
@@ -18,7 +13,11 @@
     </div>
     <div>
         <input type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
-        <label for="subscribeNews">Display background image</label>
+        <label for="displayBackgroundImageCheckBox">Display background image</label>
+    </div>
+    <div>
+        <input type="checkbox" id="placingSeatEnabled" [checked]="placingSeatEnabled" (change)="placeSeatsOnOff()" />
+        <label for="placingSeatEnabled">Placing seat enabled</label>
     </div>
     <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
     <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">

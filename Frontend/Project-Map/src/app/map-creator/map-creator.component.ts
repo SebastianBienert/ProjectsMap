@@ -1,3 +1,4 @@
+import { defaultValues } from './defaultValues';
 import { FloorServiceService } from './../services/floor-service.service';
 import { Floor } from './../common-interfaces/floor';
 import { Wall } from './../common-interfaces/wall';
@@ -56,22 +57,13 @@ export class MapCreatorComponent implements OnInit {
     if (this.displayBackgroundImage) {
       this.backgroundImage = this.drawnMap.image(this.imageHref, 760, 760).move(20, 20).draggable().back();
     }
-    //this.backgroundImage.load(this.imageHref);
   }
 
-  moveImage(xShift: number, yShift: number) {
-    this.backgroundImage.move(this.backgroundImage.attr().x + xShift, this.backgroundImage.attr().y + yShift);
-  }
-
-
-
-  setDrawingRightNow(bool: boolean) {
-    this.drawingRightNow = bool;
-  }
   ngOnInit() {
     this.displayMap();
     this.addEventHandlers();
   }
+
   addEventHandlers() {
     var self = this;
     document.onkeydown = function switchRemovalMode(e) {
@@ -86,6 +78,7 @@ export class MapCreatorComponent implements OnInit {
       }
     };
   }
+
   switchOnRemovalMode() {
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
@@ -97,16 +90,23 @@ export class MapCreatorComponent implements OnInit {
     this.drawMode = 'room';
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
+
+
     if (!this.drawingRightNow) {
       // grup defined to hold seats, room shape and circles at vertexes of room together
       var group = this.drawnMap.group();
-      var poly = this.drawnMap.polygon().draw({ snapToGrid: 5 }).fill('#4f4').stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
+      var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill('#4f4').stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
       this.drawingRightNow = true;
       var self = this;
-
+      if (this.displayBackgroundImage && this.imageHref !== null) {
+        this.backgroundImage.draggable(false);
+      }
       //function that handles end of drawing - 
       var stopDrawingAtEnter = function stopDrawingAtEnter(e) {
         if (e.keyCode == 13) {
+          if (self.displayBackgroundImage && self.imageHref !== null) {
+            self.backgroundImage.draggable();
+          }
           document.removeEventListener('keydown', stopDrawingAtEnter);
           poly.draw('done');
           poly.off('drawstart');
@@ -124,8 +124,8 @@ export class MapCreatorComponent implements OnInit {
             var pointie = self.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
               //function to move circles snapped to grid
               return {
-                x: x - x % 5,
-                y: y - y % 5
+                x: x - x % defaultValues.gridSize,
+                y: y - y % defaultValues.gridSize
               };
             })
               //every time when circle is moved polygon needs to be replotted
@@ -151,7 +151,13 @@ export class MapCreatorComponent implements OnInit {
           poly.click(function placeSeat(event) {
             //seat size hardcoded to 10x10 for now !!! alligned to grid: 10
             if (self.placingSeatEnabled) {
-              var seatRect = self.drawnMap.rect(10, 10).move((event.offsetX - event.offsetX % 10), (event.offsetY - event.offsetY % 10));
+              var seatRect = self.drawnMap.rect(defaultValues.seatSize, defaultValues.seatSize).move((event.offsetX - event.offsetX % defaultValues.gridSize), (event.offsetY - event.offsetY % defaultValues.gridSize)).draggable((function (x, y) {
+                //function to move seats snapped to grid
+                return {
+                  x: x - x % 10,
+                  y: y - y % 10
+                };
+              }));
               var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
               var seat = { Vertex: seatVertex }
               room.seats.push(seat);
@@ -166,6 +172,9 @@ export class MapCreatorComponent implements OnInit {
       });
       document.addEventListener('keydown', function cancelDrawingAtEscape(e) {
         if (e.keyCode == 27) {
+          if (self.displayBackgroundImage && self.imageHref !== null) {
+            self.backgroundImage.draggable();
+          }
           document.removeEventListener('keydown', cancelDrawingAtEscape);
           document.removeEventListener('keydown', stopDrawingAtEnter);
           poly.draw('cancel');
@@ -205,7 +214,7 @@ export class MapCreatorComponent implements OnInit {
     this.drawnMap.on(
       "mousedown",
       function (e) {
-        line.draw(e, { snapToGrid: 5 });
+        line.draw(e, { snapToGrid: defaultValues.gridSize });
       },
       false
     );
@@ -229,7 +238,7 @@ export class MapCreatorComponent implements OnInit {
     this.drawnMap.on(
       "mousedown",
       function (e) {
-        rect.draw(e, { snapToGrid: 5 });
+        rect.draw(e, { snapToGrid: defaultValues.gridSize });
       },
       false
     );
@@ -289,17 +298,21 @@ export class MapCreatorComponent implements OnInit {
     var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
 
     if (this.loadedFloorId == -1) {
-      this.floorService.addFloor(floor).subscribe(mapCreated => { this.mapCreated.emit(true); });
+      console.log("toto?" + floor.Id);
+      this.floorService.addFloor(floor).subscribe(data => {console.log("hehe" + data); this.mapCreated.emit(true); this.loadedFloorId = data; console.log(data['floorNumber'])});
+      
     } else {
       floor.Id = this.loadedFloorId;
-      this.floorService.updateFloor(floor).subscribe(mapCreated => { this.mapCreated.emit(true); });
+      this.floorService.updateFloor(floor).subscribe(floorNumber => { this.mapCreated.emit(true); });
     }
 
+    /*
     //clear map
     this.lines.length = 0;
     this.rects.length = 0;
     this.createdRooms.length = 0;
     this.drawnMap.clear();
+    */
   }
 
   rectToLines(rect: Rect): Wall[] {
@@ -333,7 +346,8 @@ export class MapCreatorComponent implements OnInit {
       .subscribe(
         Floor => {
           floor = Floor;
-          console.log(floor);
+          this.floorNumber = Floor.FloorNumber;
+          this.floorDescription = Floor.Description;
           floor.Rooms.forEach(room => {
             //concatenate room lines into polygon coordinates
             var arra = '';
@@ -360,8 +374,8 @@ export class MapCreatorComponent implements OnInit {
               var pointie = this.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
                 //function to move circles snapped to grid
                 return {
-                  x: x - x % 5,
-                  y: y - y % 5
+                  x: x - x % defaultValues.gridSize,
+                  y: y - y % defaultValues.gridSize
                 };
               })
                 //every time when circle is moved polygon needs to be replotted
@@ -384,9 +398,14 @@ export class MapCreatorComponent implements OnInit {
 
             var self = this;
             poly.click(function placeSeat(event) {
-              //seat size hardcoded to 10x10 for now !!! alligned to grid: 10
               if (self.placingSeatEnabled) {
-                var seatRect = self.drawnMap.rect(10, 10).move((event.offsetX - event.offsetX % 10), (event.offsetY - event.offsetY % 10));
+                var seatRect = self.drawnMap.rect(defaultValues.seatSize, defaultValues.seatSize).move((event.offsetX - event.offsetX % defaultValues.gridSize), (event.offsetY - event.offsetY % defaultValues.gridSize)).draggable((function (x, y) {
+                  //function to move seats snapped to grid
+                  return {
+                    x: x - x % 10,
+                    y: y - y % 10
+                  };
+                }));
                 var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
                 var seat = { Vertex: seatVertex }
                 roomie.seats.push(seat);
@@ -396,10 +415,17 @@ export class MapCreatorComponent implements OnInit {
 
             room.Seats.forEach(seat => {
               var seatle = this.drawnMap
-                .rect(10, 10)
+                .rect(defaultValues.seatSize, defaultValues.seatSize)
                 .move(seat.Vertex.X, seat.Vertex.Y)
                 .fill('#123')
-                .stroke({ width: 0 });
+                .stroke({ width: 0 })
+                .draggable((function (x, y) {
+                  //function to move seats snapped to grid
+                  return {
+                    x: x - x % 10,
+                    y: y - y % 10
+                  };
+                }));
               var seatVertex = { X: seat.Vertex.X, Y: seat.Vertex.Y } as Vertex;
               roomie.seats.push(seat);
               group.add(seatle);
@@ -417,13 +443,10 @@ export class MapCreatorComponent implements OnInit {
             this.lines.push(line);
           });
         });
+
+        
   }
 
-  static RoomWithSeats = class {
-    RoomId: number;
-    polygon;
-    seats = Array();
-  }
 
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
@@ -441,8 +464,8 @@ export class MapCreatorComponent implements OnInit {
   gridOnOff() {
     this.displayGrid = !this.displayGrid;
     if (this.displayGrid) {
-      var pattern = this.drawnMap.pattern(5, 5, function (add) {
-        add.rect(10, 10).fill('none').stroke({ width: 1, color: '#005' });
+      var pattern = this.drawnMap.pattern(defaultValues.gridSize, defaultValues.gridSize, function (add) {
+        add.rect(defaultValues.seatSize, defaultValues.seatSize).fill('none').stroke({ width: 1, color: '#005' });
       });
       pattern.fill('none');
       this.patternRect = this.drawnMap.rect(800, 800);
@@ -452,7 +475,7 @@ export class MapCreatorComponent implements OnInit {
         this.patternRect.forward();
       }
     } else if (this.patternRect) {
-      this.patternRect.remove();//check if is of type rect!!!
+      this.patternRect.remove();
     }
   }
 
@@ -463,6 +486,18 @@ export class MapCreatorComponent implements OnInit {
     } else if (this.imageHref !== null) {
       this.backgroundImage.remove();
     }
+  }
+
+  placeSeatsOnOff() {
+    this.placingSeatEnabled = !this.placingSeatEnabled;
+    this.drawnMap.off("mousedown");
+    this.drawnMap.off("mouseup");
+  }
+
+  static RoomWithSeats = class {
+    RoomId: number;
+    polygon;
+    seats = Array();
   }
 
 }

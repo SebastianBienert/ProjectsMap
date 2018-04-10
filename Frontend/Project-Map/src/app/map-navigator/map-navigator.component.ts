@@ -46,6 +46,9 @@ export class MapNavigatorComponent implements OnInit {
     this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0];
     this.displayMode = "loading";
     this.getFloorsList(Id);
+    if (this.currentBuildingFloorsList.length > 0) {
+      this.displayFloor(this.currentBuildingFloorsList[0].Id);
+    }
   }
   debug() {
     console.log(this.buildingsList[1]);
@@ -55,14 +58,15 @@ export class MapNavigatorComponent implements OnInit {
     this.floorService.getBuildingFloorsList(BuildingId)
       .subscribe(
         FloorsList => {
-          this.currentBuildingFloorsList = FloorsList.sort(function(a, b) {
+          this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
             return a.FloorNumber - b.FloorNumber;
-          });;
-          if (FloorsList.length > 0) {
-            this.selectedFloor = FloorsList[0].Id;
-            this.displayMode = 'displayMap';
-          }
+          });
         });
+  }
+
+  displayFloor(floorId: number) {
+    this.selectedFloor = floorId;
+    this.displayMode = 'displayMap';
   }
 
   getBuildingsList(): void {
@@ -71,9 +75,21 @@ export class MapNavigatorComponent implements OnInit {
         BuildingsList => {
           this.buildingsList = BuildingsList;
           if (this.buildingsList.length > 0 && this.buildingsList[0].FloorsIds.length > 0) {
-            this.getFloorsList(BuildingsList[0].FloorsIds[0]);
-            this.selectedBuilding = BuildingsList[0].Id;
-            console.log(this.selectedBuilding);
+            this.selectedBuilding = this.buildingsList[0].Id;
+            this.floorService.getBuildingFloorsList(this.buildingsList[0].Id)
+              .subscribe(
+                FloorsList => {
+                  this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
+                    return a.FloorNumber - b.FloorNumber;
+                  });
+                  this.displayFloor(this.currentBuildingFloorsList[0].Id);
+                }
+              );
+            // this.getFloorsList(BuildingsList[0].FloorsIds[0]);
+            // if (this.currentBuildingFloorsList.length > 0) {
+            //   this.displayFloor(this.currentBuildingFloorsList[0].Id);
+            // }
+            // this.selectedBuilding = BuildingsList[0].Id;
           }
         });
   }
