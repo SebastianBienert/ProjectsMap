@@ -27,16 +27,13 @@ export class SecurityService {
     // Initialize security object
     this.resetSecurityObject();
 
-    let data = [
-      {
-        'username': entity.userName,
-        'title': entity.password,
-        'grant_type': 'password'
-      }
-    ];
+    let body = new URLSearchParams();
+    body.set('username', entity.userName);
+    body.set('password', entity.password);
+    body.set('grant_type', 'password');
 
     return this.http.post<AppUserAuth>("http://localhost:58923/oauth/token",
-      data, httpOptions).pipe(
+      body.toString(), httpOptions).pipe(
         tap(resp => {
           console.log(resp);
           // Use object assign to update the current object
