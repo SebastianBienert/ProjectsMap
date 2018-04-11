@@ -12,9 +12,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Reflection;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Http;
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
+using ProjectsMap.WebApi.App_Start;
 
 namespace ProjectsMap.WebApi
 {
@@ -24,6 +29,9 @@ namespace ProjectsMap.WebApi
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
+
+            /*var appXmlType = httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);*/
 
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
@@ -35,12 +43,21 @@ namespace ProjectsMap.WebApi
             
             app.UseWebApi(httpConfig);
 
+            app.UseNinjectMiddleware(NinjectWebCommon.CreateKernel).UseNinjectWebApi(httpConfig);
+
+        }
+
+        private static StandardKernel CreateKernel()
+        {
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+            return kernel;
         }
 
         private void ConfigureWebApi(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
-
+            //config.MapHttpAttributeRoutes();
+            WebApiConfig.Register(config);
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
