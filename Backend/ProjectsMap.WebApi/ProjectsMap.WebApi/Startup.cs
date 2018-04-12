@@ -28,12 +28,14 @@ namespace ProjectsMap.WebApi
 
         public void Configuration(IAppBuilder app)
         {
+            //app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             HttpConfiguration httpConfig = new HttpConfiguration();
 
             /*var appXmlType = httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);*/
 
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            
 
             ConfigureOAuthTokenGeneration(app);
 
@@ -41,9 +43,12 @@ namespace ProjectsMap.WebApi
 
             ConfigureWebApi(httpConfig);
             
-            app.UseWebApi(httpConfig);
+            //app.UseWebApi(httpConfig);
 
             app.UseNinjectMiddleware(NinjectWebCommon.CreateKernel).UseNinjectWebApi(httpConfig);
+
+            app.UseWebApi(GlobalConfiguration.DefaultServer);
+            //app.UseNinjectWebApi(GlobalConfiguration.DefaultServer);
 
         }
 
