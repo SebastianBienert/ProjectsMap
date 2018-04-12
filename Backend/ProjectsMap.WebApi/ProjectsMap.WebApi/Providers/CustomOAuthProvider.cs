@@ -51,17 +51,17 @@ namespace ProjectsMap.WebApi.Providers
 
         }
 
-        public override Task MatchEndpoint(OAuthMatchEndpointContext context)
-        {
-            if (context.IsTokenEndpoint && context.Request.Method == "OPTIONS")
-            {
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "authorization" });
-                context.RequestCompleted();
-                return Task.FromResult(0);
-            }
+        //public override Task MatchEndpoint(OAuthMatchEndpointContext context)
+        //{
+        //    if (context.IsTokenEndpoint && context.Request.Method == "OPTIONS")
+        //    {
+        //        context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+        //        context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "authorization" });
+        //        context.RequestCompleted();
+        //        return Task.FromResult(0);
+        //    }
 
-            return base.MatchEndpoint(context);
-        }
+        //    return base.MatchEndpoint(context);
+        //}
     }
 }
