@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services;
@@ -106,6 +107,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canAccessProducts", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/pagination/{technology}", Name = "GetEmployeesByTechnology")]
         public IHttpActionResult Get(string technology, int page = 0, int pageSize = 10)
@@ -150,6 +152,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canAccessProducts", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination/{name}", Name = "GetEmployeesByName")]
         public IHttpActionResult GetEmployeeByName(string name, int page = 0, int pageSize = 10)

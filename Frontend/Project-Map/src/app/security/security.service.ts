@@ -42,7 +42,7 @@ export class SecurityService {
           Object.assign(this.securityObject, resp);
           // Store into local storage
           localStorage.setItem("bearerToken",
-            this.securityObject.bearerToken);
+            this.securityObject.access_token);
         }));
   }
 
@@ -52,7 +52,7 @@ export class SecurityService {
 
   resetSecurityObject(): void {
     this.securityObject.userName = "";
-    this.securityObject.bearerToken = "";
+    this.securityObject.access_token = "";
     this.securityObject.isAuthenticated = false;
 
     this.securityObject.canAccessProducts = false;

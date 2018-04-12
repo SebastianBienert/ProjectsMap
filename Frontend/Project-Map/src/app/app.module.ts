@@ -1,3 +1,4 @@
+import { HttpInterceptorModule } from './security/http-interceptor.module';
 import { FloorServiceService } from './services/floor-service.service';
 import { SharedService } from './services/shared.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
@@ -99,6 +100,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     TagInputModule, 
     BrowserAnimationsModule,
+    HttpInterceptorModule
   ],
   providers: [
     HttpErrorHandler,
