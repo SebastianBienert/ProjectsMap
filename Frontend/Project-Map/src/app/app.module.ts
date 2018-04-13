@@ -39,6 +39,8 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SecurityService } from './security/security.service';
 import { LoginComponent } from './security/login.component';
 import { AuthGuard } from './security/auth.guard';
+import { SecurityDirective } from './security.directive';
+import { HasClaimDirective } from './security/has-claim.directive';
 
 
 const routes: Routes = [
@@ -85,7 +87,9 @@ const routes: Routes = [
     ManagementPageComponent,
     SidebarComponent,
     MainLayoutComponent,
-    LoginComponent
+    LoginComponent,
+    SecurityDirective,
+    HasClaimDirective
   ],
   imports: [
     ReactiveFormsModule,

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     let claimType: string = next.data["claimType"];
 
     if (this.securityService.securityObject.isAuthenticated
-      && this.securityService.securityObject[claimType]) {
+      && this.securityService.hasClaim(claimType)) {
       return true;
     }
     else {
