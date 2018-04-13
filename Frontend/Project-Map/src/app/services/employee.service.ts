@@ -26,7 +26,6 @@ export class EmployeeService {
 
   constructor(
     private http: HttpClient,
-    private securityService: SecurityService,
     httpErrorHandler: HttpErrorHandler) {
     this.handleError = httpErrorHandler.createHandleError('EmployeeService');
 

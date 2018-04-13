@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
       component: MainLayoutComponent,
+      canActivate: [AuthGuard],
       children: [
         {path: 'displayMap', component: DisplayedMapComponent}, 
         {path: '', component: DisplayedMapComponent}, 

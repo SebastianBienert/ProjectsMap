@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators/tap';
 
 import { AppUserAuth } from './app-user-auth';
 import { AppUser } from './app-user';
+import * as JWT from 'jwt-decode';
 
 const API_URL = "http://localhost:58923/oauth/";
 
@@ -39,8 +40,13 @@ export class SecurityService {
           // Use object assign to update the current object
           // NOTE: Don't create a new AppUserAuth object
           //       because that destroys all references to object
-          Object.assign(this.securityObject, resp);
+          console.log("a");
+          let decodedToken = JWT(resp.access_token);
+          console.log(decodedToken);
+          Object.assign(this.securityObject, resp.access_token);
+          this.securityObject.access_token = resp.access_token;
           // Store into local storage
+          console.log(this.securityObject);
           localStorage.setItem("bearerToken",
             this.securityObject.access_token);
         }));
