@@ -127,6 +127,16 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("{id:int}/floor")]
+        public IHttpActionResult GetEmployeeFloor(int id)
+        {
+            var employeeFloor = _service.GetEmployeeFloor(id);
+            if (employeeFloor == null)
+                return NotFound();
+            return Ok(employeeFloor);
+        }
+
+        [HttpGet]
         [Route("{name}")]
         public IHttpActionResult GetEmployeeByName(string name)
         {

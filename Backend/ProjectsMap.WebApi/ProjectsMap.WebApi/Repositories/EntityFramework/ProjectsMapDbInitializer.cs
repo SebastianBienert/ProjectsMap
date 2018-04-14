@@ -1524,6 +1524,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 1,
 					Employee = developers[0],
 					EmployeeId = 1,
+                    RoomId = 1,
                     X = vertices[4].X,
                     Y = vertices[4].Y,
 
@@ -1533,6 +1534,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 2,
 					Employee = developers[1],
 					EmployeeId = 2,
+                    RoomId = 1,
                     X = vertices[5].X,
                     Y = vertices[5].Y,
 				},
@@ -1541,6 +1543,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 3,
 					Employee = developers[2],
 					EmployeeId = 3,
+                    RoomId = 1,
                     X = vertices[1].X,
                     Y = vertices[1].Y,
 				},
@@ -1549,6 +1552,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 4,
 					Employee = developers[3],
 					EmployeeId = 4,
+                    RoomId = 1,
                     X = vertices[71].X,
                     Y = vertices[71].Y,
 				},
@@ -1559,6 +1563,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 5,
 					Employee = developers[10],
+                    RoomId = 3,
                     X = vertices[16].X,
                     Y = vertices[16].Y,
 				},
@@ -1566,6 +1571,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 6,
 					Employee = developers[11],
+                    RoomId = 3,
                     X = vertices[17].X,
                     Y = vertices[17].Y,
 				},
@@ -1576,6 +1582,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 7,
 					Employee = null,
+                    RoomId = 4,
                     X = vertices[19].X,
                     Y = vertices[19].Y,
 				},
@@ -1583,6 +1590,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 8,
 					Employee = null,
+                    RoomId = 4,
                     X = vertices[62].X,
                     Y = vertices[62].Y,
 				},
@@ -1593,6 +1601,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 9,
 					Employee = null,
+                    RoomId = 5,
                     X = vertices[63].X,
                     Y = vertices[63].Y,
 				},
@@ -1600,6 +1609,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 10,
 					Employee = null,
+                    RoomId = 5,
                     X = vertices[64].X,
                     Y = vertices[64].Y,
 				},
@@ -1610,6 +1620,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 11,
 					Employee = null,
+                    RoomId = 6,
                     X = vertices[65].X,
                     Y = vertices[65].Y,
 				},
@@ -1617,6 +1628,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 12,
 					Employee = null,
+                    RoomId = 6,
                     X = vertices[66].X,
                     Y = vertices[66].Y,
 				},
@@ -1638,6 +1650,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 13,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[67].X,
                     Y = vertices[67].Y,
 
@@ -1646,6 +1659,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 14,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[68].X,
                     Y = vertices[68].Y,
 				},
@@ -1653,6 +1667,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 15,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[69].X,
                     Y = vertices[69].Y,
 				},
@@ -1660,6 +1675,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 16,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[70].X,
                     Y = vertices[70].Y,
 				},
@@ -1670,6 +1686,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 17,
 					Employee = developers[4],
+                    RoomId = 2,
                     X = vertices[72].X,
                     Y = vertices[72].Y,
 				},
@@ -1677,6 +1694,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 18,
 					Employee = developers[5],
+                    RoomId = 2,
                     X = vertices[73].X,
                     Y = vertices[73].Y,
 				},
@@ -1684,6 +1702,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 19,
 					Employee = developers[6],
+                    RoomId = 2,
                     X = vertices[74].X,
                     Y = vertices[74].Y,
 				},
@@ -1691,6 +1710,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 20,
 					Employee = developers[7],
+                    RoomId = 2,
                     X = vertices[75].X,
                     Y = vertices[75].Y,
 				},
@@ -1698,6 +1718,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 21,
 					Employee = developers[8],
+                    RoomId = 2,
                     X = vertices[76].X,
                     Y = vertices[76].Y,
 				},
@@ -1705,6 +1726,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 22,
 					Employee = developers[9],
+                    RoomId = 2,
                     X = vertices[77].X,
                     Y = vertices[77].Y,
 				},
@@ -1712,6 +1734,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 23,
 					Employee = null,
+                    RoomId = 2,
                     X = vertices[78].X,
                     Y = vertices[78].Y,
 				},
@@ -1719,6 +1742,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 24,
 					Employee = null,
+                    RoomId = 2,
                     X = vertices[79].X,
                     Y = vertices[79].Y,
 				},
@@ -1729,6 +1753,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 25,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[80].X,
                     Y = vertices[80].Y,
 				},
@@ -1736,6 +1761,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 26,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[81].X,
                     Y = vertices[81].Y,
 				},
@@ -1743,6 +1769,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 27,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[82].X,
                     Y = vertices[82].Y,
 				},
@@ -1750,6 +1777,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 28,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[83].X,
                     Y = vertices[83].Y,
 				},
@@ -1757,6 +1785,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 29,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[84].X,
                     Y = vertices[84].Y,
 				},
@@ -1764,6 +1793,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 30,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[85].X,
                     Y = vertices[85].Y,
 				},
@@ -1771,6 +1801,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 31,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[86].X,
                     Y = vertices[86].Y,
 				},
@@ -1778,6 +1809,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 32,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[87].X,
                     Y = vertices[87].Y,
 				},
@@ -1788,6 +1820,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 33,
 					Employee = developers[12],
+                    RoomId = 8,
                     X = vertices[88].X,
                     Y = vertices[88].Y,
 				},
@@ -1795,6 +1828,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 34,
 					Employee = developers[13],
+                    RoomId = 8,
                     X = vertices[89].X,
                     Y = vertices[89].Y,
 				},
@@ -1812,6 +1846,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 36,
 					Employee = developers[15],
+                    RoomId = 10,
                     X = vertices[91].X,
                     Y = vertices[91].Y,
 				},
@@ -1822,6 +1857,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 37,
 					Employee = developers[16],
+                    RoomId = 13,
                     X = vertices[92].X,
                     Y = vertices[92].Y,
 				},
@@ -1832,6 +1868,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 38,
 					Employee = developers[17],
+                    RoomId = 14,
                     X = vertices[93].X,
                     Y = vertices[93].Y,
 				},
@@ -1842,6 +1879,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 39,
 					Employee = null,
+                    RoomId = 15,
                     X = vertices[94].X,
                     Y = vertices[94].Y,
 				},
@@ -1852,6 +1890,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 40,
 					Employee = null,
+                    RoomId = 16,
                     X = vertices[95].X,
                     Y = vertices[95].Y,
 				},
@@ -1862,6 +1901,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 41,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[96].X,
                     Y = vertices[96].Y,
 				},
@@ -1869,6 +1909,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 42,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[97].X,
                     Y = vertices[97].Y,
 				},
@@ -1876,6 +1917,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 43,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[98].X,
                     Y = vertices[98].Y,
 				},
@@ -1883,6 +1925,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 44,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[99].X,
                     Y = vertices[99].Y,
 				},
@@ -1890,6 +1933,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 45,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[100].X,
                     Y = vertices[100].Y,
 				},
@@ -1897,6 +1941,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 46,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[101].X,
                     Y = vertices[101].Y,
 				},
@@ -1904,6 +1949,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 47,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[102].X,
                     Y = vertices[102].Y,
 				},
@@ -1911,6 +1957,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 48,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[103].X,
                     Y = vertices[103].Y,
 				},
@@ -1921,6 +1968,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 49,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[104].X,
                     Y = vertices[104].Y,
 				},
@@ -1928,6 +1976,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 50,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[105].X,
                     Y = vertices[105].Y,
 				},
@@ -1935,6 +1984,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 51,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[106].X,
                     Y = vertices[106].Y,
 				},
@@ -1942,6 +1992,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 52,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[107].X,
                     Y = vertices[107].Y,
 				},
@@ -1949,6 +2000,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 53,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[108].X,
                     Y = vertices[108].Y,
 				},
@@ -1956,6 +2008,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 54,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[109].X,
                     Y = vertices[109].Y,
 				},
@@ -1963,6 +2016,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 55,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[110].X,
                     Y = vertices[110].Y,
 				},
@@ -1970,6 +2024,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 56,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[111].X,
                     Y = vertices[111].Y,
 				},
@@ -2192,7 +2247,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X =10,
+                                                    RoomId = 112,
+                                                    X =10,
 													Y = 15
 												},
 										},
@@ -2222,7 +2278,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 12,
+                                                    RoomId = 113,
+                                                    X = 12,
 													Y = 15,
 												},
 										},
@@ -2265,7 +2322,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 14,
+                                                    RoomId = 115,
+                                                    X = 14,
 													Y = 19
 												},
 										},
@@ -5152,7 +5210,8 @@ EndVertexY = 100,
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 11,
+                                                    RoomId = 115,
+                                                    X = 11,
 													Y = 22
 												},
 										},
