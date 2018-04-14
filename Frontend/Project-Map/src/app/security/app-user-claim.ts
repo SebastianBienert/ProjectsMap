@@ -1,6 +1,6 @@
 export class AppUserClaim  {
-  claimId: string = "";
-  userId: string = "";
+  // claimId: string = "";
+  // userId: string = "";
   claimType: string = "";
   claimValue: string = "";
 }

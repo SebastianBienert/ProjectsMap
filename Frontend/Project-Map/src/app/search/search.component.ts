@@ -35,8 +35,6 @@ export class SearchComponent implements OnInit {
     private sharedService: SharedService,
     private securityService: SecurityService) {
       this.securityObject = securityService.securityObject;
-      console.log(this.securityObject); 
-      console.log(this.securityService.securityObject);
 
     this.term.valueChanges
       .debounceTime(400)

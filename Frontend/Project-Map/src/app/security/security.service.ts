@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators/tap';
 import { AppUserAuth } from './app-user-auth';
 import { AppUser } from './app-user';
 import * as JWT from 'jwt-decode';
+import { AppUserClaim } from './app-user-claim';
 
 const API_URL = "http://localhost:58923/oauth/";
 
@@ -36,20 +37,39 @@ export class SecurityService {
     return this.http.post<AppUserAuth>("http://localhost:58923/oauth/token",
       body.toString(), httpOptions).pipe(
         tap(resp => {
-          console.log(resp);
+          //console.log(resp);
           // Use object assign to update the current object
           // NOTE: Don't create a new AppUserAuth object
           //       because that destroys all references to object
-          console.log("a");
-          let decodedToken = JWT(resp.access_token);
-          console.log(decodedToken);
-          Object.assign(this.securityObject, resp.access_token);
+          //console.log("a");
+          
+          this.mapResponse(resp);
           this.securityObject.access_token = resp.access_token;
           // Store into local storage
-          console.log(this.securityObject);
+          //console.log(this.securityObject);
           localStorage.setItem("bearerToken",
             this.securityObject.access_token);
         }));
+  }
+
+  mapResponse(resp): void {
+    let token = JWT(resp.access_token);
+    
+    this.securityObject.access_token = resp["access_token"];
+    delete token["access_token"];
+    this.securityObject.isAuthenticated = true;
+    this.securityObject.userName = token["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+    delete token["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+    for(let el in token)
+    {
+      console.log(el + " " + token[el]);
+      this.securityObject.claims.push(Object.assign(new AppUserClaim(), {
+        claimType : el,
+        claimValue : token[el]
+      }))
+    }
+
+    console.log(this.securityObject);
   }
 
   logout(): void {
