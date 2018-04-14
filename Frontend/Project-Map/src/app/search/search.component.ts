@@ -34,6 +34,14 @@ export class SearchComponent implements OnInit {
       .subscribe(x => {
         this.sharedService.setSearchParameters(x, this.selectedSearchType);
         this.sharedService.loadChunkOfData();
+        if(x.length == 0)
+        {
+          this.sharedService.setListingState(false);
+        }
+        else
+        {
+          this.sharedService.setListingState(true);
+        }
       });
     //.do(term => console.log("aaaa"));
   }
@@ -46,8 +54,8 @@ export class SearchComponent implements OnInit {
 
 
   search(): void {
-
     this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
+   
     this.sharedService.loadChunkOfData();
   }
 

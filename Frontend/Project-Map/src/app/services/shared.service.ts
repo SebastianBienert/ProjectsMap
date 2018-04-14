@@ -35,10 +35,14 @@ export class SharedService {
 
     private employeesSubject = new Subject<Employee[]>();
     private projectsSubject = new Subject<Project[]>();
+    private listingOpen = new Subject<boolean>();
+
     private page: number = 0;
 
     employeesObservable = this.employeesSubject.asObservable();
     projectsObservable = this.projectsSubject.asObservable();
+    listingState = this.listingOpen.asObservable();
+
     searchType: SearchType;
     filter: string;
 
@@ -54,6 +58,11 @@ export class SharedService {
             this.projs.push(element); 
          });
         this.projectsSubject.next(this.projs);
+    }
+
+    setListingState(isOpen : boolean)
+    {
+        this.listingOpen.next(isOpen);
     }
 
     setSearchParameters(filter: string, searchType: SearchType) {

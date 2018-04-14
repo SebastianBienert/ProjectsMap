@@ -22,3 +22,7 @@
     margin-left: 350px;
     margin-top: 10px;
 }
+
+.collapse.in {
+	display: inline-block;
+}
