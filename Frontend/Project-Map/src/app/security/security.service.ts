@@ -37,16 +37,8 @@ export class SecurityService {
     return this.http.post<AppUserAuth>("http://localhost:58923/oauth/token",
       body.toString(), httpOptions).pipe(
         tap(resp => {
-          //console.log(resp);
-          // Use object assign to update the current object
-          // NOTE: Don't create a new AppUserAuth object
-          //       because that destroys all references to object
-          //console.log("a");
-          
           this.mapResponse(resp);
           this.securityObject.access_token = resp.access_token;
-          // Store into local storage
-          //console.log(this.securityObject);
           localStorage.setItem("bearerToken",
             this.securityObject.access_token);
         }));

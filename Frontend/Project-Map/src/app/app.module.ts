@@ -48,6 +48,7 @@ const routes: Routes = [
   { path: 'main', 
       component: MainLayoutComponent,
       canActivate: [AuthGuard],
+      data: { claimType: 'canAccessProducts' },
       children: [
         {path: 'displayMap', component: DisplayedMapComponent}, 
         {path: '', component: DisplayedMapComponent}, 
