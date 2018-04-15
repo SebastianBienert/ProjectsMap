@@ -59,11 +59,12 @@ const routes: Routes = [
     },
   { path: 'managementPage', 
     component: ManagementPageComponent,
-    canActivate: [AuthGuard],
-    data: { claimType: 'canWriteProjects' },
+
     children: [
       {path: '', component: MapNavigatorComponent}, 
-      {path: 'projects', component: ProjectComponent}, 
+      {path: 'projects', component: ProjectComponent,
+           canActivate: [AuthGuard],
+                  data: { claimType: 'canWriteProjects' }}, 
       {path: 'employees', component: EmployeeComponent},
       {path: 'mapCreator', component: MapNavigatorComponent}, 
   ]},

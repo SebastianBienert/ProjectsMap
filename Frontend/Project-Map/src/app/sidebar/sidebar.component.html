@@ -1,10 +1,10 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
   <div class="list-group">
-      <a routerLink="projects" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <a routerLink="projects" *hasClaim="['canWriteProjects:true','claimType2:value']" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Projects'}}
       </a>
       <a [routerLink]="['employees']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-          <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Employees'  }}
+          <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Edit profile'  }}
       </a>
       <a [routerLink]="['mapCreator']" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Map Creator'  }}
@@ -45,3 +45,4 @@
       </div>
   </div>
 </nav>
+
