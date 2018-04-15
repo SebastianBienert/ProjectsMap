@@ -35,7 +35,7 @@ namespace ProjectsMap.WebApi.Mappers
                 DocumentationLink = project.DocumentationLink,
                 Id = project.ProjectId,
                 RepositoryLink = project.RepositoryLink,
-                Technologies = project.Technologies?.Select(x => GeTechnologyDto(x)).ToList()
+                Technologies = project.Technologies?.Select(x => x.Name).ToList()
             };
         }
 
