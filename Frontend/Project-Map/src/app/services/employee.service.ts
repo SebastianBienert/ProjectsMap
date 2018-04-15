@@ -1,15 +1,15 @@
+import { SecurityService } from './../security/security.service';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
 import { Employee } from './../common-interfaces/employee';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { ResponseContentType } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-
+import { Globals } from './../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,15 +20,15 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
-  employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
-  //employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  employeeUrl: string;
   private handleError: HandleError;
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('EmployeeService');
-
+    this.employeeUrl = globals.getUrl() + '/api/developers';
     this.searchedEmployees = this.getEmployees();
   }
 
@@ -50,6 +50,7 @@ export class EmployeeService {
 
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
+    
     return this.http.get<Employee[]>(this.employeeUrl)
       .pipe(
         catchError(this.handleError('getEmployees', []))

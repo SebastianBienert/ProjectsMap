@@ -5,22 +5,28 @@ import { Observable } from 'rxjs/Observable';
 import { HttpErrorHandler, HandleError } from './http-error-handler.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Globals } from './../globals';
 
 @Injectable()
 export class FloorServiceService {
-
-  floorUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor';  // For localhosted webapi
-  companyUrl = 'https://projectsmapwebapi.azurewebsites.net/api/company/1';
-  //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
   private handleError: HandleError;
-  buildingUrl = 'https://projectsmapwebapi.azurewebsites.net/api/buildings';
-  postFloorUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor';
-  floorsListUrl = 'https://projectsmapwebapi.azurewebsites.net/api/floor/list';
-
+  floorUrl: string;
+  companyUrl: string;
+  buildingUrl: string;
+  postFloorUrl: string;
+  floorsListUrl: string;
+  //roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
+  
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('FloorService');
+    this.floorUrl = globals.getUrl() + '/api/floor';
+    this.companyUrl = globals.getUrl() + '/api/company/1';
+    this.buildingUrl = globals.getUrl() + '/api/buildings';
+    this.postFloorUrl = globals.getUrl() + '/api/floor';
+    this.floorsListUrl = globals.getUrl() + '/api/floor/list';
   }
 
   getFloor (id: number): Observable<Floor> {

@@ -36,7 +36,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/managementPage']"  class="nav-link waves-light" mdbRippleRadius>Management</a>
+                <a [routerLink]="['/managementPage']" class="nav-link waves-light" 
+                *hasClaim="['canWriteProjects:true','claimType2:value']">Management</a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/login']" *ngIf="!securityObject.isAuthenticated">
+                    Login
+                </a>
+                
+                <a href="#" (click)="logout()" class="nav-link waves-light" *ngIf="securityObject.isAuthenticated">
+                    Logout {{securityObject.userName}}
+                </a>
             </li>
 
             <!-- Dropdown -->
@@ -61,7 +71,7 @@
         <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
             <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
                 aria-label="Search">
-                <!-- [(ngModel)]="filter" -->
+            <!-- [(ngModel)]="filter" -->
         </form>
     </links>
     <!-- Collapsible content -->

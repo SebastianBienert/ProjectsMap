@@ -1,3 +1,4 @@
+import { HttpInterceptorModule } from './security/http-interceptor.module';
 import { FloorServiceService } from './services/floor-service.service';
 import { SharedService } from './services/shared.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
@@ -37,12 +38,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
 import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
-
-
+import { Globals } from './globals';import { SecurityService } from './security/security.service';
+import { LoginComponent } from './security/login.component';
+import { AuthGuard } from './security/auth.guard';
+import { SecurityDirective } from './security.directive';
+import { HasClaimDirective } from './security/has-claim.directive';
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
       component: MainLayoutComponent,
+      canActivate: [AuthGuard],
+      data: { claimType: 'canReadUsers' },
       children: [
         {path: 'displayMap', component: DisplayedMapComponent, outlet: 'center'}, 
         {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
@@ -53,12 +59,17 @@ const routes: Routes = [
     },
   { path: 'managementPage', 
     component: ManagementPageComponent,
+    canActivate: [AuthGuard],
+    data: { claimType: 'canWriteProjects' },
     children: [
       {path: '', component: MapNavigatorComponent}, 
       {path: 'projects', component: ProjectComponent}, 
-      {path: 'employees', component: EmployeeComponent}, 
+      {path: 'employees', component: EmployeeComponent},
       {path: 'mapCreator', component: MapNavigatorComponent}, 
   ]},
+  { path: 'login', 
+    component: LoginComponent
+  },
   { path: '**', component: PageNotFoundComponent }
 
 ]
@@ -81,7 +92,10 @@ const routes: Routes = [
     ManagementPageComponent,
     SidebarComponent,
     MainLayoutComponent,
-    PageNotFoundComponent
+    LoginComponent,
+    PageNotFoundComponent,
+    SecurityDirective,
+    HasClaimDirective
   ],
   imports: [
     ReactiveFormsModule,
@@ -94,7 +108,8 @@ const routes: Routes = [
     InfiniteScrollModule,
     TagInputModule, 
     BrowserAnimationsModule,
-    EmployeeDetailsModule
+    EmployeeDetailsModule,
+    HttpInterceptorModule
   ],
   providers: [
     HttpErrorHandler,
@@ -104,7 +119,10 @@ const routes: Routes = [
     ProjectService,
     SharedService,
     FloorServiceService,
-    TechnologyService],
+    TechnologyService,
+    SecurityService,
+    AuthGuard,
+	Globals],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

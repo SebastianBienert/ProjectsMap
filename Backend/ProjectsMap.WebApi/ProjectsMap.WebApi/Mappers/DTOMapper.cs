@@ -132,7 +132,7 @@ namespace ProjectsMap.WebApi.Mappers
 			var result = new SeatDto()
 			{
 				Id = seat.SeatId,
-				//DeveloperId = seat.EmployeeId,
+				DeveloperId = seat.EmployeeId,
 				RoomId = seat.RoomId,
 				Vertex = new Vertex(seat.X, seat.Y)
             };

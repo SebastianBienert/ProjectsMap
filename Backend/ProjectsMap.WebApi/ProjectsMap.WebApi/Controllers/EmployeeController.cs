@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services;
@@ -29,7 +30,7 @@ namespace ProjectsMap.WebApi.Controllers
         {
             _service = service;
         }
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination")]
         public IHttpActionResult GetAllPaingate(int page = 0, int pageSize = 10)
@@ -52,7 +53,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
@@ -61,6 +62,7 @@ namespace ProjectsMap.WebApi.Controllers
             return Ok(allEmployees);
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("{id:int}", Name = "GetEmployeeById")]
         public IHttpActionResult Get(int id)
@@ -73,7 +75,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("like/{query}")]
         public IHttpActionResult GetSearchedEmployee(string query)
@@ -86,7 +88,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult Get(string technology)
@@ -99,6 +101,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/pagination/{technology}", Name = "GetEmployeesByTechnology")]
         public IHttpActionResult Get(string technology, int page = 0, int pageSize = 10)
@@ -126,6 +129,17 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
+        [HttpGet]
+        [Route("{id:int}/floor")]
+        public IHttpActionResult GetEmployeeFloor(int id)
+        {
+            var employeeFloor = _service.GetEmployeeFloor(id);
+            if (employeeFloor == null)
+                return NotFound();
+            return Ok(employeeFloor);
+        }
+
         [HttpGet]
         [Route("{name}")]
         public IHttpActionResult GetEmployeeByName(string name)
@@ -138,6 +152,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination/{name}", Name = "GetEmployeesByName")]
         public IHttpActionResult GetEmployeeByName(string name, int page = 0, int pageSize = 10)
@@ -165,6 +180,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
+		[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("photo/{id}", Name = "GetEmployeePhoto")]
         public IHttpActionResult GetPhoto(int id)
@@ -190,6 +206,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpDelete]
         [Route("photo/{id}")]
         public IHttpActionResult Delete(int id)
@@ -202,6 +219,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post([FromBody] EmployeeDto employee)
@@ -210,6 +228,7 @@ namespace ProjectsMap.WebApi.Controllers
             return CreatedAtRoute("GetEmployeeById", new { id = createdId }, employee);
         }
 
+		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpPost]
         [Route("photo/{id}")]
         public async Task<HttpResponseMessage> PostEmployeePhoto(int id)
@@ -235,12 +254,12 @@ namespace ProjectsMap.WebApi.Controllers
                         {
                             dict.Add("error", "Please Upload image of type .jpg,.gif,.png.");
                             return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-                        }
+    }
                         else if (postedFile.ContentLength > MaxContentLength)
                         {          
                             dict.Add("error", "Please Upload a file upto 8 mb.");
                             return Request.CreateResponse(HttpStatusCode.BadRequest, dict);
-                        }
+}
                         else
                         {
                             var virtualPath = $"~/EmployeesPhoto/{id}{extension}";
