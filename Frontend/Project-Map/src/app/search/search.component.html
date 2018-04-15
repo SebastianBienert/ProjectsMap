@@ -40,7 +40,7 @@
                 *hasClaim="['canWriteProjects:true','claimType2:value']">Management</a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/login']" *ngIf="!securityObject.isAuthenticated">
+                <a [routerLink]="['/login']" class="nav-link waves-light" *ngIf="!securityObject.isAuthenticated">
                     Login
                 </a>
                 
@@ -50,7 +50,7 @@
             </li>
 
             <!-- Dropdown -->
-            <li class="nav-item dropdown" dropdown>
+            <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
                 <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
                     {{searchTypeText}}
                     <span class="caret"></span>
@@ -68,7 +68,7 @@
         <!-- Links -->
 
         <!-- Search form -->
-        <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
+        <form class="form-inline waves-light waves-light ml-auto" *ngIf="securityObject.isAuthenticated" mdbRippleRadius>
             <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
                 aria-label="Search">
             <!-- [(ngModel)]="filter" -->
