@@ -43,7 +43,7 @@
                     Login
                 </a>
                 
-                <a href="#" (onclick)="logout()" *ngIf="securityObject.isAuthenticated">
+                <a href="#" (click)="logout()" class="nav-link waves-light" *ngIf="securityObject.isAuthenticated">
                     Logout {{securityObject.userName}}
                 </a>
             </li>

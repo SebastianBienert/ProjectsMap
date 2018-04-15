@@ -84,9 +84,7 @@ export class SecurityService {
     this.securityObject.isAuthenticated = false;
 
     this.securityObject.claims = [];
-
     localStorage.removeItem("bearerToken");
-    console.log(localStorage.getItem("bearerToken"));
   }
 
   hasClaim(claimType: any, claimValue?: any) {
