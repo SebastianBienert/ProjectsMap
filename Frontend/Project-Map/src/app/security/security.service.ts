@@ -19,11 +19,20 @@ const httpOptions = {
 };
 
 
+
 @Injectable()
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    
+    let secObject = localStorage.getItem("bearerToken");
+    console.log(secObject);
+    if(secObject !== null)
+    {
+      this.mapResponse(secObject);
+    }
+   }
 
   login(entity: AppUser): Observable<AppUserAuth> {
     // Initialize security object
@@ -37,36 +46,37 @@ export class SecurityService {
     return this.http.post<AppUserAuth>("http://localhost:58923/oauth/token",
       body.toString(), httpOptions).pipe(
         tap(resp => {
-          this.mapResponse(resp);
-          this.securityObject.access_token = resp.access_token;
+          this.mapResponse(resp.access_token);
           localStorage.setItem("bearerToken",
             this.securityObject.access_token);
+
+          localStorage.setItem("securityObject",
+          JSON.stringify(this.securityObject));
         }));
   }
 
-  mapResponse(resp): void {
-    let token = JWT(resp.access_token);
+  mapResponse(token): void {
+    let decodedToken = JWT(token);
     
-    this.securityObject.access_token = resp["access_token"];
-    delete token["access_token"];
+    this.securityObject.access_token = token;
+    //delete token["access_token"];
     this.securityObject.isAuthenticated = true;
-    this.securityObject.userName = token["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-    delete token["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-    for(let el in token)
+    this.securityObject.userName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+    delete decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+    for(let el in decodedToken)
     {
-      console.log(el + " " + token[el]);
       this.securityObject.claims.push(Object.assign(new AppUserClaim(), {
         claimType : el,
-        claimValue : token[el]
+        claimValue : decodedToken[el]
       }))
     }
-
-    console.log(this.securityObject);
   }
 
   logout(): void {
     this.resetSecurityObject();
   }
+
+
 
   resetSecurityObject(): void {
     this.securityObject.userName = "";
@@ -76,6 +86,7 @@ export class SecurityService {
     this.securityObject.claims = [];
 
     localStorage.removeItem("bearerToken");
+    console.log(localStorage.getItem("bearerToken"));
   }
 
   hasClaim(claimType: any, claimValue?: any) {

@@ -36,7 +36,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/managementPage']" class="nav-link waves-light" mdbRippleRadius *hasClaim="'canAccessProduct'">Management</a>
+                <a [routerLink]="['/managementPage']" class="nav-link waves-light" *hasClaim="'canAccessProducts'">Management</a>
             </li>
             <li class="nav-item">
                 <a [routerLink]="['/login']" *ngIf="!securityObject.isAuthenticated">
