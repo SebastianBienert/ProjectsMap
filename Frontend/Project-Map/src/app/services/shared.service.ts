@@ -43,6 +43,7 @@ export class SharedService {
     filter: string;
 
     private setFoundEmployees(val: Employee[]) {
+        console.log(val);
         val.forEach(element => {
            this.emps.push(element); 
         });
@@ -69,7 +70,12 @@ export class SharedService {
 
             case SearchType.employeeName:
                 this.employeeService.searchEmployeeByName(this.filter, this.page)
-                    .subscribe(x => this.setFoundEmployees(x.Result));
+                    .subscribe(x => 
+                    {
+                        console.log(x);
+                        console.log(x.result);
+                        this.setFoundEmployees(x.Result);
+                    }); 
                 break;
 
             case SearchType.employeeTechnology:

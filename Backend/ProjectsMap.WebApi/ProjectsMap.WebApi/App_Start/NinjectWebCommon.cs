@@ -23,12 +23,13 @@ namespace ProjectsMap.WebApi.App_Start
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        private static IKernel _kernel = null;
 
         public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+           // bootstrapper.Initialize(CreateKernel);
         }
 
         public static void Stop()
@@ -36,15 +37,20 @@ namespace ProjectsMap.WebApi.App_Start
             bootstrapper.ShutDown();
         }
 
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
-            kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-            kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-            RegisterServices(kernel);
-            GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
-            return kernel;
+            if (_kernel == null)
+            {
+                _kernel = new StandardKernel();
+                _kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+                _kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                RegisterServices(_kernel);
+                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(_kernel);
+            }
+            return _kernel;
         }
+
+
         private static void RegisterServices(IKernel kernel)
         {
             //kernel.Bind<IRepo>().ToMethod(ctx => new Repo("Ninject Rocks!"));

@@ -8,6 +8,8 @@ import { SharedService } from '../services/shared.service';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import 'rxjs/Rx';
+import { SecurityService } from '../security/security.service';
+import { AppUserAuth } from '../security/app-user-auth';
 
 
 @Component({
@@ -24,10 +26,16 @@ export class SearchComponent implements OnInit {
   searchTypeText: string = "Pracownicy - nazwiska";
   selectedSearchType: SearchType = SearchType.employeeName;
   isEmp: boolean = false;
+  securityObject: AppUserAuth = null;
 
   term = new FormControl();
 
-  constructor(private employeeService: EmployeeService, private projectService: ProjectService, private sharedService: SharedService) {
+  constructor(private employeeService: EmployeeService, 
+    private projectService: ProjectService, 
+    private sharedService: SharedService,
+    private securityService: SecurityService) {
+      this.securityObject = securityService.securityObject;
+
     this.term.valueChanges
       .debounceTime(400)
       .distinctUntilChanged()
@@ -36,6 +44,10 @@ export class SearchComponent implements OnInit {
         this.sharedService.loadChunkOfData();
       });
     //.do(term => console.log("aaaa"));
+  }
+
+  logout(): void {
+    this.securityService.logout();
   }
 
   selectSearchType(selected: number, searchTypeText: string) {

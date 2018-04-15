@@ -5,6 +5,9 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.EntityFramework
@@ -13,8 +16,12 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	{
 		protected override void Seed(EfDbContext context)
 		{
-			// base.Seed(context);
-			IList<Vertex> vertices = new List<Vertex>()
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            
+            // base.Seed(context);
+            IList<Vertex> vertices = new List<Vertex>()
 			{
 				new Vertex(0,0),
 				new Vertex(80,20),//seat free
@@ -1016,6 +1023,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			{
 				new Employee()
 				{
+                    
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Witkor",
 					Surname = "Bukowski",
                     EmployeeId = 1,
@@ -1325,6 +1333,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Ewa",
 					Surname = "Witkowska",
                     EmployeeId = 18,
+                    
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -1340,7 +1349,71 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 			};
 
-			foreach (var dev in developers)
+
+
+
+
+
+
+
+            var user = new ApplicationUser()
+            {
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3),
+            };
+
+
+
+            manager.Create(user, "MySuperP@ss!1");
+            var first = manager.Users.First();
+            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true"));
+
+            var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
+
+            manager.AddClaim(first.Id, readClaim);
+
+            //if (roleManager.Roles.Count() == 0)
+            //{
+            //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+            //    roleManager.Create(new IdentityRole { Name = "Admin" });
+            //    roleManager.Create(new IdentityRole { Name = "User" });
+            //}
+
+            //var adminUser = manager.FindByName("SuperPowerUser");
+
+            //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+
+            developers.First().ApplicationUser = user;
+
+            int i = 0;
+            foreach (var dev in developers.Skip(1))
+            {
+                var user2 = new ApplicationUser()
+                {
+                    UserName = $"AverageUser{i}",
+                    Email = $"avg{i}@gmail.com",
+                    EmailConfirmed = true,
+                    JoinDate = DateTime.Now.AddYears(-3)
+                };
+                
+                manager.Create(user2, "MySuperP@ss!1");
+                string userName = $"AverageUser{i}";
+                var usr = manager.Users.First(x => x.UserName == userName);
+                manager.AddClaim(usr.Id, readClaim);
+
+                dev.ApplicationUser = user2;
+                i++;
+            }
+
+
+
+
+
+
+
+            foreach (var dev in developers)
 			{
                 dev.ProjectRoles.ToList()[0].EmployeeId = dev.EmployeeId;
 				dev.ProjectRoles.ToList()[0].Employee = dev;
@@ -1351,171 +1424,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				}
 			}
 
-			IList<User> users = new List<User>
-			{
-				new User()
-				{
-            //        UserId = 1,
-                    Created = DateTime.Now,
-					Employee = developers[0],
-					Username = "Wiktor",
-					Password = "secret",
-					Email = "michal@gmail.com"
-				},
-				new User()
-				{
-            //        UserId = 2,
-                    Created = DateTime.Now,
-					Employee = developers[1],
-					Username = "Michal",
-					Password = "secret2",
-					Email = "wiktor@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 3,
-                    Created = DateTime.Now,
-					Employee = developers[2],
-					Username = "Parcownik1",
-					Password = "secret",
-					Email = "pracownik1@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 4,
-                    Created = DateTime.Now,
-					Employee = developers[3],
-					Username = "Parcownik2",
-					Password = "secret",
-					Email = "pracownik2@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 5,
-                    Created = DateTime.Now,
-					Employee = developers[4],
-					Username = "Parcownik3",
-					Password = "secret",
-					Email = "pracownik3@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 6,
-                    Created = DateTime.Now,
-					Employee = developers[5],
-					Username = "Parcownik4",
-					Password = "secret",
-					Email = "pracownik4@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 7,
-                    Created = DateTime.Now,
-					Employee = developers[6],
-					Username = "Parcownik5",
-					Password = "secret",
-					Email = "pracownik5@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 8,
-                    Created = DateTime.Now,
-					Employee = developers[7],
-					Username = "Parcownik6",
-					Password = "secret",
-					Email = "pracownik6@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 9,
-                    Created = DateTime.Now,
-					Employee = developers[8],
-					Username = "Parcownik7",
-					Password = "secret",
-					Email = "pracownik7@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 10,
-                    Created = DateTime.Now,
-					Employee = developers[9],
-					Username = "Parcownik8",
-					Password = "secret",
-					Email = "pracownik8@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 11,
-                    Created = DateTime.Now,
-					Employee = developers[10],
-					Username = "Parcownik9",
-					Password = "secret",
-					Email = "pracownik9@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 12,
-                    Created = DateTime.Now,
-					Employee = developers[11],
-					Username = "Parcownik10",
-					Password = "secret",
-					Email = "pracownik10@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 13,
-                    Created = DateTime.Now,
-					Employee = developers[12],
-					Username = "Parcownik11",
-					Password = "secret",
-					Email = "pracownik11@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 14,
-                    Created = DateTime.Now,
-					Employee = developers[13],
-					Username = "Parcownik12",
-					Password = "secret",
-					Email = "pracownik12@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 15,
-                    Created = DateTime.Now,
-					Employee = developers[14],
-					Username = "Parcownik13",
-					Password = "secret",
-					Email = "pracownik13@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 16,
-                    Created = DateTime.Now,
-					Employee = developers[15],
-					Username = "Parcownik14",
-					Password = "secret",
-					Email = "pracownik14@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 17,
-                    Created = DateTime.Now,
-					Employee = developers[16],
-					Username = "Parcownik15",
-					Password = "secret",
-					Email = "pracownik15@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 18,
-                    Created = DateTime.Now,
-					Employee = developers[17],
-					Username = "Parcownik16",
-					Password = "secret",
-					Email = "pracownik16@gmail.com"
-				},
-			};
+			
 
 			IList<Seat> seatsFirstRoom = new List<Seat>()
 			{
@@ -2169,44 +2078,25 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			seatsSeventeenthRoom[6].Room = rooms[16];
 			seatsSeventeenthRoom[7].RoomId = 17;
 			seatsSeventeenthRoom[7].Room = rooms[16];
-
-			developers[0].User = users[0];
+            
             developers[0].Seat = seatsFirstRoom[0];
-			developers[1].User = users[1];
             developers[1].Seat = seatsFirstRoom[1];
-			developers[1].User = users[1];
             developers[2].Seat = seatsFirstRoom[2];
-			developers[2].User = users[2];
             developers[3].Seat = seatsFirstRoom[3];
-			developers[3].User = users[3];
             developers[4].Seat = seatsSecondRoom[0];
-			developers[4].User = users[4];
             developers[5].Seat = seatsSecondRoom[1];
-			developers[5].User = users[5];
             developers[6].Seat = seatsSecondRoom[2];
-			developers[6].User = users[6];
             developers[7].Seat = seatsSecondRoom[3];
-			developers[7].User = users[7];
             developers[8].Seat = seatsSecondRoom[4];
-			developers[8].User = users[8];
             developers[9].Seat = seatsSecondRoom[5];
-			developers[9].User = users[9];
             developers[10].Seat = seatsThirdRoom[0];
-			developers[10].User = users[10];
             developers[11].Seat = seatsThirdRoom[1];
-			developers[11].User = users[11];
             developers[12].Seat = seatsEighthRoom[0];
-			developers[12].User = users[12];
             developers[13].Seat = seatsEighthRoom[1];
-			developers[13].User = users[13];
             developers[14].Seat = seatsTenthRoom[0];
-			developers[14].User = users[14];
             developers[15].Seat = seatsTenthRoom[1];
-			developers[15].User = users[15];
             developers[16].Seat = seatsThirteenthRoom[0];
-			developers[16].User = users[16];
             developers[17].Seat = seatsFourteenthRoom[0];
-			developers[17].User = users[17];
 
 
 
