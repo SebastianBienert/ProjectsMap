@@ -3,7 +3,7 @@ import { Room } from './../common-interfaces/room';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
+import { Globals } from './../globals';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -19,17 +19,16 @@ const httpOptions = {
 
 @Injectable()
 export class RoomService {
-  //roomUrl = 'http://localhost:58923/api/room';  // For localhosted webapi
-  roomUrl = 'https://projectsmapwebapi.azurewebsites.net/api/room';  // For localhosted webapi
   private handleError: HandleError;
-
+  roomUrl: string;
   postRoomUrl = 'http://localhost:58923/api/room';// !!! ???
-
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('RoomService');
+    this.roomUrl = globals.getUrl() + '/api/room';
   }
 
   /** GET rooms from the server */

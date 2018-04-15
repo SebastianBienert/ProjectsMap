@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-
+import { Globals } from './../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,15 +20,15 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
-  employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
-  //employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  employeeUrl: string;
   private handleError: HandleError;
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('EmployeeService');
-
+    this.employeeUrl = globals.getUrl() + '/api/developers';
     this.searchedEmployees = this.getEmployees();
   }
 

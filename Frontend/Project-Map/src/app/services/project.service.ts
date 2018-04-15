@@ -3,7 +3,7 @@ import { Project } from './../common-interfaces/project';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
+import { Globals } from './../globals';
 
 
 import { Observable } from 'rxjs/Observable';
@@ -19,15 +19,16 @@ const httpOptions = {
 };
 @Injectable()
 export class ProjectService {
-  projectUrl = 'http://localhost:58923/api/project';  // For localhosted webapi
-  //projectUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  projectUrl: string;
   private handleError: HandleError;
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('ProjectService');
-	this.handleError = httpErrorHandler.createHandleError('TechnologyService');
+	  this.handleError = httpErrorHandler.createHandleError('TechnologyService');
+    this.projectUrl = globals.getUrl() + '/api/developers';
   }
    public addProject(project){
       this.http.post(this.projectUrl, project).subscribe(

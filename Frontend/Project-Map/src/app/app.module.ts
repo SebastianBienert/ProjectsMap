@@ -37,7 +37,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
 import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
-
+import { Globals } from './globals';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -104,7 +104,8 @@ const routes: Routes = [
     ProjectService,
     SharedService,
     FloorServiceService,
-    TechnologyService],
+    TechnologyService,
+    Globals],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
