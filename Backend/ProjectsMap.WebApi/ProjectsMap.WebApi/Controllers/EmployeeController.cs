@@ -24,7 +24,7 @@ namespace ProjectsMap.WebApi.Controllers
         {
             _service = service;
         }
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination")]
         public IHttpActionResult GetAllPaingate(int page = 0, int pageSize = 10)
@@ -52,7 +52,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
@@ -67,6 +67,7 @@ namespace ProjectsMap.WebApi.Controllers
             return Ok(result);
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("{id:int}", Name = "GetEmployeeById")]
         public IHttpActionResult Get(int id)
@@ -81,7 +82,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("like/{query}")]
         public IHttpActionResult GetSearchedEmployee(string query)
@@ -94,7 +95,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult Get(string technology)
@@ -107,7 +108,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-        [ClaimsAuthorization(ClaimType = "canAccessProducts", ClaimValue = "true")]
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/pagination/{technology}", Name = "GetEmployeesByTechnology")]
         public IHttpActionResult Get(string technology, int page = 0, int pageSize = 10)
@@ -140,6 +141,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("{name}")]
         public IHttpActionResult GetEmployeeByName(string name)
@@ -152,7 +154,7 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-        [ClaimsAuthorization(ClaimType = "canAccessProducts", ClaimValue = "true")]
+        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination/{name}", Name = "GetEmployeesByName")]
         public IHttpActionResult GetEmployeeByName(string name, int page = 0, int pageSize = 10)
@@ -185,7 +187,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post([FromBody] EmployeeDto employee)

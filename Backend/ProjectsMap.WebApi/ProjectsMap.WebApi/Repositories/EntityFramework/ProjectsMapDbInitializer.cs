@@ -1368,9 +1368,11 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
             manager.Create(user, "MySuperP@ss!1");
             var first = manager.Users.First();
-            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canAccessProducts", "true"));
+            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true"));
 
+            var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
 
+            manager.AddClaim(first.Id, readClaim);
 
             //if (roleManager.Roles.Count() == 0)
             //{
@@ -1397,6 +1399,10 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
                 };
                 
                 manager.Create(user2, "MySuperP@ss!1");
+                string userName = $"AverageUser{i}";
+                var usr = manager.Users.First(x => x.UserName == userName);
+                manager.AddClaim(usr.Id, readClaim);
+
                 dev.ApplicationUser = user2;
                 i++;
             }

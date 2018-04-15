@@ -87,6 +87,9 @@ export class SecurityService {
     localStorage.removeItem("bearerToken");
   }
 
+  // *hasClaim="'claimType'"
+  // *hasClaim="'claimType:value'"
+  // *hasClaim="['claimType1','claimType2:value','claimType3']"
   hasClaim(claimType: any, claimValue?: any) {
     let ret: boolean = false;
 

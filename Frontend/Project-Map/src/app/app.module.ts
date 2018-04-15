@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'main', 
       component: MainLayoutComponent,
       canActivate: [AuthGuard],
-      data: { claimType: 'canAccessProducts' },
+      data: { claimType: 'canReadUsers' },
       children: [
         {path: 'displayMap', component: DisplayedMapComponent}, 
         {path: '', component: DisplayedMapComponent}, 
@@ -57,7 +57,7 @@ const routes: Routes = [
   { path: 'managementPage', 
     component: ManagementPageComponent,
     canActivate: [AuthGuard],
-    data: { claimType: 'canAccessProducts' },
+    data: { claimType: 'canWriteProjects' },
     children: [
       {path: '', component: MapNavigatorComponent}, 
       {path: 'projects', component: ProjectComponent}, 
