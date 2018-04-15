@@ -18,6 +18,12 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         IEnumerable<EmployeeDto> GetEmployeesByName(string name);
 
+        bool AddPhotoToEmployee(int id, string path);
+
+        string GetPhotoPath(int id);
+
+        bool DeletePhoto(int id);
+
         int Post(EmployeeDto employee);
 
         void Delete(Employee employee);
@@ -25,5 +31,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
         void Update(Employee employee);
 
         IEnumerable<EmployeeDto> GetEmployeesByQuery(string query);
+
+        FloorDto GetEmployeeFloor(int id);
     }
 }

@@ -35,7 +35,7 @@ namespace ProjectsMap.WebApi.Models
         public int? ManagerCompanyId { get; set; }
         public virtual Employee Manager { get; set; }
 
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
         public string JobTitle { get; set; }
 

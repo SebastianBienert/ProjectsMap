@@ -11,7 +11,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import "rxjs/Rx";
-
+import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
 
 import { AppComponent } from './app.component';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
@@ -36,6 +36,8 @@ import { ManagementPageComponent } from './management-page/management-page.compo
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { PageNotFoundComponent } from './not-found.component';
+import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
 import { SecurityService } from './security/security.service';
 import { LoginComponent } from './security/login.component';
 import { AuthGuard } from './security/auth.guard';
@@ -50,8 +52,11 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       data: { claimType: 'canReadUsers' },
       children: [
-        {path: 'displayMap', component: DisplayedMapComponent}, 
-        {path: '', component: DisplayedMapComponent}, 
+        {path: 'displayMap', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
+        {path: '', component: DisplayedMapComponent, outlet: 'center'}, 
+        { path: '**', component: PageNotFoundComponent, outlet: 'center' },
+        { path: '**', component: PageNotFoundComponent, outlet: 'right' }
       ]
     },
   { path: 'managementPage', 
@@ -66,9 +71,10 @@ const routes: Routes = [
   ]},
   { path: 'login', 
     component: LoginComponent
-  }
-]
+  },
+  { path: '**', component: PageNotFoundComponent }
 
+]
 
 
 @NgModule({
@@ -89,23 +95,22 @@ const routes: Routes = [
     SidebarComponent,
     MainLayoutComponent,
     LoginComponent,
+    PageNotFoundComponent,
     SecurityDirective,
     HasClaimDirective
   ],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
-    ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     FormsModule,
-    BrowserModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot(routes),
-    FormsModule,
     InfiniteScrollModule,
     TagInputModule, 
     BrowserAnimationsModule,
+    EmployeeDetailsModule,
     HttpInterceptorModule
   ],
   providers: [

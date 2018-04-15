@@ -3,6 +3,7 @@ import { Technology } from './../common-interfaces/technology';
 
 export interface Employee{
     Id : number,
+    PhotoUrl : string,
     CompanyId : number,
     Url : string,
     ManagerId : number,

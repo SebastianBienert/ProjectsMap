@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
+using System.Web.Hosting;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Mappers;
 using ProjectsMap.WebApi.Models;
@@ -14,10 +16,12 @@ namespace ProjectsMap.WebApi.Services
     public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository _repository;
+        private IFloorRepository _floorRepository;
 
-        public EmployeeService(IEmployeeRepository repository)
+        public EmployeeService(IEmployeeRepository repository, IFloorRepository floorRepository)
         {
             _repository = repository;
+            _floorRepository = floorRepository;
         }
 
         public IEnumerable<EmployeeDto> GetAllEmployees()
@@ -56,6 +60,19 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
+        public FloorDto GetEmployeeFloor(int id)
+        {
+            var employee = _repository.Get(id);
+            var floors = _floorRepository.Floors.Select(x => DTOMapper.GetFloorDto(x));
+            if (employee == null || floors == null)
+                return null;
+            var employeeRoomId = employee.Seat.RoomId;
+            var employeeFloor = floors.Where(f => f.Rooms.Where(r => r.Id == employeeRoomId).First().Id == employeeRoomId).First();
+            if (employeeFloor == null)
+                return null;
+            return employeeFloor;
+        }
+
         public IEnumerable<EmployeeDto> GetEmployeesByName(string name)
         {
             List<Employee> list;
@@ -86,6 +103,43 @@ namespace ProjectsMap.WebApi.Services
             }
         }
 
+
+
+        public bool AddPhotoToEmployee(int id, string path)
+        {
+           var employee = _repository.Employees.FirstOrDefault(e => e.EmployeeId == id);
+            if (employee != null)
+            {
+                employee.Photo = path;
+                _repository.Update(employee);
+                return true;
+            }
+
+            return false;
+        }
+
+        public string GetPhotoPath(int id)
+        {
+            var path =  _repository.Employees.FirstOrDefault(e => e.EmployeeId == id)?.Photo;
+     
+            return path == null ? null : HostingEnvironment.MapPath(path);
+        }
+
+        public bool DeletePhoto(int id)
+        {
+            var employee = _repository.Employees.FirstOrDefault(e => e.EmployeeId == id);
+
+            if (employee != null && employee.Photo != null)
+            {
+                var filePath = HostingEnvironment.MapPath(employee.Photo);
+                File.Delete(filePath);
+                employee.Photo = null;
+                _repository.Update(employee);
+                return true;
+            }
+                return false;
+        }
+
         public int Post(EmployeeDto employee)
         {
            return  _repository.Add(employee);
@@ -105,7 +159,8 @@ namespace ProjectsMap.WebApi.Services
         {
             //Query by id
             List<Employee> result;
-            if (int.TryParse(query, out int n))
+            int n;
+            if (int.TryParse(query, out n))
             {
                 result = _repository.Employees.Where(e => e.EmployeeId.ToString().StartsWith(query)).ToList();
             }

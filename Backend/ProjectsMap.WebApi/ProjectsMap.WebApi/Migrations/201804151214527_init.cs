@@ -40,7 +40,7 @@ namespace ProjectsMap.WebApi.Migrations
                         WantToHelp = c.Boolean(nullable: false),
                         ManagerId = c.Int(),
                         ManagerCompanyId = c.Int(),
-                        Photo = c.Binary(),
+                        Photo = c.String(),
                         JobTitle = c.String(),
                         ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
                     })

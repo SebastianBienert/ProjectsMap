@@ -11,7 +11,8 @@ import { of } from 'rxjs/observable/of';
   moduleId: module.id,
   selector: 'form-employee',
   templateUrl: './employee.component.html',
-  providers: [ EmployeeService, TechnologyService ]
+  providers: [ EmployeeService, TechnologyService ],
+  styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
 
@@ -55,10 +56,11 @@ export class EmployeeComponent implements OnInit {
   
   ngOnInit() {
     this.formAddEmployee = this.formBuilder.group({
+     Photo: [null, ],                                 //This is not actually <input file>
+     PhotoName: [''],
      DeveloperId: ['', Validators.required],
      FirstName: ['', Validators.required],
      Surname: ['', Validators.required],
-     Photo: [''],
      Technologies: [''],
      Email: ['', Validators.required],
      JobTitle: ['', Validators.required],
@@ -78,30 +80,23 @@ export class EmployeeComponent implements OnInit {
 
 
   onFileChange(event){
-    let reader = new FileReader();
- 
-  if(event.target.files && event.target.files.length) {
-    const [file] = event.target.files;
-    reader.readAsDataURL(file);
-  
-    reader.onload = () => {
-      this.formAddEmployee.patchValue({
-        Photo: reader.result
-      });
+     if(event.target.files.length > 0) {
       
-      // need to run CD since file load runs outside of zone
-      this.cd.markForCheck();
-    };
-}
+      let file = event.target.files[0];
+      console.log(file);
+      this.formAddEmployee.patchValue(
+        {
+          Photo: file,
+          PhotoName: file.name
+        });
+    }
+   
   }
 
   onSubmit(form) {
     console.log(form);
     const formModel = this.formAddEmployee.value;
    var developersTechnologies = form.value.Technologies;
-   //console.log(developersTechnologies);
-
-    
 
     var emp = {
       FirstName : form.value.FirstName,
@@ -113,9 +108,9 @@ export class EmployeeComponent implements OnInit {
       Email : form.value.Email,
       JobTitle : form.value.JobTitle,
       Technologies : form.value.Technologies
-    } as Employee;
-    //console.log(emp);
-    this.service.addEmployee(emp);
+    } as Employee; 
+    
+    this.service.addEmployee(form.value.Photo, emp);
   }
 
   onControlValueChanged() : void {

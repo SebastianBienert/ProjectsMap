@@ -62,8 +62,8 @@ namespace ProjectsMap.WebApi
         {
             //config.MapHttpAttributeRoutes();
             WebApiConfig.Register(config);
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            //jsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
         }
 
         private void ConfigureOAuthTokenGeneration(IAppBuilder app)
