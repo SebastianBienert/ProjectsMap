@@ -68,6 +68,38 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("pagination/technology/{technology}", Name = "GetProjectsByTechnology")]
+        public IHttpActionResult GetProjectsByTechnology(string technology, int page = 0, int pageSize = 10)
+        {
+            var projects = _service.GetProjectsByTechnology(technology);
+
+            if(projects == null)
+                return NotFound();
+
+            var dtos = projects.ToList();
+            var totalCount = dtos.ToList().Count;
+            var pageCount = Math.Ceiling((double)totalCount / pageSize);
+            var prevPage = page > 0 ? Url.Link("GetProjectsByTechnology", new { technology = technology, page = page - 1, pageSize = pageSize }) : "";
+            var nextPage = page < pageCount - 1 ? Url.Link("GetProjectsByTechnology", new { technology = technology, page = page + 1, pageSize = pageSize }) : "";
+
+            var filtered = dtos.Skip(page * pageSize).Take(pageSize);
+            var result = filtered.Select(dto =>
+            {
+                dto.Url = Url.Link("GetProjectById", new { id = dto.Id });
+                return dto;
+            }).ToList();
+
+            return Ok(new
+            {
+                TotalProjects = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
+        }
+
+        [HttpGet]
         [Route("pagination/{name}", Name = "GetProjectsByName")]
         public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)
         {

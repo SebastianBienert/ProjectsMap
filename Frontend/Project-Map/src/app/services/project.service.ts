@@ -57,11 +57,22 @@ export class ProjectService {
         pageSize: "7"
       }
     });
-
     return this.http.get<any>(this.projectUrl + "/pagination/" + name, { params })
       .pipe(
-        catchError(this.handleError('getEmployees', []))
+        catchError(this.handleError('getProjects', []))
       );
+  }
 
+  searchSetOfProjectsByTechnology(technology: string, page: number): Observable<any> {
+    let params = new HttpParams({
+      fromObject: {
+        page: page.toString(),
+        pageSize: "7"
+      }
+    });
+    return this.http.get<any>(this.projectUrl + "/pagination/technology/" + technology, { params })
+      .pipe(
+        catchError(this.handleError('getProjects', []))
+      );
   }
 }

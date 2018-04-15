@@ -91,6 +91,11 @@ export class SharedService {
                     .subscribe(x => this.setFoundProjects(x.Result));
                 break;
 
+            case SearchType.projectTechnology:
+                this.projectService.searchSetOfProjectsByTechnology(this.filter, this.page)
+                    .subscribe(x => this.setFoundProjects(x.Result));
+                break;
+
         }
 
         this.page++;
