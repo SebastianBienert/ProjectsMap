@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button clickShowMap, clickShowFloor;
     Button clickSearchDevelopers, clickSave;
     Button clickSearchProjects;
+    Button clickLogin;
     Switch switchOnlineWork;
     boolean onlineWork;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         clickSearchDevelopers = (Button) findViewById(R.id.buttonSearchDevelopers);
         clickSearchProjects = (Button) findViewById(R.id.buttonSearchProjects);
         clickSave = (Button) findViewById(R.id.buttonSaveTest);
+        clickLogin = (Button) findViewById(R.id.buttonLogin);
         switchOnlineWork = findViewById(R.id.switchOnlineWork);
         if(!isNetworkAvailable()){
             Toast.makeText(this,"Brak internetu", Toast.LENGTH_SHORT).show();
@@ -104,6 +106,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        clickLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
