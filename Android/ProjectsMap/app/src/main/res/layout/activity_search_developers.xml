@@ -40,7 +40,6 @@
         android:id="@+id/listDevelopers"
         android:layout_width="368dp"
         android:layout_height="495dp"
-        android:layout_alignLeft="@+id/textViewStatement"
         android:layout_alignStart="@+id/toolbar"
         android:layout_below="@+id/spinnerSelectionMethod"
         tools:layout_editor_absoluteX="8dp"
@@ -63,7 +62,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_toEndOf="@+id/textViewNameChoice"
         android:layout_toRightOf="@+id/textViewNameChoice" />
 
     <TextView
