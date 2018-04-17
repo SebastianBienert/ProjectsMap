@@ -43,7 +43,7 @@ export class EmployeeService {
           this.uploadEmployeePhoto(fileToUpload, employee.Id);
       },
       err => {
-        console.log("Error occured");
+        console.log(err);
       }
     );
   }

@@ -105,6 +105,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination/{name}", Name = "GetProjectsByName")]
         public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)

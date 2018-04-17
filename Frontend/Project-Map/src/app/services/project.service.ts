@@ -28,7 +28,7 @@ export class ProjectService {
     private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('ProjectService');
 	  this.handleError = httpErrorHandler.createHandleError('TechnologyService');
-    this.projectUrl = globals.getUrl() + '/api/developers';
+    this.projectUrl = globals.getUrl() + '/api/project';
   }
    public addProject(project){
       this.http.post(this.projectUrl, project).subscribe(
@@ -58,7 +58,7 @@ export class ProjectService {
         pageSize: "7"
       }
     });
-    return this.http.get<any>(this.projectUrl + "/pagination/" + name, { params })
+    return this.http.get<Project[]>(this.projectUrl + "/pagination/" + name, { params })
       .pipe(
         catchError(this.handleError('getProjects', []))
       );
@@ -71,7 +71,7 @@ export class ProjectService {
         pageSize: "7"
       }
     });
-    return this.http.get<any>(this.projectUrl + "/pagination/technology/" + technology, { params })
+    return this.http.get<Project[]>(this.projectUrl + "/pagination/technology/" + technology, { params })
       .pipe(
         catchError(this.handleError('getProjects', []))
       );
