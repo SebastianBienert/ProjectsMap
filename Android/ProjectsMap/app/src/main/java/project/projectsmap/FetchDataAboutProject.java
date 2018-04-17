@@ -31,6 +31,8 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     String choice = "";
     String inputData = "";
     String errorText = "";
+    String webApiURL = "https://67a04196.ngrok.io";
+    String token = "";
     ArrayList<Project> dataList = new ArrayList<Project>();
 
     /*      dodane do zapisu do pliku       */
@@ -60,8 +62,8 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     public void setFileName(String name){
         fileName = name;
     }
-    public void setAppend(boolean ap){append = ap;
-    }
+    public void setAppend(boolean ap){append = ap;}
+    public void setToken(String token_){ token = token_; }
     /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
@@ -74,6 +76,8 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
                     return null;
                 }
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpsURLConnection.addRequestProperty("Authorization", "Bearer "+token);
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
@@ -137,13 +141,13 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     private URL setURLAdress(){
         try{
             if(choice.equals("Id")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project/"+inputData);
+                return new URL(webApiURL+"/api/project/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Wszystkie")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project");
+                return new URL(webApiURL+"/api/project");
                 //return new URL("http://localhost:58923/api/developers");
             }else if(choice.equals("Nazwa")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/project/name/"+inputData);
+                return new URL(webApiURL+"/api/project/name/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){

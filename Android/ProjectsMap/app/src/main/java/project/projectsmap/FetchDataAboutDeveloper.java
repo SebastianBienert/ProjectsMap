@@ -2,10 +2,17 @@ package project.projectsmap;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +40,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     String inputData = "";
     String errorText = "";
     ArrayList<Developer> dataList = new ArrayList<Developer>();
+    String webApiURL = "https://67a04196.ngrok.io";
+    String token = "";
 
     /*      dodane do zapisu do pliku       */
     boolean saveDataToFile = false;
@@ -62,8 +71,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     public void setFileName(String name){
         fileName = name;
     }
-    public void setAppend(boolean ap){append = ap;
-    }
+    public void setAppend(boolean ap){append = ap;}
+    public void setToken(String token_){ token = token_; }
     /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
@@ -76,6 +85,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                     return null;
                 }
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpsURLConnection.addRequestProperty("Authorization", "Bearer " + token);
                 InputStream inputStream = httpsURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 String line = "";
@@ -144,16 +155,16 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     private URL setURLAdress(){
         try{
             if(choice.equals("Technologia")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/technology/"+inputData);
+                return new URL(webApiURL+"/api/developers/technology/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/technology/"+inputData);
             }else if(choice.equals("Id")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+                return new URL(webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Wszyscy")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers");
+                return new URL(webApiURL+"/api/developers");
                 //return new URL("http://localhost:58923/api/developers");
             }else if(choice.equals("Imię lub nazwisko")){
-                return new URL("https://projectsmapwebapi.azurewebsites.net/api/developers/"+inputData);
+                return new URL(webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){

@@ -57,6 +57,7 @@ public class ShowMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_map);
         setCanvas();
+        final String token = getIntent().getExtras().getString("token");
         spinnerBuildings = (Spinner)  findViewById(R.id.spinnerBuildings);
         spinnerFloors = (Spinner)  findViewById(R.id.spinnerFloors);
         clickBack = (Button) findViewById(R.id.buttonBack);
@@ -105,6 +106,7 @@ public class ShowMapActivity extends AppCompatActivity {
                 clearStaement();
                 waitForData.setVisibility(View.VISIBLE);
                 FetchDataMap process = new FetchDataMap();
+                process.setToken(token);
                 process.setNumberId("1");
                 process.setNumberCompanyId("1");    //na sztywno do testów potem ustawiane po zalogowaniu
                 process.setContext(ShowMapActivity.this);

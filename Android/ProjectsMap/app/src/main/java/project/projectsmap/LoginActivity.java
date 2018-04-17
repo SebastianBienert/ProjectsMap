@@ -3,6 +3,7 @@ package project.projectsmap;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -89,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
         showProgress(true);
         Ion.with(this)
-                .load("POST", "https://31afc6c3.ngrok.io/oauth/token")
+                .load("POST", "http://67a04196.ngrok.io/oauth/token")
                 .setBodyParameter("username", mEmailView.getText().toString())
                 .setBodyParameter("password", mPasswordView.getText().toString())
                 .setBodyParameter("grant_type", "password")
@@ -102,12 +104,11 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject o = new JSONObject(result);
                                 String error = o.optString("error");
                                 String token = o.optString("access_token");
-                                if (TextUtils.isEmpty(error)) {
-                                    // TODO save token
-                                    Snackbar.make(mEmailView,
-                                           "LOGGED! Token: "+token,
-                                            Snackbar.LENGTH_LONG)
-                                            .show();
+                                if (TextUtils.isEmpty(error) && !TextUtils.isEmpty(token)) {
+                                    Toast.makeText(getBaseContext(),"Zalogowano", Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("token", token);
+                                    startActivity(intent);
                                 } else {
                                     // Show error
                                     Snackbar.make(mEmailView,

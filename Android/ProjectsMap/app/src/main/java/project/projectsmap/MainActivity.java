@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     Button clickShowMap, clickShowFloor;
     Button clickSearchDevelopers, clickSave;
     Button clickSearchProjects;
-    Button clickLogin;
     Switch switchOnlineWork;
     boolean onlineWork;
 
@@ -41,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final String token = getIntent().getExtras().getString("token");
         clickShowMap = (Button) findViewById(R.id.buttonShowMap);
         clickShowFloor = (Button) findViewById(R.id.buttonShowFloor);
         clickSearchDevelopers = (Button) findViewById(R.id.buttonSearchDevelopers);
         clickSearchProjects = (Button) findViewById(R.id.buttonSearchProjects);
         clickSave = (Button) findViewById(R.id.buttonSaveTest);
-        clickLogin = (Button) findViewById(R.id.buttonLogin);
         switchOnlineWork = findViewById(R.id.switchOnlineWork);
         if(!isNetworkAvailable()){
             Toast.makeText(this,"Brak internetu", Toast.LENGTH_SHORT).show();
@@ -79,41 +78,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ShowMapActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSearchDevelopers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchDevelopersActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSearchProjects.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchProjectsActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickShowFloor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchFloorActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SaveToFileActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
-        clickLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

@@ -37,6 +37,7 @@ public class SaveToFileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_save_to_file);
+            final String token = getIntent().getExtras().getString("token");
             clickBack = (Button) findViewById(R.id.buttonBack);
             loadData  = (Button) findViewById(R.id.buttonLoadData);
             saveData = (Button) findViewById(R.id.buttonSaveData);
@@ -77,6 +78,7 @@ public class SaveToFileActivity extends AppCompatActivity {
                 public void onClick(View view) {    //zapis wszystkich pracowników do pliku plikTestowy.txt
                     waitForSaveData.setVisibility(View.VISIBLE);
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                    process.setToken(token);
                     process.setSaveDataToFile(true);
                     process.setToSavecontext(getApplicationContext());
                     process.setcontext(SaveToFileActivity.this);

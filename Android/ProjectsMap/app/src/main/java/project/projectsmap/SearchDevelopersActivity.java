@@ -48,9 +48,10 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             setContentView(R.layout.activity_search_developers);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final String token = getIntent().getExtras().getString("token");
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Material Search:");
+        getSupportActionBar().setTitle("Szukaj:");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
 
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
@@ -78,10 +79,11 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText != null && !newText.isEmpty()){
+                if (newText != null && !newText.isEmpty()) {
                     waitForData.setVisibility(View.VISIBLE);
                     adapter.list.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                    process.setToken(token);
                     process.setSaveDataToFile(false);
                     process.setChoice(choice);
                     process.setInputData(newText);

@@ -31,6 +31,7 @@ public class SearchFloorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_data_about_floor);
 
+        final String token = getIntent().getExtras().getString("token");
         clickSearch = (Button) findViewById(R.id.buttonSearch);
         showMap = (Button) findViewById(R.id.buttonShowMap);
         clickBack = (Button) findViewById(R.id.buttonBack);
@@ -48,6 +49,7 @@ public class SearchFloorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 waitForSaveData.setVisibility(View.VISIBLE);
                 FetchDataFloor process = new FetchDataFloor();
+                process.setToken(token);
                 process.setNumberId(floorNumber.getText().toString());
                 process.setContext(SearchFloorActivity.this);
                 process.execute();
