@@ -73,8 +73,13 @@ namespace ProjectsMap.WebApi.Controllers
             var developerDto = _service.GetEmployee(id);
             if (developerDto != null)
             {
+                developerDto.Url = Url.Link("GetEmployeeById", new {id = developerDto.Id});
+                developerDto.PhotoUrl = developerDto.PhotoUrl == null
+                    ? null
+                    : Url.Link("GetEmployeePhoto", new { id = developerDto.Id });
                 return Ok(developerDto);
             }
+
             return NotFound();
         }
 
@@ -183,7 +188,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-		[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
+		//[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("photo/{id}", Name = "GetEmployeePhoto")]
         public IHttpActionResult GetPhoto(int id)
@@ -217,12 +222,17 @@ namespace ProjectsMap.WebApi.Controllers
              var userId = User.Identity.GetUserId();
              var user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.
                     Include(u => u.Employee).FirstOrDefault(x => x.Id == userId);
-             var employeeId = user.Employee.EmployeeId;
-             var employee = _service.GetEmployee(employeeId);
-
-            if(employee != null)
+        
+            if (user != null)
+            {
+                var employeeId = user.Employee.EmployeeId;
+                var employee = _service.GetEmployee(employeeId);
+                employee.Url = Url.Link("GetEmployeeById", new { id = employee.Id });
+                employee.PhotoUrl = employee.PhotoUrl == null
+                    ? null
+                    : Url.Link("GetEmployeePhoto", new {id = employee.Id});
                 return Ok(employee);
-
+            }
             return NotFound();
         }
 

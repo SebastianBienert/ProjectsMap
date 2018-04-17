@@ -16,7 +16,7 @@ import { of } from 'rxjs/observable/of';
   styleUrls: ['./edit-employee-data.component.css']
 })
 export class EditEmployeeDataComponent implements OnInit {
-  employeeInfo: Employee;
+  employeeInfo: Employee = null;
   formAddEmployee : FormGroup;
   companyId : number = 1;
   allTechnologies : string[];
@@ -58,19 +58,28 @@ export class EditEmployeeDataComponent implements OnInit {
    ngOnInit() {
     this.employeeService.getCurrentUserEmployeeData()
     .subscribe(employeeResult => {
-      this.formAddEmployee = this.formBuilder.group({
-        Photo: [null, ],                                 //This is not actually <input file>
-        PhotoName: [''],
-        DeveloperId: [employeeResult.Id, Validators.required],
-        FirstName: [employeeResult.FirstName, Validators.required],
-        Surname: [employeeResult.Surname, Validators.required],
-        Technologies: [employeeResult.Technologies],
-        Email: [employeeResult.Email, Validators.required],
-        JobTitle: [employeeResult.JobTitle, Validators.required],
-        ManagerId: [employeeResult.ManagerId]
+      this.employeeInfo = employeeResult;
+      this.formAddEmployee.patchValue(
+        {
+          DeveloperId: employeeResult.Id,
+          FirstName: employeeResult.FirstName,
+          Surname: employeeResult.Surname,
+          Technologies: employeeResult.Technologies,
+          Email: employeeResult.Email,
+          JobTitle: employeeResult.JobTitle,
+          ManagerId: employeeResult.ManagerId
+        });
     })
-
-
+    this.formAddEmployee = this.formBuilder.group({
+      Photo: [null, ],                                 //This is not actually <input file>
+      PhotoName: [''],
+      DeveloperId: ['', Validators.required],
+      FirstName: ['', Validators.required],
+      Surname: ['', Validators.required],
+      Technologies: [''],
+      Email: ['', Validators.required],
+      JobTitle: ['', Validators.required],
+      ManagerId: ['']
 
    });
  
@@ -116,7 +125,7 @@ export class EditEmployeeDataComponent implements OnInit {
       Technologies : form.value.Technologies
     } as Employee; 
     
-    this.service.editEmployee(null, emp);
+    this.service.editEmployee(form.value.Photo, emp);
   }
 
   onControlValueChanged() : void {
