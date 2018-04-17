@@ -48,6 +48,20 @@ export class EmployeeService {
     );
   }
 
+  
+  editEmployee(fileToUpload: File, employee : Employee)
+  {
+    this.http.put(this.employeeUrl + "/edit", employee).subscribe(
+      res => {
+        console.log(res);
+        if(fileToUpload != null )  //check if file is not empty
+          this.uploadEmployeePhoto(fileToUpload, employee.Id);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
     
@@ -62,6 +76,13 @@ export class EmployeeService {
       .pipe(
         catchError(this.handleError<Employee>('getEmployee'))
       );
+  }
+
+  getCurrentUserEmployeeData(){
+    return this.http.get<Employee>(this.employeeUrl + "/myInfo")
+    .pipe(
+      catchError(this.handleError<Employee>('getEmployee'))
+    );
   }
 
   searchEmployeeByTechnology(technology: string, page: number): Observable<any> {

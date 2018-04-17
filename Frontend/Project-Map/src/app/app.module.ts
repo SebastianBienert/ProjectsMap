@@ -43,6 +43,8 @@ import { LoginComponent } from './security/login.component';
 import { AuthGuard } from './security/auth.guard';
 import { SecurityDirective } from './security.directive';
 import { HasClaimDirective } from './security/has-claim.directive';
+import { EditEmployeeDataComponent } from './edit-employee-data/edit-employee-data.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
   { path: 'main', 
@@ -65,7 +67,7 @@ const routes: Routes = [
       {path: 'projects', component: ProjectComponent,
            canActivate: [AuthGuard],
                   data: { claimType: 'canWriteProjects' }}, 
-      {path: 'employees', component: EmployeeComponent},
+      {path: 'employees', component: EditEmployeeDataComponent},
       {path: 'mapCreator', component: MapNavigatorComponent}, 
   ]},
   { path: 'login', 
@@ -96,7 +98,8 @@ const routes: Routes = [
     LoginComponent,
     PageNotFoundComponent,
     SecurityDirective,
-    HasClaimDirective
+    HasClaimDirective,
+    EditEmployeeDataComponent
   ],
   imports: [
     ReactiveFormsModule,
