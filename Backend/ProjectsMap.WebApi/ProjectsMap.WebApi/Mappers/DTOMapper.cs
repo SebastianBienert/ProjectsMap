@@ -17,10 +17,13 @@ namespace ProjectsMap.WebApi.Mappers
     {
         private static UrlHelper Url
         {
+            //TODO FIX THIS HELPER, NOW IT RETURNS NULL LINKS, WORKED BEFORE AUTHORIZATION :((
             get
             {
                var httpRequestMessage = HttpContext.Current.Items["MS_HttpRequestMessage"] as HttpRequestMessage;
-               var _urlHelper = new UrlHelper(httpRequestMessage);
+                var auth = httpRequestMessage.Headers.Authorization;
+                var _urlHelper = new UrlHelper(httpRequestMessage);
+                
                return _urlHelper;
             }
         }
@@ -46,7 +49,8 @@ namespace ProjectsMap.WebApi.Mappers
                 ManagerCompanyId = employee.ManagerCompanyId,
                 Id = employee.EmployeeId,     
                 Url = Url.Link("GetEmployeeById", new { id = employee.EmployeeId }),
-                PhotoUrl = employee.Photo == null ? null : Url.Link("GetEmployeePhoto", new { id = employee.EmployeeId }),
+                PhotoUrl = employee.Photo,
+                //PhotoUrl = employee.Photo == null ? null : Url.Link("GetEmployeePhoto", new { id = employee.EmployeeId }),
                 ManagerId = employee.ManagerId,
                 CompanyId = employee.CompanyId,
                 FirstName = employee.FirstName,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -11,6 +12,8 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
@@ -70,8 +73,13 @@ namespace ProjectsMap.WebApi.Controllers
             var developerDto = _service.GetEmployee(id);
             if (developerDto != null)
             {
+                developerDto.Url = Url.Link("GetEmployeeById", new {id = developerDto.Id});
+                developerDto.PhotoUrl = developerDto.PhotoUrl == null
+                    ? null
+                    : Url.Link("GetEmployeePhoto", new { id = developerDto.Id });
                 return Ok(developerDto);
             }
+
             return NotFound();
         }
 
@@ -180,7 +188,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-		[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
+		//[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("photo/{id}", Name = "GetEmployeePhoto")]
         public IHttpActionResult GetPhoto(int id)
@@ -204,6 +212,49 @@ namespace ProjectsMap.WebApi.Controllers
             }
 
             return NotFound();
+        }
+
+        [ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
+        [Route("myInfo")]
+        [HttpGet]
+        public IHttpActionResult GetEmployeeFromUser()
+        {
+             var userId = User.Identity.GetUserId();
+             var user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.
+                    Include(u => u.Employee).FirstOrDefault(x => x.Id == userId);
+        
+            if (user != null)
+            {
+                var employeeId = user.Employee.EmployeeId;
+                var employee = _service.GetEmployee(employeeId);
+                employee.Url = Url.Link("GetEmployeeById", new { id = employee.Id });
+                employee.PhotoUrl = employee.PhotoUrl == null
+                    ? null
+                    : Url.Link("GetEmployeePhoto", new {id = employee.Id});
+                return Ok(employee);
+            }
+            return NotFound();
+        }
+
+
+        [ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
+        [Route("edit")]
+        [HttpPut]
+        public IHttpActionResult EditEmployee(EmployeeDto employeeDto)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var user = Request.GetOwinContext().GetUserManager<ApplicationUserManager>().Users.
+                    Include(u => u.Employee).FirstOrDefault(x => x.Id == userId);
+                var employeeId = user.Employee.EmployeeId;
+                _service.Update(employeeId, employeeDto);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Conflict();
+            }
         }
 
 		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]

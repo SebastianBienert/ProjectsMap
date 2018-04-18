@@ -28,7 +28,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         void Delete(Employee employee);
 
-        void Update(Employee employee);
+        void Update(int employeeId, EmployeeDto employee);
 
         IEnumerable<EmployeeDto> GetEmployeesByQuery(string query);
 

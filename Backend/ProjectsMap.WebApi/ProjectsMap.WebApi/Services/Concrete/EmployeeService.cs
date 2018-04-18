@@ -150,9 +150,9 @@ namespace ProjectsMap.WebApi.Services
             _repository.Delete(employee);
         }
 
-        public void Update(Employee employee)
+        public void Update(int employeeId, EmployeeDto employee)
         {
-            _repository.Update(employee);
+            _repository.Update(employeeId, employee);
         }
 
         public IEnumerable<EmployeeDto> GetEmployeesByQuery(string query)

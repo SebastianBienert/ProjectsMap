@@ -22,5 +22,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         void Update(Employee employee);
 
+        void Update(int employeeId, EmployeeDto employee);
+
     }
 }

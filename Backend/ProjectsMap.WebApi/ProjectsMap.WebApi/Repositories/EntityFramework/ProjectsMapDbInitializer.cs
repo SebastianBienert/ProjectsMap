@@ -1027,7 +1027,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Witkor",
 					Surname = "Bukowski",
                     EmployeeId = 1,
-					Technologies = new List<Technology>()
+                    Photo = @"~/EmployeesPhoto/1.jpg",
+
+                    Technologies = new List<Technology>()
 					{
 					   technologies[0],technologies[3]
 					},

@@ -103,5 +103,43 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 dbContext.SaveChanges();
             }
         }
+
+        public void Update(int employeeId, EmployeeDto employeeDto)
+        {
+            using (var dbContext = new EfDbContext())
+            {
+                var entity = dbContext.Employees.
+                    Include(d => d.Technologies)
+                    .FirstOrDefault(x => x.EmployeeId == employeeId);
+                if (entity != null)
+                {
+                    var existingTechnologies = dbContext.Technologies.ToList();
+                    var existingTechnologiesNames = existingTechnologies.Select(x => x.Name).ToList();
+                    var newTechnologiesNames = employeeDto.Technologies.Except(existingTechnologiesNames).ToList();
+
+                    entity.FirstName = employeeDto.FirstName;
+                    entity.JobTitle = employeeDto.JobTitle;
+                    entity.Surname = employeeDto.Surname;
+                    entity.Email = employeeDto.Email;
+                    entity.EmployeeId = employeeDto.Id;
+                    entity.Technologies = employeeDto.Technologies == null
+                        ? new List<Technology>()
+                        : existingTechnologies.Where(x => employeeDto.Technologies.Contains(x.Name)).ToList();
+                  
+                    foreach (var technology in newTechnologiesNames)
+                    {
+                        Technology tech = new Technology()
+                        {
+                            Name = technology,
+                            Employees = new List<Employee>() { entity },
+                        };
+                        entity.Technologies.Add(tech);
+                    }
+
+                    dbContext.SaveChanges();
+                }
+              
+            }
+        }
     }
 }

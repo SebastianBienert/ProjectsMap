@@ -39,8 +39,9 @@ export class EmployeeService {
     this.http.post(this.employeeUrl, employee).subscribe(
       res => {
         console.log(res);
-        if(fileToUpload != null )  //check if file is not empty
+        if(fileToUpload != null ) 
           this.uploadEmployeePhoto(fileToUpload, employee.Id);
+
       },
       err => {
         console.log(err);
@@ -48,6 +49,25 @@ export class EmployeeService {
     );
   }
 
+  
+  editEmployee(fileToUpload: File, employee : Employee)
+  {
+    this.http.put(this.employeeUrl + "/edit", employee).subscribe(
+      res => {
+        console.log(res);
+        if(fileToUpload != null )
+        {
+          this.deleteEmployeePhoto(employee.Id).subscribe(result =>{
+            this.uploadEmployeePhoto(fileToUpload, employee.Id);
+          });
+        }
+          
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
     
@@ -62,6 +82,13 @@ export class EmployeeService {
       .pipe(
         catchError(this.handleError<Employee>('getEmployee'))
       );
+  }
+
+  getCurrentUserEmployeeData(){
+    return this.http.get<Employee>(this.employeeUrl + "/myInfo")
+    .pipe(
+      catchError(this.handleError<Employee>('getEmployee'))
+    );
   }
 
   searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
@@ -97,6 +124,13 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.employeeUrl + "/like/" + query)
     .pipe(
       catchError(this.handleError('getEmployees', [])));
+  }
+
+  deleteEmployeePhoto(id: number): Observable<any>{
+    return this.searchedEmployees = this.http.delete<any>(this.employeeUrl + "/photo/" + id)
+    .pipe(
+      catchError(this.handleError('getEmployees', []))
+    );
   }
 
   uploadEmployeePhoto(fileToUpload: File, id: number) {
