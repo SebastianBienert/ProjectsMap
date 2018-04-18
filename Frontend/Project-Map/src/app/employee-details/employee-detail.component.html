@@ -1,9 +1,10 @@
 
-  <div class="card mt-1 mb-1">
-    <img class="card-img-top img-fluid rounded" src="https://cdnolympic.files.wordpress.com/2012/07/mohammed-ahmed.jpg?quality=100" alt="Ahmed">
-    
+  <div class="card mt-1 mb-1" *ngIf="employee$ as emp">
+    <div class="text-center img-container">
+      <img *ngIf="emp.PhotoUrl" class="card-img-top img-fluid rounded photo" [attr.src]="emp.PhotoUrl" alt="Photo">
+    </div>
     <div class="card-body">
-      <h1 class="card-title text-center">Ahmed</h1>
+      <!-- <h1 class="card-title text-center">Ahmed</h1> -->
       <div class="card">
         <div class="card-body">
           <h5 class="text-center"><button type="button" class="card-title btn btn-outline-dark-green" disabled mdbRippleRadius><i class="fa fa-user pr-2" aria-hidden="true"></i> About me</button></h5>
