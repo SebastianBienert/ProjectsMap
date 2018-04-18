@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Globals {
-  localhost: boolean = true;
+  localhost: boolean = false;
   localhostUrl: string = "//localhost:58923";
   remoteUrl: string = "//projectsmapwebapi.azurewebsites.net";
 
