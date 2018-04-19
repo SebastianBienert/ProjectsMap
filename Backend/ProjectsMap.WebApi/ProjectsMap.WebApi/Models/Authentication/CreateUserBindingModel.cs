@@ -16,13 +16,21 @@ namespace ProjectsMap.WebApi.Models.Authentication
         [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
-        
+
+        [Required]
+        [Display(Name = "First name")]
+        public string FirstName { get; set; }
+
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Display(Name = "Role Name")]
         public string RoleName { get; set; }
+
+        [Required]
+        [Display(Name = "Employee Id")]
+        public int DeveloperId { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

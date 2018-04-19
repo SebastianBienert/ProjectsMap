@@ -44,6 +44,7 @@ import { AuthGuard } from './security/auth.guard';
 import { SecurityDirective } from './security.directive';
 import { HasClaimDirective } from './security/has-claim.directive';
 import { EditEmployeeDataComponent } from './edit-employee-data/edit-employee-data.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -73,6 +74,9 @@ const routes: Routes = [
   { path: 'login', 
     component: LoginComponent
   },
+  { path: 'registration', 
+    component: RegistrationComponent
+  },
   { path: '**', component: PageNotFoundComponent }
 
 ]
@@ -99,7 +103,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     SecurityDirective,
     HasClaimDirective,
-    EditEmployeeDataComponent
+    EditEmployeeDataComponent,
+    RegistrationComponent
   ],
   imports: [
     ReactiveFormsModule,

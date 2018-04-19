@@ -7,12 +7,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Services.Abstract;
 
 namespace ProjectsMap.WebApi.Controllers
 {
     [RoutePrefix("api/accounts")]
     public class AccountsController : BaseApiController
     {
+        private IEmployeeService _employeeService;
+
+        public AccountsController(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
         [ClaimsAuthorization(ClaimType = "FTE", ClaimValue = "1")]
         [Route("users")]
         public IHttpActionResult GetUsers()
@@ -28,7 +37,6 @@ namespace ProjectsMap.WebApi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var user = new ApplicationUser()
             {
                 UserName = createUserModel.Username,
@@ -36,18 +44,35 @@ namespace ProjectsMap.WebApi.Controllers
                 JoinDate = DateTime.Now.Date,
             };
 
+
             IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
 
             if (!addUserResult.Succeeded)
             {
                 return GetErrorResult(addUserResult);
             }
+            
+            var userEntity = this.AppUserManager.Users.FirstOrDefault(x => x.Email == createUserModel.Email);
+            var newEmployeeId = _employeeService.Post(new EmployeeDto()
+            {
+                CompanyId = 1,
+                Id = createUserModel.DeveloperId,
+                Email = createUserModel.Email,
+                FirstName = createUserModel.FirstName,
+                Surname = createUserModel.LastName,
+                
+            }, userEntity);
+
+            var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
+            var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
+            AppUserManager.AddClaim(userEntity.Id, readClaim);
+            AppUserManager.AddClaim(userEntity.Id, readProjectsClaim);
 
             string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = HttpUtility.UrlEncode(code)}));
 
-            await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
@@ -65,7 +90,7 @@ namespace ProjectsMap.WebApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityResult result = await this.AppUserManager.ConfirmEmailAsync(userId, code);
+            IdentityResult result = await this.AppUserManager.ConfirmEmailAsync(userId, HttpUtility.UrlDecode(code));
 
             if (result.Succeeded)
             {

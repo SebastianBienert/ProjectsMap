@@ -3,12 +3,13 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators/tap';
-
+import { Globals } from './../globals';
 import { AppUserAuth } from './app-user-auth';
 import { AppUser } from './app-user';
 import * as JWT from 'jwt-decode';
 import { AppUserClaim } from './app-user-claim';
-
+import { HttpErrorHandler, HandleError } from '../services/http-error-handler.service';
+import { catchError } from 'rxjs/operators';
 const API_URL = "http://localhost:58923/oauth/";
 
 const httpOptions = {
@@ -23,8 +24,10 @@ const httpOptions = {
 @Injectable()
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
-
-  constructor(private http: HttpClient) {
+  private handleError: HandleError;
+  constructor(private http: HttpClient,
+  private globals: Globals,
+  httpErrorHandler: HttpErrorHandler) {
     
     let secObject = localStorage.getItem("bearerToken");
     console.log(secObject);
@@ -32,6 +35,14 @@ export class SecurityService {
     {
       this.mapResponse(secObject);
     }
+    this.handleError = httpErrorHandler.createHandleError('ProjectService');
+   }
+
+   register(entity: any): Observable<any>{
+     return this.http.post<any>(this.globals.getUrl() + "/api/accounts/create", entity)
+     .pipe(
+      catchError(this.handleError('createAccount', []))
+    );
    }
 
   login(entity: AppUser): Observable<AppUserAuth> {

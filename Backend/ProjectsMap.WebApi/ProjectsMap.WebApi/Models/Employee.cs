@@ -43,6 +43,8 @@ namespace ProjectsMap.WebApi.Models
         
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
         public int CompanyId { get; set; }
 
         //Many to many relation (Technology - Employee)
