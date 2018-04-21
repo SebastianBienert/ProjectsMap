@@ -8,8 +8,7 @@ import { AppUserAuth } from './app-user-auth';
 import { AppUser } from './app-user';
 import * as JWT from 'jwt-decode';
 import { AppUserClaim } from './app-user-claim';
-
-const API_URL = "http://localhost:58923/oauth/";
+import { Globals } from './../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,13 +18,12 @@ const httpOptions = {
 };
 
 
-
 @Injectable()
 export class SecurityService {
   securityObject: AppUserAuth = new AppUserAuth();
-
-  constructor(private http: HttpClient) {
-    
+  Api_Url: string;
+  constructor(private http: HttpClient, private globals: Globals) {
+    this.Api_Url = globals.getUrl() + "/oauth/";
     let secObject = localStorage.getItem("bearerToken");
     console.log(secObject);
     if(secObject !== null)
@@ -43,7 +41,7 @@ export class SecurityService {
     body.set('password', entity.password);
     body.set('grant_type', 'password');
 
-    return this.http.post<AppUserAuth>("http://localhost:58923/oauth/token",
+    return this.http.post<AppUserAuth>(this.Api_Url + "token",
       body.toString(), httpOptions).pipe(
         tap(resp => {
           this.mapResponse(resp.access_token);
