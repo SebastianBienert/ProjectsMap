@@ -36,10 +36,13 @@ export class RegistrationComponent implements OnInit {
       required: 'Username cannot be empty'
     },
     Password: {
-      required: 'Password cannot be empty'
+      required: 'Password cannot be empty',
+      minlength: 'Password has to be at least 6 character long',
+      notEquivalent: 'Passwords must match'
     },
     PasswordConfirm: {
-      required: 'Password confirmation cannot be empty'
+      required: 'Password confirmation cannot be empty',
+      notEquivalent: 'Passwords must match'
     },
     DeveloperId: {
       required: 'Developer ID cannot be empty'
@@ -54,22 +57,48 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder : FormBuilder,
     private employeeService : EmployeeService,
     private securityService: SecurityService,
-   private cd: ChangeDetectorRef) { }
+   private cd: ChangeDetectorRef) {
+    document.body.style.backgroundImage = "url('../../assets/background.jpg')";
+    document.body.style.backgroundPosition = "center center";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundAttachment = "fixed";
+    document.body.style.backgroundSize = "cover";
+    }
 
   ngOnInit() {
     this.formRegistration = this.formBuilder.group({
       Email: ['', Validators.required],
       Username: ['', Validators.required],
-      Password: ['', Validators.required],
+      Password: ['', [Validators.required, Validators.minLength(6) ]],
       PasswordConfirm: ['', Validators.required],
       DeveloperId: ['', Validators.required],
       FirstName: ['', Validators.required],
       Surname: ['', Validators.required],
+    },
+    {
+      validator: this.checkIfMatchingPasswords('Password', 'PasswordConfirm')
     });
     this.formRegistration.valueChanges.debounceTime(500).subscribe((value) => {
       this.onControlValueChanged();
      });
      this.onControlValueChanged();
+  }
+
+  ngOnDestroy(){
+    document.body.style.backgroundImage = "none";
+  }
+
+  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      let passwordInput = group.controls[passwordKey],
+          passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        return passwordConfirmationInput.setErrors({notEquivalent: true})
+      }
+      else {
+          return passwordConfirmationInput.setErrors(null);
+      }
+    }
   }
 
   onControlValueChanged() : void {

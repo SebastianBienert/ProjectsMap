@@ -2,6 +2,7 @@
 using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models.Authentication;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,8 +72,14 @@ namespace ProjectsMap.WebApi.Controllers
             string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = HttpUtility.UrlEncode(code)}));
-
-            await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
+            try
+            {
+                await this.AppUserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking: " + callbackUrl);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
@@ -94,7 +101,7 @@ namespace ProjectsMap.WebApi.Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                return Ok("Email potwierdzony");
             }
             else
             {
