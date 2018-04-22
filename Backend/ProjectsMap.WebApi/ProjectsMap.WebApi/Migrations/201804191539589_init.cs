@@ -42,15 +42,15 @@ namespace ProjectsMap.WebApi.Migrations
                         ManagerCompanyId = c.Int(),
                         Photo = c.String(),
                         JobTitle = c.String(),
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
+                        ApplicationUserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.EmployeeId, t.CompanyId })
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUserId, cascadeDelete: true)
                 .ForeignKey("dbo.Companies", t => t.CompanyId, cascadeDelete: true)
                 .ForeignKey("dbo.Employees", t => new { t.ManagerId, t.ManagerCompanyId })
                 .Index(t => t.CompanyId)
                 .Index(t => new { t.ManagerId, t.ManagerCompanyId })
-                .Index(t => t.ApplicationUser_Id);
+                .Index(t => t.ApplicationUserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -69,9 +69,13 @@ namespace ProjectsMap.WebApi.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        Employee_EmployeeId = c.Int(),
+                        Employee_CompanyId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+                .ForeignKey("dbo.Employees", t => new { t.Employee_EmployeeId, t.Employee_CompanyId })
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
+                .Index(t => new { t.Employee_EmployeeId, t.Employee_CompanyId });
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -280,9 +284,10 @@ namespace ProjectsMap.WebApi.Migrations
             DropForeignKey("dbo.ProjectRoles", new[] { "EmployeeId", "EmployeeCompanyId" }, "dbo.Employees");
             DropForeignKey("dbo.Employees", new[] { "ManagerId", "ManagerCompanyId" }, "dbo.Employees");
             DropForeignKey("dbo.Employees", "CompanyId", "dbo.Companies");
-            DropForeignKey("dbo.Employees", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Employees", "ApplicationUserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUsers", new[] { "Employee_EmployeeId", "Employee_CompanyId" }, "dbo.Employees");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.EmployeeTechnology", new[] { "TechnologyRefId" });
             DropIndex("dbo.EmployeeTechnology", new[] { "EmployeeRefId", "EmployeeCompanyRefId" });
@@ -304,8 +309,9 @@ namespace ProjectsMap.WebApi.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", new[] { "Employee_EmployeeId", "Employee_CompanyId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Employees", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.Employees", new[] { "ApplicationUserId" });
             DropIndex("dbo.Employees", new[] { "ManagerId", "ManagerCompanyId" });
             DropIndex("dbo.Employees", new[] { "CompanyId" });
             DropIndex("dbo.Buildings", new[] { "CompanyId" });

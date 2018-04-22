@@ -1,0 +1,61 @@
+
+<div class="container">
+  <div class="card card-container">
+    <h2 class="text-center">Sign up</h2>
+    <form [formGroup]="formRegistration" (ngSubmit)="onSubmit(formRegistration)">
+
+      <div class="md-form">
+        <i class="fa fa-envelope prefix blue-text"></i>
+        <input type="text" class="form-control" id="Email" formControlName="Email" mdbActive>
+        <span *ngIf="formErrors.Email" class="alert alert-danger">{{ formErrors.Email }}</span>
+        <label for="Email">E-mail</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user-secret prefix blue-text"></i>
+        <input type="text" class="form-control" id="Username" formControlName="Username" mdbActive>
+        <span *ngIf="formErrors.Username" class="alert alert-danger">{{ formErrors.Username }}</span>
+        <label for="Email">Username</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-key prefix blue-text"></i>
+        <input type="password" class="form-control" id="Password" formControlName="Password" mdbActive>
+        <span *ngIf="formErrors.Username" class="alert alert-danger">{{ formErrors.Password }}</span>
+        <label for="Password">Password</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-check-circle prefix blue-text"></i>
+        <input type="password" class="form-control" id="PasswordConfirm" formControlName="PasswordConfirm" mdbActive>
+        <span *ngIf="formErrors.PasswordConfirm" class="alert alert-danger">{{ formErrors.PasswordConfirm }}</span>
+        <label for="PasswordConfirm">Password confirmation</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-hashtag prefix blue-text"></i>
+        <input type="text" class="form-control" id="DeveloperId" formControlName="DeveloperId" mdbActive>
+        <span *ngIf="formErrors.DeveloperId" class="alert alert-danger">{{ formErrors.DeveloperId }}</span>
+        <label for="DeveloperId">Developer ID</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user prefix blue-text"></i>
+        <input type="text" class="form-control" id="FirstName" formControlName="FirstName" mdbActive>
+        <span *ngIf="formErrors.FirstName" class="alert alert-danger">{{ formErrors.FirstName }}</span>
+        <label for="FirstName">First Name</label>
+      </div>
+
+      <div class="md-form">
+        <i class="fa fa-user-o prefix blue-text"></i>
+        <input type="text" class="form-control" id="Surname" formControlName="Surname" mdbActive>
+        <span *ngIf="formErrors.Surname" class="alert alert-danger">{{ formErrors.Surname }}</span>
+        <label for="Surname">Surname</label>
+      </div>
+
+    <div class="text-center">
+        <button [disabled]="!formRegistration.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Submit</button>
+    </div>
+    </form>
+  </div><!-- /card-container -->
+</div><!-- /container -->

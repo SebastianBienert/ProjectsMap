@@ -24,6 +24,11 @@
                     Login
                 </a>
             </li>
+            <li class="nav-item">
+                <a [routerLink]="['/registration']" class="nav-link waves-light" *ngIf="!securityObject.isAuthenticated">
+                    Registration
+                </a>
+            </li>
 
             <!-- Dropdown -->
             <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
