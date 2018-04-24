@@ -6,6 +6,7 @@
 
 .zoom {
     transition: transform .2s; /* Animation */
+    overflow-x: hidden;
 }
 
 .zoom:hover {

@@ -60,10 +60,8 @@ export class SearchComponent implements OnInit {
 
   selectSearchType(selected: number, searchTypeText: string) {
     this.searchTypeText = searchTypeText;
-
     this.selectedSearchType = selected;
   }
-
 
   search(): void {
     this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
