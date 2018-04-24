@@ -32,7 +32,9 @@ namespace ProjectsMap.WebApi
 
             /*var appXmlType = httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);*/
-            
+
+            httpConfig.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
             ConfigureOAuthTokenGeneration(app);
 
             ConfigureOAuthTokenConsumption(app);
