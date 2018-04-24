@@ -1,6 +1,6 @@
 <nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
   <div class="list-group">
-      <a routerLink="projects" *hasClaim="['canWriteProjects:true','claimType2:value']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <a routerLink="projects" *hasClaim="'canWriteProjects:true'" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Projects'}}
       </a>
       <a [routerLink]="['employees']" [routerLinkActive]="['router-link-active']" class="list-group-item">

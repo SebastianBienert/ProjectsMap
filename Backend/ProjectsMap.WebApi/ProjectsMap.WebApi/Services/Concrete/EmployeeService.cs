@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Web;
 using System.Web.Hosting;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Mappers;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
@@ -42,6 +43,11 @@ namespace ProjectsMap.WebApi.Services
                 return null;
 
             return DTOMapper.GetEmployeeDto(developer);
+        }
+
+        public Employee GetEmployeeEntity(int id)
+        {
+            return _repository.Get(id);
         }
 
         public IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology)
@@ -140,9 +146,9 @@ namespace ProjectsMap.WebApi.Services
                 return false;
         }
 
-        public int Post(EmployeeDto employee)
+        public int Post(EmployeeDto employee, ApplicationUser user)
         {
-           return  _repository.Add(employee);
+           return  _repository.Add(employee, user);
         }
 
         public void Delete(Employee employee)

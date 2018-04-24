@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private securityService: SecurityService,
     private route: ActivatedRoute,
     private router: Router) {
-      document.body.style.backgroundImage = "url('../../assets/1.jpg')";
+      document.body.style.backgroundImage = "url('../../assets/background.jpg')";
       document.body.style.backgroundPosition = "center center";
       document.body.style.backgroundRepeat = "no-repeat";
       document.body.style.backgroundAttachment = "fixed";

@@ -7,6 +7,7 @@ using ProjectsMap.WebApi.Repositories.Abstract;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
@@ -38,38 +39,45 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             }
         }
 
-        public int Add(EmployeeDto dto)
+        public int Add(EmployeeDto dto, ApplicationUser user)
         {
             using (var dbContext = new EfDbContext())
             {
+                dbContext.Entry(user).State = EntityState.Unchanged;
                 var existingTechnologies = dbContext.Technologies.ToList();
                 var existingTechnologiesNames = existingTechnologies.Select(x => x.Name).ToList();
-                var newTechnologiesNames = dto.Technologies.Except(existingTechnologiesNames).ToList();
+                var newTechnologiesNames = dto.Technologies?.Except(existingTechnologiesNames).ToList();
                 var dev = new Employee(dto.FirstName, dto.Surname)
                 {
                     CompanyId = dto.CompanyId,
                     EmployeeId = dto.Id,
-                    ManagerId = dto.ManagerId,
-                    ManagerCompanyId = dto.ManagerCompanyId,
-                    JobTitle = dto.JobTitle,
+                    ManagerId = dto?.ManagerId,
+                    ManagerCompanyId = dto?.ManagerCompanyId,
+                    JobTitle = dto?.JobTitle,
                     Company = dbContext.Companies.FirstOrDefault(c => c.CompanyId == dto.CompanyId),
-                    Email = dto.Email,
+                    Email = dto?.Email,
                     Technologies = dto.Technologies == null ? null : existingTechnologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
-                    Seat = dto.Seat == null ? null:  dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id)
+                    Seat = dto.Seat == null ? null : dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id),
+                    ApplicationUserId = user.Id
+                   // ApplicationUser = user
                 };
                 
                 //ADD NEW TECHNOLOGIES
-                foreach (var technology in newTechnologiesNames)
-                {
-                    Technology tech = new Technology()
+                if (newTechnologiesNames != null)
+                    foreach (var technology in newTechnologiesNames)
                     {
-                        Name = technology,
-                        Employees = new List<Employee>() {dev},
-                    };
-                    dev.Technologies.Add(tech);
-                }
+                        Technology tech = new Technology()
+                        {
+                            Name = technology,
+                            Employees = new List<Employee>() {dev},
+                        };
+                        dev.Technologies.Add(tech);
+                    }
 
+                //user.Employee = dev;
+              //  dbContext.Entry(user).State = EntityState.Unchanged;
                 dbContext.Employees.Add(dev);
+                dev.ApplicationUser = user;
                 dbContext.SaveChanges();
                 return dev.EmployeeId;
             }
