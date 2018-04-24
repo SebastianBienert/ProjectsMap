@@ -34,6 +34,8 @@ namespace ProjectsMap.WebApi
             //These lines force to return JSON instead of XML
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy
+                = IncludeErrorDetailPolicy.Always;
         }
     }
 }
