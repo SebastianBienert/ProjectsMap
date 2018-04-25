@@ -56,7 +56,6 @@ namespace ProjectsMap.WebApi.Controllers
             var userEntity = this.AppUserManager.Users.FirstOrDefault(x => x.Email == createUserModel.Email);
             var newEmployeeId = _employeeService.Post(new EmployeeDto()
             {
-                CompanyId = 1,
                 Id = createUserModel.DeveloperId,
                 Email = createUserModel.Email,
                 FirstName = createUserModel.FirstName,

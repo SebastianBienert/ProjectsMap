@@ -46,8 +46,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 project = new Project()
                 {
                     Technologies = technologies,
-                    Company = dbContext.Companies.Where(x => x.CompanyId == projectDto.CompanyId).FirstOrDefault(),
-                    CompanyId = projectDto.CompanyId,
                     Description = projectDto.Description,
                     DocumentationLink = projectDto.DocumentationLink,
                     RepositoryLink = projectDto.RepositoryLink
@@ -55,13 +53,11 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 var roles = new List<ProjectRole>();
                 foreach (var devRole in projectDto.EmployeesRoles)
                 {
-                    var employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeId == devRole.EmployeeId &&
-                                                                           d.CompanyId == devRole.CompanyId);
+                    var employee = dbContext.Employees.FirstOrDefault(d => d.EmployeeId == devRole.EmployeeId);
                     var projectRoleEntity = new ProjectRole()
                     {
                         Employee = employee,
                         EmployeeId = devRole.EmployeeId,
-                        EmployeeCompanyId = devRole.CompanyId,
                         ProjectId = project.ProjectId,
                         Project = project,
                         Role = devRole.Role

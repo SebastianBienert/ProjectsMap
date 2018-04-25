@@ -21,8 +21,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     return dbContext.Employees
                         .Include(d => d.Technologies)
-                        .Include(d => d.Seat)
-                        .Include(d => d.Company).ToList();
+                        .Include(d => d.Seat).ToList();
                 }
             }
         }
@@ -34,7 +33,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 return dbContext.Employees.
                     Include(d => d.Technologies)
                     .Include(d => d.Seat)
-                    .Include(d => d.Company)
                     .FirstOrDefault(x => x.EmployeeId == id);
             }
         }
@@ -43,23 +41,20 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             using (var dbContext = new EfDbContext())
             {
-                dbContext.Entry(user).State = EntityState.Unchanged;
+              //  dbContext.Entry(user).State = EntityState.Unchanged;
+                
                 var existingTechnologies = dbContext.Technologies.ToList();
                 var existingTechnologiesNames = existingTechnologies.Select(x => x.Name).ToList();
                 var newTechnologiesNames = dto.Technologies?.Except(existingTechnologiesNames).ToList();
                 var dev = new Employee(dto.FirstName, dto.Surname)
                 {
-                    CompanyId = dto.CompanyId,
                     EmployeeId = dto.Id,
                     ManagerId = dto?.ManagerId,
-                    ManagerCompanyId = dto?.ManagerCompanyId,
                     JobTitle = dto?.JobTitle,
-                    Company = dbContext.Companies.FirstOrDefault(c => c.CompanyId == dto.CompanyId),
                     Email = dto?.Email,
                     Technologies = dto.Technologies == null ? null : existingTechnologies.Where(x => dto.Technologies.Contains(x.Name)).ToList(),
                     Seat = dto.Seat == null ? null : dbContext.Seats.FirstOrDefault(s => s.SeatId == dto.Seat.Id),
-                    ApplicationUserId = user.Id
-                   // ApplicationUser = user
+                    //ApplicationUser = user
                 };
                 
                 //ADD NEW TECHNOLOGIES
@@ -74,10 +69,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                         dev.Technologies.Add(tech);
                     }
 
-                //user.Employee = dev;
-              //  dbContext.Entry(user).State = EntityState.Unchanged;
-                dbContext.Employees.Add(dev);
-                dev.ApplicationUser = user;
+                user.Employee = dev;
                 dbContext.SaveChanges();
                 return dev.EmployeeId;
             }

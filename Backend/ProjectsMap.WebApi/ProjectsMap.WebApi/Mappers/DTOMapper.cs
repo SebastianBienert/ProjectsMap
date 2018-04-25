@@ -32,7 +32,6 @@ namespace ProjectsMap.WebApi.Mappers
         {
             return new ProjectDto()
             {
-                CompanyId = project.CompanyId,
                 Description = project.Description,
                 EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname).ToList(),
                 DocumentationLink = project.DocumentationLink,
@@ -46,17 +45,14 @@ namespace ProjectsMap.WebApi.Mappers
         {
             var dto = new EmployeeDto()
             {
-                ManagerCompanyId = employee.ManagerCompanyId,
                 Id = employee.EmployeeId,     
                 Url = Url.Link("GetEmployeeById", new { id = employee.EmployeeId }),
                 PhotoUrl = employee.Photo,
                 //PhotoUrl = employee.Photo == null ? null : Url.Link("GetEmployeePhoto", new { id = employee.EmployeeId }),
                 ManagerId = employee.ManagerId,
-                CompanyId = employee.CompanyId,
                 FirstName = employee.FirstName,
                 Surname = employee.Surname,
                 Email = employee.Email,
-                CompanyName = employee.Company.Name,
                 JobTitle = employee.JobTitle,
                 Technologies = employee.Technologies.Select(x => x.Name).ToList(),
             };
@@ -150,30 +146,8 @@ namespace ProjectsMap.WebApi.Mappers
                 Id = building.BuildingId,
                 Address = building.Address,
 				FloorsIds = building.Floors.Select(f => f.FloorId).ToList(),
-				CompanyId = building.CompanyId
             };
         }
-
-        public static CompanyDto GetCompanyDto(Company company)
-        {
-            return new CompanyDto()
-            {
-                Id = company.CompanyId,
-                Name = company.Name,
-                Buildings = company.Buildings.Select(b => GetBuildingDto(b)).ToList(),
-                Developers = company.Employees.Select(d => GetEmployeeDto(d)).ToList(),
-                ProjectsId = company.Projects.Select(p =>
-                {
-                    return new ProjectDtoShort()
-                    {
-                        Id = p.ProjectId,
-                        Name = p.Description
-                    };
-                }).ToList()  
-            };
-
-        }
-
 
 		public static FloorDto GetFloorDto(Floor floor)
 		{

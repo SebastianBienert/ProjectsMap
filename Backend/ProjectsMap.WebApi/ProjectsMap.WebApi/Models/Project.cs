@@ -17,10 +17,6 @@ namespace ProjectsMap.WebApi.Models
 
         public string DocumentationLink { get; set; }
 
-        public virtual Company Company { get; set; }
-
-        public int? CompanyId { get; set; }
-
         //Many to many relation (Technology - Project)
         public virtual ICollection<Technology> Technologies { get; set; }
 

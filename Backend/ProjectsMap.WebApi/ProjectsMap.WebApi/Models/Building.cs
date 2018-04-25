@@ -13,10 +13,6 @@ namespace ProjectsMap.WebApi.Models
 
         public string Address { get; set; }
 
-        public virtual Company Company { get; set; }
-
-        public int? CompanyId { get; set; }
-
         public virtual ICollection<Floor> Floors { get; set; }
     }
 }

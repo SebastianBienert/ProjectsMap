@@ -32,20 +32,14 @@ namespace ProjectsMap.WebApi.Models
         public bool WantToHelp { get; set; }
 
         public int? ManagerId { get; set; }
-        public int? ManagerCompanyId { get; set; }
+
         public virtual Employee Manager { get; set; }
 
         public string Photo { get; set; }
 
         public string JobTitle { get; set; }
 
-        public virtual Company Company { get; set; }
-        
         public virtual ApplicationUser ApplicationUser { get; set; }
-
-        public string ApplicationUserId { get; set; }
-
-        public int CompanyId { get; set; }
 
         //Many to many relation (Technology - Employee)
         public virtual ICollection<Technology> Technologies { get; set; } 

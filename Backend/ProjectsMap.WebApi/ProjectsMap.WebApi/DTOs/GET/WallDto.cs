@@ -10,7 +10,6 @@ namespace ProjectsMap.WebApi.DTOs
     {
         public int Id { get; set; }
 
-      //  public Vertex StartVertex { get; set; }
 		public Vertex StartVertex { get; set; }
 
 		public Vertex EndVertex { get; set; }

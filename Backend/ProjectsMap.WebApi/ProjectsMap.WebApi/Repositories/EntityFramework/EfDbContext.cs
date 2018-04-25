@@ -26,8 +26,6 @@ namespace ProjectsMap.WebApi.Repositories
 
         public DbSet<Building> Buildings { get; set; }
 
-        public DbSet<Company> Companies { get; set; }
-
         public DbSet<Floor> Floors { get; set; }
 
         public DbSet<Wall> Walls { get; set; }
@@ -96,30 +94,11 @@ namespace ProjectsMap.WebApi.Repositories
                 .WithMany(b => b.Floors)
                 .HasForeignKey(f => f.BuildingId);
 
-            //One to many relation [Company - Building]
-            modelBuilder.Entity<Building>()
-                .HasOptional<Company>(b => b.Company)
-                .WithMany(c => c.Buildings)
-                .HasForeignKey(b => b.CompanyId);
-
-            //One to many relation [Company - Employee]
-            modelBuilder.Entity<Employee>()
-                .HasRequired<Company>(d => d.Company)
-                .WithMany(c => c.Employees)
-                .HasForeignKey(d => d.CompanyId);
-
-            //One to many relation [Company - Projects]
-            modelBuilder.Entity<Project>()
-                .HasOptional(p => p.Company)
-                .WithMany(c => c.Projects)
-                .HasForeignKey(p => p.CompanyId);
 
             //One to zero one relation [ApplicationUser - Employee]
-            modelBuilder.Entity<Employee>()
-                .HasRequired(e => e.ApplicationUser)
-                .WithMany()
-                .HasForeignKey(e => e.ApplicationUserId);
-                
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOptional(au => au.Employee)
+                .WithRequired(e => e.ApplicationUser);
 
             //One to many [Floor - Wall]
             modelBuilder.Entity<Wall>()
@@ -145,7 +124,7 @@ namespace ProjectsMap.WebApi.Repositories
                 .WithMany(t => t.Employees)
                 .Map(dt =>
                 {
-                    dt.MapLeftKey("EmployeeRefId", "EmployeeCompanyRefId");
+                    dt.MapLeftKey("EmployeeRefId");
                     dt.MapRightKey("TechnologyRefId");
                     dt.ToTable("EmployeeTechnology");
                 });
@@ -154,13 +133,13 @@ namespace ProjectsMap.WebApi.Repositories
             modelBuilder.Entity<Employee>()
                 .HasOptional(d => d.Manager)
                 .WithMany()
-                .HasForeignKey(d => new {d.ManagerId, d.ManagerCompanyId});
+                .HasForeignKey(d => d.ManagerId);
 
             //CUSTOM MANY TO MANY [PROJECT - DEV] WITH ROLE
             modelBuilder.Entity<ProjectRole>()
                 .HasRequired(r => r.Employee)
                 .WithMany(p => p.ProjectRoles)
-                .HasForeignKey(r => new {r.EmployeeId, r.EmployeeCompanyId} );
+                .HasForeignKey(r => r.EmployeeId);
 
             modelBuilder.Entity<ProjectRole>()
                 .HasRequired(r => r.Project)
@@ -186,7 +165,7 @@ namespace ProjectsMap.WebApi.Repositories
 
             //Composite Key Employee [devID, companyID]
             modelBuilder.Entity<Employee>()
-                .HasKey(d => new { d.EmployeeId, d.CompanyId });
+                .HasKey(d => d.EmployeeId);
 
             //Composite Key ProjectRole [devID, projectID]
             modelBuilder.Entity<ProjectRole>()
