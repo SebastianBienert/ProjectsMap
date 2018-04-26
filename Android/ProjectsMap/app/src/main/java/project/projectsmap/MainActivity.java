@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final String token = getIntent().getExtras().getString("token");
         clickShowMap = (Button) findViewById(R.id.buttonShowMap);
         clickShowFloor = (Button) findViewById(R.id.buttonShowFloor);
         clickSearchDevelopers = (Button) findViewById(R.id.buttonSearchDevelopers);
@@ -77,30 +78,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ShowMapActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSearchDevelopers.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchDevelopersActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSearchProjects.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchProjectsActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickShowFloor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchFloorActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });
         clickSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SaveToFileActivity.class);
+                intent.putExtra("token", token);
                 startActivity(intent);
             }
         });

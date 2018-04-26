@@ -37,6 +37,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_projects);
 
+        final String token = getIntent().getExtras().getString("token");
         clickSerach = (Button) findViewById(R.id.buttonSearch);
         clickBack = (Button) findViewById(R.id.buttonBack);
         inputDataField = (TextView) findViewById(R.id.editTextInputData);
@@ -70,6 +71,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
                 waitForData.setVisibility(View.VISIBLE);
                 adapter.list.clear();
                 FetchDataAboutProject process = new FetchDataAboutProject();
+                process.setToken(token);
                 process.setSaveDataToFile(false);
                 process.setChoice(choice);
                 process.setInputData(inputDataField.getText().toString());

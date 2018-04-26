@@ -76,6 +76,7 @@
         android:textOff="Off"
         android:textOn="On"
         android:textStyle="bold" />
+
     <!-- android:layout_alignLeft="@+id/buttonPaint"
     android:layout_alignStart="@+id/buttonPaint"
     android:layout_below="@+id/buttonPaint"-->

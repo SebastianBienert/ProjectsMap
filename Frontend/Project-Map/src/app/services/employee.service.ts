@@ -1,15 +1,15 @@
+import { SecurityService } from './../security/security.service';
 import { HandleError, HttpErrorHandler } from './http-error-handler.service';
 import { Employee } from './../common-interfaces/employee';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { ResponseContentType } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-
+import { Globals } from './../globals';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -20,15 +20,15 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
-  employeeUrl = 'http://localhost:58923/api/developers';  // For localhosted webapi
-  //employeeUrl = 'https://projectsmapwebapi.azurewebsites.net/api/developers';  // For localhosted webapi
+  employeeUrl: string;
   private handleError: HandleError;
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler,
+    private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('EmployeeService');
-
+    this.employeeUrl = globals.getUrl() + '/api/developers';
     this.searchedEmployees = this.getEmployees();
   }
 
@@ -39,17 +39,38 @@ export class EmployeeService {
     this.http.post(this.employeeUrl, employee).subscribe(
       res => {
         console.log(res);
-        if(fileToUpload != null )  //check if file is not empty
+        if(fileToUpload != null ) 
           this.uploadEmployeePhoto(fileToUpload, employee.Id);
+
       },
       err => {
-        console.log("Error occured");
+        console.log(err);
       }
     );
   }
 
+  
+  editEmployee(fileToUpload: File, employee : Employee)
+  {
+    this.http.put(this.employeeUrl + "/edit", employee).subscribe(
+      res => {
+        console.log(res);
+        if(fileToUpload != null )
+        {
+          this.deleteEmployeePhoto(employee.Id).subscribe(result =>{
+            this.uploadEmployeePhoto(fileToUpload, employee.Id);
+          });
+        }
+          
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
+    
     return this.http.get<Employee[]>(this.employeeUrl)
       .pipe(
         catchError(this.handleError('getEmployees', []))
@@ -61,6 +82,13 @@ export class EmployeeService {
       .pipe(
         catchError(this.handleError<Employee>('getEmployee'))
       );
+  }
+
+  getCurrentUserEmployeeData(){
+    return this.http.get<Employee>(this.employeeUrl + "/myInfo")
+    .pipe(
+      catchError(this.handleError<Employee>('getEmployee'))
+    );
   }
 
   searchEmployeeByTechnology(technology: string, page: number): Observable<any> {
@@ -96,6 +124,13 @@ export class EmployeeService {
     return this.http.get<Employee[]>(this.employeeUrl + "/like/" + query)
     .pipe(
       catchError(this.handleError('getEmployees', [])));
+  }
+
+  deleteEmployeePhoto(id: number): Observable<any>{
+    return this.searchedEmployees = this.http.delete<any>(this.employeeUrl + "/photo/" + id)
+    .pipe(
+      catchError(this.handleError('getEmployees', []))
+    );
   }
 
   uploadEmployeePhoto(fileToUpload: File, id: number) {

@@ -16,10 +16,12 @@ namespace ProjectsMap.WebApi.Services
     public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository _repository;
+        private IFloorRepository _floorRepository;
 
-        public EmployeeService(IEmployeeRepository repository)
+        public EmployeeService(IEmployeeRepository repository, IFloorRepository floorRepository)
         {
             _repository = repository;
+            _floorRepository = floorRepository;
         }
 
         public IEnumerable<EmployeeDto> GetAllEmployees()
@@ -56,6 +58,19 @@ namespace ProjectsMap.WebApi.Services
             {
                 return null;
             }
+        }
+
+        public FloorDto GetEmployeeFloor(int id)
+        {
+            var employee = _repository.Get(id);
+            var floors = _floorRepository.Floors.Select(x => DTOMapper.GetFloorDto(x));
+            if (employee == null || floors == null)
+                return null;
+            var employeeRoomId = employee.Seat.RoomId;
+            var employeeFloor = floors.Where(f => f.Rooms.Where(r => r.Id == employeeRoomId).First().Id == employeeRoomId).First();
+            if (employeeFloor == null)
+                return null;
+            return employeeFloor;
         }
 
         public IEnumerable<EmployeeDto> GetEmployeesByName(string name)
@@ -135,16 +150,17 @@ namespace ProjectsMap.WebApi.Services
             _repository.Delete(employee);
         }
 
-        public void Update(Employee employee)
+        public void Update(int employeeId, EmployeeDto employee)
         {
-            _repository.Update(employee);
+            _repository.Update(employeeId, employee);
         }
 
         public IEnumerable<EmployeeDto> GetEmployeesByQuery(string query)
         {
             //Query by id
             List<Employee> result;
-            if (int.TryParse(query, out int n))
+            int n;
+            if (int.TryParse(query, out n))
             {
                 result = _repository.Employees.Where(e => e.EmployeeId.ToString().StartsWith(query)).ToList();
             }

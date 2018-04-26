@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.DTOs.POST;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Services.Abstract;
@@ -22,6 +23,7 @@ namespace ProjectsMap.WebApi.Controllers
             _service = service;
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
@@ -29,6 +31,7 @@ namespace ProjectsMap.WebApi.Controllers
             return Ok(_service.GetAllProjects());
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [Route("{id:int}", Name = "GetProjectById")]
         public IHttpActionResult Get(int id)
         {
@@ -40,6 +43,7 @@ namespace ProjectsMap.WebApi.Controllers
                 return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
         [Route("name/{name}")]
         public IHttpActionResult Get(string name)
@@ -55,6 +59,7 @@ namespace ProjectsMap.WebApi.Controllers
             }
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult GetProjectsByTechnology(string technology)
@@ -67,6 +72,40 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
+        [HttpGet]
+        [Route("pagination/technology/{technology}", Name = "GetProjectsByTechnology")]
+        public IHttpActionResult GetProjectsByTechnology(string technology, int page = 0, int pageSize = 10)
+        {
+            var projects = _service.GetProjectsByTechnology(technology);
+
+            if(projects == null)
+                return NotFound();
+
+            var dtos = projects.ToList();
+            var totalCount = dtos.ToList().Count;
+            var pageCount = Math.Ceiling((double)totalCount / pageSize);
+            var prevPage = page > 0 ? Url.Link("GetProjectsByTechnology", new { technology = technology, page = page - 1, pageSize = pageSize }) : "";
+            var nextPage = page < pageCount - 1 ? Url.Link("GetProjectsByTechnology", new { technology = technology, page = page + 1, pageSize = pageSize }) : "";
+
+            var filtered = dtos.Skip(page * pageSize).Take(pageSize);
+            var result = filtered.Select(dto =>
+            {
+                dto.Url = Url.Link("GetProjectById", new { id = dto.Id });
+                return dto;
+            }).ToList();
+
+            return Ok(new
+            {
+                TotalProjects = totalCount,
+                TotalPages = pageCount,
+                PreviousPage = prevPage,
+                NextPage = nextPage,
+                Result = result
+            });
+        }
+
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
         [Route("pagination/{name}", Name = "GetProjectsByName")]
         public IHttpActionResult Get(string name, int page = 0, int pageSize = 10)
@@ -99,7 +138,7 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-
+        [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post(CreateProject dtoProject)

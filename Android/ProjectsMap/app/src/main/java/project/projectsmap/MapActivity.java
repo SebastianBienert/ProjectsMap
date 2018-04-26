@@ -55,26 +55,26 @@ public class MapActivity extends AppCompatActivity {
         if(choice){
             ArrayList<Room> rooms = floor.Rooms;
             for(int i = 0; i < rooms.size(); i++){
-                DrawPolygon(rooms.get(i).getWalls(),false, "#000000");
+                DrawRoom(rooms.get(i).getWalls(), "#000000", "#D8D8D8");
                 ArrayList<Seat> seats = rooms.get(i).getSeats();
                 for(int j = 0; j < seats.size(); j++){
-                    DrawRectangle(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
+                    DrawSeat(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
                 }
             }
             if(placeDeveloper!=null){
-                DrawRectangle(placeDeveloper.getX(),placeDeveloper.getY(),10,10, true, "#FF4081");
+                DrawSeat(placeDeveloper.getX(),placeDeveloper.getY(),10,10, true, "#FF4081");
             }
         }else{
-            DrawRectangle(50,50,200,200, false, "#000000");
-            DrawRectangle(250,50,200,200, false, "#000000");
-            DrawRectangle(100,100,20,20, true, "#000000");
-            DrawRectangle(150,100,20,20, true, "#000000");
+            DrawSeat(50,50,200,200, false, "#000000");
+            DrawSeat(250,50,200,200, false, "#000000");
+            DrawSeat(100,100,20,20, true, "#000000");
+            DrawSeat(150,100,20,20, true, "#000000");
             ArrayList<Wall> walls = new ArrayList<Wall>(Arrays.asList(new Wall(50,250,50,450),new Wall(50,450,450,450),new Wall(450,450,450,350),
                     new Wall(450,350,250,350), new Wall(250,350,250,250), new Wall(250,250,50,250)));
-            DrawPolygon(walls,false, "#000000");
+            DrawRoom(walls, "#000000", "#D8D8D8");
         }
     }
-    private void DrawRectangle(int x, int y, int width, int length, boolean fulfillment, String colorString){
+    private void DrawSeat(int x, int y, int width, int length, boolean fulfillment, String colorString){
         Paint paint = new Paint();
         paint.setColor(Color.parseColor(colorString));
         if(fulfillment){
@@ -84,14 +84,13 @@ public class MapActivity extends AppCompatActivity {
         }
         canvas.drawRect(x,y,x+length,y+width,paint);
     }
-    private void DrawPolygon(ArrayList<Wall> walls, boolean fulfillment, String colorString){
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor(colorString));
-        if(fulfillment){
-            paint.setStyle(Paint.Style.FILL);
-        }else{
-            paint.setStyle(Paint.Style.STROKE);
-        }
+    private void DrawRoom(ArrayList<Wall> walls, String colorStringWalls, String colorStringArea){
+        Paint paintWalls = new Paint();
+        Paint paintArea = new Paint();
+        paintWalls.setColor(Color.parseColor(colorStringWalls));
+        paintArea.setColor(Color.parseColor(colorStringArea));
+        paintArea.setStyle(Paint.Style.FILL);
+        paintWalls.setStyle(Paint.Style.STROKE);
         Path wallPath = new Path();
         wallPath.reset();
         wallPath.moveTo(walls.get(0).beginX,walls.get(0).beginY);
@@ -100,6 +99,7 @@ public class MapActivity extends AppCompatActivity {
             wallPath.lineTo(walls.get(i).beginX,walls.get(i).beginY);
             wallPath.lineTo(walls.get(i).endX,walls.get(i).endY);
         }
-        canvas.drawPath(wallPath,paint);
+        canvas.drawPath(wallPath,paintArea);
+        canvas.drawPath(wallPath,paintWalls);
     }
 }

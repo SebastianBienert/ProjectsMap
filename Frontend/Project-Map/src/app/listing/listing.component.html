@@ -1,8 +1,9 @@
-
-<nav id="sidebar" class="scrollable" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
-  [scrollWindow]="false">
-  <div class="sidebar-header">
-    <app-person-card *ngFor="let employee of employees" [employee]='employee'></app-person-card>
-    <app-project-card *ngFor="let project of projects" [project]='project'></app-project-card>
-  </div>
-</nav>
+<div class="collapse" [ngClass]="{'in': isOpen}">
+  <nav id="sidebar" class="scrollable" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onScroll()"
+    [scrollWindow]="false">
+    <div class="sidebar-header">
+      <app-person-card *ngFor="let employee of employees" [employee]='employee'></app-person-card>
+      <app-project-card *ngFor="let project of projects" [project]='project'></app-project-card>
+    </div>
+  </nav>
+</div>

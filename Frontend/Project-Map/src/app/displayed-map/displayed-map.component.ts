@@ -92,7 +92,6 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
       })
       .click(function() {
         //will be changed to displaying Employee information TODO
-        //console.log(seat.DeveloperId);
       });
       });
     });

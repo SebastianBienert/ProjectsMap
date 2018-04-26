@@ -1,10 +1,21 @@
-<div  class="card text-center custom-card" style="width: 20rem;">
+<div (click)='showMore()' class="zoom card text-center custom-card" style="width: 20rem;">
   <div class="card-block">
-    <h4 class="card-title">{{project.Description}}ktoś to zepsuł i zostawił</h4>
+    <h4 class="card-title">{{project.Description}}</h4>
     <!-- <p class="card-text">{{employee.Techologies[0]}}</p> -->
-      <p>
-        {{project.RepositoryLink}}
-      </p>
-    
+      <div class="card-section-left">
+        <div class="card-info-group">
+            <div class="card-label">Repository: </div>
+            <div class="card-content">{{project.RepositoryLink}}</div>
+        </div>
+        <div class="card-info-group">
+            <div class="card-label">Documentation:</div>
+            <div class="card-content">{{project.DocumentationLink}}</div>
+        </div>
+      </div>
+      <div class="card-section-right">
+        <div *ngFor="let tech of project.Technologies" class="tag">
+          {{tech}}
+        </div>
+      </div>
   </div>
 </div>

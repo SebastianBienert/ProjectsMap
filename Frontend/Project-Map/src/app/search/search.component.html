@@ -1,23 +1,4 @@
-<!-- <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo justify-content-between">
-    <logo>
-        <a class="navbar-brand" href="">Navbar</a>
-    </logo>
 
-    
-
-    <links>
-        <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
-            <input [(ngModel)]="filter" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
-                aria-label="Search">
-            <button (click)='search()' class="btn btn-outline-success btn-sm my-0 waves-light" type="submit" mdbRippleRadius>Szukaj</button>
-        </form>
-    </links>
-</mdb-navbar> -->
-
-
-<!--Navbar-->
-
-<!--Navbar-->
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
 
     <!-- Navbar brand -->
@@ -36,11 +17,16 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/managementPage']"  class="nav-link waves-light" mdbRippleRadius>Management</a>
+                <a [routerLink]="['/managementPage']" *hasClaim="['canWriteProjects:true','claimType2:value']" class="nav-link waves-light">Management</a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="['/login']" class="nav-link waves-light" *ngIf="!securityObject.isAuthenticated">
+                    Login
+                </a>
             </li>
 
             <!-- Dropdown -->
-            <li class="nav-item dropdown" dropdown>
+            <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
                 <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
                     {{searchTypeText}}
                     <span class="caret"></span>
@@ -58,11 +44,24 @@
         <!-- Links -->
 
         <!-- Search form -->
-        <form class="form-inline waves-light waves-light ml-auto" mdbRippleRadius>
+        <form class="form-inline waves-light waves-light ml-auto" *ngIf="securityObject.isAuthenticated" mdbRippleRadius>
             <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
                 aria-label="Search">
-                <!-- [(ngModel)]="filter" -->
+            <!-- [(ngModel)]="filter" -->
         </form>
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
+                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{securityObject.userName}}</span></a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+                    <a [routerLink]="['/managementPage/employees']" class="dropdown-item waves-light" mdbRippleRadius>Edit</a>
+                    <a href="#" (click)="logout()" class="dropdown-item waves-light" *ngIf="securityObject.isAuthenticated">
+                        Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+        
     </links>
     <!-- Collapsible content -->
 

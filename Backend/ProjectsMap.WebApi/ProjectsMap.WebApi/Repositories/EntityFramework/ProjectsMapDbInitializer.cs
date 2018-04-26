@@ -5,6 +5,9 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.EntityFramework
@@ -13,8 +16,12 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	{
 		protected override void Seed(EfDbContext context)
 		{
-			// base.Seed(context);
-			IList<Vertex> vertices = new List<Vertex>()
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            
+            // base.Seed(context);
+            IList<Vertex> vertices = new List<Vertex>()
 			{
 				new Vertex(0,0),
 				new Vertex(80,20),//seat free
@@ -1016,10 +1023,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			{
 				new Employee()
 				{
+                    
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Witkor",
 					Surname = "Bukowski",
                     EmployeeId = 1,
-					Technologies = new List<Technology>()
+                    Photo = @"~/EmployeesPhoto/1.jpg",
+
+                    Technologies = new List<Technology>()
 					{
 					   technologies[0],technologies[3]
 					},
@@ -1325,6 +1335,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					JobTitle = "Developer", Email = "mail@gnail.ru", FirstName = "Ewa",
 					Surname = "Witkowska",
                     EmployeeId = 18,
+                    
 					Technologies = new List<Technology>()
 					{
 						technologies[5],technologies[1],technologies[0]
@@ -1340,7 +1351,73 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				},
 			};
 
-			foreach (var dev in developers)
+
+
+
+
+
+
+
+            var user = new ApplicationUser()
+            {
+                UserName = "SuperPowerUser",
+                Email = "taiseer.joudeh@gmail.com",
+                EmailConfirmed = true,
+                JoinDate = DateTime.Now.AddYears(-3),
+            };
+
+
+
+            manager.Create(user, "MySuperP@ss!1");
+            var first = manager.Users.First();
+            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true"));
+            manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true"));
+
+            var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
+            var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
+            manager.AddClaim(first.Id, readClaim);
+		    manager.AddClaim(first.Id, readProjectsClaim);
+
+            //if (roleManager.Roles.Count() == 0)
+            //{
+            //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+            //    roleManager.Create(new IdentityRole { Name = "Admin" });
+            //    roleManager.Create(new IdentityRole { Name = "User" });
+            //}
+
+            //var adminUser = manager.FindByName("SuperPowerUser");
+
+            //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+
+            developers.First().ApplicationUser = user;
+
+            int i = 0;
+            foreach (var dev in developers.Skip(1))
+            {
+                var user2 = new ApplicationUser()
+                {
+                    UserName = $"AverageUser{i}",
+                    Email = $"avg{i}@gmail.com",
+                    EmailConfirmed = true,
+                    JoinDate = DateTime.Now.AddYears(-3)
+                };
+                
+                manager.Create(user2, "MySuperP@ss!1");
+                string userName = $"AverageUser{i}";
+                var usr = manager.Users.First(x => x.UserName == userName);
+                manager.AddClaim(usr.Id, readClaim);
+                manager.AddClaim(usr.Id, readProjectsClaim);
+                dev.ApplicationUser = user2;
+                i++;
+            }
+
+
+
+
+
+
+
+            foreach (var dev in developers)
 			{
                 dev.ProjectRoles.ToList()[0].EmployeeId = dev.EmployeeId;
 				dev.ProjectRoles.ToList()[0].Employee = dev;
@@ -1351,171 +1428,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				}
 			}
 
-			IList<User> users = new List<User>
-			{
-				new User()
-				{
-            //        UserId = 1,
-                    Created = DateTime.Now,
-					Employee = developers[0],
-					Username = "Wiktor",
-					Password = "secret",
-					Email = "michal@gmail.com"
-				},
-				new User()
-				{
-            //        UserId = 2,
-                    Created = DateTime.Now,
-					Employee = developers[1],
-					Username = "Michal",
-					Password = "secret2",
-					Email = "wiktor@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 3,
-                    Created = DateTime.Now,
-					Employee = developers[2],
-					Username = "Parcownik1",
-					Password = "secret",
-					Email = "pracownik1@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 4,
-                    Created = DateTime.Now,
-					Employee = developers[3],
-					Username = "Parcownik2",
-					Password = "secret",
-					Email = "pracownik2@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 5,
-                    Created = DateTime.Now,
-					Employee = developers[4],
-					Username = "Parcownik3",
-					Password = "secret",
-					Email = "pracownik3@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 6,
-                    Created = DateTime.Now,
-					Employee = developers[5],
-					Username = "Parcownik4",
-					Password = "secret",
-					Email = "pracownik4@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 7,
-                    Created = DateTime.Now,
-					Employee = developers[6],
-					Username = "Parcownik5",
-					Password = "secret",
-					Email = "pracownik5@gmail.com"
-				},
-				new User()
-				{
-          //          UserId = 8,
-                    Created = DateTime.Now,
-					Employee = developers[7],
-					Username = "Parcownik6",
-					Password = "secret",
-					Email = "pracownik6@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 9,
-                    Created = DateTime.Now,
-					Employee = developers[8],
-					Username = "Parcownik7",
-					Password = "secret",
-					Email = "pracownik7@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 10,
-                    Created = DateTime.Now,
-					Employee = developers[9],
-					Username = "Parcownik8",
-					Password = "secret",
-					Email = "pracownik8@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 11,
-                    Created = DateTime.Now,
-					Employee = developers[10],
-					Username = "Parcownik9",
-					Password = "secret",
-					Email = "pracownik9@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 12,
-                    Created = DateTime.Now,
-					Employee = developers[11],
-					Username = "Parcownik10",
-					Password = "secret",
-					Email = "pracownik10@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 13,
-                    Created = DateTime.Now,
-					Employee = developers[12],
-					Username = "Parcownik11",
-					Password = "secret",
-					Email = "pracownik11@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 14,
-                    Created = DateTime.Now,
-					Employee = developers[13],
-					Username = "Parcownik12",
-					Password = "secret",
-					Email = "pracownik12@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 15,
-                    Created = DateTime.Now,
-					Employee = developers[14],
-					Username = "Parcownik13",
-					Password = "secret",
-					Email = "pracownik13@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 16,
-                    Created = DateTime.Now,
-					Employee = developers[15],
-					Username = "Parcownik14",
-					Password = "secret",
-					Email = "pracownik14@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 17,
-                    Created = DateTime.Now,
-					Employee = developers[16],
-					Username = "Parcownik15",
-					Password = "secret",
-					Email = "pracownik15@gmail.com"
-				},
-					new User()
-				{
-          //          UserId = 18,
-                    Created = DateTime.Now,
-					Employee = developers[17],
-					Username = "Parcownik16",
-					Password = "secret",
-					Email = "pracownik16@gmail.com"
-				},
-			};
+			
 
 			IList<Seat> seatsFirstRoom = new List<Seat>()
 			{
@@ -1524,6 +1437,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 1,
 					Employee = developers[0],
 					EmployeeId = 1,
+                    RoomId = 1,
                     X = vertices[4].X,
                     Y = vertices[4].Y,
 
@@ -1533,6 +1447,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 2,
 					Employee = developers[1],
 					EmployeeId = 2,
+                    RoomId = 1,
                     X = vertices[5].X,
                     Y = vertices[5].Y,
 				},
@@ -1541,6 +1456,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 3,
 					Employee = developers[2],
 					EmployeeId = 3,
+                    RoomId = 1,
                     X = vertices[1].X,
                     Y = vertices[1].Y,
 				},
@@ -1549,6 +1465,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 					SeatId = 4,
 					Employee = developers[3],
 					EmployeeId = 4,
+                    RoomId = 1,
                     X = vertices[71].X,
                     Y = vertices[71].Y,
 				},
@@ -1559,6 +1476,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 5,
 					Employee = developers[10],
+                    RoomId = 3,
                     X = vertices[16].X,
                     Y = vertices[16].Y,
 				},
@@ -1566,6 +1484,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 6,
 					Employee = developers[11],
+                    RoomId = 3,
                     X = vertices[17].X,
                     Y = vertices[17].Y,
 				},
@@ -1576,6 +1495,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 7,
 					Employee = null,
+                    RoomId = 4,
                     X = vertices[19].X,
                     Y = vertices[19].Y,
 				},
@@ -1583,6 +1503,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 8,
 					Employee = null,
+                    RoomId = 4,
                     X = vertices[62].X,
                     Y = vertices[62].Y,
 				},
@@ -1593,6 +1514,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 9,
 					Employee = null,
+                    RoomId = 5,
                     X = vertices[63].X,
                     Y = vertices[63].Y,
 				},
@@ -1600,6 +1522,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 10,
 					Employee = null,
+                    RoomId = 5,
                     X = vertices[64].X,
                     Y = vertices[64].Y,
 				},
@@ -1610,6 +1533,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 11,
 					Employee = null,
+                    RoomId = 6,
                     X = vertices[65].X,
                     Y = vertices[65].Y,
 				},
@@ -1617,6 +1541,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 12,
 					Employee = null,
+                    RoomId = 6,
                     X = vertices[66].X,
                     Y = vertices[66].Y,
 				},
@@ -1638,6 +1563,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 13,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[67].X,
                     Y = vertices[67].Y,
 
@@ -1646,6 +1572,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 14,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[68].X,
                     Y = vertices[68].Y,
 				},
@@ -1653,6 +1580,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 15,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[69].X,
                     Y = vertices[69].Y,
 				},
@@ -1660,6 +1588,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 16,
 					Employee = null,
+                    RoomId = 7,
                     X = vertices[70].X,
                     Y = vertices[70].Y,
 				},
@@ -1670,6 +1599,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 17,
 					Employee = developers[4],
+                    RoomId = 2,
                     X = vertices[72].X,
                     Y = vertices[72].Y,
 				},
@@ -1677,6 +1607,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 18,
 					Employee = developers[5],
+                    RoomId = 2,
                     X = vertices[73].X,
                     Y = vertices[73].Y,
 				},
@@ -1684,6 +1615,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 19,
 					Employee = developers[6],
+                    RoomId = 2,
                     X = vertices[74].X,
                     Y = vertices[74].Y,
 				},
@@ -1691,6 +1623,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 20,
 					Employee = developers[7],
+                    RoomId = 2,
                     X = vertices[75].X,
                     Y = vertices[75].Y,
 				},
@@ -1698,6 +1631,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 21,
 					Employee = developers[8],
+                    RoomId = 2,
                     X = vertices[76].X,
                     Y = vertices[76].Y,
 				},
@@ -1705,6 +1639,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 22,
 					Employee = developers[9],
+                    RoomId = 2,
                     X = vertices[77].X,
                     Y = vertices[77].Y,
 				},
@@ -1712,6 +1647,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 23,
 					Employee = null,
+                    RoomId = 2,
                     X = vertices[78].X,
                     Y = vertices[78].Y,
 				},
@@ -1719,6 +1655,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 24,
 					Employee = null,
+                    RoomId = 2,
                     X = vertices[79].X,
                     Y = vertices[79].Y,
 				},
@@ -1729,6 +1666,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 25,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[80].X,
                     Y = vertices[80].Y,
 				},
@@ -1736,6 +1674,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 26,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[81].X,
                     Y = vertices[81].Y,
 				},
@@ -1743,6 +1682,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 27,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[82].X,
                     Y = vertices[82].Y,
 				},
@@ -1750,6 +1690,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 28,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[83].X,
                     Y = vertices[83].Y,
 				},
@@ -1757,6 +1698,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 29,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[84].X,
                     Y = vertices[84].Y,
 				},
@@ -1764,6 +1706,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 30,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[85].X,
                     Y = vertices[85].Y,
 				},
@@ -1771,6 +1714,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 31,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[86].X,
                     Y = vertices[86].Y,
 				},
@@ -1778,6 +1722,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 32,
 					Employee = null,
+                    RoomId = 18,
                     X = vertices[87].X,
                     Y = vertices[87].Y,
 				},
@@ -1788,6 +1733,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 33,
 					Employee = developers[12],
+                    RoomId = 8,
                     X = vertices[88].X,
                     Y = vertices[88].Y,
 				},
@@ -1795,6 +1741,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 34,
 					Employee = developers[13],
+                    RoomId = 8,
                     X = vertices[89].X,
                     Y = vertices[89].Y,
 				},
@@ -1812,6 +1759,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 36,
 					Employee = developers[15],
+                    RoomId = 10,
                     X = vertices[91].X,
                     Y = vertices[91].Y,
 				},
@@ -1822,6 +1770,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 37,
 					Employee = developers[16],
+                    RoomId = 13,
                     X = vertices[92].X,
                     Y = vertices[92].Y,
 				},
@@ -1832,6 +1781,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 38,
 					Employee = developers[17],
+                    RoomId = 14,
                     X = vertices[93].X,
                     Y = vertices[93].Y,
 				},
@@ -1842,6 +1792,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 39,
 					Employee = null,
+                    RoomId = 15,
                     X = vertices[94].X,
                     Y = vertices[94].Y,
 				},
@@ -1852,6 +1803,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 40,
 					Employee = null,
+                    RoomId = 16,
                     X = vertices[95].X,
                     Y = vertices[95].Y,
 				},
@@ -1862,6 +1814,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 41,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[96].X,
                     Y = vertices[96].Y,
 				},
@@ -1869,6 +1822,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 42,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[97].X,
                     Y = vertices[97].Y,
 				},
@@ -1876,6 +1830,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 43,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[98].X,
                     Y = vertices[98].Y,
 				},
@@ -1883,6 +1838,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 44,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[99].X,
                     Y = vertices[99].Y,
 				},
@@ -1890,6 +1846,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 45,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[100].X,
                     Y = vertices[100].Y,
 				},
@@ -1897,6 +1854,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 46,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[101].X,
                     Y = vertices[101].Y,
 				},
@@ -1904,6 +1862,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 47,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[102].X,
                     Y = vertices[102].Y,
 				},
@@ -1911,6 +1870,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 48,
 					Employee = null,
+                    RoomId = 12,
                     X = vertices[103].X,
                     Y = vertices[103].Y,
 				},
@@ -1921,6 +1881,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 49,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[104].X,
                     Y = vertices[104].Y,
 				},
@@ -1928,6 +1889,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 50,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[105].X,
                     Y = vertices[105].Y,
 				},
@@ -1935,6 +1897,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 51,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[106].X,
                     Y = vertices[106].Y,
 				},
@@ -1942,6 +1905,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 52,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[107].X,
                     Y = vertices[107].Y,
 				},
@@ -1949,6 +1913,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 53,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[108].X,
                     Y = vertices[108].Y,
 				},
@@ -1956,6 +1921,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 54,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[109].X,
                     Y = vertices[109].Y,
 				},
@@ -1963,6 +1929,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 55,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[110].X,
                     Y = vertices[110].Y,
 				},
@@ -1970,6 +1937,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 				{
 					SeatId = 56,
 					Employee = null,
+                    RoomId = 17,
                     X = vertices[111].X,
                     Y = vertices[111].Y,
 				},
@@ -2114,44 +2082,25 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 			seatsSeventeenthRoom[6].Room = rooms[16];
 			seatsSeventeenthRoom[7].RoomId = 17;
 			seatsSeventeenthRoom[7].Room = rooms[16];
-
-			developers[0].User = users[0];
+            
             developers[0].Seat = seatsFirstRoom[0];
-			developers[1].User = users[1];
             developers[1].Seat = seatsFirstRoom[1];
-			developers[1].User = users[1];
             developers[2].Seat = seatsFirstRoom[2];
-			developers[2].User = users[2];
             developers[3].Seat = seatsFirstRoom[3];
-			developers[3].User = users[3];
             developers[4].Seat = seatsSecondRoom[0];
-			developers[4].User = users[4];
             developers[5].Seat = seatsSecondRoom[1];
-			developers[5].User = users[5];
             developers[6].Seat = seatsSecondRoom[2];
-			developers[6].User = users[6];
             developers[7].Seat = seatsSecondRoom[3];
-			developers[7].User = users[7];
             developers[8].Seat = seatsSecondRoom[4];
-			developers[8].User = users[8];
             developers[9].Seat = seatsSecondRoom[5];
-			developers[9].User = users[9];
             developers[10].Seat = seatsThirdRoom[0];
-			developers[10].User = users[10];
             developers[11].Seat = seatsThirdRoom[1];
-			developers[11].User = users[11];
             developers[12].Seat = seatsEighthRoom[0];
-			developers[12].User = users[12];
             developers[13].Seat = seatsEighthRoom[1];
-			developers[13].User = users[13];
             developers[14].Seat = seatsTenthRoom[0];
-			developers[14].User = users[14];
             developers[15].Seat = seatsTenthRoom[1];
-			developers[15].User = users[15];
             developers[16].Seat = seatsThirteenthRoom[0];
-			developers[16].User = users[16];
             developers[17].Seat = seatsFourteenthRoom[0];
-			developers[17].User = users[17];
 
 
 
@@ -2192,7 +2141,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X =10,
+                                                    RoomId = 112,
+                                                    X =10,
 													Y = 15
 												},
 										},
@@ -2222,7 +2172,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 12,
+                                                    RoomId = 113,
+                                                    X = 12,
 													Y = 15,
 												},
 										},
@@ -2265,7 +2216,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 14,
+                                                    RoomId = 115,
+                                                    X = 14,
 													Y = 19
 												},
 										},
@@ -5152,7 +5104,8 @@ EndVertexY = 100,
 												{
 													SeatId = 112,
 													Employee = null,
-													X = 11,
+                                                    RoomId = 115,
+                                                    X = 11,
 													Y = 22
 												},
 										},

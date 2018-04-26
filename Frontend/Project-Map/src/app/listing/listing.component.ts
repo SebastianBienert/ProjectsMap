@@ -15,7 +15,7 @@ export class ListingComponent implements OnInit {
   employees: Employee[];
   projects: Project[];
   private handleError: HandleError;
-
+  isOpen: boolean;
   constructor(private employeeService: EmployeeService, private sharedService: SharedService) {
     this.employees = [];
     this.projects = [];
@@ -35,6 +35,10 @@ export class ListingComponent implements OnInit {
       this.projects = x;
       this.employees = []
     });
+
+    this.sharedService.listingState.subscribe(x => {
+      this.isOpen = x;
+    })
   }
 
 

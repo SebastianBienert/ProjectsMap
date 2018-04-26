@@ -29,4 +29,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.koushikdutta.ion:ion:2.1.7'
 }
