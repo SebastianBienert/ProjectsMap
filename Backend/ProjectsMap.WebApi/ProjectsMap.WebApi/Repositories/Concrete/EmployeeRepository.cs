@@ -34,6 +34,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     Include(d => d.Technologies)
                     .Include(d => d.Seat)
                     .Include(d => d.Company)
+					.Include(d => d.Seat.Room)
                     .FirstOrDefault(x => x.EmployeeId == id);
             }
         }

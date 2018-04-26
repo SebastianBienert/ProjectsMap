@@ -33,5 +33,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
         IEnumerable<EmployeeDto> GetEmployeesByQuery(string query);
 
         FloorDto GetEmployeeFloor(int id);
-    }
+
+		object GetEmployeeLocationInfo(int id);
+	}
 }

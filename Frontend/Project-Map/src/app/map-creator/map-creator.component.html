@@ -21,7 +21,7 @@
     </div>
     <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
     <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
-    <svg style="border: 3px solid black;" width="800" height="800" id="createMap" (click)="determineShape()"></svg>
+    <svg class="svg-canvas" id="createMap" (click)="determineShape()"></svg>
 </div>
 <div>
     <label for="files" class="btn" style="background-color: blue; color: aqua">Select background image</label>

@@ -285,6 +285,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\ProjectsMapWebApi - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426070942 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\sss.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

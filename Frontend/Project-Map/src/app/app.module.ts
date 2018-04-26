@@ -52,11 +52,12 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       data: { claimType: 'canReadUsers' },
       children: [
-        {path: 'displayMap', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: ':id', component: DisplayedMapComponent, outlet: 'center'}, 
         {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
         {path: '', component: DisplayedMapComponent, outlet: 'center'}, 
         { path: '**', component: PageNotFoundComponent, outlet: 'center' },
         { path: '**', component: PageNotFoundComponent, outlet: 'right' }
+        
       ]
     },
   { path: 'managementPage', 
@@ -99,7 +100,7 @@ const routes: Routes = [
     PageNotFoundComponent,
     SecurityDirective,
     HasClaimDirective,
-    EditEmployeeDataComponent
+    EditEmployeeDataComponent,
   ],
   imports: [
     ReactiveFormsModule,

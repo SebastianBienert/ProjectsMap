@@ -42,25 +42,24 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   changeBuilding(Id: number) {
-    this.selectedBuilding = Id;
-    this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0];
     this.displayMode = "loading";
-    this.getFloorsList(Id);
-    if (this.currentBuildingFloorsList.length > 0) {
-      this.displayFloor(this.currentBuildingFloorsList[0].Id);
-    }
+    this.getFloorsList(Id, true);
+    this.selectedBuilding = Id;
   }
   debug() {
     console.log(this.buildingsList[1]);
   }
 
-  getFloorsList(BuildingId: number): void {
+  getFloorsList(BuildingId: number, loadFirstFloor: boolean): void {
     this.floorService.getBuildingFloorsList(BuildingId)
       .subscribe(
         FloorsList => {
           this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
             return a.FloorNumber - b.FloorNumber;
           });
+          if(loadFirstFloor) {
+            this.changeFloor(this.selectedFloor = FloorsList[0].Id);
+          }
         });
   }
 
@@ -96,7 +95,7 @@ export class MapNavigatorComponent implements OnInit {
 
   mapCreated(mapCreated: boolean) {
     if (mapCreated) {
-      this.getFloorsList(this.selectedBuilding);
+      this.getFloorsList(this.selectedBuilding, false);
     }
   }
 

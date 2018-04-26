@@ -298,8 +298,7 @@ export class MapCreatorComponent implements OnInit {
     var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
 
     if (this.loadedFloorId == -1) {
-      console.log("toto?" + floor.Id);
-      this.floorService.addFloor(floor).subscribe(data => {console.log("hehe" + data); this.mapCreated.emit(true); this.loadedFloorId = data; console.log(data['floorNumber'])});
+      this.floorService.addFloor(floor).subscribe(data => {this.mapCreated.emit(true); this.loadedFloorId = data.Id;});
       
     } else {
       floor.Id = this.loadedFloorId;

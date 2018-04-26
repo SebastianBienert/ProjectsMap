@@ -20,6 +20,12 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
+  getEmployeeLocationInfo(id: number): Observable<any> {
+    return this.http.get<any>(this.employeeUrl + "/" + id + "/locationInfo")
+    .pipe(
+      catchError(this.handleError<Employee>('getEmployeeLocationInfo'))
+    );
+  }
   employeeUrl: string;
   private handleError: HandleError;
 

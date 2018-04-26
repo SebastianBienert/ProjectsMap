@@ -178,5 +178,19 @@ namespace ProjectsMap.WebApi.Services
 
             return dtos;
         }
-    }
+
+		public object GetEmployeeLocationInfo(int id)
+		{
+			var employee = _repository.Get(id);
+			if (employee == null)
+				return null;
+			var seatId = employee.Seat.SeatId;
+			var roomId = employee.Seat.RoomId;
+			var floorId = employee.Seat.Room.FloorId;
+
+			return new { RoomId = roomId, FloorId = floorId, SeatId = seatId };
+
+
+		}
+	}
 }
