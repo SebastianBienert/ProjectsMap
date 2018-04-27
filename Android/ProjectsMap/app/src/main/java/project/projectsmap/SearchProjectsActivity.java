@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class SearchProjectsActivity extends AppCompatActivity {
     Spinner spinner;
     Button clickSerach;
-    Button clickBack;
     TextView inputDataField;
     TextView statement;
     TextView data;
@@ -39,7 +38,6 @@ public class SearchProjectsActivity extends AppCompatActivity {
 
         final String token = getIntent().getExtras().getString("token");
         clickSerach = (Button) findViewById(R.id.buttonSearch);
-        clickBack = (Button) findViewById(R.id.buttonBack);
         inputDataField = (TextView) findViewById(R.id.editTextInputData);
         statement = (TextView) findViewById(R.id.textViewStatement);
         listProjects = (ListView) findViewById(R.id.listProjects);
@@ -78,11 +76,6 @@ public class SearchProjectsActivity extends AppCompatActivity {
                 process.setcontext(SearchProjectsActivity.this);
                 process.setTextViewStatement(statement);
                 process.execute();
-            }
-        });
-        clickBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                SearchProjectsActivity.super.finish();
             }
         });
     }

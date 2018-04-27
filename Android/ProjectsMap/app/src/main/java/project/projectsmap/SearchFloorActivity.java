@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 public class SearchFloorActivity extends AppCompatActivity {
 
-    Button clickSearch,showMap, clickBack;
+    Button clickSearch,showMap;
     TextView floorNumber;
     TextView data;
     ProgressBar waitForSaveData;
@@ -34,16 +34,10 @@ public class SearchFloorActivity extends AppCompatActivity {
         final String token = getIntent().getExtras().getString("token");
         clickSearch = (Button) findViewById(R.id.buttonSearch);
         showMap = (Button) findViewById(R.id.buttonShowMap);
-        clickBack = (Button) findViewById(R.id.buttonBack);
         floorNumber = (TextView) findViewById(R.id.editText);
         data = (TextView) findViewById(R.id.textViewInfoFloor);
         waitForSaveData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
         waitForSaveData.setVisibility(View.INVISIBLE);
-        clickBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                SearchFloorActivity.super.finish();
-            }
-        });
         clickSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

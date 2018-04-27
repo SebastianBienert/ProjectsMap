@@ -30,7 +30,7 @@ import java.util.Arrays;
 
 public class ShowMapActivity extends AppCompatActivity {
     Canvas canvas;
-    Button clickLoadData, clickBack, clickShowMap;
+    Button clickLoadData, clickShowMap;
     TextView buildingDescription, statement;
     ProgressBar waitForData;
     Floor floor;
@@ -60,18 +60,12 @@ public class ShowMapActivity extends AppCompatActivity {
         final String token = getIntent().getExtras().getString("token");
         spinnerBuildings = (Spinner)  findViewById(R.id.spinnerBuildings);
         spinnerFloors = (Spinner)  findViewById(R.id.spinnerFloors);
-        clickBack = (Button) findViewById(R.id.buttonBack);
         clickLoadData = (Button) findViewById(R.id.buttonLoadData);
         clickShowMap = (Button) findViewById(R.id.buttonShowMap);
         //buildingDescription = findViewById(R.id.textViewBuildingDescription);
         statement = findViewById(R.id.textViewStatement);
         waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
         waitForData.setVisibility(View.INVISIBLE);
-        clickBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                ShowMapActivity.super.finish();
-            }
-        });
         spinnerBuildings.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -200,7 +194,7 @@ public class ShowMapActivity extends AppCompatActivity {
     private void setCanvas(){
         Bitmap bg;
         LinearLayout ll;
-        bg = Bitmap.createBitmap(600,600,Bitmap.Config.ARGB_8888);
+        bg = Bitmap.createBitmap(800,800,Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
         ll = (LinearLayout) findViewById(R.id.rect);
         ll.setBackground(new BitmapDrawable(bg));

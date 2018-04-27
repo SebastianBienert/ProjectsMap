@@ -91,7 +91,9 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
         showProgress(true);
         Ion.with(this)
-                .load("POST", "http://67a04196.ngrok.io/oauth/token")
+                .load("POST", GlobalVariable.webApiURL+"/oauth/token")
+                //.load("POST", "https://19484bc4.ngrok.io/oauth/token")
+                //.load("POST", "http://projectsmapwebapi.azurewebsites.net/oauth/token")
                 .setBodyParameter("username", mEmailView.getText().toString())
                 .setBodyParameter("password", mPasswordView.getText().toString())
                 .setBodyParameter("grant_type", "password")
