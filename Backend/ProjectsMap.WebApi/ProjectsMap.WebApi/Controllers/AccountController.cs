@@ -63,10 +63,12 @@ namespace ProjectsMap.WebApi.Controllers
                 
             }, userEntity);
 
+            var editUserClaim = ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true"); 
             var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
             var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
             AppUserManager.AddClaim(userEntity.Id, readClaim);
             AppUserManager.AddClaim(userEntity.Id, readProjectsClaim);
+            AppUserManager.AddClaim(userEntity.Id, editUserClaim);
 
             string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 

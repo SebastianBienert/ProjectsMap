@@ -122,6 +122,9 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                     entity.Surname = employeeDto.Surname;
                     entity.Email = employeeDto.Email;
                     entity.EmployeeId = employeeDto.Id;
+                    entity.Manager = employeeDto.ManagerId == null
+                        ? null : dbContext.Employees.FirstOrDefault(e => e.EmployeeId == employeeDto.ManagerId);
+                    
                     entity.Technologies = employeeDto.Technologies == null
                         ? new List<Technology>()
                         : existingTechnologies.Where(x => employeeDto.Technologies.Contains(x.Name)).ToList();
