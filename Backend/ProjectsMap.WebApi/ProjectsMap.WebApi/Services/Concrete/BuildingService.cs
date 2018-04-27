@@ -35,7 +35,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
 
 		public IEnumerable<BuildingDto> GetBuildingsList(int companyId)
 		{
-			return _buildingRepository.Buildings.Where(x => x.CompanyId == companyId).Select(x => DTOMapper.GetBuildingDto(x));
+			return _buildingRepository.Buildings.Select(x => DTOMapper.GetBuildingDto(x));
 		}
 
 		public int Post(BuildingDto buildingDto)

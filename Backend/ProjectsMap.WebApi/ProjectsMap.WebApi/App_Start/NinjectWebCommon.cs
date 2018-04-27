@@ -60,12 +60,10 @@ namespace ProjectsMap.WebApi.App_Start
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
             kernel.Bind<ISeatRepository>().To<SeatRepository>();
             kernel.Bind<ITechnologyRepository>().To<TechnologyRepository>();
-            kernel.Bind<ICompanyRepository>().To<CompanyRepository>();
 			kernel.Bind<IFloorRepository>().To<FloorRepository>();
 			kernel.Bind<IBuildingRepository>().To<BuildingRepository>();
 
 
-			kernel.Bind<ICompanyService>().To<CompanyService>();
             kernel.Bind<IRoomService>().To<RoomService>();
             kernel.Bind<IEmployeeService>().To<EmployeeService>();
             kernel.Bind<ISeatService>().To<SeatService>();
