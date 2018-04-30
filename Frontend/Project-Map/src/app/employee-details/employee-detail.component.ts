@@ -28,6 +28,7 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeService.getEmployee(+params.get('id')))
           .subscribe(Employee => {
             this.employee$ = Employee
+            this.employee$.PhotoUrl += "?q=XD" + new Date().getMilliseconds();
           });  
   }
 

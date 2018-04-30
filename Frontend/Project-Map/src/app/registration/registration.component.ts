@@ -19,33 +19,36 @@ import { SecurityService } from '../security/security.service';
 export class RegistrationComponent implements OnInit {
   formRegistration : FormGroup;
   formErrors = {
-    Email: '',
-    Username: '',
-    Password: '',
-    PasswordConfirm: '',
-    DeveloperId: '',
-    FirstName: '',
-    Surname: ''
+    Email: [],
+    Username: [],
+    Password: [],
+    PasswordConfirm: [],
+    DeveloperId: [],
+    FirstName: [],
+    Surname: []
   }
 
   private validationMessages = {
     Email: {
-      required: 'E-mail cannot be empty'
+      required: 'E-mail cannot be empty',
+      pattern: 'E-mail has to be valid'
     },
     Username: {
       required: 'Username cannot be empty'
     },
     Password: {
-      required: 'Password cannot be empty',
-      minlength: 'Password has to be at least 6 character long',
-      notEquivalent: 'Passwords must match'
+      required: 'Password cannot be empty.',
+      minlength: 'Password has to be at least 6 character long.',
+      notEquivalent: 'Passwords must match.',
+      pattern: 'Password must have one special character, one big letter and one small letter.'
     },
     PasswordConfirm: {
       required: 'Password confirmation cannot be empty',
       notEquivalent: 'Passwords must match'
     },
     DeveloperId: {
-      required: 'Developer ID cannot be empty'
+      required: 'Developer ID cannot be empty',
+      pattern: 'Developer ID has to be a number'
     },
     FirstName: {
       required: 'First Name cannot be empty'
@@ -67,11 +70,11 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.formRegistration = this.formBuilder.group({
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")]],
       Username: ['', Validators.required],
-      Password: ['', [Validators.required, Validators.minLength(6) ]],
+      Password: ['', [Validators.required, Validators.minLength(6), Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]*") ]],
       PasswordConfirm: ['', Validators.required],
-      DeveloperId: ['', Validators.required],
+      DeveloperId: ['', [Validators.required, Validators.pattern("^\\d+$")]],
       FirstName: ['', Validators.required],
       Surname: ['', Validators.required],
     },
@@ -104,12 +107,12 @@ export class RegistrationComponent implements OnInit {
   onControlValueChanged() : void {
     const form = this.formRegistration;
     for (let field in this.formErrors) {
-      this.formErrors[field] = '';
+      this.formErrors[field] = [];
       let control = form.get(field);
       if (control && control.dirty && !control.valid) {
         const validationMessages = this.validationMessages[field];
         for (const key in control.errors) {
-          this.formErrors[field] += validationMessages[key] + ' ';
+          this.formErrors[field].push(validationMessages[key]);
         }
       }
     }

@@ -69,6 +69,7 @@ export class EditEmployeeDataComponent implements OnInit {
           JobTitle: employeeResult.JobTitle,
           ManagerId: employeeResult.ManagerId
         });
+        this.employeeInfo.PhotoUrl += "?q=" + "?q=" + new Date().getMilliseconds();
     })
     this.formAddEmployee = this.formBuilder.group({
       Photo: [null, ],                                 //This is not actually <input file>
