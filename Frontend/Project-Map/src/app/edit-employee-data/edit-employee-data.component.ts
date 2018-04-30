@@ -8,7 +8,8 @@ import { TechnologyService } from '../services/technology.service';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-edit-employee-data',
   templateUrl: './edit-employee-data.component.html',
@@ -17,6 +18,7 @@ import { of } from 'rxjs/observable/of';
 })
 export class EditEmployeeDataComponent implements OnInit {
   employeeInfo: Employee = null;
+  modalReference : any;
   formAddEmployee : FormGroup;
   companyId : number = 1;
   allTechnologies : string[];
@@ -53,7 +55,9 @@ export class EditEmployeeDataComponent implements OnInit {
     private service : EmployeeService,
    private technologyService : TechnologyService,
    private employeeService : EmployeeService,
-   private cd: ChangeDetectorRef) { }
+   private cd: ChangeDetectorRef,
+   private modalService: NgbModal,
+   private router: Router) { }
 
    ngOnInit() {
     this.employeeService.getCurrentUserEmployeeData()
@@ -126,7 +130,11 @@ export class EditEmployeeDataComponent implements OnInit {
       Technologies : form.value.Technologies
     } as Employee; 
     
-    this.service.editEmployee(form.value.Photo, emp);
+    this.service.editEmployee(form.value.Photo, emp).subscribe(res => {
+      this.modalReference.close();
+      this.router.navigateByUrl(this.router.url);
+      this.cd.markForCheck();
+    })
   }
 
   onControlValueChanged() : void {
@@ -143,6 +151,15 @@ export class EditEmployeeDataComponent implements OnInit {
       }
     }
   }
+}
+
+open(content) {
+  this.modalReference = this.modalService.open(content)
+  this.modalReference.result.then((result) => {
+    //this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+   // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
 }
 
 }
