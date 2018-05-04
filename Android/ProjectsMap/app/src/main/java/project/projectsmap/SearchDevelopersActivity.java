@@ -79,7 +79,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText != null && !newText.isEmpty()) {
+                if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
                     waitForData.setVisibility(View.VISIBLE);
                     adapter.list.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
@@ -114,6 +114,14 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                     choice = (String) adapterView.getItemAtPosition(position);
+                            adapter.list.clear();
+                            FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                            process.setToken(token);
+                            process.setSaveDataToFile(false);
+                            process.setChoice(choice);
+                            process.setcontext(SearchDevelopersActivity.this);
+                            process.setTextViewStatement(statement);
+                            process.execute();
                     //setInputDataField();
                 }
 
