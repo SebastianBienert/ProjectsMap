@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -99,6 +100,8 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
             } catch (MalformedURLException e) {
                 errorText = "MalformedURLException";
                 e.printStackTrace();
+            } catch (FileNotFoundException){
+                errorText = "Brak wyników";
             } catch (IOException e) {
                 errorText = "IOException";
                 e.printStackTrace();
