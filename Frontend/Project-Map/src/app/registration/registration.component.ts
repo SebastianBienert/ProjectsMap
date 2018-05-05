@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { SecurityService } from '../security/security.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
@@ -18,6 +20,7 @@ import { SecurityService } from '../security/security.service';
 })
 export class RegistrationComponent implements OnInit {
   formRegistration : FormGroup;
+  modalReference : any;
   formErrors = {
     Email: [],
     Username: [],
@@ -60,7 +63,9 @@ export class RegistrationComponent implements OnInit {
   constructor(private formBuilder : FormBuilder,
     private employeeService : EmployeeService,
     private securityService: SecurityService,
-   private cd: ChangeDetectorRef) {
+   private cd: ChangeDetectorRef,
+   private modalService: NgbModal,
+   private router: Router) {
     document.body.style.backgroundImage = "url('../../assets/background.jpg')";
     document.body.style.backgroundPosition = "center center";
     document.body.style.backgroundRepeat = "no-repeat";
@@ -140,11 +145,20 @@ export class RegistrationComponent implements OnInit {
     }
     console.log(user);
     this.securityService.register(user).subscribe(response =>{
+      this.modalReference.close();
+      this.router.navigate(['/login']);
       console.log(response);
     })
 
   }
 
-
+  open(content) {
+    this.modalReference = this.modalService.open(content)
+    this.modalReference.result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+     // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 
 }
