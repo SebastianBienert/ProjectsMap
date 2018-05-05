@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
@@ -35,8 +36,9 @@ namespace ProjectsMap.WebApi.Repositories
         public EfDbContext() : base("name=ProjectsMapDbContext", throwIfV1Schema: false)
         {
             Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+
             this.Configuration.LazyLoadingEnabled = false;
-            Database.SetInitializer(new ProjectsMapDbInitializer());
+             Database.SetInitializer(new ProjectsMapDbInitializer());
         }
 
         public static EfDbContext Create()

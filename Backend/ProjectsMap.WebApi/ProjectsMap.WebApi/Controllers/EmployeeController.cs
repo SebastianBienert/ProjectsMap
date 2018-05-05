@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data.Entity;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -56,13 +57,25 @@ namespace ProjectsMap.WebApi.Controllers
             });
         }
 
-        [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
+       // [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
         [HttpGet]
         [Route("")]
         public IHttpActionResult GetAll()
         {
-            var allEmployees = _service.GetAllEmployees().ToList();
-            return Ok(allEmployees);
+            try
+            {
+                var allEmployees = _service.GetAllEmployees().ToList();
+                return Ok(allEmployees);
+            }
+            catch (Exception e)
+            {
+                return Ok(new
+                {
+                    exception = e,
+                    connection = ConfigurationManager.ConnectionStrings["ProjectsMapDbContext"].ConnectionString
+                });
+            }
+
         }
 
         [ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
@@ -313,7 +326,7 @@ namespace ProjectsMap.WebApi.Controllers
 }
                         else
                         {
-                            var virtualPath = $"~/EmployeesPhoto/{id}{extension}";
+                            var virtualPath = $"~/App_Data/{id}{extension}";
                             var filePath = HttpContext.Current.Server.MapPath(virtualPath);
 
                             if(_service.AddPhotoToEmployee(id, virtualPath))

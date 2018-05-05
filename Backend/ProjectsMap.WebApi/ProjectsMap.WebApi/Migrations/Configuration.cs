@@ -1,3 +1,6 @@
+using ProjectsMap.WebApi.Models;
+using ProjectsMap.WebApi.Repositories.EntityFramework;
+
 namespace ProjectsMap.WebApi.Migrations
 {
     using Microsoft.AspNet.Identity;
@@ -14,10 +17,15 @@ namespace ProjectsMap.WebApi.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
+            CommandTimeout = 0; // A value of 0 indicates no limit (an attempt to execute 
         }
 
         protected override void Seed(ProjectsMap.WebApi.Repositories.EfDbContext context)
         {
+           /* var seed = new ProjectsMapDbInitializer();
+            seed.InitializeDatabase(context);*/
+
             //var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new EfDbContext()));
 
             //var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new EfDbContext()));
@@ -42,7 +50,7 @@ namespace ProjectsMap.WebApi.Migrations
             //var adminUser = manager.FindByName("SuperPowerUser");
 
             //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
-            
+
         }
     }
 }

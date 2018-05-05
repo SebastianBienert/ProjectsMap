@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
@@ -12,11 +13,11 @@ using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.EntityFramework
 {
-	public class ProjectsMapDbInitializer : DropCreateDatabaseAlways<EfDbContext>
+	public class ProjectsMapDbInitializer : CreateDatabaseIfNotExists<EfDbContext>
 	{
 	    protected override void Seed(EfDbContext context)
 	    {
-	        var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
 	        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
@@ -1029,7 +1030,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                FirstName = "Witkor",
 	                Surname = "Bukowski",
 	                EmployeeId = 1,
-	                Photo = @"~/EmployeesPhoto/1.jpg",
+	                Photo = @"~/App_Data/1.jpg",
 
 	                Technologies = new List<Technology>()
 	                {
