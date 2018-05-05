@@ -82,6 +82,9 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             errorText = "Wprowadź dane";
         } else {
             try {
+                boolean digitsOnly = TextUtils.isDigitsOnly(inputData);
+                if(choice.equals("Id") && !digitsOnly)
+                    throw new NumberFormatException("incorrect input format!");
                 URL url = setURLAdress();
                 if (url == null) {
                     return null;
@@ -108,6 +111,9 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                 }
             } catch (MalformedURLException e) {
                 errorText = "MalformedURLException";
+                e.printStackTrace();
+            } catch (NumberFormatException e){
+                errorText = "Id powinno zawierać jedynie liczby!";
                 e.printStackTrace();
             } catch (FileNotFoundException e){
                 errorText = "Brak wyników";

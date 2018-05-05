@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,9 @@ public class MapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        final String DeveloperId = getIntent().getExtras().getString("Id");
+        Toast.makeText(getBaseContext(),DeveloperId, Toast.LENGTH_SHORT).show();
+
         choice = getIntent().getBooleanExtra("choice",false);
         floor = (Floor) getIntent().getSerializableExtra("fl");
         placeDeveloper = (Seat) getIntent().getSerializableExtra("st");
