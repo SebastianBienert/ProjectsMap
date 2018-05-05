@@ -73,7 +73,7 @@ export class EditEmployeeDataComponent implements OnInit {
           JobTitle: employeeResult.JobTitle,
           ManagerId: employeeResult.ManagerId
         });
-        this.employeeInfo.PhotoUrl += "?q=" + "?q=" + new Date().getMilliseconds();
+        this.employeeInfo.PhotoUrl += "?q=" + new Date().getMilliseconds();
     })
     this.formAddEmployee = this.formBuilder.group({
       Photo: [null, ],                                 //This is not actually <input file>
@@ -132,8 +132,9 @@ export class EditEmployeeDataComponent implements OnInit {
     
     this.service.editEmployee(form.value.Photo, emp).subscribe(res => {
       this.modalReference.close();
-      this.router.navigateByUrl(this.router.url);
+      this.employeeInfo.PhotoUrl += "&p=" + new Date().getMilliseconds();
       this.cd.markForCheck();
+      this.cd.detectChanges();
     })
   }
 
