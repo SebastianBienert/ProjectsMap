@@ -45,6 +45,8 @@ import { SecurityDirective } from './security.directive';
 import { HasClaimDirective } from './security/has-claim.directive';
 import { EditEmployeeDataComponent } from './edit-employee-data/edit-employee-data.component';
 import { RegistrationComponent } from './registration/registration.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbdModalBasic} from './modal/modal-basic.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -104,9 +106,11 @@ const routes: Routes = [
     SecurityDirective,
     HasClaimDirective,
     EditEmployeeDataComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    NgbdModalBasic
   ],
   imports: [
+    NgbModule.forRoot(),
     ReactiveFormsModule,
     BrowserModule,
     CommonModule,
