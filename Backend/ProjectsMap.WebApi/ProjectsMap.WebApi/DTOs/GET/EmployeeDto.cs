@@ -26,6 +26,16 @@ namespace ProjectsMap.WebApi.DTOs
         public IEnumerable<string> Technologies { get; set; }
 
         public SeatDto Seat { get; set; }
+
+        public IEnumerable<ProjectShortDto> Projects { get; set; }
+    }
+
+
+    public class ProjectShortDto
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 
 
