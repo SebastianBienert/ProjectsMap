@@ -33,11 +33,6 @@ namespace ProjectsMap.WebApi.Services.Concrete
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<BuildingDto> GetBuildingsList(int companyId)
-		{
-			return _buildingRepository.Buildings.Where(x => x.CompanyId == companyId).Select(x => DTOMapper.GetBuildingDto(x));
-		}
-
 		public int Post(BuildingDto buildingDto)
 		{
 			return _buildingRepository.Add(buildingDto);

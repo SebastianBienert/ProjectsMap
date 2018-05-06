@@ -18,7 +18,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 				using (var dbContext = new EfDbContext())
 				{
 					var buildings = dbContext.Buildings
-						.Include(b => b.Company)
 						.Include(b => b.Floors)
 						.ToList();
 
@@ -35,7 +34,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 				Building building = new Building()
 				{
 					Address = buildingDto.Address,
-					CompanyId = buildingDto.CompanyId,
 				};
 				dbContext.Buildings.Add(building);
 				dbContext.SaveChanges();
@@ -53,7 +51,6 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 			using (var dbContext = new EfDbContext())
 			{
 				var building = dbContext.Buildings
-					.Include(b => b.Company)
 					.Include(b => b.Floors)
 					.FirstOrDefault(b => b.BuildingId == id);
 				return building;

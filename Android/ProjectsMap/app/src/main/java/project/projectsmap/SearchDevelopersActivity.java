@@ -31,7 +31,6 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
     Spinner spinner;
     Button clickSerach;
-    Button clickBack;
     TextView inputDataField;
     TextView statement;
     TextView data;
@@ -48,12 +47,12 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             setContentView(R.layout.activity_search_developers);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        listDevelopers = (ListView) findViewById(R.id.listDevelopers);
         final String token = getIntent().getExtras().getString("token");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Szukaj:");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
-
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
@@ -64,7 +63,8 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
             @Override
             public void onSearchViewClosed() {
-                listDevelopers = (ListView) findViewById(R.id.listDevelopers);
+                //listDevelopers = (ListView) findViewById(R.id.listDevelopers);
+                adapter.list.clear();
                 adapter = new CustomAdapter(SearchDevelopersActivity.this);
                 listDevelopers.setAdapter(adapter);
 
@@ -99,7 +99,6 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
 
         // clickSerach = (Button) findViewById(R.id.buttonSearch);
-            clickBack = (Button) findViewById(R.id.buttonBack);
             //inputDataField = (TextView) findViewById(R.id.editTextInputData);
             statement = (TextView) findViewById(R.id.textViewStatement);
             listDevelopers = (ListView) findViewById(R.id.listDevelopers);
@@ -140,11 +139,6 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                     process.execute();
                 }
             });*/
-            clickBack.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    SearchDevelopersActivity.super.finish();
-                }
-            });
     }
 
 /*    private void setInputDataField(){

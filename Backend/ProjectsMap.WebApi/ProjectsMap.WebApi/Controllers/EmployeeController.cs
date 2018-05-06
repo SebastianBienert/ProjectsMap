@@ -282,14 +282,14 @@ namespace ProjectsMap.WebApi.Controllers
             return NotFound();
         }
 
-		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
+		/*[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post([FromBody] EmployeeDto employee)
         {
             int createdId = _service.Post(employee);
             return CreatedAtRoute("GetEmployeeById", new { id = createdId }, employee);
-        }
+        }*/
 
 		[ClaimsAuthorization(ClaimType = "canWriteUsers", ClaimValue = "true")]
         [HttpPost]

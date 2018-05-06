@@ -26,7 +26,7 @@ import java.nio.file.Path;
  */
 
 public class SaveToFileActivity extends AppCompatActivity {
-    Button clickBack, saveData, loadData;
+    Button saveData, loadData;
     TextView dataFromFile;
     TextView dataToFile;
     RadioButton buttonYes, buttonNo;
@@ -38,7 +38,6 @@ public class SaveToFileActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_save_to_file);
             final String token = getIntent().getExtras().getString("token");
-            clickBack = (Button) findViewById(R.id.buttonBack);
             loadData  = (Button) findViewById(R.id.buttonLoadData);
             saveData = (Button) findViewById(R.id.buttonSaveData);
             dataFromFile = findViewById(R.id.textViewTextFromFile);
@@ -58,11 +57,6 @@ public class SaveToFileActivity extends AppCompatActivity {
             waitForSaveData = (ProgressBar) findViewById(R.id.progressBarProgressSave);
             waitForSaveData.setVisibility(View.INVISIBLE);
             clickSaveToFile = findViewById(R.id.buttonSaveToFile);
-            clickBack.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    SaveToFileActivity.super.finish();
-                }
-            });
             saveData.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     saveDataToFile(getApplicationContext(), "plikTestowy", dataToFile.getText().toString(), append);

@@ -37,8 +37,8 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   changeFloor(Id: number) {
-    this.displayMode = "displayMap";
     this.selectedFloor = Id;
+    this.displayMode = "displayMap";
   }
 
   changeBuilding(Id: number) {
@@ -57,8 +57,9 @@ export class MapNavigatorComponent implements OnInit {
           this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
             return a.FloorNumber - b.FloorNumber;
           });
+
           if(loadFirstFloor) {
-            this.changeFloor(this.selectedFloor = FloorsList[0].Id);
+            this.changeFloor(this.currentBuildingFloorsList[0].Id);
           }
         });
   }

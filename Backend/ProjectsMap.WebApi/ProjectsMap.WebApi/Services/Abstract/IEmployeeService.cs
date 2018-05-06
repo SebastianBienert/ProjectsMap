@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Services.Abstract
@@ -13,6 +14,8 @@ namespace ProjectsMap.WebApi.Services.Abstract
         IEnumerable<EmployeeDto> GetAllEmployees();
 
         EmployeeDto GetEmployee(int id);
+
+        Employee GetEmployeeEntity(int id);
 
         IEnumerable<EmployeeDto> GetDevelopersByTechnology(string technology);
 
@@ -24,7 +27,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
 
         bool DeletePhoto(int id);
 
-        int Post(EmployeeDto employee);
+        int Post(EmployeeDto employee, ApplicationUser appUser);
 
         void Delete(Employee employee);
 

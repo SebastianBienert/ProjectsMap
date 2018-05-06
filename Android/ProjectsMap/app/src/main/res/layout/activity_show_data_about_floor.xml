@@ -12,10 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout"
-        android:layout_alignEnd="@+id/textViewInfoFloor"
         android:layout_alignRight="@+id/textViewInfoFloor"
-        android:layout_marginBottom="21dp"
-        android:layout_marginEnd="56dp"
         android:layout_marginRight="56dp" />
 
     <TextView
@@ -24,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/buttonBack"
+        android:layout_below="@+id/buttonShowMap"
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:width="170dp"
@@ -52,19 +49,6 @@
         android:width="170dp"
         android:height="35dp"
         android:text="Wyświetl mape" />
-
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonShowMap"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/buttonShowMap"
-        android:layout_below="@+id/buttonShowMap"
-        android:width="170dp"
-        android:height="35dp"
-        android:text="Cofnij" />
 
     <EditText
         android:id="@+id/editText"

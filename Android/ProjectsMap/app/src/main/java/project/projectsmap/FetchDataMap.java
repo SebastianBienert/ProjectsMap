@@ -26,7 +26,8 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     String data ="";
     String numberId;
     String numberCompanyId;
-    String webApiURL = "https://67a04196.ngrok.io";
+    //String webApiURL = "https://19484bc4.ngrok.io";
+    //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     String token = "";
     //Building building;
     ArrayList<Building> buildingsList = new ArrayList<Building>();
@@ -48,7 +49,7 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL(webApiURL+"/api/company/" + numberId + "/buildings");
+            URL url = new URL(GlobalVariable.webApiURL+"/api/company/" + numberId + "/buildings");
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpsURLConnection.addRequestProperty("Authorization", "Bearer "+token);
@@ -73,7 +74,7 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
             for(int i = 0; i < buildingsList.size(); i++){
                 for(int j = 0; j < buildingsList.get(i).Floors.size(); j++){
                     data = "";
-                    URL urlFloor = new URL(webApiURL+"/api/floor/" + buildingsList.get(i).Floors.get(j));
+                    URL urlFloor = new URL(GlobalVariable.webApiURL+"/api/floor/" + buildingsList.get(i).Floors.get(j));
                     HttpsURLConnection httpsURLConnectionFloor = (HttpsURLConnection) urlFloor.openConnection();
                     httpsURLConnectionFloor.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     httpsURLConnectionFloor.addRequestProperty("Authorization", "Bearer "+token);

@@ -34,18 +34,17 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     this.drawnMap.circle(100).move(350, 350);
     this.route.params.subscribe( params => this.selectedEmployeeId =  + params['id']);
     //this.getFloor();
+    if(this.selectedEmployeeId > 0) {
     this.route.paramMap
     .switchMap((params: ParamMap) =>
       this.employeeService.getEmployeeLocationInfo(+params.get('id')))
         .subscribe(EmployeeLocationInfo => {
-          console.log(EmployeeLocationInfo);
           this.floorToDisplay = EmployeeLocationInfo.FloorId;
           this.selectedEmployeeRoomId = EmployeeLocationInfo.RoomId;
           this.selectedEmployeeSeatId = EmployeeLocationInfo.SeatId;
-          //this.selectedEmployeeId = +params.get('id');
           this.getFloor();
-          //this.selectedEmployeeRoomId = Employee;
         });  
+      }
   }
 
   getFloor(): void {
@@ -100,41 +99,20 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     });
 
     this.floor.Walls.forEach(wall => {
-      //drawing lines
-
       this.drawnMap
       .line(wall.StartVertex.X + ", " + wall.StartVertex.Y + ", " + wall.EndVertex.X + ", " + wall.EndVertex.Y)
       .stroke({ width: 2 });
     });
-    //drawing seats - needs to be on seperate loop so seats will be alwyays on top
-   /* constructor(public router: Router) { }
 
-  ngOnInit() {
-  }
-
-  showMore(){
-    this.router.navigate(['/main',{outlets: {right: [this.employee.Id], center: [this.employee.Id]} }]);
-  }*/
   var self = this;
     this.floor.Rooms.forEach(room => {
       room.Seats.forEach(seat => {
-        console.log("Seat: " + seat.Id  + " Dev: "  + seat.DeveloperId);
         this.drawnMap
         .rect(10, 10)
         .move(seat.Vertex.X, seat.Vertex.Y)
         .fill(this.selectedEmployeeRoomId === seat.Id ?  '#fff' : colors.seatColor)
         .stroke({ width: 0 })
         .click(function() {if(!(seat.DeveloperId===null)) self.router.navigate(['/main',{outlets: {right: [seat.DeveloperId], center: [seat.DeveloperId]}}])})
-        .draggable(function(x, y){
-          //function to move seats snapped to grid
-          return {
-              x: x - x % 10,
-              y: y - y % 10
-          };
-      })
-      .click(function() {
-        //will be changed to displaying Employee information TODO
-      });
       });
     });
   }

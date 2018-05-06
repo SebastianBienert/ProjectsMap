@@ -33,6 +33,7 @@ export class FloorServiceService {
   }
 
   getFloor (id: number): Observable<Floor> {
+    console.log("MeinID"  +  id);
     return this.http.get<Floor>(this.floorUrl + "/"  + id)
       .pipe(
         catchError(this.handleError<Floor>('getFloor'))
@@ -40,7 +41,6 @@ export class FloorServiceService {
   }
 
   getFloorByEmployeeId (id: number): Observable<Floor> {
-    console.log(id);
     return this.http.get<Floor>(this.employeeUrl + "/"  + 3 + "/locationInfo")
       .pipe(
         catchError(this.handleError<Floor>('getFloorByEmployeeId'))
@@ -114,24 +114,13 @@ export class FloorServiceService {
   }
 
   getBuildingsList (): Observable<any[]> {
-    return this.http.get<any[]>(this.companyUrl +"/buildings")
+    return this.http.get<any[]>(this.buildingUrl)
       .pipe(
         catchError(this.handleError('getBuildingsList', []))
       );
     }
 
     public updateFloor(Floor) {
-      // var json = {
-      //   'Walls' : Floor.Walls,
-      //   'Rooms' : Floor.Rooms,
-      //   'Description' : Floor.Description,
-      //   'BuildingId' : Floor.BuildingId,
-      //   'FloorNumber' : Floor.FloorNumber
-      // };
-      
-      //this.toTestData(json);
-      console.log("updating");
-      console.log(Floor);
       return this.http.put<Floor>(this.floorUrl + "/" + Floor.Id, {
         'Walls' : Floor.Walls,
         'Rooms' : Floor.Rooms,

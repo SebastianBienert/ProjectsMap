@@ -1,15 +1,5 @@
-
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark indigo">
-
-    <!-- Navbar brand -->
-    <logo>
-        <a class="navbar-brand" href="#">Projects Map</a>
-    </logo>
-
-    <!-- Collapsible content -->
-    <links>
-
-        <!-- Links -->
+<nav class="navbar navbar-expand-md navbar-dark indigo">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a [routerLink]="['/main']" class="nav-link waves-light" mdbRippleRadius>Home
@@ -24,46 +14,52 @@
                     Login
                 </a>
             </li>
+            <li class="nav-item">
+                <a [routerLink]="['/registration']" class="nav-link waves-light" *ngIf="!securityObject.isAuthenticated">
+                    Registration
+                </a>
+            </li>
+        </ul>
 
-            <!-- Dropdown -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <form class="form-inline waves-light waves-light ml-auto" *ngIf="securityObject.isAuthenticated" mdbRippleRadius>
+                    <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
+                aria-label="Search">
+                </form>
+           </li>
             <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
                 <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
                     {{searchTypeText}}
                     <span class="caret"></span>
                 </a>
                 <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a (click)="selectSearchType(1, $event.target.innerText)" class="dropdown-item waves-light" mdbRippleRadius>Pracownicy - nazwiska</a>
-                    <a (click)="selectSearchType(2, $event.target.innerText)" class="dropdown-item waves-light" mdbRippleRadius>Pracownicy - technologie</a>
+                    <a (click)="selectSearchType(1, $event.target.innerText)" class="dropdown-item waves-light" mdbWavesEffect>Pracownicy - nazwiska</a>
+                    <a (click)="selectSearchType(2, $event.target.innerText)" class="dropdown-item waves-light" mdbWavesEffect>Pracownicy - technologie</a>
                     <div class="divider dropdown-divider"></div>
-                    <a (click)="selectSearchType(3, $event.target.innerText)" class="dropdown-item waves-light" mdbRippleRadius>Projekty - nazwy</a>
-                    <a (click)="selectSearchType(4, $event.target.innerText)" class="dropdown-item waves-light" mdbRippleRadius>Projekty - technologie</a>
+                    <a (click)="selectSearchType(3, $event.target.innerText)" class="dropdown-item waves-light" mdbWavesEffect>Projekty - nazwy</a>
+                    <a (click)="selectSearchType(4, $event.target.innerText)" class="dropdown-item waves-light" mdbWavesEffect>Projekty - technologie</a>
                 </div>
             </li>
-
         </ul>
-        <!-- Links -->
-
-        <!-- Search form -->
-        <form class="form-inline waves-light waves-light ml-auto" *ngIf="securityObject.isAuthenticated" mdbRippleRadius>
-            <input [formControl]="term" [ngModelOptions]="{standalone: true}" class="form-control mr-sm-2" type="text" placeholder="Search"
-                aria-label="Search">
-            <!-- [(ngModel)]="filter" -->
-        </form>
-
-        <ul class="navbar-nav mr-auto">
+    </div>
+    <div class="mx-auto order-0">
+        <a [routerLink]="['/main']" class="navbar-brand mx-auto">Projects Map</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown" *ngIf="securityObject.isAuthenticated" dropdown>
-                <a dropdownToggle mdbRippleRadius type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{securityObject.userName}}</span></a>
+                <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">{{securityObject.userName}}</span></a>
                 <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a [routerLink]="['/managementPage/employees']" class="dropdown-item waves-light" mdbRippleRadius>Edit</a>
+                    <a [routerLink]="['/managementPage/employees']" class="dropdown-item waves-light" mdbWavesEffect>Edit</a>
                     <a href="#" (click)="logout()" class="dropdown-item waves-light" *ngIf="securityObject.isAuthenticated">
                         Logout
                     </a>
                 </div>
             </li>
         </ul>
-        
-    </links>
-    <!-- Collapsible content -->
-
-</mdb-navbar>
-<!--/.Navbar-->
+    </div>
+</nav>

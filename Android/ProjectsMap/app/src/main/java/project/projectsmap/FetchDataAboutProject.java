@@ -31,7 +31,8 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     String choice = "";
     String inputData = "";
     String errorText = "";
-    String webApiURL = "https://67a04196.ngrok.io";
+    //String webApiURL = "https://19484bc4.ngrok.io";
+    //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     String token = "";
     ArrayList<Project> dataList = new ArrayList<Project>();
 
@@ -141,13 +142,13 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     private URL setURLAdress(){
         try{
             if(choice.equals("Id")){
-                return new URL(webApiURL+"/api/project/"+inputData);
+                return new URL(GlobalVariable.webApiURL+"/api/project/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Wszystkie")){
-                return new URL(webApiURL+"/api/project");
+                return new URL(GlobalVariable.webApiURL+"/api/project");
                 //return new URL("http://localhost:58923/api/developers");
             }else if(choice.equals("Nazwa")){
-                return new URL(webApiURL+"/api/project/name/"+inputData);
+                return new URL(GlobalVariable.webApiURL+"/api/project/name/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){

@@ -23,7 +23,6 @@ public class MapActivity extends AppCompatActivity {
     Bitmap bg;
     Canvas canvas;
     LinearLayout ll;
-    Button clickBack;
     //static Floor floor;
     Floor floor;
     Seat placeDeveloper;
@@ -37,14 +36,8 @@ public class MapActivity extends AppCompatActivity {
         choice = getIntent().getBooleanExtra("choice",false);
         floor = (Floor) getIntent().getSerializableExtra("fl");
         placeDeveloper = (Seat) getIntent().getSerializableExtra("st");
-        clickBack = (Button) findViewById(R.id.buttonBack);
-        clickBack.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                MapActivity.super.finish();
-            }
-        });
 
-        bg = Bitmap.createBitmap(600,600,Bitmap.Config.ARGB_8888);
+        bg = Bitmap.createBitmap(800,800,Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bg);
         ll = (LinearLayout) findViewById(R.id.rect);
         ll.setBackground(new BitmapDrawable(bg));

@@ -1,4 +1,4 @@
- .container{
-        max-width:1340px;
-    }
-
+.dropdown .dropdown-menu .dropdown-item:hover, .dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:focus 
+{ color: #fff; background-color: #3849a2; }
+.dropdown.show .dropdown-menu { color: #fff; background-color: #3f51b5; }
+.navbar .dropdown-menu a { color: #fff !important; }

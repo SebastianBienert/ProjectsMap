@@ -40,7 +40,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     String inputData = "";
     String errorText = "";
     ArrayList<Developer> dataList = new ArrayList<Developer>();
-    String webApiURL = "https://67a04196.ngrok.io";
+    //String webApiURL = "https://19484bc4.ngrok.io";
+    //String webApiURL = "https://projectsmapwebapi.azurewebsites.net";
     String token = "";
 
     /*      dodane do zapisu do pliku       */
@@ -155,16 +156,16 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     private URL setURLAdress(){
         try{
             if(choice.equals("Technologia")){
-                return new URL(webApiURL+"/api/developers/technology/"+inputData);
+                return new URL(GlobalVariable.webApiURL+"/api/developers/technology/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/technology/"+inputData);
             }else if(choice.equals("Id")){
-                return new URL(webApiURL+"/api/developers/"+inputData);
+                return new URL(GlobalVariable.webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Wszyscy")){
-                return new URL(webApiURL+"/api/developers");
+                return new URL(GlobalVariable.webApiURL+"/api/developers");
                 //return new URL("http://localhost:58923/api/developers");
             }else if(choice.equals("Imię lub nazwisko")){
-                return new URL(webApiURL+"/api/developers/"+inputData);
+                return new URL(GlobalVariable.webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }
         }catch(MalformedURLException e){

@@ -42,7 +42,6 @@ namespace ProjectsMap.WebApi.Models
 
         //One-zero to many relation (Seat - Employee)
         public int? EmployeeId { get; set; }
-        public int? EmployeeCompanyId { get; set; }
         public virtual Employee Employee { get; set; }
 		public object Vertex { get; internal set; }
 	}

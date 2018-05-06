@@ -44,6 +44,13 @@ namespace ProjectsMap.WebApi.Controllers
 				return NotFound();*/
 		}
 
-		//??? do i need you?
+		[HttpGet]
+		[Route("")]
+		public IHttpActionResult Get()
+		{
+			var companyBuildingsList = _buildingService.GetAllBuildings();
+			return Ok(companyBuildingsList);
+		}
+
 	}
 }

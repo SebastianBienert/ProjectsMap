@@ -158,12 +158,18 @@ public class Project implements Serializable {
         }
     }
     private ArrayList<String> convertJSONTechnologiesOnList(JSONObject object) throws JSONException {
+        String[] table;
         ArrayList<String> tech = new ArrayList<String>();
         JSONArray JObjects = object.getJSONArray("Technologies");
-        for(int i = 0; i < JObjects.length(); i++){
+        String text = JObjects.toString().substring(1,JObjects.toString().length()-1);
+        table = text.split(",");
+        for(int i = 0; i < table.length; i++){
+            tech.add(table[i].substring(1,table[i].length()-1));
+        }
+        /*for(int i = 0; i < JObjects.length(); i++){
             JSONObject JO = (JSONObject) JObjects.get(i);
             tech.add(JO.getString("Name"));
-        }
+        }*/
         return tech;
     }
     private ArrayList<String> divisinOfEmployees(String text) throws JSONException {

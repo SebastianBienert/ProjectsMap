@@ -22,7 +22,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     String data ="";
     String numberId;
-    String webApiURL = "https://67a04196.ngrok.io";
+    //String webApiURL = "https://19484bc4.ngrok.io";
+    //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     Floor floor;
     Context context;
     String token = "";
@@ -36,7 +37,7 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL(webApiURL+"/api/floor/" + numberId);
+            URL url = new URL(GlobalVariable.webApiURL+"/api/floor/" + numberId);
             //URL url = new URL("http://localhost:58923/api/floor/" + numberId);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");

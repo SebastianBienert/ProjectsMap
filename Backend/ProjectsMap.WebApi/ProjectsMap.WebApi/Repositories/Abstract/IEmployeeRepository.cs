@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectsMap.WebApi.DTOs;
+using ProjectsMap.WebApi.Infrastructure;
 using ProjectsMap.WebApi.Models;
 
 namespace ProjectsMap.WebApi.Repositories.Abstract
@@ -14,7 +15,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         Employee Get(int id);
 
-        int Add(EmployeeDto employee);
+        int Add(EmployeeDto employee, ApplicationUser user);
 
         int Add(Employee employee);
 

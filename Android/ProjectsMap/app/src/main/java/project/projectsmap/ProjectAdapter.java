@@ -49,11 +49,14 @@ public class ProjectAdapter extends BaseAdapter {
 
         TextView rowData = (TextView)row.findViewById(R.id.textViewRowData);
 
-        Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowDevelopers);
-        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
+        Button btnShowDev = (Button)row.findViewById(R.id.buttonShowDevelopers);
+        btnShowDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(c, ActivityShowProjectDevelopers.class);
+                //intent.putExtra("listDev", );
+                c.startActivity(intent);
             }
         });
 
