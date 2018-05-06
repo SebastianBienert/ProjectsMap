@@ -50,16 +50,21 @@ public class CustomAdapter extends BaseAdapter {
 
         TextView rowData = (TextView)row.findViewById(R.id.rowData);
         Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowOnMap);
+        rowData.setText(list.get(position));
+
+        final String data = (String) rowData.getText();
+
         btnShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     Intent i = new Intent(c, MapActivity.class);
+                    i.putExtra("Id", data);
                     c.startActivity(i);
             }
         });
         //String tmp = list.get(position);
 
-        rowData.setText(list.get(position));
+        //rowData.setText(list.get(position));
 
         return row;
     }
