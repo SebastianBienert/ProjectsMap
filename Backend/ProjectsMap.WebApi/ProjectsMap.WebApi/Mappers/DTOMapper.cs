@@ -67,7 +67,7 @@ namespace ProjectsMap.WebApi.Mappers
                     DeveloperId = employee.EmployeeId,
                     Vertex = employee.Seat == null ? null : new Vertex(employee.Seat.X, employee.Seat.Y),
 
-                    RoomId = employee.Seat.SeatId
+                    RoomId = employee.Seat.RoomId
                 };
                 dto.Seat = seatDto;
             }

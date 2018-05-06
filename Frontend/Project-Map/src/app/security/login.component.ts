@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       .subscribe(resp => {
         this.securityObject = resp;
         if (this.returnUrl) {
-          console.log("weszlem");
+          //console.log("weszlem");
           this.router.navigateByUrl(this.returnUrl);
         }
       },

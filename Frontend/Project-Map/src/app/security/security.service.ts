@@ -31,7 +31,7 @@ export class SecurityService {
   private globals: Globals) {
     this.Api_Url = globals.getUrl() + "/oauth/";
     let secObject = localStorage.getItem("bearerToken");
-    console.log(secObject);
+    //console.log(secObject);
     if(secObject !== null)
     {
       this.mapResponse(secObject);

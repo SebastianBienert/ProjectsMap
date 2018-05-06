@@ -107,10 +107,15 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   var self = this;
     this.floor.Rooms.forEach(room => {
       room.Seats.forEach(seat => {
+        //determine color
+        let seatColor = colors.seatColor;
+        if(this.selectedEmployeeSeatId === seat.Id) seatColor = colors.selectedSeatColor;
+        if(seat.DeveloperId === null) seatColor = colors.emptySeatColor;
+        
         this.drawnMap
         .rect(10, 10)
         .move(seat.Vertex.X, seat.Vertex.Y)
-        .fill(this.selectedEmployeeRoomId === seat.Id ?  '#fff' : colors.seatColor)
+        .fill(seatColor)
         .stroke({ width: 0 })
         .click(function() {if(!(seat.DeveloperId===null)) self.router.navigate(['/main',{outlets: {right: [seat.DeveloperId], center: [seat.DeveloperId]}}])})
       });

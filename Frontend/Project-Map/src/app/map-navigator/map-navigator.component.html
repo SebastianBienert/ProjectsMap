@@ -1,13 +1,13 @@
 <div style="color: white">
   <ul>
     <li  *ngFor="let building of buildingsList" [ngClass]="{'building-button':true, 'selected-button': building.Id === selectedBuilding}"  (click)="changeBuilding(building.Id)">{{building.Address}}</li>
-    <li   [ngClass]="{'building-button':true,'plus-button':true,  'selected-button': selectedBuilding === 0}" (click)="addNewBuilding()">+</li>
+    <li   [ngClass]="{'building-button':true,'plus-button':true,  'selected-button': selectedBuilding === 0}" (click)="addNewBuilding()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li>
   </ul>
 </div>
 <div style="color: white">
   <ul>
     <li *ngFor="let floor of currentBuildingFloorsList" [ngClass]="{'floor-button':true, 'selected-button': floor.Id === selectedFloor}" (click)="changeFloor(floor.Id)">Floor {{floor.FloorNumber}}</li>
-    <li *ngIf='selectedBuilding !== 0' [ngClass]="{'floor-button':true, 'plus-button':true, 'selected-button': selectedFloor === 0}" (click)="addNewFloor()">+</li> 
+    <li [ngClass]="{'floor-button':true, 'plus-button':true, 'selected-button': selectedFloor === 0}" (click)="addNewFloor()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li> 
   </ul>
 </div>
 <!-- <button (click)="debug()">print building</button> -->
@@ -16,7 +16,7 @@
         <p>Am loading</p>
       </div>
   <div  *ngSwitchCase="'displayMap'">
-    <button (click)=editMap()>Edit map</button>
+    <button (click)=editMap() *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</button>
     <app-displayed-map
     [floorToDisplay]= "selectedFloor">
     </app-displayed-map>

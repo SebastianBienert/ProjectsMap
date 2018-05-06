@@ -53,9 +53,9 @@ const routes: Routes = [
       canActivate: [AuthGuard],
       data: { claimType: 'canReadUsers' },
       children: [
-        {path: ':id', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: ':id', component: MapNavigatorComponent, outlet: 'center'}, 
         {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
-        {path: '', component: DisplayedMapComponent, outlet: 'center'}, 
+        {path: '', component: MapNavigatorComponent, outlet: 'center'}, 
         { path: '**', component: PageNotFoundComponent, outlet: 'center' },
         { path: '**', component: PageNotFoundComponent, outlet: 'right' }
         

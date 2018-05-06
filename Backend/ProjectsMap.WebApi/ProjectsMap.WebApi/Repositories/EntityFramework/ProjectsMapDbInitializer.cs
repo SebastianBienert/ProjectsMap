@@ -1499,7 +1499,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 1,
 	                Employee = developers[0],
-	                EmployeeId = 1,
+	                EmployeeId = developers[0].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[4].X,
 	                Y = vertices[4].Y,
@@ -1509,7 +1509,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 2,
 	                Employee = developers[1],
-	                EmployeeId = 2,
+	                EmployeeId = developers[1].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[5].X,
 	                Y = vertices[5].Y,
@@ -1518,7 +1518,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 3,
 	                Employee = developers[2],
-	                EmployeeId = 3,
+	                EmployeeId = developers[2].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[1].X,
 	                Y = vertices[1].Y,
@@ -1527,7 +1527,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 4,
 	                Employee = developers[3],
-	                EmployeeId = 4,
+	                EmployeeId = developers[3].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[71].X,
 	                Y = vertices[71].Y,
@@ -1539,7 +1539,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 5,
 	                Employee = developers[10],
-	                RoomId = 3,
+					EmployeeId = developers[10].EmployeeId,
+					RoomId = 3,
 	                X = vertices[16].X,
 	                Y = vertices[16].Y,
 	            },
@@ -1547,7 +1548,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 6,
 	                Employee = developers[11],
-	                RoomId = 3,
+					EmployeeId = developers[11].EmployeeId,
+					RoomId = 3,
 	                X = vertices[17].X,
 	                Y = vertices[17].Y,
 	            },
@@ -1662,7 +1664,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 17,
 	                Employee = developers[4],
-	                RoomId = 2,
+					EmployeeId = developers[4].EmployeeId,
+					RoomId = 2,
 	                X = vertices[72].X,
 	                Y = vertices[72].Y,
 	            },
@@ -1670,7 +1673,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 18,
 	                Employee = developers[5],
-	                RoomId = 2,
+					EmployeeId = developers[5].EmployeeId,
+					RoomId = 2,
 	                X = vertices[73].X,
 	                Y = vertices[73].Y,
 	            },
@@ -1678,7 +1682,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 19,
 	                Employee = developers[6],
-	                RoomId = 2,
+					EmployeeId = developers[6].EmployeeId,
+					RoomId = 2,
 	                X = vertices[74].X,
 	                Y = vertices[74].Y,
 	            },
@@ -1686,7 +1691,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 20,
 	                Employee = developers[7],
-	                RoomId = 2,
+					EmployeeId = developers[7].EmployeeId,
+					RoomId = 2,
 	                X = vertices[75].X,
 	                Y = vertices[75].Y,
 	            },
@@ -1694,7 +1700,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 21,
 	                Employee = developers[8],
-	                RoomId = 2,
+					EmployeeId = developers[8].EmployeeId,
+					RoomId = 2,
 	                X = vertices[76].X,
 	                Y = vertices[76].Y,
 	            },
@@ -1702,7 +1709,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 22,
 	                Employee = developers[9],
-	                RoomId = 2,
+					EmployeeId = developers[9].EmployeeId,
+					RoomId = 2,
 	                X = vertices[77].X,
 	                Y = vertices[77].Y,
 	            },
@@ -1796,7 +1804,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 33,
 	                Employee = developers[12],
-	                RoomId = 8,
+					EmployeeId = developers[12].EmployeeId,
+					RoomId = 8,
 	                X = vertices[88].X,
 	                Y = vertices[88].Y,
 	            },
@@ -1804,7 +1813,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 34,
 	                Employee = developers[13],
-	                RoomId = 8,
+					EmployeeId = developers[13].EmployeeId,
+					RoomId = 8,
 	                X = vertices[89].X,
 	                Y = vertices[89].Y,
 	            },
@@ -1815,14 +1825,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 35,
 	                Employee = developers[14],
-	                X = vertices[90].X,
+					EmployeeId = developers[14].EmployeeId,
+					X = vertices[90].X,
 	                Y = vertices[90].Y,
 	            },
 	            new Seat()
 	            {
 	                SeatId = 36,
 	                Employee = developers[15],
-	                RoomId = 10,
+					EmployeeId = developers[15].EmployeeId,
+					RoomId = 10,
 	                X = vertices[91].X,
 	                Y = vertices[91].Y,
 	            },
@@ -1833,7 +1845,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 37,
 	                Employee = developers[16],
-	                RoomId = 13,
+					EmployeeId = developers[16].EmployeeId,
+					RoomId = 13,
 	                X = vertices[92].X,
 	                Y = vertices[92].Y,
 	            },
@@ -1844,7 +1857,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 38,
 	                Employee = developers[17],
-	                RoomId = 14,
+					EmployeeId = developers[17].EmployeeId,
+					RoomId = 14,
 	                X = vertices[93].X,
 	                Y = vertices[93].Y,
 	            },

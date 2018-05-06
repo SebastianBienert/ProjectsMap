@@ -1,6 +1,7 @@
 export const colors ={
     seatColor: '#000',
     selectedSeatColor: '#fff',
+    emptySeatColor: '#808080',
     roomColor: '#77aaff',
     roomWithMouseOverColor: '#99b5e6',
     roomBorderColor: 'none',
