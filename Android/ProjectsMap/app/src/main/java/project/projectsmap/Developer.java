@@ -114,28 +114,48 @@ public class Developer implements Serializable {
 
     public String description(){
         String description;
-        description = "Id: " + DeveloperId + "\n"+
-                "FirstName: " + FirstName + "\n"+
-                "Surname: " + Surname + "\n"+
-                "Email: " + Email + "\n"+
-                "JobTitle: " + JobTitle + "\n"+
-                "WantToHelp: " + WantToHelp + "\n";
-        if(CompanyId != -1) {
-            description += "CompanyId: " + CompanyId + "\n";
+        description = "Id: " + DeveloperId + " \n"+ FirstName + " " + Surname + " \n" + "Email: " + Email + " \n";
+        if(JobTitle!=null){
+            description += "Stanowisko: " + JobTitle + " \n";
+        }else{
+            description += "Stanowisko: brak danych \n";
         }
         if(Technologies!=null){
-            description += "Technologies: " + "\n";
+            description += "Technologie: " + " \n";
             for(int i = 0; i < Technologies.size(); i++){
-                description += Technologies.get(i) + "\n";;
+                description += "* " + Technologies.get(i) + " \n";;
             }
         }else{
-            description += "Technologies: brak danych" + "\n";
+            description += "Technologie: brak danych" + " \n";
+        }
+        if(WantToHelp){
+            description += "Chcę pomagać! \n";
+        }else{
+            description += "Jestem zajęty nie będę pomagał. \n";
+        }
+        /*description = "Id: " + DeveloperId + " \n"+
+                "FirstName: " + FirstName + " \n"+
+                "Surname: " + Surname + " \n"+
+                "Email: " + Email + " \n"+
+                "JobTitle: " + JobTitle + " \n"+
+                "WantToHelp: " + WantToHelp + " \n";
+        if(CompanyId != -1) {
+            description += "CompanyId: " + CompanyId + " \n";
+        }
+        if(Technologies!=null){
+            description += "Technologies: " + " \n";
+            for(int i = 0; i < Technologies.size(); i++){
+                description += Technologies.get(i) + " \n";;
+            }
+        }else{
+            description += "Technologies: brak danych" + " \n";
         }
         if(Place!=null){
-            description += "Seat: \n Number seat" + Place.seatId + " \n Number room" + Place.roomId + "\n";
+            description += "Seat: \n Number seat: " + Place.seatId + " \n Number room: " + Place.roomId + " \n";
         }else{
-            description += "Seat: brak danych" + "\n";
-        }
+            description += "Seat: brak danych" + " \n";
+        }*/
+
         return description;
     }
 

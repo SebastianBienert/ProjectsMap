@@ -8,25 +8,23 @@
 
     <Spinner
         android:id="@+id/spinnerBuildings"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_alignLeft="@+id/spinnerFloors"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/spinnerFloors"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="15dp"
         tools:layout_editor_absoluteX="90dp"
         tools:layout_editor_absoluteY="4dp" />
 
     <Spinner
         android:id="@+id/spinnerFloors"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/spinnerBuildings"
-        android:layout_marginEnd="91dp"
-        android:layout_marginRight="91dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         tools:layout_editor_absoluteX="92dp"
         tools:layout_editor_absoluteY="42dp" />
 
@@ -46,22 +44,12 @@
         android:id="@+id/textViewFloor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonShowMap"
-        android:layout_alignBottom="@+id/buttonShowMap"
+        android:layout_below="@+id/textViewBuliding"
         android:layout_alignStart="@+id/textViewBuliding"
         android:text="Piętro"
+        android:layout_marginTop="22dp"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/buttonLoadData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:width="100dp"
-        android:text="Pobierz" />
 
     <!--<TextView
         android:id="@+id/textViewBuildingDescription"
@@ -87,17 +75,8 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonShowMap"
+        android:layout_below="@+id/spinnerFloors"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/buttonShowMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/buttonLoadData"
-        android:width="100dp"
-        android:text="Wyświetl" />
 
     <TextView
         android:id="@+id/textViewStatement"

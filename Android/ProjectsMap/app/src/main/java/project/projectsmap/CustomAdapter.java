@@ -52,13 +52,21 @@ public class CustomAdapter extends BaseAdapter {
         Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowOnMap);
         rowData.setText(list.get(position));
 
-        final String data = (String) rowData.getText();
+        int counter = 0;
+        final String[] data = ((String) rowData.getText()).split(" ");
+        final String employeeId = data[1];
+        /*do{
+            if(data[counter].equals("Id:")){
+                employeeId = data[counter + 1];
+                break;
+            }
+        }while(counter++ < data.length);*/
 
         btnShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     Intent i = new Intent(c, MapActivity.class);
-                    i.putExtra("Id", data);
+                    i.putExtra("Id", employeeId);
                     c.startActivity(i);
             }
         });
