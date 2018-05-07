@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       .subscribe(resp => {
         this.securityObject = resp;
         if (this.returnUrl) {
-          console.log("weszlem");
           this.modalReference.close();
           this.router.navigateByUrl(this.returnUrl);
         }
