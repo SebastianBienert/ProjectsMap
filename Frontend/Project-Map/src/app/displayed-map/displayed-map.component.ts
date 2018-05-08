@@ -6,7 +6,7 @@ import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
 import { Scale, Doc, PointArray, Rect } from './../../../node_modules/svg.js/svg.js.d';
-import { Component, OnInit, Input, SimpleChange, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChange, OnChanges, EventEmitter} from '@angular/core';
 import { Room } from '../common-interfaces/room';
 import { colors, styling } from './svgcolors';
 declare const SVG: any;
@@ -23,6 +23,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   selectedEmployeeSeatId: number = -1;
   selectedEmployeeId: number = -1;
   @Input() floorToDisplay: number;
+  @Output() mapChanged = new EventEmitter<number>();
   drawnMap;
   changeLog: string[] = [];
   constructor(private roomService: RoomService, private floorService: FloorServiceService,    private route: ActivatedRoute,
@@ -30,8 +31,9 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
    }
 
   ngOnInit() {
-    this.drawnMap = SVG.adopt(document.getElementById('svg'));
-    this.drawnMap.circle(100).move(350, 350);
+   // this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 20});
+   this.drawnMap = SVG('svg').size(800, 800).panZoom({zoomMin: 0.5, zoomMax: 20});
+   this.drawnMap.circle(100).move(350, 350);
     this.route.params.subscribe( params => this.selectedEmployeeId =  + params['id']);
     //this.getFloor();
     if(this.selectedEmployeeId > 0) {
@@ -39,6 +41,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     .switchMap((params: ParamMap) =>
       this.employeeService.getEmployeeLocationInfo(+params.get('id')))
         .subscribe(EmployeeLocationInfo => {
+          this.mapChanged.emit(EmployeeLocationInfo.FloorId);
           this.floorToDisplay = EmployeeLocationInfo.FloorId;
           this.selectedEmployeeRoomId = EmployeeLocationInfo.RoomId;
           this.selectedEmployeeSeatId = EmployeeLocationInfo.SeatId;

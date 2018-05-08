@@ -16,10 +16,12 @@
         <p>Am loading</p>
       </div>
   <div  *ngSwitchCase="'displayMap'">
-    <button (click)=editMap() *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</button>
     <app-displayed-map
-    [floorToDisplay]= "selectedFloor">
-    </app-displayed-map>
+    [floorToDisplay]= "selectedFloor"
+    (mapChanged)="mapChanged($event)">
+  </app-displayed-map>
+  <label for="editMap" class="btn" style="background-color: blue; color: aqua" *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</label>
+  <input id="editMap" (click)='editMap()' style="visibility:hidden;">
   </div>
   <div  *ngSwitchCase="'create'">
       <app-map-creator

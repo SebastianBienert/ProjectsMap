@@ -2,28 +2,31 @@
     <button (click)='drawNewRoom()'>Create room</button>
     <button (click)='chooseLine()'>Line</button>
     <button (click)='chooseSquare()'>Square</button>
-    <button (click)='saveMap()'>Save Map</button>
     <button (click)='clearMap()'>Clear</button>
-    <button (click)='test()'>Testing</button>
+    <!-- <button (click)='test()'>Testing</button> -->
     
     
     <div>
         <input type="checkbox" id="displayGridCheckBox" [checked]="displayGrid" (change)="gridOnOff()" />
         <label for="displayGridCheckBox">Display grid</label>
-    </div>
-    <div>
+    
         <input type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
         <label for="displayBackgroundImageCheckBox">Display background image</label>
-    </div>
-    <div>
+
         <input type="checkbox" id="placingSeatEnabled" [checked]="placingSeatEnabled" (change)="placeSeatsOnOff()" />
         <label for="placingSeatEnabled">Placing seat enabled</label>
+    <div>
+        <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
+        <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
     </div>
-    <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
-    <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
-    <svg class="svg-canvas" id="createMap" (click)="determineShape()"></svg>
+    <div>
+        <svg class="svg-canvas" id="createMap" (click)="determineShape()"></svg>
+    </div>
 </div>
 <div>
     <label for="files" class="btn" style="background-color: blue; color: aqua">Select background image</label>
     <input type='file' id="files" (change)="onSelectFile($event)" style="visibility:hidden;">
+
+    <label for="saveMap" class="btn" style="background-color: blue; color: aqua">Save map</label>
+    <input id="saveMap" (click)='saveMap()' style="visibility:hidden;">
 </div>

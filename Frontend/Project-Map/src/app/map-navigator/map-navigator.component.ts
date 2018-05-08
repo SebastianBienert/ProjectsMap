@@ -100,6 +100,12 @@ export class MapNavigatorComponent implements OnInit {
     }
   }
 
+  mapChanged(mapChanged: number) {
+    console.log("Changed");
+    //!!! needs to be implemented this.changeBuilding();
+    this.changeFloor(mapChanged);
+  }
+
   editMap() {
     this.displayMode = 'edit';
   }
