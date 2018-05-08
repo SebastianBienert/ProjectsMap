@@ -52,13 +52,5 @@ namespace ProjectsMap.WebApi.Controllers
 				return NotFound();*/
 		}
 
-		[HttpGet]
-		[Route("")]
-		public IHttpActionResult Get()
-		{
-			var companyBuildingsList = _buildingService.GetAllBuildings();
-			return Ok(companyBuildingsList);
-		}
-
 	}
 }
