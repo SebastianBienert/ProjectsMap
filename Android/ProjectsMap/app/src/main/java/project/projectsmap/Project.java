@@ -66,19 +66,16 @@ public class Project implements Serializable {
 
     public String description(){
         String description;
-        description = "Id: " + ProjectId + "\n"+
-                "Description: " + "\n" + Description + "\n";
-        if(CompanyId != -1) {
-            description += "CompanyId: " + CompanyId + "\n";
-        }
+        description = "Id: " + ProjectId + " \n"+
+                "OPIS: " + "\n" + Description + "\n";
         if(!RepositoryLink.isEmpty()) {
-            description += "Repository Link: " + RepositoryLink + "\n";
+            description += "LINK DO REPOZYTORIUM: " + "\n" + RepositoryLink + "\n";
         }
         if(!DocumentationLink.isEmpty()) {
-            description += "Documentation Link: " + DocumentationLink + "\n";
+            description += "LINK DO DOKUMENTACJI: " + "\n" + DocumentationLink + "\n";
         }
         if(technologies!=null){
-            description += "Technologies: " + "\n";
+            description += "TECHNOLOGIE: " + "\n";
             for(int i = 0; i < technologies.size(); i++){
                 description += technologies.get(i) + ", ";
             }
@@ -87,7 +84,7 @@ public class Project implements Serializable {
             description += "Brak wprowadzonych technologii" + " \n";
         }
         if(employees!=null){
-            description += "Employees: " + "\n";
+            description += "PRACOWNICY: " + "\n";
             for(int i = 0; i < employees.size(); i++){
                 description += employees.get(i) + ", ";
             }

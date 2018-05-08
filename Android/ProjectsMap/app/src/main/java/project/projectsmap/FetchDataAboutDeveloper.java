@@ -141,14 +141,18 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             //SaveToFileActivity.saveDataToFile(context,fileName,this.data,append);
             //SaveToFileActivity.DisableProgressBar();
         }else{
-            for(int i=0; i<dataList.size();i++) {
-                ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
-                //SearchDevelopersActivity.adapter.list.add(dataList.get(i).description());
+            if(choice.equals("Project")){
+                ((ActivityShowProjectDevelopers)context).setArrayDevelopers(dataList);
+            }else{
+                for(int i=0; i<dataList.size();i++) {
+                    ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
+                    //SearchDevelopersActivity.adapter.list.add(dataList.get(i).description());
+                }
+                //SearchDevelopersActivity.adapter.notifyDataSetChanged();
+                ((SearchDevelopersActivity)context).notifyDataSetChanged();
+                ((SearchDevelopersActivity)context).DisableProgressBar();
+                //SearchDevelopersActivity.DisableProgressBar();
             }
-            //SearchDevelopersActivity.adapter.notifyDataSetChanged();
-            ((SearchDevelopersActivity)context).notifyDataSetChanged();
-            ((SearchDevelopersActivity)context).DisableProgressBar();
-            //SearchDevelopersActivity.DisableProgressBar();
         }
     }
 
@@ -176,6 +180,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             }else if(choice.equals("Imię lub nazwisko")){
                 return new URL(GlobalVariable.webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
+            }else if(choice.equals("Project")){
+                return new URL(GlobalVariable.webApiURL+"/api/developers"); //tylko do testu trzeba dodac odpowiedni w backendzie
             }
         }catch(MalformedURLException e){
             e.printStackTrace();
