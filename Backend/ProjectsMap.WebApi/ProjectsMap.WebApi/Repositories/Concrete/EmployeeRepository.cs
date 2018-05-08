@@ -21,6 +21,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
                 {
                     return dbContext.Employees
                         .Include(d => d.Technologies)
+                        .Include(d => d.ProjectRoles.Select(pr => pr.Project))
                         .Include(d => d.Seat).ToList();
                 }
             }
@@ -32,6 +33,7 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
             {
                 return dbContext.Employees.
                     Include(d => d.Technologies)
+                    .Include(d => d.ProjectRoles.Select(pr => pr.Project))
                     .Include(d => d.Seat)
 					.Include(d => d.Seat.Room)
                     .FirstOrDefault(x => x.EmployeeId == id);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -72,6 +74,9 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
             errorText = "Wprowadź dane";
         } else {
             try {
+                boolean digitsOnly = TextUtils.isDigitsOnly(inputData);
+                if(choice.equals("Id") && !digitsOnly)
+                    throw new NumberFormatException("incorrect input format!");
                 URL url = setURLAdress();
                 if (url == null) {
                     return null;
@@ -99,6 +104,11 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
             } catch (MalformedURLException e) {
                 errorText = "MalformedURLException";
                 e.printStackTrace();
+            } catch (NumberFormatException e){
+                errorText = "Id powinno zawierać jedynie liczby!";
+                e.printStackTrace();
+            } catch (FileNotFoundException e){
+                errorText = "Brak wyników";
             } catch (IOException e) {
                 errorText = "IOException";
                 e.printStackTrace();

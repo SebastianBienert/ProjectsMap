@@ -41,6 +41,16 @@ namespace ProjectsMap.WebApi.Mappers
             };
         }
 
+        public static ProjectShortDto GetProjectShordDto(Project project)
+        {
+            var dto = new ProjectShortDto()
+            {
+                Id = project.ProjectId,
+                Name = project.Description
+            };
+            return dto;
+        }
+
         public static EmployeeDto GetEmployeeDto(Employee employee)
         {
             var dto = new EmployeeDto()
@@ -70,6 +80,15 @@ namespace ProjectsMap.WebApi.Mappers
                     RoomId = employee.Seat.RoomId
                 };
                 dto.Seat = seatDto;
+            }
+
+            if (employee.ProjectRoles == null || employee.ProjectRoles.Count == 0)
+            {
+                dto.Projects = null;
+            }
+            else
+            {
+                dto.Projects = employee.ProjectRoles.Select(pr => DTOMapper.GetProjectShordDto(pr.Project));
             }
 
 

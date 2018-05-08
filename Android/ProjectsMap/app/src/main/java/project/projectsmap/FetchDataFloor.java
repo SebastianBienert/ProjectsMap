@@ -22,6 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     String data ="";
     String numberId;
+    String numberIdEmployee="-1";
     //String webApiURL = "https://19484bc4.ngrok.io";
     //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     Floor floor;
@@ -37,7 +38,12 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL(GlobalVariable.webApiURL+"/api/floor/" + numberId);
+            URL url;
+            if(numberIdEmployee.equals("-1")){
+                url = new URL(GlobalVariable.webApiURL+"/api/floor/" + numberId);
+            }else{
+                url = new URL(GlobalVariable.webApiURL+"/api/developers/" + numberIdEmployee + "/floor");
+            }
             //URL url = new URL("http://localhost:58923/api/floor/" + numberId);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -66,15 +72,26 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
         super.onPostExecute(aVoid);
 
         if(floor!=null){
-            ((SearchFloorActivity)context).showDescription(floor.allDescription());
+            if(numberIdEmployee.equals("-1")){
+                ((SearchFloorActivity)context).showDescription(floor.allDescription());
+                ((SearchFloorActivity)context).DisableProgressBar();
+                ((SearchFloorActivity)context).setFloor(floor);
+            }else{
+                ((MapActivity)context).SetFloor(floor);
+                ((MapActivity)context).RefreshMap();
+            }
             //SearchFloorActivity.data.setText(floor.allDescription());
         }else{
-            ((SearchFloorActivity)context).showDescription("Brak piętra o tym numerze");
+            if(numberIdEmployee.equals("-1")){
+                ((SearchFloorActivity)context).showDescription("Brak piętra o tym numerze");
+                ((SearchFloorActivity)context).DisableProgressBar();
+            }else{
+
+            }
             //SearchFloorActivity.data.setText("Brak piętra o tym numerze");
         }
 
-        ((SearchFloorActivity)context).DisableProgressBar();
-        ((SearchFloorActivity)context).setFloor(floor);
+
         //SearchFloorActivity.DisableProgressBar();
         //SearchFloorActivity.floor = floor;
         //ShowMapActivity.DisableProgressBar();
@@ -83,4 +100,5 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
     public void setNumberId(String number){
         numberId = number;
     }
+    public void setNumberEmployeeId(String number) { numberIdEmployee = number;}
 }

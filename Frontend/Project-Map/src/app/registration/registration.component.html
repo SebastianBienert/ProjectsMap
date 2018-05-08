@@ -2,54 +2,68 @@
 <div class="container">
   <div class="card card-container">
     <h2 class="text-center">Sign up</h2>
-    <form [formGroup]="formRegistration" (ngSubmit)="onSubmit(formRegistration)">
+    <form [formGroup]="formRegistration" (ngSubmit)="onSubmit(formRegistration); open(content);">
 
       <div class="md-form">
         <i class="fa fa-envelope prefix blue-text"></i>
         <input type="text" class="form-control" id="Email" formControlName="Email" mdbActive>
-        <span *ngIf="formErrors.Email" class="alert alert-danger">{{ formErrors.Email }}</span>
+        <div *ngIf="formErrors.Email" >
+          <div *ngFor="let error of formErrors.Email" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="Email">E-mail</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-user-secret prefix blue-text"></i>
         <input type="text" class="form-control" id="Username" formControlName="Username" mdbActive>
-        <span *ngIf="formErrors.Username" class="alert alert-danger">{{ formErrors.Username }}</span>
+        <div *ngIf="formErrors.Username" >
+          <div *ngFor="let error of formErrors.Username" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="Email">Username</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-key prefix blue-text"></i>
         <input type="password" class="form-control" id="Password" formControlName="Password" mdbActive>
-        <span *ngIf="formErrors.Username" class="alert alert-danger">{{ formErrors.Password }}</span>
+        <div *ngIf="formErrors.Password" >
+          <div *ngFor="let error of formErrors.Password" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="Password">Password</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-check-circle prefix blue-text"></i>
         <input type="password" class="form-control" id="PasswordConfirm" formControlName="PasswordConfirm" mdbActive>
-        <span *ngIf="formErrors.PasswordConfirm" class="alert alert-danger">{{ formErrors.PasswordConfirm }}</span>
+        <div *ngIf="formErrors.PasswordConfirm" >
+          <div *ngFor="let error of formErrors.PasswordConfirm" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="PasswordConfirm">Password confirmation</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-hashtag prefix blue-text"></i>
         <input type="text" class="form-control" id="DeveloperId" formControlName="DeveloperId" mdbActive>
-        <span *ngIf="formErrors.DeveloperId" class="alert alert-danger">{{ formErrors.DeveloperId }}</span>
+        <div *ngIf="formErrors.DeveloperId" >
+          <div *ngFor="let error of formErrors.DeveloperId" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="DeveloperId">Developer ID</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-user prefix blue-text"></i>
         <input type="text" class="form-control" id="FirstName" formControlName="FirstName" mdbActive>
-        <span *ngIf="formErrors.FirstName" class="alert alert-danger">{{ formErrors.FirstName }}</span>
+        <div *ngIf="formErrors.FirstName" >
+          <div *ngFor="let error of formErrors.FirstName" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="FirstName">First Name</label>
       </div>
 
       <div class="md-form">
         <i class="fa fa-user-o prefix blue-text"></i>
         <input type="text" class="form-control" id="Surname" formControlName="Surname" mdbActive>
-        <span *ngIf="formErrors.Surname" class="alert alert-danger">{{ formErrors.Surname }}</span>
+        <div *ngIf="formErrors.Surname" >
+          <div *ngFor="let error of formErrors.Surname" class="alert alert-danger row">{{ error }}</div>
+        </div>
         <label for="Surname">Surname</label>
       </div>
 
@@ -59,3 +73,20 @@
     </form>
   </div><!-- /card-container -->
 </div><!-- /container -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Loading...</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row align-items-center justify-content-center">
+    <div class="col">
+      <div class="loader"></div> 
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div> -->
+</ng-template>

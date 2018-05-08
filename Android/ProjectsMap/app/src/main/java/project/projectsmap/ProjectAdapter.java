@@ -50,17 +50,21 @@ public class ProjectAdapter extends BaseAdapter {
         TextView rowData = (TextView)row.findViewById(R.id.textViewRowData);
 
         Button btnShowDev = (Button)row.findViewById(R.id.buttonShowDevelopers);
+        rowData.setText(list.get(position));
+        final String[] data = ((String) rowData.getText()).split(" ");
+        final String projectId = data[1];
         btnShowDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(c, ActivityShowProjectDevelopers.class);
+                intent.putExtra("Id", projectId);
                 //intent.putExtra("listDev", );
                 c.startActivity(intent);
             }
         });
 
-        rowData.setText(list.get(position));
+
 
         return row;
     }

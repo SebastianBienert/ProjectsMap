@@ -47,7 +47,9 @@ export class SharedService {
     filter: string;
 
     private setFoundEmployees(val: Employee[]) {
-        console.log(val);
+        if(val == undefined) {
+            val = [];
+        }
         val.forEach(element => {
            this.emps.push(element); 
         });
@@ -55,6 +57,9 @@ export class SharedService {
     }
 
     private setFoundProjects(val: Project[]) {
+        if(val == undefined) {
+            val = [];
+        }
         val.forEach(element => {
             this.projs.push(element); 
          });
@@ -81,8 +86,6 @@ export class SharedService {
                 this.employeeService.searchEmployeeByName(this.filter, this.page)
                     .subscribe(x => 
                     {
-                        console.log(x);
-                        console.log(x.result);
                         this.setFoundEmployees(x.Result);
                     }); 
                 break;

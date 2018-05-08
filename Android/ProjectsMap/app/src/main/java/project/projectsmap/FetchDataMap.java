@@ -49,7 +49,8 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            URL url = new URL(GlobalVariable.webApiURL+"/api/company/" + numberId + "/buildings");
+            //URL url = new URL(GlobalVariable.webApiURL+"/api/company/" + numberId + "/buildings");
+            URL url = new URL(GlobalVariable.webApiURL+"/api/buildings");
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpsURLConnection.addRequestProperty("Authorization", "Bearer "+token);
