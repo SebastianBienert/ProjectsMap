@@ -1,6 +1,6 @@
   <div class="row">
-    <div *ngIf="employeeInfo != null" class="col-3">
-        <img class="img-fluid" *ngIf="employeeInfo.PhotoUrl != null" [src]="employeeInfo.PhotoUrl"> 
+    <div *ngIf="employeeInfo.PhotoUrl != null" class="col-3">
+        <img class="img-fluid"  [src]="employeeInfo.PhotoUrl"> 
     </div>
       <div class="col-8">
       <div *ngIf="employeeInfo != null" class="" >
