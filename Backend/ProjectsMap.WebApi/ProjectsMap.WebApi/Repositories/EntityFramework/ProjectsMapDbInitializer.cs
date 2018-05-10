@@ -1439,22 +1439,13 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	        var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
             var writeUsersClaim = ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true");
             var writeProjectsClaim = ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true");
+	        var writeMapClaim = ExtendedClaimsProvider.CreateClaim("canWriteMap", "true");
 
             manager.AddClaim(first.Id, readClaim);
 	        manager.AddClaim(first.Id, readProjectsClaim);
 	        manager.AddClaim(first.Id, writeUsersClaim);
 	        manager.AddClaim(first.Id, writeProjectsClaim);
-            //if (roleManager.Roles.Count() == 0)
-            //{
-            //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-            //    roleManager.Create(new IdentityRole { Name = "Admin" });
-            //    roleManager.Create(new IdentityRole { Name = "User" });
-            //}
-
-            //var adminUser = manager.FindByName("SuperPowerUser");
-
-            //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
-
+	        manager.AddClaim(first.Id, writeMapClaim);
             developers.First().ApplicationUser = user;
 
 	        int i = 0;
