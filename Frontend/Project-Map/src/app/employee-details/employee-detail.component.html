@@ -1,7 +1,7 @@
 
   <div class="card mt-1 mb-1" *ngIf="employee$ as emp">
-    <div class="text-center img-container">
-      <img *ngIf="emp.PhotoUrl" class="card-img-top img-fluid rounded photo" [attr.src]="emp.PhotoUrl" alt="Photo">
+    <div *ngIf="emp.PhotoUrl != null" class="text-center img-container">
+      <img class="card-img-top img-fluid rounded photo" [attr.src]="emp.PhotoUrl" alt="Photo">
     </div>
     <div class="card-body">
       <!-- <h1 class="card-title text-center">Ahmed</h1> -->
