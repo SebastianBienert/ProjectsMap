@@ -8,16 +8,8 @@
   </div>
 </div>
 
-<!-- TEMPORARY CODE TO VIEW SECURITY OBJECT -->
-<div class="row">
-  <div class="col-xs-12">
-    <label>{{securityObject | json}}</label>
-  </div>
-</div>
-
 <div class="container">
   <div class="card card-container">
-      <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
       <img id="profile-img" class="profile-img-card" src="assets/login_thumbnail.png"/>
       <p id="profile-name" class="profile-name-card"></p>
       <form class="form-signin" (ngSubmit)="login(); open(content);">

@@ -124,8 +124,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form);
-    // const formModel = this.formRegistration.value;
     var user = {
       Email : this.formRegistration.get('Email').value,
       Username : this.formRegistration.get('Username').value,
@@ -143,11 +141,9 @@ export class RegistrationComponent implements OnInit {
       Password : this.formRegistration.get('Password').value,
       ConfirmPassword : this.formRegistration.get('PasswordConfirm').value,
     }
-    console.log(user);
     this.securityService.register(user).subscribe(response =>{
       this.modalReference.close();
       this.router.navigate(['/login']);
-      console.log(response);
     })
 
   }

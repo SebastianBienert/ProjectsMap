@@ -51,7 +51,6 @@ export class SearchComponent implements OnInit {
           this.sharedService.setListingState(true);
         }
       });
-    //.do(term => console.log("aaaa"));
   }
 
   logout(): void {

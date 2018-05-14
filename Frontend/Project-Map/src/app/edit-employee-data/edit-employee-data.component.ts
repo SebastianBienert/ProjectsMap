@@ -104,7 +104,6 @@ export class EditEmployeeDataComponent implements OnInit {
      if(event.target.files.length > 0) {
       
       let file = event.target.files[0];
-      console.log(file);
       this.formAddEmployee.patchValue(
         {
           Photo: file,
@@ -115,7 +114,6 @@ export class EditEmployeeDataComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form);
     const formModel = this.formAddEmployee.value;
    var developersTechnologies = form.value.Technologies;
 

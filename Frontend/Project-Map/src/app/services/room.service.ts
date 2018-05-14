@@ -40,7 +40,6 @@ export class RoomService {
   }
 
   public addRoom(Room) {
-    console.log('Whaaat the')
     return this.http.post<Room>(this.postRoomUrl, {
       'Walls' : Room.Walls
     })
