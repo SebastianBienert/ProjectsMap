@@ -107,6 +107,10 @@ export class EmployeeService {
 
   }
 
+  getEmployeesByName(name: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.employeeUrl + "/" + name);
+  }
+
   searchEmployeeByName(name: string, page: number): Observable<any> {
     let params = new HttpParams({
       fromObject: {

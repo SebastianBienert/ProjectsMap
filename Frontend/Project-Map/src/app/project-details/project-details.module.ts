@@ -2,7 +2,7 @@ import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
 
-import { EmployeeDetailComponent }  from './employee-detail.component';
+import { ProjectDetailComponent }  from './project-detail.component';
 
 @NgModule({
   imports: [
@@ -10,7 +10,7 @@ import { EmployeeDetailComponent }  from './employee-detail.component';
     FormsModule
   ],
   declarations: [
-    EmployeeDetailComponent
+    ProjectDetailComponent
   ]
 })
-export class EmployeeDetailsModule {}
+export class ProjectDetailsModule {}

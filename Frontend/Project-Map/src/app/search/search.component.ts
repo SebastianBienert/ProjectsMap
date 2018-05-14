@@ -69,6 +69,10 @@ export class SearchComponent implements OnInit {
     this.sharedService.loadChunkOfData();
   }
 
+  canWrite(): boolean {
+    return this.securityService.hasClaim('canWriteProjects:true','claimType2:value');
+  }
+
   ngOnInit() {
   }
 

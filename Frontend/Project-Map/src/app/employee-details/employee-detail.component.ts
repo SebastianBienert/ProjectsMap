@@ -14,7 +14,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   employee$: Employee;
   photoUrl : string;
-  photo : any;
 
   constructor(
     private route: ActivatedRoute,
