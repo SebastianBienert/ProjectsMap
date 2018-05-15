@@ -30,14 +30,12 @@ export class SecurityService {
   httpErrorHandler: HttpErrorHandler,
   private globals: Globals) {
     this.Api_Url = globals.getUrl() + "/oauth/";
-    let secObject = localStorage.getItem("bearerToken");
     
-    if(secObject !== null)
-    {
-      this.mapResponse(secObject);
-    }
     this.handleError = httpErrorHandler.createHandleError('ProjectService');
-   }
+   
+  }
+
+
 
    register(entity: any): Observable<any>{
      return this.http.post<any>(this.globals.getUrl() + "/api/accounts/create", entity)
@@ -45,6 +43,22 @@ export class SecurityService {
       catchError(this.handleError('createAccount', []))
     );
    }
+
+  initializeSecurityObj 
+
+  isUserStillValid(): boolean{
+    let claim: AppUserClaim = this.securityObject.claims.find(x => x.claimType == "exp");
+    let expires = +claim.claimValue;
+    let current = Date.now() / 1000;
+    if(current <= expires) {
+       return true;
+    }
+    else {
+       this.logout();
+    }
+    
+    return false;
+  }
 
   login(entity: AppUser): Observable<AppUserAuth> {
     // Initialize security object
@@ -107,7 +121,6 @@ export class SecurityService {
   hasClaim(claimType: any, claimValue?: any) {
     let ret: boolean = false;
 
-    // See if an array of values was passed in.
     if (typeof claimType === "string") {
       ret = this.isClaimValid(claimType, claimValue);
     }
@@ -116,7 +129,6 @@ export class SecurityService {
       if (claims) {
         for (let index = 0; index < claims.length; index++) {
           ret = this.isClaimValid(claims[index]);
-          // If one is successful, then let them in
           if (ret) {
             break;
           }
@@ -131,11 +143,8 @@ export class SecurityService {
     let ret: boolean = false;
     let auth: AppUserAuth = null;
 
-    // Retrieve security object
     auth = this.securityObject;
     if (auth) {
-      // See if the claim type has a value
-      // *hasClaim="'claimType:value'"
       if (claimType.indexOf(":") >= 0) {
         let words: string[] = claimType.split(":");
         claimType = words[0].toLowerCase();
@@ -143,10 +152,8 @@ export class SecurityService {
       }
       else {
         claimType = claimType.toLowerCase();
-        // Either get the claim value, or assume 'true'
         claimValue = claimValue ? claimValue : "true";
       }
-      // Attempt to find the claim
       ret = auth.claims.find(c =>
         c.claimType.toLowerCase() == claimType &&
         c.claimValue == claimValue) != null;

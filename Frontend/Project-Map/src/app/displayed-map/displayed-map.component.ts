@@ -156,7 +156,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
           .stroke({ width: 0 })
           .click(function () {
             if (!(seat.DeveloperId === null))
-              self.router.navigate(['/main', { outlets: { right: [seat.DeveloperId], center: [seat.DeveloperId] } }]);
+              self.router.navigate(['/main',{outlets: {right: ['user', seat.DeveloperId], center: [seat.DeveloperId]} }]);
             else {
               //check if there exists seatQuestionMessageBox, don't show new one if so
               let seatQuestionMessageBox = SVG.get('seatQuestionMessageBox');

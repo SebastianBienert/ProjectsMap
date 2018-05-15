@@ -47,7 +47,6 @@ export class MapNavigatorComponent implements OnInit {
     this.selectedBuilding = Id;
   }
   debug() {
-    console.log(this.buildingsList[1]);
   }
 
   getFloorsList(BuildingId: number, loadFirstFloor: boolean): void {

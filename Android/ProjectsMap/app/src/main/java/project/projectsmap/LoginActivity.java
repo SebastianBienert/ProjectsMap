@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String token = o.optString("access_token");
                                 if (TextUtils.isEmpty(error) && !TextUtils.isEmpty(token)) {
                                     GlobalVariable.token = token;
-                                    Toast.makeText(getBaseContext(),"Zalogowano", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getBaseContext(),"Zalogowano", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("token", token);
                                     startActivity(intent);

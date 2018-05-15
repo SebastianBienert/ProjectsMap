@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import "rxjs/Rx";
 import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
+import { ProjectDetailsModule }  from './project-details/project-details.module';
 
 import { AppComponent } from './app.component';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
@@ -38,6 +39,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { PageNotFoundComponent } from './not-found.component';
 import { EmployeeDetailComponent } from './employee-details/employee-detail.component';
+import { ProjectDetailComponent } from './project-details/project-detail.component';
 import { Globals } from './globals';import { SecurityService } from './security/security.service';
 import { LoginComponent } from './security/login.component';
 import { AuthGuard } from './security/auth.guard';
@@ -56,7 +58,8 @@ const routes: Routes = [
       data: { claimType: 'canReadUsers' },
       children: [
         {path: ':id', component: MapNavigatorComponent, outlet: 'center'}, 
-        {path: ':id', component: EmployeeDetailComponent, outlet: 'right'}, 
+        {path: 'user/:id', component: EmployeeDetailComponent, outlet: 'right'}, 
+        {path: 'project/:id', component: ProjectDetailComponent, outlet: 'right'}, 
         {path: '', component: MapNavigatorComponent, outlet: 'center'}, 
         { path: '**', component: PageNotFoundComponent, outlet: 'center' },
         { path: '**', component: PageNotFoundComponent, outlet: 'right' }
@@ -123,6 +126,7 @@ const routes: Routes = [
     TagInputModule, 
     BrowserAnimationsModule,
     EmployeeDetailsModule,
+    ProjectDetailsModule,
     HttpInterceptorModule
   ],
   providers: [

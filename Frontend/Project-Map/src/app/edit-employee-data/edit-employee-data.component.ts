@@ -20,7 +20,6 @@ export class EditEmployeeDataComponent implements OnInit {
   employeeInfo: Employee = null;
   modalReference : any;
   formAddEmployee : FormGroup;
-  companyId : number = 1;
   allTechnologies : string[];
   formErrors = {
     DeveloperId: '',
@@ -73,6 +72,7 @@ export class EditEmployeeDataComponent implements OnInit {
           JobTitle: employeeResult.JobTitle,
           ManagerId: employeeResult.ManagerId
         });
+        if(this.employeeInfo.PhotoUrl != null)
         this.employeeInfo.PhotoUrl += "?q=" + new Date().getMilliseconds();
     })
     this.formAddEmployee = this.formBuilder.group({
@@ -103,7 +103,6 @@ export class EditEmployeeDataComponent implements OnInit {
      if(event.target.files.length > 0) {
       
       let file = event.target.files[0];
-      //console.log(file);
       this.formAddEmployee.patchValue(
         {
           Photo: file,
@@ -114,7 +113,6 @@ export class EditEmployeeDataComponent implements OnInit {
   }
 
   onSubmit(form) {
-    //console.log(form);
     const formModel = this.formAddEmployee.value;
    var developersTechnologies = form.value.Technologies;
 
@@ -122,8 +120,6 @@ export class EditEmployeeDataComponent implements OnInit {
       FirstName : form.value.FirstName,
       Id : form.value.DeveloperId,
       Surname : form.value.Surname,
-      ManagerCompanyId : this.companyId,
-      CompanyId : this.companyId,
       ManagerId : form.value.ManagerId,
       Email : form.value.Email,
       JobTitle : form.value.JobTitle,

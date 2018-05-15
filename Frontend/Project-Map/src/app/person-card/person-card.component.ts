@@ -16,7 +16,7 @@ export class PersonCardComponent implements OnInit {
   }
 
   showMore(){
-    this.router.navigate(['/main',{outlets: {right: [this.employee.Id], center: [this.employee.Id]} }]);
+    this.router.navigate(['/main',{outlets: {right: ['user', this.employee.Id]} }]);
   }
 
 }

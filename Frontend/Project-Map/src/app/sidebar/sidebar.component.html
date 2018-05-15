@@ -6,7 +6,7 @@
       <a [routerLink]="['employees']" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;{{ 'Edit profile'  }}
       </a>
-      <a [routerLink]="['mapCreator']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+      <a [routerLink]="['mapCreator']" *hasClaim="'canWriteMap:true'" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-fw fa-table"></i>&nbsp;{{ 'Map Creator'  }}
       </a>
       <div class="header-fields">

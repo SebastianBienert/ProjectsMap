@@ -51,7 +51,6 @@ export class SearchComponent implements OnInit {
           this.sharedService.setListingState(true);
         }
       });
-    //.do(term => console.log("aaaa"));
   }
 
   logout(): void {
@@ -67,6 +66,10 @@ export class SearchComponent implements OnInit {
     this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
    
     this.sharedService.loadChunkOfData();
+  }
+
+  canWrite(): boolean {
+    return this.securityService.hasClaim('canWriteProjects:true','claimType2:value');
   }
 
   ngOnInit() {

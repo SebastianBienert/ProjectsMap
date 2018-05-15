@@ -1433,26 +1433,20 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 	        manager.Create(user, "MySuperP@ss!1");
 	        var first = manager.Users.First();
-	        manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true"));
-	        manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true"));
+
 
 	        var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
 	        var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
-	        manager.AddClaim(first.Id, readClaim);
+            var writeUsersClaim = ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true");
+            var writeProjectsClaim = ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true");
+	        var writeMapClaim = ExtendedClaimsProvider.CreateClaim("canWriteMap", "true");
+
+            manager.AddClaim(first.Id, readClaim);
 	        manager.AddClaim(first.Id, readProjectsClaim);
-
-	        //if (roleManager.Roles.Count() == 0)
-	        //{
-	        //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-	        //    roleManager.Create(new IdentityRole { Name = "Admin" });
-	        //    roleManager.Create(new IdentityRole { Name = "User" });
-	        //}
-
-	        //var adminUser = manager.FindByName("SuperPowerUser");
-
-	        //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
-
-	        developers.First().ApplicationUser = user;
+	        manager.AddClaim(first.Id, writeUsersClaim);
+	        manager.AddClaim(first.Id, writeProjectsClaim);
+	        manager.AddClaim(first.Id, writeMapClaim);
+            developers.First().ApplicationUser = user;
 
 	        int i = 0;
 	        foreach (var dev in developers.Skip(1))
@@ -1470,7 +1464,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            var usr = manager.Users.First(x => x.UserName == userName);
 	            manager.AddClaim(usr.Id, readClaim);
 	            manager.AddClaim(usr.Id, readProjectsClaim);
-	            dev.ApplicationUser = user2;
+	            manager.AddClaim(usr.Id, writeUsersClaim);
+                dev.ApplicationUser = user2;
 	            i++;
 	        }
 

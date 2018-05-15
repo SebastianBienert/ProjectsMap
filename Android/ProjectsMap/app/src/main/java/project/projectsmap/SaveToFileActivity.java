@@ -77,7 +77,7 @@ public class SaveToFileActivity extends AppCompatActivity {
                     process.setToSavecontext(getApplicationContext());
                     process.setcontext(SaveToFileActivity.this);
                     process.setFileName("plikTestowy");
-                    process.setChoice("Wszystko");
+                    process.setChoice("Wszyscy");
                     process.setAppend(append);
                     //process.setInputData("1");
                     process.setTextViewStatement(null);
