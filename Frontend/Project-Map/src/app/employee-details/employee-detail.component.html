@@ -18,10 +18,14 @@
           {{ emp.Email }} <br>
           <span class="font-weight-bold">Job Title: </span>
           {{ emp.JobTitle }} <br>
-          <span class="font-weight-bold">Manager: </span>
-          {{ emp.ManagerId }} <br>
-          <span class="font-weight-bold">Manager Company ID: </span>
-          {{ emp.ManagerCompanyId }} <br>
+          <span *ngIf="emp.ManagerId" class="font-weight-bold">Manager: </span>
+          {{ emp.ManagerId }} <br *ngIf="emp.ManagerId">
+          <span class="font-weight-bold">Projects: </span>
+          <div class="container">
+            <div *ngFor="let project of emp.Projects" class="tag">
+               <a (click)="findProject(project.Id)">{{project.Name}}</a>
+            </div>
+          </div>
           <span class="font-weight-bold">Technologies: </span>
           <div class="container">
             <div *ngFor="let tech of emp.Technologies" class="tag">

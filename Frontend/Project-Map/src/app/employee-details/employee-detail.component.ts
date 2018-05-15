@@ -32,6 +32,11 @@ export class EmployeeDetailComponent implements OnInit {
           });  
   }
 
+
+  findProject(id : number){
+     this.router.navigate(['/main',{outlets: {right: ['project', id]} }]);
+  }
+
   hideDetails() {
     this.router.navigate(['/']);
   }
