@@ -1,8 +1,9 @@
-<div style="margin-top: 35px">
-    <button (click)='drawNewRoom()'>Create room</button>
-    <button (click)='chooseLine()'>Line</button>
-    <button (click)='chooseSquare()'>Square</button>
-    <button (click)='clearMap()'>Clear</button>
+<div>
+
+    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='drawNewRoom()'>Create room</button>
+    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='chooseLine()'>Line</button>
+    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='chooseSquare()'>Square</button>
+    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='clearMap()'>Clear</button>
     <!-- <button (click)='test()'>Testing</button> -->
     
     
@@ -18,15 +19,19 @@
     <div>
         <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
         <input [(ngModel)]="floorDescription" #ctrl="ngModel" required placeholder="Floor description">
-    </div>
-    <div>
+    </div> 
+    <div style="padding: 10px 0px 10px 0px;">
         <svg class="svg-canvas" id="createMap" (click)="determineShape()"></svg>
     </div>
 </div>
 <div>
     <label for="files" class="btn" style="background-color: blue; color: aqua">Select background image</label>
-    <input type='file' id="files" (change)="onSelectFile($event)" style="visibility:hidden;">
+    <input type="file" id="files" (change)="onSelectFile($event)" style="visibility:hidden;">
 
-    <label for="saveMap" class="btn" style="background-color: blue; color: aqua">Save map</label>
-    <input id="saveMap" (click)='saveMap()' style="visibility:hidden;">
+    <!-- <label for="saveMap" class="btn" style="background-color: blue; color: aqua">Save map</label>
+    <input id="saveMap" (click)="saveMap()" style="visibility:hidden;"> -->
+    <button class="btn btn-blue waves-light" mdbRippleRadius (click)="saveMap()">Save map</button>
+    
+    <input type="checkbox" id="saveWithBackgroundPhoto" [checked]="saveWithBackgroundPhoto" />
+    <label for="saveWithBackgroundPhoto">Save map with background photo</label>
 </div>

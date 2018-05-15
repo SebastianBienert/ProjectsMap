@@ -1,3 +1,4 @@
+import { Vertex } from './vertex';
 import { Wall } from './wall';
 import { Room } from "./room";
 
@@ -8,4 +9,6 @@ export interface Floor{
     BuildingId : number,
     Rooms : Room[],
     Walls : Wall[],
+    XPhoto: number,
+    YPhoto: number
 }

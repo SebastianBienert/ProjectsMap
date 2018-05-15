@@ -35,6 +35,8 @@ export class MapCreatorComponent implements OnInit {
 
   element;
 
+  photoFile: File;
+  saveWithBackgroundPhoto: boolean = true;
   placingSeatEnabled: boolean = false;
   floorNumber: number;
   floorDescription: string;
@@ -56,6 +58,7 @@ export class MapCreatorComponent implements OnInit {
     if (this.displayBackgroundImage) {
       this.backgroundImage = this.drawnMap.image(this.imageHref, 760, 760).move(20, 20).draggable().back();
     }
+    
   }
 
   ngOnInit() {
@@ -94,7 +97,7 @@ export class MapCreatorComponent implements OnInit {
     if (!this.drawingRightNow) {
       // grup defined to hold seats, room shape and circles at vertexes of room together
       var group = this.drawnMap.group();
-      var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill('#4f4').stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
+      var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill({color: '#4f4', opacity: '0.7'}).stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
       this.drawingRightNow = true;
       var self = this;
       if (this.displayBackgroundImage && this.imageHref !== null) {
@@ -123,8 +126,8 @@ export class MapCreatorComponent implements OnInit {
             var pointie = self.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
               //function to move circles snapped to grid
               return {
-                x: x - x % defaultValues.gridSize,
-                y: y - y % defaultValues.gridSize
+                x: x - x % defaultValues.gridSize -5,
+                y: y - y % defaultValues.gridSize -5
               };
             })
               //every time when circle is moved polygon needs to be replotted
@@ -153,8 +156,8 @@ export class MapCreatorComponent implements OnInit {
               var seatRect = self.drawnMap.rect(defaultValues.seatSize, defaultValues.seatSize).move((event.offsetX - event.offsetX % defaultValues.gridSize), (event.offsetY - event.offsetY % defaultValues.gridSize)).draggable((function (x, y) {
                 //function to move seats snapped to grid
                 return {
-                  x: x - x % 10,
-                  y: y - y % 10
+                  x: x - x % defaultValues.gridSize,
+                  y: y - y % defaultValues.gridSize
                 };
               }));
               var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
@@ -269,6 +272,7 @@ export class MapCreatorComponent implements OnInit {
 
   //add allert so that user will know that saving map will end map creation!
   saveMap() {
+    //console.log(this.backgroundImage.attr('x') + "to jest x");
     var linesVertexes = Array();
     //parse svg.js lines to LineMap
     for (var i = 0; i < this.lines.length; i++) {
@@ -293,11 +297,16 @@ export class MapCreatorComponent implements OnInit {
       Rooms.push(room);
     }
 
-
-    var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
+    
+    var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber, XPhoto: 20, YPhoto: 20 } as Floor;
 
     if (this.loadedFloorId == -1) {
-      this.floorService.addFloor(floor).subscribe(data => {this.mapCreated.emit(true); this.loadedFloorId = data.Id;});
+      this.floorService.addFloor(floor).subscribe(data => {this.mapCreated.emit(true); this.loadedFloorId = data;  
+        if(this.saveWithBackgroundPhoto && this.backgroundImage != null)
+        {
+          this.floorService.uploadBackgroundPhoto(this.photoFile, data);
+        }
+      });
       
     } else {
       floor.Id = this.loadedFloorId;
@@ -372,8 +381,8 @@ export class MapCreatorComponent implements OnInit {
               var pointie = this.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
                 //function to move circles snapped to grid
                 return {
-                  x: x - x % defaultValues.gridSize,
-                  y: y - y % defaultValues.gridSize
+                  x: x - x % defaultValues.gridSize -2.5,
+                  y: y - y % defaultValues.gridSize -2.5
                 };
               })
                 //every time when circle is moved polygon needs to be replotted
@@ -400,8 +409,8 @@ export class MapCreatorComponent implements OnInit {
                 var seatRect = self.drawnMap.rect(defaultValues.seatSize, defaultValues.seatSize).move((event.offsetX - event.offsetX % defaultValues.gridSize), (event.offsetY - event.offsetY % defaultValues.gridSize)).draggable((function (x, y) {
                   //function to move seats snapped to grid
                   return {
-                    x: x - x % 10,
-                    y: y - y % 10
+                    x: x - x % defaultValues.gridSize,
+                    y: y - y % defaultValues.gridSize
                   };
                 }));
                 var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
@@ -420,8 +429,8 @@ export class MapCreatorComponent implements OnInit {
                 .draggable((function (x, y) {
                   //function to move seats snapped to grid
                   return {
-                    x: x - x % 10,
-                    y: y - y % 10
+                    x: x - x % defaultValues.gridSize,
+                    y: y - y % defaultValues.gridSize
                   };
                 }));
               var seatVertex = { X: seat.Vertex.X, Y: seat.Vertex.Y } as Vertex;
@@ -445,13 +454,12 @@ export class MapCreatorComponent implements OnInit {
         
   }
 
-
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-
+      this.photoFile = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
+      console.log(this.photoFile);
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.imageHref = (event.target as any).result;
         this.changeImage();

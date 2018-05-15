@@ -73,8 +73,10 @@ export class SecurityService {
     this.securityObject.access_token = token;
     //delete token["access_token"];
     this.securityObject.isAuthenticated = true;
-    this.securityObject.userName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-    delete decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+    this.securityObject.userName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    delete decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
+    this.securityObject.userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+    delete decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
     for(let el in decodedToken)
     {
       this.securityObject.claims.push(Object.assign(new AppUserClaim(), {

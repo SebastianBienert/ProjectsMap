@@ -18,5 +18,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
         void Delete(Seat seats);
 
         void Update(Seat seats);
-    }
+
+		bool assignSeat(int seatId, string userId);
+	}
 }

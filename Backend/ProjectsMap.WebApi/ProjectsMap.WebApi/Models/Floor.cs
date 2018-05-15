@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectsMap.WebApi.Repositories.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,5 +24,11 @@ namespace ProjectsMap.WebApi.Models
 
         public virtual ICollection<Wall> Walls { get; set; }
 
-    }
+		public string Photo { get; set; }
+
+		public int? XPhoto { get; set; }
+
+		public int? YPhoto { get; set; }
+
+	}
 }

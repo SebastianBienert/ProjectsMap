@@ -15,5 +15,6 @@ namespace ProjectsMap.WebApi.Services.Abstract
         SeatDto GetSeat(int id);
         void Post(SeatDto seatDto);
         void Update(SeatDto seatDto);
-    }
+		bool assignSeat(int seatId, string userId);
+	}
 }

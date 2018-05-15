@@ -93,7 +93,9 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					Walls = wallsList,
 					BuildingId = floorDto.BuildingId,
 					Description = floorDto.Description,	
-					FloorNumber = floorDto.FloorNumber
+					FloorNumber = floorDto.FloorNumber,
+					XPhoto = floorDto.XPhoto,
+					YPhoto = floorDto.YPhoto
 				};
 
 				dbContext.Floors.Add(floor);
@@ -119,6 +121,15 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
 					.FirstOrDefault(x => x.FloorId == id);
 				return floor;
 
+			}
+		}
+
+		public void Update(Floor floor)
+		{
+			using (var dbContext = new EfDbContext())
+			{
+				dbContext.Entry(floor).State = EntityState.Modified;
+				dbContext.SaveChanges();
 			}
 		}
 

@@ -20,8 +20,9 @@
     [floorToDisplay]= "selectedFloor"
     (mapChanged)="mapChanged($event)">
   </app-displayed-map>
-  <label for="editMap" class="btn" style="background-color: blue; color: aqua" *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</label>
-  <input id="editMap" (click)='editMap()' style="visibility:hidden;">
+  
+  <!-- <label for="editMap" class="btn" style="background-color: blue; color: aqua" *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</label>
+  <input id="editMap" (click)='editMap()' style="visibility:hidden;"> uncomment after fixing edit-->
   </div>
   <div  *ngSwitchCase="'create'">
       <app-map-creator

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.Abstract;
+using System.Data.Entity;
 
 namespace ProjectsMap.WebApi.Repositories.Concrete
 {
@@ -46,5 +47,29 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
         {
             throw new NotImplementedException();
         }
-    }
+
+		public bool assignSeat(int seatId, string userId)
+		{
+			using (var ctx = new EfDbContext())
+			{
+				int employeeId = ctx.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId).Employee.EmployeeId;//TODO make it null-safe
+				if (ctx.Seats.FirstOrDefault(s => s.SeatId == seatId).Employee != null)
+					return false;
+				else
+				{
+					//var Emp = ctx.Employees.Include(s => s.Seat).FirstOrDefault(s => s.EmployeeId == employeeId);
+					var oldSeat = ctx.Employees.Include(s => s.Seat).FirstOrDefault(s => s.EmployeeId == employeeId).Seat;
+					if(oldSeat != null)
+					{
+						ctx.Seats.Include(s => s.Employee).FirstOrDefault(s => s.SeatId == oldSeat.SeatId).Employee = null;
+						ctx.Seats.Include(s => s.Employee).FirstOrDefault(s => s.SeatId == oldSeat.SeatId).EmployeeId = null;
+					}
+					ctx.Seats.Include(s => s.Employee).FirstOrDefault(s => s.SeatId == seatId).Employee = ctx.Employees.FirstOrDefault(s => s.EmployeeId == employeeId);
+					ctx.Seats.Include(s => s.Employee).FirstOrDefault(s => s.SeatId == seatId).EmployeeId = ctx.Employees.FirstOrDefault(s => s.EmployeeId == employeeId).EmployeeId;
+				}
+				ctx.SaveChanges();
+				return true;
+			}
+		}
+	}
 }

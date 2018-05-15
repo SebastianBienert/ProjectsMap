@@ -16,5 +16,7 @@ namespace ProjectsMap.WebApi.Services.Abstract
 		void Update(FloorDto floorDto);
 		IEnumerable<FloorDto> GetFloorsList();
 		IEnumerable<FloorDto> GetFloorsList(int buildingId);
+		bool AddPhotoToMap(int id, string virtualPath);
+		string GetPhotoPath(int id);
 	}
 }

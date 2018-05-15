@@ -102,6 +102,7 @@ export class MapNavigatorComponent implements OnInit {
 
   mapChanged(mapChanged: number) {
     console.log("Changed");
+    console.log(mapChanged);
     //!!! needs to be implemented this.changeBuilding();
     this.changeFloor(mapChanged);
   }
