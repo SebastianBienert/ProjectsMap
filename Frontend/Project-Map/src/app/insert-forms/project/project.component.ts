@@ -75,7 +75,6 @@ export class ProjectComponent implements OnInit {
 
   public onSelect(item)
   {
-    console.log('tag selected: value is ' + JSON.stringify(item));
     this.selectedEmployee = item;
   }
 
@@ -97,8 +96,6 @@ export class ProjectComponent implements OnInit {
       Technologies : form.value.Technologies,
       EmployeesRoles : employees
     }
-    console.log(form);
-    console.log(project);
     this.projectService.addProject(project);
   }
   

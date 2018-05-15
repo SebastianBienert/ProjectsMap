@@ -73,7 +73,8 @@ export class EditEmployeeDataComponent implements OnInit {
           JobTitle: employeeResult.JobTitle,
           ManagerId: employeeResult.ManagerId
         });
-        this.employeeInfo.PhotoUrl += "?q=" + new Date().getMilliseconds();
+        if(this.employeeInfo.PhotoUrl != null)
+          this.employeeInfo.PhotoUrl += "?q=" + new Date().getMilliseconds();
     })
     this.formAddEmployee = this.formBuilder.group({
       Photo: [null, ],                                 //This is not actually <input file>
@@ -103,7 +104,6 @@ export class EditEmployeeDataComponent implements OnInit {
      if(event.target.files.length > 0) {
       
       let file = event.target.files[0];
-      console.log(file);
       this.formAddEmployee.patchValue(
         {
           Photo: file,
@@ -114,7 +114,6 @@ export class EditEmployeeDataComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form);
     const formModel = this.formAddEmployee.value;
    var developersTechnologies = form.value.Technologies;
 

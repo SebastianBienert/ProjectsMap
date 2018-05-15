@@ -83,7 +83,6 @@ export class FloorServiceService {
       arra = arra.concat("},\n")
     });
     arra = arra.concat("\n}\n},")
-    console.log(arra);
   }
 
   public addBuilding(Building) {

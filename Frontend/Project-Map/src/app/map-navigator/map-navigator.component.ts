@@ -48,7 +48,6 @@ export class MapNavigatorComponent implements OnInit {
     this.getFloorsList(Id);
   }
   debug() {
-    console.log(this.buildingsList[1]);
   }
 
   getFloorsList(BuildingId: number): void {
@@ -73,7 +72,6 @@ export class MapNavigatorComponent implements OnInit {
           if (this.buildingsList.length > 0 && this.buildingsList[0].FloorsIds.length > 0) {
             this.getFloorsList(BuildingsList[0].FloorsIds[0]);
             this.selectedBuilding = BuildingsList[0].Id;
-            console.log(this.selectedBuilding);
           }
         });
   }

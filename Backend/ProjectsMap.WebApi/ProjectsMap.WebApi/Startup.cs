@@ -29,9 +29,6 @@ namespace ProjectsMap.WebApi
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration httpConfig = new HttpConfiguration();
-
-            /*var appXmlType = httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
-            httpConfig.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);*/
             
             ConfigureOAuthTokenGeneration(app);
 
@@ -40,15 +37,11 @@ namespace ProjectsMap.WebApi
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
 
             ConfigureWebApi(httpConfig);
-
-            //app.UseWebApi(httpConfig);
-
+            
             app.UseWebApi(httpConfig);
 
             app.UseNinjectMiddleware(NinjectWebCommon.CreateKernel).UseNinjectWebApi(httpConfig);
             
-            //app.UseNinjectWebApi(GlobalConfiguration.DefaultServer);
-
         }
 
         private static StandardKernel CreateKernel()
@@ -60,30 +53,24 @@ namespace ProjectsMap.WebApi
 
         private void ConfigureWebApi(HttpConfiguration config)
         {
-            //config.MapHttpAttributeRoutes();
             WebApiConfig.Register(config);
-            //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            //jsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
         }
 
         private void ConfigureOAuthTokenGeneration(IAppBuilder app)
         {
-            // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(EfDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
-                //For Dev enviroment only (on production should be AllowInsecureHttp = false)
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/oauth/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 Provider = new CustomOAuthProvider(),
                 AccessTokenFormat = new CustomJwtFormat("http://localhost:58923")
             };
-
-            // OAuth 2.0 Bearer Access Token Generation
+            
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
         }
 
@@ -93,8 +80,7 @@ namespace ProjectsMap.WebApi
             var issuer = "http://localhost:58923";
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
-
-            // Api controllers with an [Authorize] attribute will be validated with JWT
+            
             app.UseJwtBearerAuthentication(
                 new Microsoft.Owin.Security.Jwt.JwtBearerAuthenticationOptions
                 {

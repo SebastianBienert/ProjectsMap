@@ -14,7 +14,6 @@ export class EmployeeDetailComponent implements OnInit {
 
   employee$: Employee;
   photoUrl : string;
-  photo : any;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +27,8 @@ export class EmployeeDetailComponent implements OnInit {
         this.employeeService.getEmployee(+params.get('id')))
           .subscribe(Employee => {
             this.employee$ = Employee
-            this.employee$.PhotoUrl += "?q=XD" + new Date().getMilliseconds();
+            if(this.employee$.PhotoUrl != null)
+              this.employee$.PhotoUrl += "?q=XD" + new Date().getMilliseconds();
           });  
   }
 

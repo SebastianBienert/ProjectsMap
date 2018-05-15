@@ -38,7 +38,6 @@ export class EmployeeService {
   {
     this.http.post(this.employeeUrl, employee).subscribe(
       res => {
-        console.log(res);
         if(fileToUpload != null ) 
           this.uploadEmployeePhoto(fileToUpload, employee.Id);
 
@@ -105,6 +104,10 @@ export class EmployeeService {
         catchError(this.handleError('getEmployees', []))
       );
 
+  }
+
+  getEmployeesByName(name: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.employeeUrl + "/" + name);
   }
 
   searchEmployeeByName(name: string, page: number): Observable<any> {
