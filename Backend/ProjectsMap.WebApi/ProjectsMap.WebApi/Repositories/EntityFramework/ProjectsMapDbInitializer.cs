@@ -2194,71 +2194,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                        FloorNumber = 1,
 	                        Rooms = rooms
 	                    },
-	                    new Floor()
-	                    {
-	                        BuildingId = 1,
-	                        Description = "Pietro 2",
-	                        FloorId = 2,
-	                        FloorNumber = 2,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 112,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 112,
-	                                        X = 10,
-	                                        Y = 15
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[3], vertices[6]),
-	                                    new Wall(vertices[0], vertices[3]),
-	                                    new Wall(vertices[6], vertices[7]),
-	                                    new Wall(vertices[7], vertices[0]),
-	                                }
-	                            },
-	                        }
-	                    },
-	                    new Floor()
-	                    {
-	                        BuildingId = 1,
-	                        Description = "Pietro 3",
-	                        FloorId = 3,
-	                        FloorNumber = 3,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 113,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 113,
-	                                        X = 12,
-	                                        Y = 15,
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[3], vertices[6]),
-	                                    new Wall(vertices[0], vertices[3]),
-	                                    new Wall(vertices[6], vertices[7]),
-	                                    new Wall(vertices[7], vertices[0]),
-	                                }
-	                            },
-	                        }
-
-	                    },
 
 
 	                }
@@ -2272,40 +2207,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                {
 	                    new Floor()
 	                    {
-	                        BuildingId = 1,
-	                        Description = "Zeus",
-	                        FloorId = 4,
-	                        FloorNumber = 1,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 115,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 115,
-	                                        X = 14,
-	                                        Y = 19
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[27], vertices[26]),
-	                                    new Wall(vertices[26], vertices[35]),
-	                                    new Wall(vertices[35], vertices[34]),
-	                                    new Wall(vertices[34], vertices[33]),
-	                                    new Wall(vertices[33], vertices[32]),
-	                                    new Wall(vertices[32], vertices[27]),
-	                                }
-	                            },
-	                        }
-	                    },
-	                    new Floor()
-	                    {
 	                        BuildingId = 2,
 	                        Description = "heh",
 	                        FloorNumber = 3,
@@ -2316,8 +2217,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                            {
 	                                Seats = new List<Seat>
 	                                {
-
-	                                },
+										
+										
+									},
 	                                Walls = new List<Wall>
 	                                {
 	                                    new Wall()
@@ -2337,62 +2239,116 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 	                                }
 	                            },
+	                           
 	                            new Room()
 	                            {
 	                                Seats = new List<Seat>
 	                                {
+										new Seat()
+										{
+											SeatId = 77,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y = 200,
 
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 695,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 675,
-	                                        EndVertexY = 305,
-	                                    },
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 675,
-	                                        StartVertexY = 305,
-	                                        EndVertexX = 695,
-	                                        EndVertexY = 330,
-	                                    },
+										},
+										new Seat()
+										{
+											SeatId = 78,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y = 200,
+										},
+										new Seat()
+										{
+											SeatId = 79,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y = 200,
 
-	                                }
-	                            },
-	                            new Room()
-	                            {
-	                                Seats = new List<Seat>
-	                                {
+										},
+										new Seat()
+										{
+											SeatId = 80,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y = 200,
+										},
 
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 695,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 685,
-	                                        EndVertexY = 330,
-	                                    },
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 685,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 695,
-	                                        EndVertexY = 330,
-	                                    },
+										new Seat()
+										{
+											SeatId = 81,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y =160,
 
-	                                }
-	                            },
-	                            new Room()
-	                            {
-	                                Seats = new List<Seat>
-	                                {
+										},
+										new Seat()
+										{
+											SeatId = 82,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y =160,
+										},
+										new Seat()
+										{
+											SeatId = 83,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y =160,
 
-	                                },
+										},
+										new Seat()
+										{
+											SeatId = 84,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y =160,
+										},
+
+										new Seat()
+										{
+											SeatId = 85,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y =240,
+
+										},
+										new Seat()
+										{
+											SeatId = 86,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y =240,
+										},
+										new Seat()
+										{
+											SeatId = 87,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y =240,
+
+										},
+										new Seat()
+										{
+											SeatId = 88,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y =240,
+										},
+									},
 	                                Walls = new List<Wall>
 	                                {
 	                                    new Wall()
@@ -5188,40 +5144,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                        }
 	                    },
 
-
-
-	                    new Floor()
-	                    {
-	                        BuildingId = 2,
-	                        Description = "Marek",
-	                        FloorId = 6,
-	                        FloorNumber = 2,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 115,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 115,
-	                                        X = 11,
-	                                        Y = 22
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[27], vertices[26]),
-	                                    new Wall(vertices[26], vertices[23]),
-	                                    new Wall(vertices[23], vertices[22]),
-	                                    new Wall(vertices[22], vertices[27]),
-	                                }
-	                            },
-	                        }
-	                    },
 	                }
 	            }
 	        };

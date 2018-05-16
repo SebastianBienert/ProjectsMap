@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DisplayedMapComponent } from './../displayed-map/displayed-map.component';
 import { FloorServiceService } from './../services/floor-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class MapNavigatorComponent implements OnInit {
   currentBuildingFloorsList = Array();
   selectedFloor: number;//change to read id of first floor in floors list and secure from null
   selectedBuilding: number;//change to read id of first building in buildings list and secure from null
-  constructor(private floorService: FloorServiceService) { }
+  constructor(private floorService: FloorServiceService, private router: Router) { }
 
   ngOnInit() {
     this.getBuildingsList();
@@ -37,11 +38,13 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   changeFloor(Id: number) {
+    console.log("zmieniono na: " + Id)
     this.selectedFloor = Id;
     this.displayMode = "displayMap";
   }
 
   changeBuilding(Id: number) {
+    this.router.navigate(['/main']);
     this.displayMode = "loading";
     this.getFloorsList(Id, true);
     this.selectedBuilding = Id;

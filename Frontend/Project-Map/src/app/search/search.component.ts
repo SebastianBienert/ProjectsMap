@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   employees: Employee[];
   private handleError: HandleError;
   filter: string;
-  searchTypeText: string = "Pracownicy - nazwiska";
+  searchTypeText: string = "Employees by name";
   selectedSearchType: SearchType = SearchType.employeeName;
   isEmp: boolean = false;
   securityObject: AppUserAuth = null;

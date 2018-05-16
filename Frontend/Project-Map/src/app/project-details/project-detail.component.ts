@@ -35,7 +35,7 @@ export class ProjectDetailComponent implements OnInit {
   findUser(user: string): void {
     let users: Employee[];
     this.employeeService.getEmployeesByName(user)
-      .subscribe(emp => { this.router.navigate(['/main',{outlets: {right: ['user', emp[0].Id]} }]) });
+      .subscribe(emp => { this.router.navigate(['/main',{outlets: {right: ['user', emp[0].Id], center: [emp[0].Id]} }]) });
   }
 
   hideDetails() {
