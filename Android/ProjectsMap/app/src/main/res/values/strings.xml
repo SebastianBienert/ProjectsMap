@@ -15,14 +15,14 @@
     <string name="row_data">Row data</string>
     <string name="todo">TODO</string>
     <string-array name="selected_method_developer">
-        <item>Id</item>
-        <item>Technologia</item>
         <item>Imię lub nazwisko</item>
+        <item>Technologia</item>\
+        <item>Id</item>
         <item>Wszyscy</item>
     </string-array>
     <string-array name="selected_method_project">
-        <item>Id</item>
         <item>Nazwa</item>
+        <item>Id</item>
         <item>Wszystkie</item>
     </string-array>
     <string name="title_activity_login">Sign in</string>

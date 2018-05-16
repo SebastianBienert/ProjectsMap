@@ -14,6 +14,5 @@ namespace ProjectsMap.WebApi.Services.Abstract
 		BuildingDto GetBuilding(int id);
 		int Post(BuildingDto buildingDto);
 		void Update(BuildingDto buildingDto);
-		IEnumerable<BuildingDto> GetBuildingsList(int companyId);
 	}
 }

@@ -17,7 +17,6 @@ import { of } from 'rxjs/observable/of';
 export class EmployeeComponent implements OnInit {
 
   formAddEmployee : FormGroup;
-  companyId : number = 1;
   allTechnologies : string[];
   formErrors = {
     DeveloperId: '',
@@ -83,7 +82,6 @@ export class EmployeeComponent implements OnInit {
      if(event.target.files.length > 0) {
       
       let file = event.target.files[0];
-      console.log(file);
       this.formAddEmployee.patchValue(
         {
           Photo: file,
@@ -94,7 +92,6 @@ export class EmployeeComponent implements OnInit {
   }
 
   onSubmit(form) {
-    console.log(form);
     const formModel = this.formAddEmployee.value;
    var developersTechnologies = form.value.Technologies;
 
@@ -102,8 +99,6 @@ export class EmployeeComponent implements OnInit {
       FirstName : form.value.FirstName,
       Id : form.value.DeveloperId,
       Surname : form.value.Surname,
-      ManagerCompanyId : this.companyId,
-      CompanyId : this.companyId,
       ManagerId : form.value.ManagerId,
       Email : form.value.Email,
       JobTitle : form.value.JobTitle,

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DisplayedMapComponent } from './../displayed-map/displayed-map.component';
 import { FloorServiceService } from './../services/floor-service.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,7 @@ export class MapNavigatorComponent implements OnInit {
   currentBuildingFloorsList = Array();
   selectedFloor: number;//change to read id of first floor in floors list and secure from null
   selectedBuilding: number;//change to read id of first building in buildings list and secure from null
-  constructor(private floorService: FloorServiceService) { }
+  constructor(private floorService: FloorServiceService, private router: Router) { }
 
   ngOnInit() {
     this.getBuildingsList();
@@ -37,32 +38,37 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   changeFloor(Id: number) {
-    this.displayMode = "displayMap";
+    console.log("zmieniono na: " + Id)
     this.selectedFloor = Id;
+    this.displayMode = "displayMap";
   }
 
   changeBuilding(Id: number) {
-    this.selectedBuilding = Id;
-    this.selectedFloor = this.buildingsList.find(x => x.Id === Id).FloorsIds[0];
+    this.router.navigate(['/main']);
     this.displayMode = "loading";
-    this.getFloorsList(Id);
+    this.getFloorsList(Id, true);
+    this.selectedBuilding = Id;
   }
   debug() {
-    console.log(this.buildingsList[1]);
   }
 
-  getFloorsList(BuildingId: number): void {
+  getFloorsList(BuildingId: number, loadFirstFloor: boolean): void {
     this.floorService.getBuildingFloorsList(BuildingId)
       .subscribe(
         FloorsList => {
-          this.currentBuildingFloorsList = FloorsList.sort(function(a, b) {
+          this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
             return a.FloorNumber - b.FloorNumber;
-          });;
-          if (FloorsList.length > 0) {
-            this.selectedFloor = FloorsList[0].Id;
-            this.displayMode = 'displayMap';
+          });
+
+          if(loadFirstFloor) {
+            this.changeFloor(this.currentBuildingFloorsList[0].Id);
           }
         });
+  }
+
+  displayFloor(floorId: number) {
+    this.selectedFloor = floorId;
+    this.displayMode = 'displayMap';
   }
 
   getBuildingsList(): void {
@@ -71,17 +77,36 @@ export class MapNavigatorComponent implements OnInit {
         BuildingsList => {
           this.buildingsList = BuildingsList;
           if (this.buildingsList.length > 0 && this.buildingsList[0].FloorsIds.length > 0) {
-            this.getFloorsList(BuildingsList[0].FloorsIds[0]);
-            this.selectedBuilding = BuildingsList[0].Id;
-            console.log(this.selectedBuilding);
+            this.selectedBuilding = this.buildingsList[0].Id;
+            this.floorService.getBuildingFloorsList(this.buildingsList[0].Id)
+              .subscribe(
+                FloorsList => {
+                  this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
+                    return a.FloorNumber - b.FloorNumber;
+                  });
+                  this.displayFloor(this.currentBuildingFloorsList[0].Id);
+                }
+              );
+            // this.getFloorsList(BuildingsList[0].FloorsIds[0]);
+            // if (this.currentBuildingFloorsList.length > 0) {
+            //   this.displayFloor(this.currentBuildingFloorsList[0].Id);
+            // }
+            // this.selectedBuilding = BuildingsList[0].Id;
           }
         });
   }
 
   mapCreated(mapCreated: boolean) {
     if (mapCreated) {
-      this.getFloorsList(this.selectedBuilding);
+      this.getFloorsList(this.selectedBuilding, false);
     }
+  }
+
+  mapChanged(mapChanged: number) {
+    console.log("Changed");
+    console.log(mapChanged);
+    //!!! needs to be implemented this.changeBuilding();
+    this.changeFloor(mapChanged);
   }
 
   editMap() {

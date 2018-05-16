@@ -161,7 +161,19 @@ namespace ProjectsMap.WebApi.Controllers
             return Ok(employeeFloor);
         }
 
-        [HttpGet]
+		[ClaimsAuthorization(ClaimType = "canReadUsers", ClaimValue = "true")]
+		[HttpGet]
+		[Route("{id:int}/locationInfo")]
+		public IHttpActionResult GetEmployeeLocationInfo(int id)
+		{
+			var employeeLocationInfo = _service.GetEmployeeLocationInfo(id);
+			if (employeeLocationInfo == null)
+				return NotFound();
+
+			return Ok(employeeLocationInfo);
+		}
+
+		[HttpGet]
         [Route("{name}")]
         public IHttpActionResult GetEmployeeByName(string name)
         {

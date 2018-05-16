@@ -32,7 +32,15 @@ namespace ProjectsMap.WebApi.Controllers
 				return NotFound();*/
 		}
 
-		[HttpPost]
+	    [HttpGet]
+	    [Route("")]
+	    public IHttpActionResult Get()
+	    {
+	        var companyBuildingsList = _buildingService.GetAllBuildings();
+	        return Ok(companyBuildingsList);
+	    }
+
+        [HttpPost]
 		[Route("")]
 		public IHttpActionResult Post([FromBody] BuildingDto buildingDto)
 		{
@@ -44,6 +52,5 @@ namespace ProjectsMap.WebApi.Controllers
 				return NotFound();*/
 		}
 
-		//??? do i need you?
 	}
 }

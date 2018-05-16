@@ -49,5 +49,10 @@ namespace ProjectsMap.WebApi.Services.Concrete
         {
             throw new NotImplementedException();
         }
-    }
+
+		public bool assignSeat(int seatId, string userId)
+		{
+			return _seatRepository.assignSeat(seatId, userId);
+		}
+	}
 }

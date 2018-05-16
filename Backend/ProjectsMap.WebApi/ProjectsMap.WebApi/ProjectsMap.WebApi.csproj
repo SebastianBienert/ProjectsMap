@@ -228,6 +228,18 @@
     <Compile Include="Migrations\201804251337109_init.Designer.cs">
       <DependentUpon>201804251337109_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805140020502_someChanges.cs" />
+    <Compile Include="Migrations\201805140020502_someChanges.Designer.cs">
+      <DependentUpon>201805140020502_someChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805152035439_someChangesAndMore.cs" />
+    <Compile Include="Migrations\201805152035439_someChangesAndMore.Designer.cs">
+      <DependentUpon>201805152035439_someChangesAndMore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805152042246_photoPosition.cs" />
+    <Compile Include="Migrations\201805152042246_photoPosition.Designer.cs">
+      <DependentUpon>201805152042246_photoPosition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Authentication\ChangePasswordBindingModel.cs" />
     <Compile Include="Models\Authentication\ClaimBingingModel.cs" />
@@ -282,6 +294,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\ProjectsMapWebApi - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426064432 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ProjectsMapWebApi20180426070942 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\sss.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -296,6 +313,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804251337109_init.resx">
       <DependentUpon>201804251337109_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140020502_someChanges.resx">
+      <DependentUpon>201805140020502_someChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805152035439_someChangesAndMore.resx">
+      <DependentUpon>201805152035439_someChangesAndMore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805152042246_photoPosition.resx">
+      <DependentUpon>201805152042246_photoPosition.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

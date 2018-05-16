@@ -1,7 +1,7 @@
 
   <div class="card mt-1 mb-1" *ngIf="employee$ as emp">
-    <div class="text-center img-container">
-      <img *ngIf="emp.PhotoUrl" class="card-img-top img-fluid rounded photo" [attr.src]="emp.PhotoUrl" alt="Photo">
+    <div *ngIf="emp.PhotoUrl != null" class="text-center img-container">
+      <img class="card-img-top img-fluid rounded photo" [attr.src]="emp.PhotoUrl" alt="Photo">
     </div>
     <div class="card-body">
       <!-- <h1 class="card-title text-center">Ahmed</h1> -->
@@ -18,17 +18,20 @@
           {{ emp.Email }} <br>
           <span class="font-weight-bold">Job Title: </span>
           {{ emp.JobTitle }} <br>
-          <span class="font-weight-bold">Manager: </span>
-          {{ emp.ManagerId }} <br>
-          <span class="font-weight-bold">Manager Company ID: </span>
-          {{ emp.ManagerCompanyId }} <br>
-          <span class="font-weight-bold">Company Name: </span>
-          {{ emp.CompanyName }} <br>
+          <span *ngIf="emp.ManagerId" class="font-weight-bold">Manager: </span>
+          {{ emp.ManagerId }} <br *ngIf="emp.ManagerId">
+          <span class="font-weight-bold">Projects: </span>
+          <div class="container">
+            <div *ngFor="let project of emp.Projects" class="tag">
+               <a (click)="findProject(project.Id)">{{project.Name}}</a>
+            </div>
+          </div>
           <span class="font-weight-bold">Technologies: </span>
-          <p *ngFor="let tech of emp.Technologies">
-             - {{tech}} -
-          </p>
-          
+          <div class="container">
+            <div *ngFor="let tech of emp.Technologies" class="tag">
+             {{tech}}
+            </div>
+          </div>          
         </div>
       </div>
     </div>
@@ -36,6 +39,8 @@
   </div>
 
 <!--
+  <a [routerLink]="['/main/', { outlets: { user: [emp.Id] } }]">{{tech}}</a>
+
     <div *ngIf="emp.PhotoUrl" >
         <span class="font-weight-bold">
           <i class="fa fa-user pr-2" aria-hidden="true"></i>Photo

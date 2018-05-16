@@ -13,8 +13,10 @@ namespace ProjectsMap.WebApi.Controllers
     public class SeatController : ApiController
     {
         private ISeatService _service;
+		private IEmployeeService _employeeService;
 
-        public SeatController(ISeatService service)
+
+		public SeatController(ISeatService service)
         {
             _service = service;
         }
@@ -45,5 +47,19 @@ namespace ProjectsMap.WebApi.Controllers
             _service.Post(seatDto);
             return Ok();
         }
-    }
+
+		[HttpPost]
+		[Route("{seatId:int}/assignEmployee/{userId}")]
+		public IHttpActionResult Post(int seatId, string userId)
+		{
+			var newSeatAssignedCorrectly = _service.assignSeat(seatId, userId);
+
+			if (newSeatAssignedCorrectly)
+				return Ok();
+			else
+				return NotFound();//TODO should be something smaarter
+		}
+
+
+	}
 }

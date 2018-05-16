@@ -2,7 +2,7 @@
 <div class="container">
   <div class="card card-container">
     <h2 class="text-center">Sign up</h2>
-    <form [formGroup]="formRegistration" (ngSubmit)="onSubmit(formRegistration)">
+    <form [formGroup]="formRegistration" (ngSubmit)="onSubmit(formRegistration); open(content);">
 
       <div class="md-form">
         <i class="fa fa-envelope prefix blue-text"></i>
@@ -46,7 +46,7 @@
         <div *ngIf="formErrors.DeveloperId" >
           <div *ngFor="let error of formErrors.DeveloperId" class="alert alert-danger row">{{ error }}</div>
         </div>
-        <label for="DeveloperId">Developer ID</label>
+        <label for="DeveloperId">Employee ID</label>
       </div>
 
       <div class="md-form">
@@ -73,3 +73,20 @@
     </form>
   </div><!-- /card-container -->
 </div><!-- /container -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Loading...</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row align-items-center justify-content-center">
+    <div class="col">
+      <div class="loader"></div> 
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div> -->
+</ng-template>

@@ -77,7 +77,7 @@ namespace ProjectsMap.WebApi.Mappers
                     DeveloperId = employee.EmployeeId,
                     Vertex = employee.Seat == null ? null : new Vertex(employee.Seat.X, employee.Seat.Y),
 
-                    RoomId = employee.Seat.SeatId
+                    RoomId = employee.Seat.RoomId
                 };
                 dto.Seat = seatDto;
             }
@@ -177,7 +177,9 @@ namespace ProjectsMap.WebApi.Mappers
 				BuildingId = floor.BuildingId,
 				Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
 				Rooms = GetRoomsDtoList(floor.Rooms.ToList()),
-				FloorNumber = floor.FloorNumber
+				FloorNumber = floor.FloorNumber,
+				XPhoto = floor.XPhoto,
+				YPhoto = floor.YPhoto
 			};
 			return result;
 		}
@@ -187,9 +189,9 @@ namespace ProjectsMap.WebApi.Mappers
 			{
 				Id = floor.FloorId,
 				Description = floor.Description,
-				BuildingId = floor.BuildingId,
+				/*BuildingId = floor.BuildingId,
                 Walls = GetWallsDtoListNotSorted(floor.Walls.ToList()),
-                Rooms = GetRoomsDtoList(floor.Rooms.ToList()),
+                Rooms = GetRoomsDtoList(floor.Rooms.ToList()),*/
                 FloorNumber = floor.FloorNumber
 			};
 			return result;

@@ -6,6 +6,7 @@ using System.Web;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Repositories.Abstract;
 using ProjectsMap.WebApi.Mappers;
+using System.Web.Hosting;
 
 namespace ProjectsMap.WebApi.Services.Concrete
 {
@@ -57,5 +58,24 @@ namespace ProjectsMap.WebApi.Services.Concrete
 			_floorRepository.Update(floorDto);
 		}
 
+		public bool AddPhotoToMap(int id, string path)
+		{
+			var floor = _floorRepository.Floors.FirstOrDefault(e => e.FloorId == id);
+			if (floor != null)
+			{
+				floor.Photo = path;
+				_floorRepository.Update(floor);
+				return true;
+			}
+
+			return false;
+		}
+
+		public string GetPhotoPath(int id)
+		{
+			var path = _floorRepository.Floors.FirstOrDefault(e => e.FloorId == id)?.Photo;
+
+			return path == null ? null : HostingEnvironment.MapPath(path);
+		}
 	}
 }

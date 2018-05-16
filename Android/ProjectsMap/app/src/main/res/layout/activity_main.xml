@@ -6,67 +6,93 @@
     android:layout_height="match_parent"
     tools:context="project.projectsmap.MainActivity">
 
-    <Button
-        android:id="@+id/buttonShowFloor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSaveTest"
-        android:layout_alignStart="@+id/buttonSaveTest"
-        android:layout_below="@+id/buttonSaveTest"
-        android:width="200dp"
-        android:text="Wyświetl piętro" />
 
     <Button
         android:id="@+id/buttonShowMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonShowFloor"
-        android:layout_alignStart="@+id/buttonShowFloor"
-        android:layout_below="@+id/buttonSaveTest"
-        android:layout_marginTop="57dp"
-        android:width="200dp"
-        android:text="Wyświetl mape" />
+        android:layout_below="@id/buttonSearchProjects"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:width="600dp"
+        android:height="80dp"
+        android:text="Wyświetl mape"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/buttonSearchDevelopers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="152dp"
-        android:width="200dp"
-        android:text="Wyszukaj pracownika" />
-
-    <Button
-        android:id="@+id/buttonSaveTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonSearchDevelopers"
-        android:layout_alignStart="@+id/buttonSearchDevelopers"
-        android:layout_below="@+id/buttonSearchDevelopers"
-        android:width="200dp"
-        android:text="Zapis do pliku" />
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="100dp"
+        android:width="600dp"
+        android:height="80dp"
+        android:text="Wyszukaj pracownika"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold|italic" />
 
     <Button
         android:id="@+id/buttonSearchProjects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/buttonSaveTest"
-        android:layout_alignEnd="@+id/buttonSearchDevelopers"
-        android:layout_alignLeft="@+id/buttonSearchDevelopers"
-        android:layout_alignRight="@+id/buttonSearchDevelopers"
-        android:layout_alignStart="@+id/buttonSearchDevelopers"
-        android:layout_marginBottom="51dp"
-        android:text="Wyszukaj projekty" />
+        android:layout_below="@id/buttonSearchDevelopers"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:width="600dp"
+        android:height="80dp"
+        android:text="Wyszukaj projekty"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonSaveTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="57dp"
+        android:layout_marginStart="10dp"
+        android:width="180dp"
+        android:text="Zapis do pliku"
+        android:visibility="invisible"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/buttonShowFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonSaveTest"
+        android:layout_alignBottom="@+id/buttonSaveTest"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:width="180dp"
+        android:text="Wyświetl piętro"
+        android:visibility="invisible"
+        android:textStyle="bold" />
+
 
     <Switch
         android:id="@+id/switchOnlineWork"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="20dp"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"
+        android:visibility="invisible"
         android:width="150dp"
         android:height="50dp"
         android:showText="true"
@@ -75,6 +101,7 @@
         android:textAlignment="center"
         android:textOff="Off"
         android:textOn="On"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <!-- android:layout_alignLeft="@+id/buttonPaint"

@@ -8,19 +8,11 @@
   </div>
 </div>
 
-<!-- TEMPORARY CODE TO VIEW SECURITY OBJECT -->
-<div class="row">
-  <div class="col-xs-12">
-    <label>{{securityObject | json}}</label>
-  </div>
-</div>
-
 <div class="container">
   <div class="card card-container">
-      <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
       <img id="profile-img" class="profile-img-card" src="assets/login_thumbnail.png"/>
       <p id="profile-name" class="profile-name-card"></p>
-      <form class="form-signin" (ngSubmit)="login()">
+      <form class="form-signin" (ngSubmit)="login(); open(content);">
           <span id="reauth-email" class="reauth-email"></span>
           <input type="email" [(ngModel)]="user.userName" id="userName" name="userName" class="form-control" placeholder="Username" required autofocus>
           <input type="password" [(ngModel)]="user.password" id="password" name="password"  id="inputPassword" class="form-control" placeholder="Password" required>
@@ -33,3 +25,20 @@
       </form><!-- /form -->
   </div><!-- /card-container -->
 </div><!-- /container -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Loading...</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row align-items-center justify-content-center">
+    <div class="col">
+      <div class="loader"></div> 
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div> -->
+</ng-template>

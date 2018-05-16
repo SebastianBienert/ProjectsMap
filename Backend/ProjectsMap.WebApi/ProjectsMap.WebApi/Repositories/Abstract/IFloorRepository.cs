@@ -20,5 +20,7 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
 		void Update(FloorDto floorDto);
 
+		void Update(Floor floor);
+
 	}
 }

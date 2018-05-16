@@ -5,4 +5,5 @@ export class AppUserAuth {
   access_token: string = "";
   isAuthenticated: boolean = false;
   claims: AppUserClaim[] = [];
+  userId: string = "";
 }

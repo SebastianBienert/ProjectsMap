@@ -27,7 +27,6 @@ export class ProjectService {
     httpErrorHandler: HttpErrorHandler,
     private globals: Globals) {
     this.handleError = httpErrorHandler.createHandleError('ProjectService');
-	  this.handleError = httpErrorHandler.createHandleError('TechnologyService');
     this.projectUrl = globals.getUrl() + '/api/project';
   }
    public addProject(project){
@@ -49,7 +48,15 @@ export class ProjectService {
     );
     
   }
-
+  
+  getProject(id : number): Observable<Project> {
+    
+    return this.http.get<Project>(this.projectUrl + "/" + id)
+    .pipe(
+      catchError(this.handleError<Project>('getProject'))
+    );
+    
+  }
 
   searchSetOfProjectsByName(name: string, page: number): Observable<any> {
     let params = new HttpParams({

@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   employees: Employee[];
   private handleError: HandleError;
   filter: string;
-  searchTypeText: string = "Pracownicy - nazwiska";
+  searchTypeText: string = "Employees by name";
   selectedSearchType: SearchType = SearchType.employeeName;
   isEmp: boolean = false;
   securityObject: AppUserAuth = null;
@@ -51,7 +51,6 @@ export class SearchComponent implements OnInit {
           this.sharedService.setListingState(true);
         }
       });
-    //.do(term => console.log("aaaa"));
   }
 
   logout(): void {
@@ -67,6 +66,10 @@ export class SearchComponent implements OnInit {
     this.sharedService.setSearchParameters(this.filter, this.selectedSearchType);
    
     this.sharedService.loadChunkOfData();
+  }
+
+  canWrite(): boolean {
+    return this.securityService.hasClaim('canWriteProjects:true','claimType2:value');
   }
 
   ngOnInit() {

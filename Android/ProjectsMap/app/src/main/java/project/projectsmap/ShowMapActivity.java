@@ -30,7 +30,6 @@ import java.util.Arrays;
 
 public class ShowMapActivity extends AppCompatActivity {
     Canvas canvas;
-    Button clickLoadData, clickShowMap;
     TextView buildingDescription, statement;
     ProgressBar waitForData;
     Floor floor;
@@ -60,8 +59,6 @@ public class ShowMapActivity extends AppCompatActivity {
         final String token = getIntent().getExtras().getString("token");
         spinnerBuildings = (Spinner)  findViewById(R.id.spinnerBuildings);
         spinnerFloors = (Spinner)  findViewById(R.id.spinnerFloors);
-        clickLoadData = (Button) findViewById(R.id.buttonLoadData);
-        clickShowMap = (Button) findViewById(R.id.buttonShowMap);
         //buildingDescription = findViewById(R.id.textViewBuildingDescription);
         statement = findViewById(R.id.textViewStatement);
         waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
@@ -94,20 +91,15 @@ public class ShowMapActivity extends AppCompatActivity {
 
             }
         });
-        clickLoadData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearStaement();
-                waitForData.setVisibility(View.VISIBLE);
-                FetchDataMap process = new FetchDataMap();
-                process.setToken(token);
-                process.setNumberId("1");
-                process.setNumberCompanyId("1");    //na sztywno do testów potem ustawiane po zalogowaniu
-                process.setContext(ShowMapActivity.this);
-                process.execute();
-            }
-        });
-        clickShowMap.setOnClickListener(new View.OnClickListener() {
+        clearStaement();
+        waitForData.setVisibility(View.VISIBLE);
+        FetchDataMap process = new FetchDataMap();
+        process.setToken(token);
+        process.setNumberId("1");
+        process.setNumberCompanyId("1");    //na sztywno do testów potem ustawiane po zalogowaniu
+        process.setContext(ShowMapActivity.this);
+        process.execute();
+        /*clickShowMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clearStaement();
@@ -121,7 +113,7 @@ public class ShowMapActivity extends AppCompatActivity {
                     setStatement("Najpierw pobierz piętro");
                 }
             }
-        });
+        });*/
     }
     public void DisableProgressBar(){
         waitForData.setVisibility(View.INVISIBLE);

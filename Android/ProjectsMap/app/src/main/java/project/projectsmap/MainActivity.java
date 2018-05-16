@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         clickSearchProjects = (Button) findViewById(R.id.buttonSearchProjects);
         clickSave = (Button) findViewById(R.id.buttonSaveTest);
         switchOnlineWork = findViewById(R.id.switchOnlineWork);
-        if(!isNetworkAvailable()){
+        /*if(!isNetworkAvailable()){
             Toast.makeText(this,"Brak internetu", Toast.LENGTH_SHORT).show();
             switchOnlineWork.setChecked(false);
             onlineWork = false;
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"Jest internet", Toast.LENGTH_SHORT).show();
             switchOnlineWork.setChecked(true);
             onlineWork = true;
-        }
+        }*/
         switchOnlineWork.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

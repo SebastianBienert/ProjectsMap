@@ -1,0 +1,64 @@
+
+  <div class="card mt-1 mb-1" *ngIf="project$ as proj">
+    <div class="card-body">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="text-center"><button type="button" class="card-title btn btn-outline-dark-green" disabled mdbRippleRadius><i class="fa fa-user pr-2" aria-hidden="true"></i> Project details</button></h5>
+
+          <!-- <span class="font-weight-bold"><i class="fa fa-user pr-2" aria-hidden="true"></i>ID: </span>{{ proj.Id }} <br> -->
+          <span class="font-weight-bold">Description: </span>
+          {{ proj.Description }} <br>
+          <span class="font-weight-bold">Repository Link: </span>
+          {{ proj.RepositoryLink }} <br>
+          <span class="font-weight-bold">Documentation Link: </span>
+          {{ proj.DocumentationLink }} <br>
+          <span class="font-weight-bold">Employees: </span>
+          <div class="container">
+            <div *ngFor="let emp of proj.EmployeesNames" class="tag">
+               <a (click)="findUser(emp)">{{emp}}</a>
+            </div>
+          </div>
+          <span class="font-weight-bold">Technologies: </span>
+          <div class="container">
+            <div *ngFor="let tech of proj.Technologies" class="tag">
+               {{tech}}
+            </div>          
+          </div>
+        </div>
+      </div>
+    </div>
+    <a (click)="hideDetails()" class="btn btn-indigo btn-block waves-light" mdbRippleRadius>Hide</a>
+  </div>
+
+<!--
+    <div *ngIf="emp.PhotoUrl" >
+        <span class="font-weight-bold">
+          <i class="fa fa-user pr-2" aria-hidden="true"></i>Photo
+        </span>
+        <img class="photo" [attr.src]="emp.PhotoUrl"/>
+    </div>
+    <span class="font-weight-bold animated pulse"><i class="fa fa-user pr-2" aria-hidden="true"></i>ID: </span>
+    {{ emp.Id }} test<br>
+
+    <span class="font-weight-bold">Name: </span> test<br>
+    {{ emp.FirstName }}
+    <span class="font-weight-bold">Surname: </span> test<br>
+    {{ emp.Surname }}
+    <span class="font-weight-bold">E-mail: </span> test<br>
+    {{ emp.Email }}
+    <span class="font-weight-bold">Job Title: </span> test<br>
+    {{ emp.JobTitle }}
+    <span class="font-weight-bold">Manager: </span> test<br>
+    {{ emp.ManagerId }}
+    <span class="font-weight-bold">Manager Company ID: </span> test<br>
+    {{ emp.ManagerCompanyId }}
+    <span class="font-weight-bold">Company Name: </span> test<br>
+    {{ emp.CompanyName }}
+    <span class="font-weight-bold">Technologies: </span> test<br>
+      <p *ngFor="let tech of emp.Technologies">
+         - {{tech}} -
+      </p>
+  <hr class="my-6">
+  <a (click)="hideDetails()" class="btn btn-primary waves-light" mdbRippleRadius>Hide</a>
+</div>
+-->

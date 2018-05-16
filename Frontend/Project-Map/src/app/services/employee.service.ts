@@ -20,6 +20,12 @@ const httpOptions = {
 
 @Injectable()
 export class EmployeeService {
+  getEmployeeLocationInfo(id: number): Observable<any> {
+    return this.http.get<any>(this.employeeUrl + "/" + id + "/locationInfo")
+    .pipe(
+      catchError(this.handleError<Employee>('getEmployeeLocationInfo'))
+    );
+  }
   employeeUrl: string;
   private handleError: HandleError;
 
@@ -38,7 +44,6 @@ export class EmployeeService {
   {
     this.http.post(this.employeeUrl, employee).subscribe(
       res => {
-        console.log(res);
         if(fileToUpload != null ) 
           this.uploadEmployeePhoto(fileToUpload, employee.Id);
 
@@ -50,23 +55,24 @@ export class EmployeeService {
   }
 
   
-  editEmployee(fileToUpload: File, employee : Employee)
+  editEmployee(fileToUpload: File, employee : Employee) : Observable<any>
   {
-    this.http.put(this.employeeUrl + "/edit", employee).subscribe(
+    return this.http.put<any>(this.employeeUrl + "/edit", employee).map(
       res => {
         console.log(res);
         if(fileToUpload != null )
         {
           this.deleteEmployeePhoto(employee.Id).subscribe(result =>{
-            this.uploadEmployeePhoto(fileToUpload, employee.Id);
+          this.uploadEmployeePhoto(fileToUpload, employee.Id);
           });
         }
-          
+        return Observable.empty();
       },
       err => {
         console.log(err);
       }
     );
+    //return Observable.empty();
   }
   /** GET Employees from the server */
   getEmployees(): Observable<Employee[]> {
@@ -104,6 +110,10 @@ export class EmployeeService {
         catchError(this.handleError('getEmployees', []))
       );
 
+  }
+
+  getEmployeesByName(name: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.employeeUrl + "/" + name);
   }
 
   searchEmployeeByName(name: string, page: number): Observable<any> {

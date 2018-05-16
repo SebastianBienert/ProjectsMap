@@ -1434,26 +1434,20 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 	        manager.Create(user, "MySuperP@ss!1");
 	        var first = manager.Users.First();
-	        manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true"));
-	        manager.AddClaim(first.Id, ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true"));
+
 
 	        var readClaim = ExtendedClaimsProvider.CreateClaim("canReadUsers", "true");
 	        var readProjectsClaim = ExtendedClaimsProvider.CreateClaim("canReadProjects", "true");
-	        manager.AddClaim(first.Id, readClaim);
+            var writeUsersClaim = ExtendedClaimsProvider.CreateClaim("canWriteUsers", "true");
+            var writeProjectsClaim = ExtendedClaimsProvider.CreateClaim("canWriteProjects", "true");
+	        var writeMapClaim = ExtendedClaimsProvider.CreateClaim("canWriteMap", "true");
+
+            manager.AddClaim(first.Id, readClaim);
 	        manager.AddClaim(first.Id, readProjectsClaim);
-
-	        //if (roleManager.Roles.Count() == 0)
-	        //{
-	        //    roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
-	        //    roleManager.Create(new IdentityRole { Name = "Admin" });
-	        //    roleManager.Create(new IdentityRole { Name = "User" });
-	        //}
-
-	        //var adminUser = manager.FindByName("SuperPowerUser");
-
-	        //manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
-
-	        developers.First().ApplicationUser = user;
+	        manager.AddClaim(first.Id, writeUsersClaim);
+	        manager.AddClaim(first.Id, writeProjectsClaim);
+	        manager.AddClaim(first.Id, writeMapClaim);
+            developers.First().ApplicationUser = user;
 
 	        int i = 0;
 	        foreach (var dev in developers.Skip(1))
@@ -1471,7 +1465,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            var usr = manager.Users.First(x => x.UserName == userName);
 	            manager.AddClaim(usr.Id, readClaim);
 	            manager.AddClaim(usr.Id, readProjectsClaim);
-	            dev.ApplicationUser = user2;
+	            manager.AddClaim(usr.Id, writeUsersClaim);
+                dev.ApplicationUser = user2;
 	            i++;
 	        }
 
@@ -1500,7 +1495,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 1,
 	                Employee = developers[0],
-	                EmployeeId = 1,
+	                EmployeeId = developers[0].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[4].X,
 	                Y = vertices[4].Y,
@@ -1510,7 +1505,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 2,
 	                Employee = developers[1],
-	                EmployeeId = 2,
+	                EmployeeId = developers[1].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[5].X,
 	                Y = vertices[5].Y,
@@ -1519,7 +1514,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 3,
 	                Employee = developers[2],
-	                EmployeeId = 3,
+	                EmployeeId = developers[2].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[1].X,
 	                Y = vertices[1].Y,
@@ -1528,7 +1523,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 4,
 	                Employee = developers[3],
-	                EmployeeId = 4,
+	                EmployeeId = developers[3].EmployeeId,
 	                RoomId = 1,
 	                X = vertices[71].X,
 	                Y = vertices[71].Y,
@@ -1540,7 +1535,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 5,
 	                Employee = developers[10],
-	                RoomId = 3,
+					EmployeeId = developers[10].EmployeeId,
+					RoomId = 3,
 	                X = vertices[16].X,
 	                Y = vertices[16].Y,
 	            },
@@ -1548,7 +1544,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 6,
 	                Employee = developers[11],
-	                RoomId = 3,
+					EmployeeId = developers[11].EmployeeId,
+					RoomId = 3,
 	                X = vertices[17].X,
 	                Y = vertices[17].Y,
 	            },
@@ -1663,7 +1660,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 17,
 	                Employee = developers[4],
-	                RoomId = 2,
+					EmployeeId = developers[4].EmployeeId,
+					RoomId = 2,
 	                X = vertices[72].X,
 	                Y = vertices[72].Y,
 	            },
@@ -1671,7 +1669,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 18,
 	                Employee = developers[5],
-	                RoomId = 2,
+					EmployeeId = developers[5].EmployeeId,
+					RoomId = 2,
 	                X = vertices[73].X,
 	                Y = vertices[73].Y,
 	            },
@@ -1679,7 +1678,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 19,
 	                Employee = developers[6],
-	                RoomId = 2,
+					EmployeeId = developers[6].EmployeeId,
+					RoomId = 2,
 	                X = vertices[74].X,
 	                Y = vertices[74].Y,
 	            },
@@ -1687,7 +1687,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 20,
 	                Employee = developers[7],
-	                RoomId = 2,
+					EmployeeId = developers[7].EmployeeId,
+					RoomId = 2,
 	                X = vertices[75].X,
 	                Y = vertices[75].Y,
 	            },
@@ -1695,7 +1696,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 21,
 	                Employee = developers[8],
-	                RoomId = 2,
+					EmployeeId = developers[8].EmployeeId,
+					RoomId = 2,
 	                X = vertices[76].X,
 	                Y = vertices[76].Y,
 	            },
@@ -1703,7 +1705,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 22,
 	                Employee = developers[9],
-	                RoomId = 2,
+					EmployeeId = developers[9].EmployeeId,
+					RoomId = 2,
 	                X = vertices[77].X,
 	                Y = vertices[77].Y,
 	            },
@@ -1797,7 +1800,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 33,
 	                Employee = developers[12],
-	                RoomId = 8,
+					EmployeeId = developers[12].EmployeeId,
+					RoomId = 8,
 	                X = vertices[88].X,
 	                Y = vertices[88].Y,
 	            },
@@ -1805,7 +1809,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 34,
 	                Employee = developers[13],
-	                RoomId = 8,
+					EmployeeId = developers[13].EmployeeId,
+					RoomId = 8,
 	                X = vertices[89].X,
 	                Y = vertices[89].Y,
 	            },
@@ -1816,14 +1821,16 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 35,
 	                Employee = developers[14],
-	                X = vertices[90].X,
+					EmployeeId = developers[14].EmployeeId,
+					X = vertices[90].X,
 	                Y = vertices[90].Y,
 	            },
 	            new Seat()
 	            {
 	                SeatId = 36,
 	                Employee = developers[15],
-	                RoomId = 10,
+					EmployeeId = developers[15].EmployeeId,
+					RoomId = 10,
 	                X = vertices[91].X,
 	                Y = vertices[91].Y,
 	            },
@@ -1834,7 +1841,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 37,
 	                Employee = developers[16],
-	                RoomId = 13,
+					EmployeeId = developers[16].EmployeeId,
+					RoomId = 13,
 	                X = vertices[92].X,
 	                Y = vertices[92].Y,
 	            },
@@ -1845,7 +1853,8 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	            {
 	                SeatId = 38,
 	                Employee = developers[17],
-	                RoomId = 14,
+					EmployeeId = developers[17].EmployeeId,
+					RoomId = 14,
 	                X = vertices[93].X,
 	                Y = vertices[93].Y,
 	            },
@@ -2186,71 +2195,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                        FloorNumber = 1,
 	                        Rooms = rooms
 	                    },
-	                    new Floor()
-	                    {
-	                        BuildingId = 1,
-	                        Description = "Pietro 2",
-	                        FloorId = 2,
-	                        FloorNumber = 2,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 112,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 112,
-	                                        X = 10,
-	                                        Y = 15
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[3], vertices[6]),
-	                                    new Wall(vertices[0], vertices[3]),
-	                                    new Wall(vertices[6], vertices[7]),
-	                                    new Wall(vertices[7], vertices[0]),
-	                                }
-	                            },
-	                        }
-	                    },
-	                    new Floor()
-	                    {
-	                        BuildingId = 1,
-	                        Description = "Pietro 3",
-	                        FloorId = 3,
-	                        FloorNumber = 3,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 113,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 113,
-	                                        X = 12,
-	                                        Y = 15,
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[3], vertices[6]),
-	                                    new Wall(vertices[0], vertices[3]),
-	                                    new Wall(vertices[6], vertices[7]),
-	                                    new Wall(vertices[7], vertices[0]),
-	                                }
-	                            },
-	                        }
-
-	                    },
 
 
 	                }
@@ -2264,40 +2208,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                {
 	                    new Floor()
 	                    {
-	                        BuildingId = 1,
-	                        Description = "Zeus",
-	                        FloorId = 4,
-	                        FloorNumber = 1,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 115,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 115,
-	                                        X = 14,
-	                                        Y = 19
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[27], vertices[26]),
-	                                    new Wall(vertices[26], vertices[35]),
-	                                    new Wall(vertices[35], vertices[34]),
-	                                    new Wall(vertices[34], vertices[33]),
-	                                    new Wall(vertices[33], vertices[32]),
-	                                    new Wall(vertices[32], vertices[27]),
-	                                }
-	                            },
-	                        }
-	                    },
-	                    new Floor()
-	                    {
 	                        BuildingId = 2,
 	                        Description = "heh",
 	                        FloorNumber = 3,
@@ -2308,8 +2218,9 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                            {
 	                                Seats = new List<Seat>
 	                                {
-
-	                                },
+										
+										
+									},
 	                                Walls = new List<Wall>
 	                                {
 	                                    new Wall()
@@ -2329,62 +2240,116 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 
 	                                }
 	                            },
+	                           
 	                            new Room()
 	                            {
 	                                Seats = new List<Seat>
 	                                {
+										new Seat()
+										{
+											SeatId = 77,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y = 200,
 
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 695,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 675,
-	                                        EndVertexY = 305,
-	                                    },
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 675,
-	                                        StartVertexY = 305,
-	                                        EndVertexX = 695,
-	                                        EndVertexY = 330,
-	                                    },
+										},
+										new Seat()
+										{
+											SeatId = 78,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y = 200,
+										},
+										new Seat()
+										{
+											SeatId = 79,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y = 200,
 
-	                                }
-	                            },
-	                            new Room()
-	                            {
-	                                Seats = new List<Seat>
-	                                {
+										},
+										new Seat()
+										{
+											SeatId = 80,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y = 200,
+										},
 
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 695,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 685,
-	                                        EndVertexY = 330,
-	                                    },
-	                                    new Wall()
-	                                    {
-	                                        StartVertexX = 685,
-	                                        StartVertexY = 330,
-	                                        EndVertexX = 695,
-	                                        EndVertexY = 330,
-	                                    },
+										new Seat()
+										{
+											SeatId = 81,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y =160,
 
-	                                }
-	                            },
-	                            new Room()
-	                            {
-	                                Seats = new List<Seat>
-	                                {
+										},
+										new Seat()
+										{
+											SeatId = 82,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y =160,
+										},
+										new Seat()
+										{
+											SeatId = 83,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y =160,
 
-	                                },
+										},
+										new Seat()
+										{
+											SeatId = 84,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y =160,
+										},
+
+										new Seat()
+										{
+											SeatId = 85,
+											Employee = null,
+											RoomId = 4,
+											X = 600,
+											Y =240,
+
+										},
+										new Seat()
+										{
+											SeatId = 86,
+											Employee = null,
+											RoomId = 4,
+											X = 640,
+											Y =240,
+										},
+										new Seat()
+										{
+											SeatId = 87,
+											Employee = null,
+											RoomId = 4,
+											X = 560,
+											Y =240,
+
+										},
+										new Seat()
+										{
+											SeatId = 88,
+											Employee = null,
+											RoomId = 4,
+											X = 520,
+											Y =240,
+										},
+									},
 	                                Walls = new List<Wall>
 	                                {
 	                                    new Wall()
@@ -5180,40 +5145,6 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                        }
 	                    },
 
-
-
-	                    new Floor()
-	                    {
-	                        BuildingId = 2,
-	                        Description = "Marek",
-	                        FloorId = 6,
-	                        FloorNumber = 2,
-	                        Rooms = new List<Room>()
-	                        {
-	                            new Room()
-	                            {
-	                                RoomId = 115,
-	                                Seats = new List<Seat>
-	                                {
-	                                    new Seat()
-	                                    {
-	                                        SeatId = 112,
-	                                        Employee = null,
-	                                        RoomId = 115,
-	                                        X = 11,
-	                                        Y = 22
-	                                    },
-	                                },
-	                                Walls = new List<Wall>
-	                                {
-	                                    new Wall(vertices[27], vertices[26]),
-	                                    new Wall(vertices[26], vertices[23]),
-	                                    new Wall(vertices[23], vertices[22]),
-	                                    new Wall(vertices[22], vertices[27]),
-	                                }
-	                            },
-	                        }
-	                    },
 	                }
 	            }
 	        };

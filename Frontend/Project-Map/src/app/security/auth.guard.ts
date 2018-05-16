@@ -14,10 +14,13 @@ export class AuthGuard implements CanActivate {
     // Get property name on security object to check
     let claimType: string = next.data["claimType"];
 
-
+    let secObject = localStorage.getItem("bearerToken");
+    if(secObject !== null) {
+      this.securityService.mapResponse(secObject);
+    }
     
     if (this.securityService.securityObject.isAuthenticated
-      && this.securityService.hasClaim(claimType)) {
+      && this.securityService.hasClaim(claimType) && this.securityService.isUserStillValid()) {
       return true;
     }
     else {
