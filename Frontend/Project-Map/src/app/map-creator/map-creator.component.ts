@@ -297,10 +297,12 @@ export class MapCreatorComponent implements OnInit {
       Rooms.push(room);
     }
 
-    
-    var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber, XPhoto: 20, YPhoto: 20 } as Floor;
-
-    if (this.loadedFloorId == -1) {
+    if(this.saveWithBackgroundPhoto && this.backgroundImage != null)
+      var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber, XPhoto: 20, YPhoto: 20 } as Floor;
+    else 
+      var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
+   
+      if (this.loadedFloorId == -1) {
       this.floorService.addFloor(floor).subscribe(data => {this.mapCreated.emit(true); this.loadedFloorId = data;  
         if(this.saveWithBackgroundPhoto && this.backgroundImage != null)
         {

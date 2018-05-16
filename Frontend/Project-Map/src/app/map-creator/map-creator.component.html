@@ -31,6 +31,6 @@
     <input id="saveMap" (click)="saveMap()" style="visibility:hidden;"> -->
     <button class="btn btn-blue waves-light" mdbRippleRadius (click)="saveMap()">Save map</button>
     
-    <input type="checkbox" id="saveWithBackgroundPhoto" [checked]="saveWithBackgroundPhoto" />
+    <input type="checkbox" id="saveWithBackgroundPhoto" [checked]="saveWithBackgroundPhoto" (change)="saveWithBackgroundPhoto = !saveWithBackgroundPhoto"/>
     <label for="saveWithBackgroundPhoto">Save map with background photo</label>
 </div>
