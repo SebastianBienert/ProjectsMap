@@ -14,8 +14,8 @@
           {{ proj.DocumentationLink }} <br>
           <span class="font-weight-bold">Employees: </span>
           <div class="container">
-            <div *ngFor="let emp of proj.EmployeesNames" class="tag">
-               <a (click)="findUser(emp)">{{emp}}</a>
+            <div *ngFor="let emp of proj.Employees" class="tag">
+               <a (click)="findUser(emp.Id)">{{emp.FirstName}} {{emp.Surname}}</a>
             </div>
           </div>
           <span class="font-weight-bold">Technologies: </span>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectsMap.WebApi.DTOs.GET;
 
 namespace ProjectsMap.WebApi.DTOs
 {
@@ -17,7 +18,7 @@ namespace ProjectsMap.WebApi.DTOs
 
         public string DocumentationLink { get; set; }
 
-        public IEnumerable<string> EmployeesNames { get; set; }
+        public IEnumerable<EmployeeShortDto> Employees { get; set; }
 
         public IEnumerable<string> Technologies { get; set; }
     }
