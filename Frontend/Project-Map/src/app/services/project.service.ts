@@ -29,15 +29,9 @@ export class ProjectService {
     this.handleError = httpErrorHandler.createHandleError('ProjectService');
     this.projectUrl = globals.getUrl() + '/api/project';
   }
-   public addProject(project){
-      this.http.post(this.projectUrl, project).subscribe(
-        res => {
-          console.log(res);
-        },
-        err => {
-          console.log("Error occured" + JSON.stringify(err));
-        }
-      );
+   addProject(project : any): Observable<any>{
+      return this.http.post<any>(this.projectUrl, project).
+      pipe(catchError(this.handleError<any>('postProject',[])));
     }
   
   searchProjectByName(name : string): Observable<Project[]> {
