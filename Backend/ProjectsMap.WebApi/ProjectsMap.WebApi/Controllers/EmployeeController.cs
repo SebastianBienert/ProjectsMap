@@ -338,7 +338,7 @@ namespace ProjectsMap.WebApi.Controllers
 }
                         else
                         {
-                            var virtualPath = $"~/App_Data/{id}{extension}";
+                            var virtualPath = $"~/EmployeesPhoto/{id}{extension}";
                             var filePath = HttpContext.Current.Server.MapPath(virtualPath);
 
                             if(_service.AddPhotoToEmployee(id, virtualPath))

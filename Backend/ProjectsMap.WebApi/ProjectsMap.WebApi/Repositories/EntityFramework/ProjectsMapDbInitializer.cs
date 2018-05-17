@@ -1030,7 +1030,7 @@ namespace ProjectsMap.WebApi.Repositories.EntityFramework
 	                FirstName = "Witkor",
 	                Surname = "Bukowski",
 	                EmployeeId = 1,
-	                Photo = @"~/App_Data/1.jpg",
+	                Photo = @"~/EmployeesPhoto/1.jpg",
 
 	                Technologies = new List<Technology>()
 	                {
