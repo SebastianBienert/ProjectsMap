@@ -206,8 +206,10 @@
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="DTOs\GET\BuildingDto.cs" />
     <Compile Include="DTOs\GET\EmployeeDto.cs" />
+    <Compile Include="DTOs\GET\EmployeeShortDto.cs" />
     <Compile Include="DTOs\GET\FloorDTO.cs" />
     <Compile Include="DTOs\GET\ProjectDto.cs" />
+    <Compile Include="DTOs\GET\ProjectShortDto.cs" />
     <Compile Include="DTOs\GET\RoomDto.cs" />
     <Compile Include="DTOs\GET\SeatDto.cs" />
     <Compile Include="DTOs\GET\TechnologyDto.cs" />

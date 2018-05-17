@@ -8,16 +8,20 @@ import { Employee } from '../../common-interfaces/employee';
 import { EmployeeService } from '../../services/employee.service';
 import { Observable } from 'rxjs/Observable';
 import { ProjectService } from '../../services/project.service';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   moduleId: module.id,
   selector: 'form-project',
   templateUrl: './project.component.html',
+  styleUrls: ['./project.component.css'],
   providers: [ EmployeeService, TechnologyService, ProjectService ]
 })
 
 export class ProjectComponent implements OnInit {
   formAddProject : FormGroup;
   companyId : number = 1;
+  modalReference : any;
   allTechnologies : string[];
   selectedEmployee = null;
 
@@ -43,7 +47,9 @@ export class ProjectComponent implements OnInit {
   constructor(private formBuilder : FormBuilder,
     private technologyService : TechnologyService,
     private employeeService : EmployeeService,
-    private projectService : ProjectService) {}
+    private projectService : ProjectService,
+    private modalService: NgbModal,
+    private router: Router) {}
   
   ngOnInit() {
     this.formAddProject = this.formBuilder.group({
@@ -96,7 +102,11 @@ export class ProjectComponent implements OnInit {
       Technologies : form.value.Technologies,
       EmployeesRoles : employees
     }
-    this.projectService.addProject(project);
+    this.projectService.addProject(project).subscribe(response =>{
+      console.log("Project added");
+      this.modalReference.close();
+      this.router.navigate(['/main']);
+    });
   }
   
   onControlValueChanged() : void {
@@ -114,4 +124,15 @@ export class ProjectComponent implements OnInit {
     }
   }
 }
+
+
+open(content) {
+  this.modalReference = this.modalService.open(content)
+  this.modalReference.result.then((result) => {
+    //this.closeResult = `Closed with: ${result}`;
+  }, (reason) => {
+   // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  });
+}
+
 }

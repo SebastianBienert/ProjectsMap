@@ -32,10 +32,11 @@ export class ProjectDetailComponent implements OnInit {
           });  
   }
   
-  findUser(user: string): void {
-    let users: Employee[];
-    this.employeeService.getEmployeesByName(user)
-      .subscribe(emp => { this.router.navigate(['/main',{outlets: {right: ['user', emp[0].Id], center: [emp[0].Id]} }]) });
+  findUser(id: number): void {
+    //let users: Employee[];
+    this.router.navigate(['/main',{outlets: {right: ['user', id], center: [id]} }]);
+   // this.employeeService.getEmployeesByName(user)
+    //  .subscribe(emp => { this.router.navigate(['/main',{outlets: {right: ['user', emp[0].Id], center: [emp[0].Id]} }]) });
   }
 
   hideDetails() {

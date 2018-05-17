@@ -1,6 +1,6 @@
 
 <div class="" >
-	<form [formGroup]="formAddProject" (ngSubmit)="onSubmit(formAddProject)">
+	<form [formGroup]="formAddProject" (ngSubmit)="onSubmit(formAddProject); open(content);">
 		<div class="md-form">
 			<i class="fa fa-info-circle prefix blue-text"></i>
 			<input type="text" class="form-control" id="Description" formControlName="Description" mdbActive>
@@ -80,3 +80,20 @@
 		</div>
 	</form>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+	  <h4 class="modal-title">Loading...</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body row align-items-center justify-content-center">
+	  <div class="col">
+		<div class="loader"></div> 
+	  </div>
+	</div>
+	<!-- <div class="modal-footer">
+	  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+	</div> -->
+  </ng-template>

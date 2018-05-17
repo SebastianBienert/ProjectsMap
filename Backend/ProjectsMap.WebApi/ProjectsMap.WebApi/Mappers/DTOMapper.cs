@@ -8,6 +8,7 @@ using System.Web;
 using ProjectsMap.WebApi.DTOs;
 using ProjectsMap.WebApi.Models;
 using System.Web.Http.Routing;
+using ProjectsMap.WebApi.DTOs.GET;
 using ProjectsMap.WebApi.Repositories.EntityFramework;
 
 
@@ -28,12 +29,23 @@ namespace ProjectsMap.WebApi.Mappers
             }
         }
 
+        public static EmployeeShortDto GetEmployeeShortDto(Employee employee)
+        {
+            return new EmployeeShortDto()
+            {
+                Id = employee.EmployeeId,
+                FirstName = employee.FirstName,
+                Surname = employee.Surname,
+            };
+        }
+
         public static ProjectDto GetProjectDto(Project project)
         {
             return new ProjectDto()
             {
                 Description = project.Description,
-                EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname).ToList(),
+                Employees = project.ProjectRoles.Select(emp => DTOMapper.GetEmployeeShortDto(emp.Employee)).ToList(),
+                //EmployeesNames = project.ProjectRoles.Select(x => x.Employee.Surname).ToList(),
                 DocumentationLink = project.DocumentationLink,
                 Id = project.ProjectId,
                 RepositoryLink = project.RepositoryLink,
