@@ -61,6 +61,22 @@ namespace ProjectsMap.WebApi.Controllers
 
         [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
+        [Route("{id}/employees")]
+        public IHttpActionResult GetEmployeesInProject(int id)
+        {
+            var result = _service.GetEmployeesInProjectByProjectId(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
+        [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult GetProjectsByTechnology(string technology)
         {

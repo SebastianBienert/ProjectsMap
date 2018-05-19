@@ -181,7 +181,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                 return new URL(GlobalVariable.webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Project")){
-                return new URL(GlobalVariable.webApiURL+"/api/developers"); //tylko do testu trzeba dodac odpowiedni w backendzie
+                return new URL(GlobalVariable.webApiURL+"/api/project/"+inputData+"/employees"); //tylko do testu trzeba dodac odpowiedni w backendzie
             }
         }catch(MalformedURLException e){
             e.printStackTrace();

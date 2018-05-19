@@ -76,7 +76,7 @@ namespace ProjectsMap.WebApi.Mappers
                 Surname = employee.Surname,
                 Email = employee.Email,
                 JobTitle = employee.JobTitle,
-                Technologies = employee.Technologies.Select(x => x.Name).ToList(),
+                Technologies = employee.Technologies == null ? null : employee.Technologies.Select(x => x.Name).ToList(),
             };
 
             if (employee.Seat == null)

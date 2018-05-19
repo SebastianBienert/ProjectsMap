@@ -35,6 +35,7 @@ namespace ProjectsMap.WebApi.Services.Concrete
                 return null;
             }
         }
+        
 
         public ProjectDto GetProject(int id)
         {
@@ -43,6 +44,26 @@ namespace ProjectsMap.WebApi.Services.Concrete
                 return null;
 
             return DTOMapper.GetProjectDto(project);
+        }
+
+        public IEnumerable<EmployeeDto> GetEmployeesInProjectByProjectId(int id)
+        {
+            var project = _repository.Projects.Where(p => p.ProjectId == id).FirstOrDefault();
+            if(project == null)
+            {
+                return null;
+            }
+            var list = project.ProjectRoles.Select(emp => DTOMapper.GetEmployeeDto(emp.Employee));// Where(x => x.Description.ToLower().Contains(name)).ToList();
+
+            if (list.Count() > 0)
+            {
+                //var dtoS = list.Select(x => DTOMapper.GetEmployeeDto(x)).ToList();
+                return list;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public int Post(CreateProject Project)
