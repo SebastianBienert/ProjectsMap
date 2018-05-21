@@ -33,7 +33,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     Button clickSerach;
     TextView inputDataField;
     TextView statement;
-    TextView data;
+    //TextView data;
     ListView listDevelopers;
     CustomAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
@@ -55,6 +55,9 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
+        adapter = new CustomAdapter(this);
+        listDevelopers.setAdapter(adapter);
+
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
@@ -72,25 +75,25 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         });
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
-                    waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
-                    FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
-                    process.setToken(token);
-                    process.setSaveDataToFile(false);
-                    process.setChoice(choice);
-                    process.setInputData(newText);
-                    process.setcontext(SearchDevelopersActivity.this);
-                    process.setTextViewStatement(statement);
-                    process.execute();
-                }
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
+                            waitForData.setVisibility(View.VISIBLE);
+                            adapter.list.clear();
+                            FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                            process.setToken(token);
+                            process.setSaveDataToFile(false);
+                            process.setChoice(choice);
+                            process.setInputData(newText);
+                            process.setcontext(SearchDevelopersActivity.this);
+                            process.setTextViewStatement(statement);
+                            process.execute();
+                        }
                 return true;
             }
         });
@@ -114,7 +117,8 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                     //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                     choice = (String) adapterView.getItemAtPosition(position);
-                            adapter.list.clear();
+                    waitForData.setVisibility(View.VISIBLE);
+                    adapter.list.clear();
                             FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                             process.setToken(token);
                             process.setSaveDataToFile(false);
@@ -130,8 +134,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
                 }
             });
-            adapter = new CustomAdapter(this);
-            listDevelopers.setAdapter(adapter);
+
 
  /*           clickSerach.setOnClickListener(new View.OnClickListener() {
                 @Override
