@@ -11,5 +11,6 @@ export interface Project{
     DocumentationLink : string,
     EmployeesNames : string[],
     Rooms : Room,
-    Technologies : Technology
+    Technologies : Technology[],
+    Employees: any[]
 }

@@ -163,5 +163,14 @@ namespace ProjectsMap.WebApi.Controllers
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
         }
 
+        [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
+        [HttpPut]
+        [Route("{id}")]
+        public IHttpActionResult Edit(int id, CreateProject dtoProject)
+        {
+                var editedProject = _service.EditProject(dtoProject);
+                return Ok(editedProject);
+        }
+
     }
 }

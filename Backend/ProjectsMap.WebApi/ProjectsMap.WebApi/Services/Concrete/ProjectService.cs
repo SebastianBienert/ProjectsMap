@@ -66,6 +66,13 @@ namespace ProjectsMap.WebApi.Services.Concrete
             }
         }
 
+        public ProjectDto EditProject(CreateProject dtoProject)
+        {
+            var project = _repository.Edit(dtoProject);
+
+            return DTOMapper.GetProjectDto(project);
+        }
+
         public int Post(CreateProject Project)
         {
             return _repository.Add(Project);
@@ -74,11 +81,6 @@ namespace ProjectsMap.WebApi.Services.Concrete
         public void Delete(int id)
         {
             _repository.Delete(id);
-        }
-
-        public void Update(CreateProject project)
-        {
-            _repository.Update(project);
         }
 
         public IEnumerable<ProjectDto> GetAllProjects()

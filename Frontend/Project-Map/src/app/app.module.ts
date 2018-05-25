@@ -49,6 +49,7 @@ import { EditEmployeeDataComponent } from './edit-employee-data/edit-employee-da
 import { RegistrationComponent } from './registration/registration.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbdModalBasic} from './modal/modal-basic.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -111,7 +112,8 @@ const routes: Routes = [
     HasClaimDirective,
     EditEmployeeDataComponent,
     RegistrationComponent,
-    NgbdModalBasic
+    NgbdModalBasic,
+    EditProjectComponent
   ],
   imports: [
     NgbModule.forRoot(),
