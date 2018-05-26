@@ -28,10 +28,12 @@ public class MapActivity extends AppCompatActivity {
     LinearLayout ll;
     //static Floor floor;
     Floor floor = null;
+    Developer developer = null;
     Seat placeDeveloper;
+    int roomDeveloperId;
     Room roomDeveloper;
     TextView description;
-
+    boolean areAllInformation = false;
     boolean choice;
 
     @Override
@@ -51,6 +53,15 @@ public class MapActivity extends AppCompatActivity {
             process.setNumberEmployeeId(DeveloperId);
             process.setContext(MapActivity.this);
             process.execute();
+
+            FetchDataAboutDeveloper processTwo = new FetchDataAboutDeveloper();
+            processTwo.setToken(GlobalVariable.token);
+            processTwo.setSaveDataToFile(false);
+            processTwo.setChoice("Id");
+            processTwo.setTypeContext("MapActivity");
+            processTwo.setInputData(DeveloperId.toString());
+            processTwo.setcontext(MapActivity.this);
+            processTwo.execute();
         }
 
         choice = getIntent().getBooleanExtra("choice",false);
@@ -64,12 +75,27 @@ public class MapActivity extends AppCompatActivity {
     }
     public void SetFloor(Floor newFloor){
         floor = newFloor;
-        description.setText(floor.Description);
+        SetDescription("Budynek " + floor.getBuildingId() + ", " + floor.getDescription());
         choice = true;
     }
+    public void SetDeveloper(Developer dev){
+        developer = dev;
+        if(dev == null){
+            SetDescription("Nastąpił błąd nie ma w bazie danych pracownika o wybranym numerze Id.");
+        }else{
+            placeDeveloper = developer.getSeat();
+            roomDeveloperId = developer.getSeat().roomId;
+        }
+    }
+    private void SetDescription(String desc){
+        description.setText(desc);
+    }
+
     public void RefreshMap(){
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        DrawMap();
+        if(developer != null && floor != null){
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            DrawMap();
+        }
     }
     private void SetCanvas(){
         bg = Bitmap.createBitmap(800,800,Bitmap.Config.ARGB_8888);
@@ -83,23 +109,24 @@ public class MapActivity extends AppCompatActivity {
             ArrayList<Room> rooms = floor.Rooms;
             ArrayList<Seat> seats;
             for(int i = 0; i < rooms.size(); i++){
-                if( i != 0){ // do testow wartosc 0
-                    DrawRoom(rooms.get(i).getWalls(), "#000000", "#D8D8D8");
+                if( roomDeveloperId == rooms.get(i).RoomId){ // do testow wartosc 0
                     seats = rooms.get(i).getSeats();
-                    for(int j = 0; j < seats.size(); j++){
-                        DrawSeat(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
-                    }
-                }else{
-                    seats = rooms.get(i).getSeats();
-                    placeDeveloper = rooms.get(0).Seats.get(0);//do testow
-                    roomDeveloper = rooms.get(0);
+                    roomDeveloper = rooms.get(i);
                     if(roomDeveloper!=null){
                         DrawRoom(roomDeveloper.getWalls(),"#000000", "#ccff99");
                     }
                     if(placeDeveloper!=null){
                         DrawSeat(placeDeveloper.getX(),placeDeveloper.getY(),10,10, true, "#ff3300");
                     }
-                    for(int j = 1; j < seats.size(); j++){
+                    for(int j = 0; j < seats.size(); j++){
+                        if(seats.get(j).seatId != placeDeveloper.seatId){
+                            DrawSeat(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
+                        }
+                    }
+                }else{
+                    DrawRoom(rooms.get(i).getWalls(), "#000000", "#D8D8D8");
+                    seats = rooms.get(i).getSeats();
+                    for(int j = 0; j < seats.size(); j++){
                         DrawSeat(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
                     }
                 }

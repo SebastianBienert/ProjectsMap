@@ -109,9 +109,61 @@ namespace ProjectsMap.WebApi.Repositories.Concrete
              }
         }
 
-        public void Update(CreateProject project)
+        public Project Edit(CreateProject dtoProject)
         {
-            throw new NotImplementedException();
+            using (var dbContext = new EfDbContext())
+            {
+                var project = dbContext.Projects
+                    .Include(p => p.ProjectRoles.Select(x => x.Employee))
+                    .Include(p => p.Technologies)
+                    .FirstOrDefault(x => x.ProjectId == dtoProject.Id);
+                if (project != null)
+                {
+                    dbContext.Projects.Attach(project);
+                    var existingTechnologiesNames = dbContext.Technologies.Select(x => x.Name).ToList();
+                    var newTechnologiesNames = dtoProject.Technologies.Where(x => !existingTechnologiesNames.Contains(x));
+                    var technologies = dbContext.Technologies.Where(x => dtoProject.Technologies.Contains(x.Name)).ToList();
+                    project.RepositoryLink = dtoProject.RepositoryLink;
+                    project.DocumentationLink = dtoProject.DocumentationLink;
+                    project.Description = dtoProject.Description;
+                    project.Technologies = technologies;
+
+                    foreach (var tech in newTechnologiesNames)
+                    {
+                        var newTechnology = new Technology()
+                        {
+                            Name = tech,
+                            Projects = new List<Project>() { project }
+                        };
+                        project.Technologies.Add(newTechnology);
+                    }
+
+                    //EDITING EMPLOYEES
+                    var employeesRemoved = project.ProjectRoles.Where(pr => !dtoProject.EmployeesRoles
+                        .Select(er => er.EmployeeId).Contains(pr.EmployeeId)).ToList();
+                    for(int i = 0; i < employeesRemoved.Count(); i++)
+                    {
+                        project.ProjectRoles.Remove(employeesRemoved[i]);
+                    }
+
+                    var employeesAdded = dtoProject.EmployeesRoles.Where(er =>
+                        !project.ProjectRoles.Select(pr => pr.EmployeeId).Contains(er.EmployeeId));
+                    foreach (var added in employeesAdded)
+                    {
+                        var projectRole = new ProjectRole()
+                        {
+                            Employee = dbContext.Employees.FirstOrDefault(e => e.EmployeeId == added.EmployeeId),
+                            Project = project,
+                            Role = added.Role
+                        };
+                        project.ProjectRoles.Add(projectRole);
+                    }
+
+                    dbContext.SaveChanges();
+                }
+                return project;
+            }
+
         }
     }
 }

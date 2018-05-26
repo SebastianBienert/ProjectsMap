@@ -61,6 +61,22 @@ namespace ProjectsMap.WebApi.Controllers
 
         [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
         [HttpGet]
+        [Route("{id}/employees")]
+        public IHttpActionResult GetEmployeesInProject(int id)
+        {
+            var result = _service.GetEmployeesInProjectByProjectId(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+        [ClaimsAuthorization(ClaimType = "canReadProjects", ClaimValue = "true")]
+        [HttpGet]
         [Route("technology/{technology}")]
         public IHttpActionResult GetProjectsByTechnology(string technology)
         {
@@ -145,6 +161,24 @@ namespace ProjectsMap.WebApi.Controllers
         {
             int createdId = _service.Post(dtoProject);
             return CreatedAtRoute("GetProjectById", new { id = createdId }, dtoProject);
+        }
+
+        [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            _service.Delete(id);
+            return Ok();
+        }
+
+        [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
+        [HttpPut]
+        [Route("{id}")]
+        public IHttpActionResult Edit(int id, CreateProject dtoProject)
+        {
+                var editedProject = _service.EditProject(dtoProject);
+                return Ok(editedProject);
         }
 
     }

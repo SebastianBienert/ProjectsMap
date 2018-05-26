@@ -143,10 +143,20 @@ public class Project implements Serializable {
         }else{
             technologies = null;
         }
-        if(object.has("EmployeesNames")){
+        /*if(object.has("EmployeesNames")){
             if(!object.isNull("EmployeesNames")){
 
                 employees = divisinOfEmployees(object.getString("EmployeesNames"));
+            }else{
+                employees = null;
+            }
+        }else{
+            employees = null;
+        }*/
+        if(object.has("Employees")){
+            if(!object.isNull("Employees")){
+
+                employees = divisinOfEmployees(object);
             }else{
                 employees = null;
             }
@@ -169,13 +179,16 @@ public class Project implements Serializable {
         }*/
         return tech;
     }
-    private ArrayList<String> divisinOfEmployees(String text) throws JSONException {
-        String[] table;
+    private ArrayList<String> divisinOfEmployees(JSONObject object) throws JSONException {
+        //String[] table;
+        String name, surname;
         ArrayList<String> emp = new ArrayList<String>();
-        text = text.substring(1,text.length()-1);
-        table = text.split(",");
-        for(int i = 0; i < table.length; i++){
-            emp.add(table[i]);
+        JSONArray JObjects = object.getJSONArray("Employees");
+        for(int i = 0; i < JObjects.length(); i++){
+            JSONObject JO = (JSONObject) JObjects.get(i);
+            name = JO.getString("FirstName");
+            surname = JO.getString("Surname");
+            emp.add(name + " " + surname);
         }
         return emp;
     }

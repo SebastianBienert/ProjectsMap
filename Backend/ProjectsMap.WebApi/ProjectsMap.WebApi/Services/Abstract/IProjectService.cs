@@ -16,8 +16,9 @@ namespace ProjectsMap.WebApi.Services.Abstract
         ProjectDto GetProject(int id);
         int Post(CreateProject Project);
         void Delete(int id);
-        void Update(CreateProject project);
         IEnumerable<ProjectDto> GetAllProjects();
         IEnumerable<ProjectDto> GetProjectsByTechnology(string technology);
+        IEnumerable<EmployeeDto> GetEmployeesInProjectByProjectId(int id);
+        ProjectDto EditProject(CreateProject dtoProject);
     }
 }

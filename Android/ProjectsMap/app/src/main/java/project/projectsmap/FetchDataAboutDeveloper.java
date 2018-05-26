@@ -40,6 +40,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     String choice = "";
     String inputData = "";
     String errorText = "";
+    String typeContext = ""; // wykorzystane do pobierania danych o pracowniku w MapActivity
     ArrayList<Developer> dataList = new ArrayList<Developer>();
     //String webApiURL = "https://19484bc4.ngrok.io";
     //String webApiURL = "https://projectsmapwebapi.azurewebsites.net";
@@ -62,7 +63,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     public void setInputData(String name){
         inputData = name;
     }
-
+    public void setTypeContext(String type){typeContext = type;}
     /*      dodane do zapisu do pliku       */
     public void setSaveDataToFile(boolean choice){
         saveDataToFile = choice;
@@ -143,6 +144,14 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         }else{
             if(choice.equals("Project")){
                 ((ActivityShowProjectDevelopers)context).setArrayDevelopers(dataList);
+            }else if(typeContext.equals("MapActivity")){
+                if(!dataList.isEmpty()){
+                    ((MapActivity)context).SetDeveloper(dataList.get(0));
+                    ((MapActivity)context).RefreshMap();
+                }else{
+                    ((MapActivity)context).SetDeveloper(null);
+                    ((MapActivity)context).RefreshMap();
+                }
             }else{
                 for(int i=0; i<dataList.size();i++) {
                     ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
@@ -181,7 +190,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                 return new URL(GlobalVariable.webApiURL+"/api/developers/"+inputData);
                 //return new URL("http://localhost:58923/api/developers/"+inputData);
             }else if(choice.equals("Project")){
-                return new URL(GlobalVariable.webApiURL+"/api/developers"); //tylko do testu trzeba dodac odpowiedni w backendzie
+                return new URL(GlobalVariable.webApiURL+"/api/project/"+inputData+"/employees"); //tylko do testu trzeba dodac odpowiedni w backendzie
             }
         }catch(MalformedURLException e){
             e.printStackTrace();

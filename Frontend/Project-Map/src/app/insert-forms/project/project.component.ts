@@ -60,6 +60,7 @@ export class ProjectComponent implements OnInit {
      Employees: [''],
      EmployeeRole: ['']
    });
+  
    
     this.formAddProject.valueChanges.debounceTime(500).subscribe((value) => {
       this.onControlValueChanged();

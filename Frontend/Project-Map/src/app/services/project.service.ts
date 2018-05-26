@@ -33,6 +33,11 @@ export class ProjectService {
       return this.http.post<any>(this.projectUrl, project).
       pipe(catchError(this.handleError<any>('postProject',[])));
     }
+
+    editProject(project : any) : Observable<any>{
+      return this.http.put<any>(this.projectUrl + "/" + project.Id, project).
+      pipe(catchError(this.handleError<any>('editProject',[])));
+    }
   
   searchProjectByName(name : string): Observable<Project[]> {
     
@@ -41,6 +46,11 @@ export class ProjectService {
       catchError(this.handleError('getProjects', []))
     );
     
+  }
+
+  delete(id : number) : Observable<any>{
+    return this.http.delete<any>(this.projectUrl + "/" + id)
+      .pipe(catchError(this.handleError<any>('deleteProject',[])));
   }
   
   getProject(id : number): Observable<Project> {

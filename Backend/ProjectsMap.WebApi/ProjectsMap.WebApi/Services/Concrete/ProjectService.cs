@@ -35,12 +35,40 @@ namespace ProjectsMap.WebApi.Services.Concrete
                 return null;
             }
         }
+        
 
         public ProjectDto GetProject(int id)
         {
             var project = _repository.Get(id);
             if (project == null)
                 return null;
+
+            return DTOMapper.GetProjectDto(project);
+        }
+
+        public IEnumerable<EmployeeDto> GetEmployeesInProjectByProjectId(int id)
+        {
+            var project = _repository.Projects.Where(p => p.ProjectId == id).FirstOrDefault();
+            if(project == null)
+            {
+                return null;
+            }
+            var list = project.ProjectRoles.Select(emp => DTOMapper.GetEmployeeDto(emp.Employee));// Where(x => x.Description.ToLower().Contains(name)).ToList();
+
+            if (list.Count() > 0)
+            {
+                //var dtoS = list.Select(x => DTOMapper.GetEmployeeDto(x)).ToList();
+                return list;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public ProjectDto EditProject(CreateProject dtoProject)
+        {
+            var project = _repository.Edit(dtoProject);
 
             return DTOMapper.GetProjectDto(project);
         }
@@ -53,11 +81,6 @@ namespace ProjectsMap.WebApi.Services.Concrete
         public void Delete(int id)
         {
             _repository.Delete(id);
-        }
-
-        public void Update(CreateProject project)
-        {
-            _repository.Update(project);
         }
 
         public IEnumerable<ProjectDto> GetAllProjects()

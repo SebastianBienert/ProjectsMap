@@ -1,0 +1,102 @@
+
+<div class="" >
+	<form [formGroup]="formEditProject" (ngSubmit)="onSubmit(formEditProject); open(content);">
+		<div class="md-form">
+			<i class="fa fa-info-circle prefix blue-text"></i>
+			<input type="text" class="form-control ng-touched" id="Description" formControlName="Description" #descriptionInput mdbActive>
+			<span *ngIf="formErrors.Description" class="alert alert-danger">{{ formErrors.Description }}</span>
+			<label for="Description">Description</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-external-link prefix blue-text"></i>
+			<input type="text" class="form-control" id="RepositoryLink" formControlName="RepositoryLink" mdbActive> 
+			<span *ngIf="formErrors.RepositoryLink" class="alert alert-danger">{{ formErrors.RepositoryLink }}</span>
+			<label for="RepositoryLink">Repository Link</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-external-link prefix blue-text"></i>
+			<input type="text" class="form-control" id="DocumentationLink" formControlName="DocumentationLink" mdbActive>
+			<span *ngIf="formErrors.DocumentationLink" class="alert alert-danger">{{ formErrors.DocumentationLink }}</span>
+			<label for="DocumentationLink">Documentation Link</label>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa fa-industry prefix blue-text" ></i>
+			<tag-input
+					 	name="Technologies"
+						style="margin-left: 3rem; padding: 0 !important"
+						inputId ="Technologies"
+						formControlName="Technologies"
+						secondaryPlaceholder = "Technologies"
+						placeholder = "Add Technology"
+						modelAsStrings = "true"
+					   [addOnBlur]="true"
+					   [clearOnBlur]="true">
+				<tag-input-dropdown [autocompleteItems]="allTechnologies">
+				</tag-input-dropdown>
+			</tag-input>
+		</div>
+
+		<div class="md-form">
+			<i class="fa fa-user-circle prefix blue-text" ></i>
+			<tag-input 	formControlName = "Employees"
+						name="Employees"
+						style="margin-left: 3rem; padding: 0 !important"
+						inputId ="Employees"
+						secondaryPlaceholder = "Employees"
+						placeholder = "Add Employee"
+						[addOnBlur]="true"
+						[clearOnBlur]="true"
+						[onlyFromAutocomplete]="true"
+						(onSelect)="onSelect($event)"
+					   [separatorKeyCodes]='[9, 188, 32]'>
+                <ng-template let-item="item">
+					{{item.display}}
+                </ng-template>
+				<tag-input-dropdown showDropdownIfEmpty = "false"
+									focusFirstElement ="true"
+									limitItemsTo ="8"
+									matchinFn="matching"
+									[autocompleteObservable]='requestAutocompleteItems'>
+                    <ng-template let-item="item" let-index="index">
+						{{item.display}}
+                    </ng-template>
+                </tag-input-dropdown>
+            </tag-input>
+		</div>
+
+
+		<div class="md-form" *ngIf="selectedEmployee">
+			<i class="fa fa-puzzle-piece prefix blue-text"></i>
+			<input type="text" class="form-control" id="EmployeeRole" [(ngModel)]="selectedEmployee.role" formControlName="EmployeeRole" mdbActive>
+			<span *ngIf="formErrors.EmployeeRole" class="alert alert-danger">{{ formErrors.EmployeeRole }}</span>
+			<label for="EmployeeRole">#{{selectedEmployee.value}} Employee Role</label>
+		</div>
+	
+		<div class="text-center">
+				<button [disabled]="!formEditProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Edit</button>
+				<button class="btn btn-red waves-light" type="button" (click)="deleteProject(); open(content)" mdbRippleRadius>Delete</button>
+		</div>
+
+
+	</form>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+	  <h4 class="modal-title">Loading...</h4>
+	  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+		<span aria-hidden="true">&times;</span>
+	  </button>
+	</div>
+	<div class="modal-body row align-items-center justify-content-center">
+	  <div class="col">
+		<div class="loader"></div> 
+	  </div>
+	</div>
+	<!-- <div class="modal-footer">
+	  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+	</div> -->
+  </ng-template>

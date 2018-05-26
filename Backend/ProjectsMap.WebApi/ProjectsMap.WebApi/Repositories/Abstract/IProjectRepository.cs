@@ -21,6 +21,6 @@ namespace ProjectsMap.WebApi.Repositories.Abstract
 
         void Delete(int id);
 
-        void Update(CreateProject project);
+        Project Edit(CreateProject dtoProject);
     }
 }

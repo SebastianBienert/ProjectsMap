@@ -42,4 +42,9 @@ export class ProjectDetailComponent implements OnInit {
   hideDetails() {
     this.router.navigate(['/']);
   }
+
+  editProject(id: number): void{
+    this.router.navigate(['/editProject'], {})
+  }
+
 }

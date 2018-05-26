@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    <a [routerLink]="['/managementPage/editProject/' + proj.Id]" class="btn btn-indigo btn-block waves-light" *hasClaim="'canWriteProjects:true'" mdbRippleRadius>Edit</a>
     <a (click)="hideDetails()" class="btn btn-indigo btn-block waves-light" mdbRippleRadius>Hide</a>
   </div>
 

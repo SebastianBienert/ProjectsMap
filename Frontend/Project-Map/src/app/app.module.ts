@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import "rxjs/Rx";
 import { EmployeeDetailsModule }  from './employee-details/employee-details.module';
-import { ProjectDetailsModule }  from './project-details/project-details.module';
 
 import { AppComponent } from './app.component';
 import { DisplayedMapComponent } from './displayed-map/displayed-map.component';
@@ -49,6 +48,7 @@ import { EditEmployeeDataComponent } from './edit-employee-data/edit-employee-da
 import { RegistrationComponent } from './registration/registration.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbdModalBasic} from './modal/modal-basic.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -76,6 +76,9 @@ const routes: Routes = [
                   data: { claimType: 'canWriteProjects' }}, 
       {path: 'employees', component: EditEmployeeDataComponent},
       {path: 'mapCreator', component: MapNavigatorComponent}, 
+      {path: 'editProject/:id', component: EditProjectComponent,
+      canActivate: [AuthGuard],
+             data: { claimType: 'canWriteProjects' }}
   ]},
   { path: 'login', 
     component: LoginComponent
@@ -111,7 +114,9 @@ const routes: Routes = [
     HasClaimDirective,
     EditEmployeeDataComponent,
     RegistrationComponent,
-    NgbdModalBasic
+    NgbdModalBasic,
+    EditProjectComponent,
+    ProjectDetailComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -126,7 +131,6 @@ const routes: Routes = [
     TagInputModule, 
     BrowserAnimationsModule,
     EmployeeDetailsModule,
-    ProjectDetailsModule,
     HttpInterceptorModule
   ],
   providers: [
@@ -140,7 +144,10 @@ const routes: Routes = [
     TechnologyService,
     SecurityService,
     AuthGuard,
-	Globals],
+  Globals],
+  exports:[
+    HasClaimDirective
+  ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })
