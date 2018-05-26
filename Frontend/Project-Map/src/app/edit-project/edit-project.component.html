@@ -3,14 +3,14 @@
 	<form [formGroup]="formEditProject" (ngSubmit)="onSubmit(formEditProject); open(content);">
 		<div class="md-form">
 			<i class="fa fa-info-circle prefix blue-text"></i>
-			<input type="text" class="form-control" id="Description" formControlName="Description" mdbActive>
+			<input type="text" class="form-control ng-touched" id="Description" formControlName="Description" #descriptionInput mdbActive>
 			<span *ngIf="formErrors.Description" class="alert alert-danger">{{ formErrors.Description }}</span>
 			<label for="Description">Description</label>
 		</div>
 
 		<div class="md-form">
 			<i class="fa fa-external-link prefix blue-text"></i>
-			<input type="text" class="form-control" id="RepositoryLink" formControlName="RepositoryLink" mdbActive>
+			<input type="text" class="form-control" id="RepositoryLink" formControlName="RepositoryLink" mdbActive> 
 			<span *ngIf="formErrors.RepositoryLink" class="alert alert-danger">{{ formErrors.RepositoryLink }}</span>
 			<label for="RepositoryLink">Repository Link</label>
 		</div>
@@ -76,8 +76,11 @@
 		</div>
 	
 		<div class="text-center">
-		    <button [disabled]="!formEditProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Edit</button>
+				<button [disabled]="!formEditProject.valid" type="submit" class="btn btn-blue waves-light" mdbRippleRadius>Edit</button>
+				<button class="btn btn-red waves-light" type="button" (click)="deleteProject(); open(content)" mdbRippleRadius>Delete</button>
 		</div>
+
+
 	</form>
 </div>
 

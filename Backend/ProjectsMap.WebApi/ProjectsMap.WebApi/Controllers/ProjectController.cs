@@ -164,6 +164,15 @@ namespace ProjectsMap.WebApi.Controllers
         }
 
         [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
+        [HttpDelete]
+        [Route("{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            _service.Delete(id);
+            return Ok();
+        }
+
+        [ClaimsAuthorization(ClaimType = "canWriteProjects", ClaimValue = "true")]
         [HttpPut]
         [Route("{id}")]
         public IHttpActionResult Edit(int id, CreateProject dtoProject)

@@ -44,7 +44,16 @@ export class EditProjectComponent implements OnInit {
     private projectService : ProjectService,
     private modalService: NgbModal,
     private router: Router,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute) {
+      this.formEditProject = this.formBuilder.group({
+        Description: ['', Validators.required],
+        RepositoryLink: ['', Validators.required],
+        DocumentationLink: ['', Validators.required],
+        Technologies: [''],
+        Employees: [''],
+        EmployeeRole: ['']
+      });
+    }
 
   ngOnInit() {
     this.projectService.getProject(this.activatedRoute.snapshot.params['id'])
@@ -65,18 +74,12 @@ export class EditProjectComponent implements OnInit {
           })
         }
       )
+      this.formEditProject.updateValueAndValidity();
+      this.onControlValueChanged();
       console.log("Technologies: " + result.Technologies);
       console.log("Employees : " + JSON.stringify(result));
     })
-
-    this.formEditProject = this.formBuilder.group({
-      Description: ['', Validators.required],
-      RepositoryLink: ['', Validators.required],
-      DocumentationLink: ['', Validators.required],
-      Technologies: [''],
-      Employees: [''],
-      EmployeeRole: ['']
-    });
+   
     
      this.formEditProject.valueChanges.debounceTime(500).subscribe((value) => {
        this.onControlValueChanged();
@@ -125,6 +128,14 @@ export class EditProjectComponent implements OnInit {
     });
   }
   
+  deleteProject() {
+      this.projectService.delete(this.project.Id).subscribe(response =>{
+        console.log("Project deleted");
+        this.modalReference.close();
+        this.router.navigate(['/main']);
+      })
+  }
+
   onControlValueChanged() : void {
   const form = this.formEditProject;
 
