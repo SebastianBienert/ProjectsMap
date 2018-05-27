@@ -51,10 +51,13 @@ public class CustomAdapter extends BaseAdapter {
         TextView rowData = (TextView)row.findViewById(R.id.rowData);
         Button btnShowOnMap = (Button)row.findViewById(R.id.buttonShowOnMap);
         rowData.setText(list.get(position));
+        TextView DeveloperName = (TextView)row.findViewById(R.id.DeveloperName);
 
         int counter = 0;
         final String[] data = ((String) rowData.getText()).split(" ");
         final String employeeId = data[1];
+        DeveloperName.setText(data[2] + " " + data[3]);
+
         /*do{
             if(data[counter].equals("Id:")){
                 employeeId = data[counter + 1];

@@ -48,11 +48,14 @@ public class ProjectAdapter extends BaseAdapter {
         View row = layoutInflater.inflate(R.layout.activity_single_row_project,parent,false);
 
         TextView rowData = (TextView)row.findViewById(R.id.textViewRowData);
+        TextView ProjectName = (TextView)row.findViewById(R.id.ProjectName);
+
 
         Button btnShowDev = (Button)row.findViewById(R.id.buttonShowDevelopers);
         rowData.setText(list.get(position));
         final String[] data = ((String) rowData.getText()).split(" ");
         final String projectId = data[1];
+        ProjectName.setText(data[3]);
         btnShowDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
