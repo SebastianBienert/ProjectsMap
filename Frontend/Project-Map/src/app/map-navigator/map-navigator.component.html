@@ -1,20 +1,17 @@
 <div style="color: white">
   <ul>
-    <li  *ngFor="let building of buildingsList" [ngClass]="{'building-button':true, 'selected-button': building.Id === selectedBuilding}"  (click)="changeBuilding(building.Id)">{{building.Address}}</li>
-    <li   [ngClass]="{'building-button':true,'plus-button':true,  'selected-button': selectedBuilding === 0}" (click)="addNewBuilding()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li>
+    <li  mdbRippleRadius *ngFor="let building of buildingsList" [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':building.Id === selectedBuilding}"  (click)="open(content); changeBuilding(building.Id)">{{building.Address}}</li>
+    <li  mdbRippleRadius [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':selectedBuilding ===0}" (click)="addNewBuilding()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li>
   </ul>
 </div>
 <div style="color: white">
   <ul>
-    <li *ngFor="let floor of currentBuildingFloorsList" [ngClass]="{'floor-button':true, 'selected-button': floor.Id === selectedFloor}" (click)="changeFloor(floor.Id)">Floor {{floor.FloorNumber}}</li>
-    <li [ngClass]="{'floor-button':true, 'plus-button':true, 'selected-button': selectedFloor === 0}" (click)="addNewFloor()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li> 
+    <li mdbRippleRadius *ngFor="let floor of currentBuildingFloorsList" [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active': floor.Id === selectedFloor}" (click)="open(content); changeFloor(floor.Id)">Floor {{floor.FloorNumber}}</li>
+    <li mdbRippleRadius [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':selectedFloor ===0}" (click)="addNewFloor()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li> 
   </ul>
 </div>
 <!-- <button (click)="debug()">print building</button> -->
 <div [ngSwitch]="displayMode">
-    <div  *ngSwitchCase="'loading'">
-        <p>Am loading</p>
-      </div>
   <div  *ngSwitchCase="'displayMap'">
     <app-displayed-map
     [floorToDisplay]= "selectedFloor"
@@ -44,3 +41,20 @@
       <button (click)='saveNewBuilding()'>OK</button>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Loading...</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body row align-items-center justify-content-center">
+      <div class="col">
+      <div class="loader"></div> 
+      </div>
+    </div>
+    <!-- <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div> -->
+    </ng-template>

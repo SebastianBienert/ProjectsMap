@@ -45,6 +45,7 @@ export class FloorServiceService {
 
   getFloor (id: number): Observable<Floor> {
     //,console.log("MeinID"  +  id);
+    console.log(this.floorUrl)
     return this.http.get<Floor>(this.floorUrl + "/"  + id)
       .pipe(
         catchError(this.handleError<Floor>('getFloor'))

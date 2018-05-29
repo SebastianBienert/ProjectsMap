@@ -1,24 +1,34 @@
 import { Router } from '@angular/router';
 import { DisplayedMapComponent } from './../displayed-map/displayed-map.component';
 import { FloorServiceService } from './../services/floor-service.service';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-map-navigator',
   templateUrl: './map-navigator.component.html',
   styleUrls: ['./map-navigator.component.css']
 })
 export class MapNavigatorComponent implements OnInit {
+  @ViewChild('content') modalZiom;
   buildingAddress: string;
   displayMode = "loading";
   hell: boolean = true;
   buildingsList = Array();
+  modalReference : any;
   currentBuildingFloorsList = Array();
   selectedFloor: number;//change to read id of first floor in floors list and secure from null
   selectedBuilding: number;//change to read id of first building in buildings list and secure from null
-  constructor(private floorService: FloorServiceService, private router: Router) { }
-
+  constructor(private floorService: FloorServiceService, private router: Router, private modalService: NgbModal,) { }
+  
+  ngAfterViewInit(){
+    setTimeout(() => {
+      this.open(this.modalZiom);
+    })
+    
+  }
   ngOnInit() {
+    
+   // this.modalReference.close();
     this.getBuildingsList();
   }
 
@@ -38,14 +48,15 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   changeFloor(Id: number) {
-    console.log("zmieniono na: " + Id)
     this.selectedFloor = Id;
     this.displayMode = "displayMap";
+
+    this.modalReference.close();
   }
 
   changeBuilding(Id: number) {
     this.router.navigate(['/main']);
-    this.displayMode = "loading";
+    this.currentBuildingFloorsList.length = 0;
     this.getFloorsList(Id, true);
     this.selectedBuilding = Id;
   }
@@ -62,6 +73,7 @@ export class MapNavigatorComponent implements OnInit {
 
           if(loadFirstFloor) {
             this.changeFloor(this.currentBuildingFloorsList[0].Id);
+            this.modalReference.close();
           }
         });
   }
@@ -81,6 +93,7 @@ export class MapNavigatorComponent implements OnInit {
             this.floorService.getBuildingFloorsList(this.buildingsList[0].Id)
               .subscribe(
                 FloorsList => {
+                  this.modalReference.close();
                   this.currentBuildingFloorsList = FloorsList.sort(function (a, b) {
                     return a.FloorNumber - b.FloorNumber;
                   });
@@ -103,8 +116,8 @@ export class MapNavigatorComponent implements OnInit {
   }
 
   mapChanged(mapChanged: number) {
-    console.log("Changed");
-    console.log(mapChanged);
+    // if(mapChanged === 0)
+    //   this.modalReference.close();
     //!!! needs to be implemented this.changeBuilding();
     this.changeFloor(mapChanged);
   }
@@ -113,4 +126,12 @@ export class MapNavigatorComponent implements OnInit {
     this.displayMode = 'edit';
   }
 
+  open(content) {
+    this.modalReference = this.modalService.open(content)
+    this.modalReference.result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+     // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
 }

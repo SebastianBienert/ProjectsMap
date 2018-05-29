@@ -41,7 +41,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     this.securityObject = this.securityService.securityObject;
     // this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 20});
     this.drawnMap = SVG('svg').size(800, 800).panZoom({ zoomMin: 0.5, zoomMax: 10 });
-    this.drawnMap.circle(100).move(350, 350);
+    //this.drawnMap.circle(100).move(350, 350);
     this.route.params.subscribe(params => this.selectedEmployeeId = + params['id']);
     //this.getFloor();
     if (this.selectedEmployeeId > 0) {
@@ -60,6 +60,10 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
 
   getFloor(): void {
     this.backgroundImage = null;
+    this.svgPhoto = null;
+    this.floor = null;
+    if(this.drawnMap != null)
+      this.drawnMap.clear();
     this.floorService.getFloor(this.floorToDisplay)
       .subscribe(
         Floor => {
