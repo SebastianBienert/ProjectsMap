@@ -96,8 +96,14 @@ public class DeveloperAdapter extends BaseAdapter {
         if(DevelopersList.get(position).getTechnologies()!=null) {
             DeveloperTechnologies.setText("Technologie: ");
             for (int i = 0; i < DevelopersList.get(position).getTechnologies().size(); i++) {
-                DeveloperTechnologies.setText(DeveloperTechnologies.getText() +
-                        DevelopersList.get(position).getTechnologies().get(i).replace('"',' ')+"|");
+                if(i==DevelopersList.get(position).getTechnologies().size()-1) {
+                    DeveloperTechnologies.setText(DeveloperTechnologies.getText() +
+                            DevelopersList.get(position).getTechnologies().get(i).replace('"', ' '));
+                }
+                else{
+                    DeveloperTechnologies.setText(DeveloperTechnologies.getText() +
+                            DevelopersList.get(position).getTechnologies().get(i).replace('"', ' ') + "|");
+                }
             }
         }
         else

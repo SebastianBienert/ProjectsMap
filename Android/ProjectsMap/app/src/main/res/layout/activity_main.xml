@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="project.projectsmap.MainActivity"
-    android:background="@drawable/main_activity_background"
+    android:background="@drawable/login_activity_background"
     >
 
 
@@ -20,11 +20,12 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
-        android:background="#c8d4e99e"
+        android:background="@drawable/rounded_button"
         android:text="Wyświetl mape"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
+<!--    android:background="#c8d4e99e"-->
 
     <Button
         android:id="@+id/buttonSearchDevelopers"
@@ -37,11 +38,11 @@
         android:layout_marginTop="93dp"
         android:width="600dp"
         android:height="80dp"
-        android:background="#c89eb0e9"
+        android:background="@drawable/rounded_button"
         android:text="Wyszukaj pracownika"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonSearchProjects"
@@ -54,11 +55,12 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
-        android:background="#c8c59ee9"
+        android:background="@drawable/rounded_button"
         android:text="Wyszukaj projekty"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
+<!--    android:background="#c8c59ee9"-->
 
     <Button
         android:id="@+id/buttonSaveTest"
