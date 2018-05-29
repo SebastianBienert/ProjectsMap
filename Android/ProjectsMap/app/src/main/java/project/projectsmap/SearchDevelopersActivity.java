@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -35,7 +33,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     TextView statement;
     //TextView data;
     ListView listDevelopers;
-    CustomAdapter adapter;
+    DeveloperAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
     String choice="";
     ProgressBar waitForData;
@@ -55,7 +53,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
-        adapter = new CustomAdapter(this);
+        adapter = new DeveloperAdapter(this);
         listDevelopers.setAdapter(adapter);
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
@@ -67,8 +65,8 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             @Override
             public void onSearchViewClosed() {
                 //listDevelopers = (ListView) findViewById(R.id.listDevelopers);
-                adapter.list.clear();
-                adapter = new CustomAdapter(SearchDevelopersActivity.this);
+                adapter.DevelopersList.clear();
+                adapter = new DeveloperAdapter(SearchDevelopersActivity.this);
                 listDevelopers.setAdapter(adapter);
 
             }
@@ -84,7 +82,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                     public boolean onQueryTextChange(String newText) {
                         if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
                             waitForData.setVisibility(View.VISIBLE);
-                            adapter.list.clear();
+                            adapter.DevelopersList.clear();
                             FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                             process.setToken(token);
                             process.setSaveDataToFile(false);
@@ -118,7 +116,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                     //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                     choice = (String) adapterView.getItemAtPosition(position);
                     waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
+                    adapter.DevelopersList.clear();
                             FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                             process.setToken(token);
                             process.setSaveDataToFile(false);
@@ -140,7 +138,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
+                    adapter.ProjectsList.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                     process.setSaveDataToFile(false);
                     process.setChoice(choice);
@@ -180,7 +178,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     }
 
     public void addDeveloper(Developer developer) {
-        adapter.list.add(developer.description());
+        adapter.DevelopersList.add(developer);
         arrayDevelopers.add(developer);
     }
 

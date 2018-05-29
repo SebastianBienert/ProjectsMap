@@ -155,7 +155,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
             }else{
                 for(int i=0; i<dataList.size();i++) {
                     ((SearchDevelopersActivity)context).addDeveloper(dataList.get(i));
-                    //SearchDevelopersActivity.adapter.list.add(dataList.get(i).description());
+                    //SearchDevelopersActivity.adapter.ProjectsList.add(dataList.get(i).description());
                 }
                 //SearchDevelopersActivity.adapter.notifyDataSetChanged();
                 ((SearchDevelopersActivity)context).notifyDataSetChanged();

@@ -5,7 +5,7 @@ package project.projectsmap;
  */
 
 public class GlobalVariable {
-    static public String webApiURL = "https://fc634890.ngrok.io";
+    static public String webApiURL = "https://03597cd1.ngrok.io";
     static String token;
     //static public String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
 }

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.projectsmap.MainActivity">
+    tools:context="project.projectsmap.MainActivity"
+    android:background="@drawable/main_activity_background"
+    >
 
 
     <Button
@@ -18,6 +20,7 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="#c8d4e99e"
         android:text="Wyświetl mape"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -31,9 +34,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="93dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="#c89eb0e9"
         android:text="Wyszukaj pracownika"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -50,6 +54,7 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="#c8c59ee9"
         android:text="Wyszukaj projekty"
         android:textAlignment="center"
         android:textSize="24sp"

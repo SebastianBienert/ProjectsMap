@@ -132,7 +132,7 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
             ((SaveToFileActivity)context).DisableProgressBar();
         }else{
             for(int i=0; i<dataList.size();i++) {
-                //SearchProjectsActivity.adapter.list.add(dataList.get(i).description());
+                //SearchProjectsActivity.adapter.ProjectsList.add(dataList.get(i).description());
                 ((SearchProjectsActivity)context).addProject(dataList.get(i));
             }
             //SearchProjectsActivity.adapter.notifyDataSetChanged();

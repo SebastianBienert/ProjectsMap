@@ -3,13 +3,11 @@ package project.projectsmap;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -56,7 +54,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
                 //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
                 choice = (String) adapterView.getItemAtPosition(position);
                 waitForData.setVisibility(View.VISIBLE);
-                adapter.list.clear();
+                adapter.ProjectsList.clear();
                 FetchDataAboutProject process = new FetchDataAboutProject();
                 process.setToken(token);
                 process.setSaveDataToFile(false);
@@ -89,7 +87,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
             @Override
             public void onSearchViewClosed() {
                 //listDevelopers = (ListView) findViewById(R.id.listDevelopers);
-                adapter.list.clear();
+                adapter.ProjectsList.clear();
                 adapter = new ProjectAdapter(SearchProjectsActivity.this);
                 listProjects.setAdapter(adapter);
 
@@ -106,7 +104,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
                     waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
+                    adapter.ProjectsList.clear();
                     FetchDataAboutProject process = new FetchDataAboutProject();
                     process.setToken(token);
                     process.setSaveDataToFile(false);
@@ -127,7 +125,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
 
     public void addProject(Project project) {
         arrayProjects.add(project);
-        adapter.list.add(project.description());
+        adapter.ProjectsList.add(project);
     }
 
     public void notifyDataSetChanged() {
