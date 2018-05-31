@@ -66,15 +66,14 @@
         android:id="@+id/buttonSaveTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="57dp"
-        android:layout_marginStart="10dp"
+        android:layout_alignStart="@+id/buttonSynchronization"
+        android:layout_below="@+id/buttonSynchronization"
         android:width="180dp"
         android:text="Zapis do pliku"
-        android:visibility="invisible"
         android:textSize="14sp"
         android:textStyle="bold" />
+        <!--android:visibility="invisible"-->
+
 
 
     <Button
@@ -110,6 +109,24 @@
         android:textOn="On"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonSynchronization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonShowMap"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:width="600dp"
+        android:height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Synchronizacja" />
 
     <!-- android:layout_alignLeft="@+id/buttonPaint"
     android:layout_alignStart="@+id/buttonPaint"

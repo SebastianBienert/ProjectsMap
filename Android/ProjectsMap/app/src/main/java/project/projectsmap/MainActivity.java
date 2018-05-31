@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Button clickShowMap, clickShowFloor;
     Button clickSearchDevelopers, clickSave;
     Button clickSearchProjects;
+    Button clickSynchronization;
     Switch switchOnlineWork;
     boolean onlineWork;
 
@@ -41,11 +42,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final String token = getIntent().getExtras().getString("token");
+        // tutaj dostajesz informacje czy jesteś zalogowany czy wybrałeś pracę offline
+        // należy to przekazać do odpowiednich aktywności i na podstawie tego albo pobierać dane z serwera albo z pliku
+        onlineWork = getIntent().getExtras().getBoolean("work", false);
+
+
         clickShowMap = (Button) findViewById(R.id.buttonShowMap);
         clickShowFloor = (Button) findViewById(R.id.buttonShowFloor);
         clickSearchDevelopers = (Button) findViewById(R.id.buttonSearchDevelopers);
         clickSearchProjects = (Button) findViewById(R.id.buttonSearchProjects);
         clickSave = (Button) findViewById(R.id.buttonSaveTest);
+        clickSynchronization = (Button) findViewById(R.id.buttonSynchronization);
         switchOnlineWork = findViewById(R.id.switchOnlineWork);
         /*if(!isNetworkAvailable()){
             Toast.makeText(this,"Brak internetu", Toast.LENGTH_SHORT).show();
@@ -107,6 +114,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SaveToFileActivity.class);
                 intent.putExtra("token", token);
+                startActivity(intent);
+            }
+        });
+        clickSynchronization.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Synchronization.class);
+                intent.putExtra("token", token);
+                intent.putExtra("work", onlineWork);
                 startActivity(intent);
             }
         });

@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private Button mEmailSignInButton;
+    private Button offlineSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +84,17 @@ public class LoginActivity extends AppCompatActivity {
                         attemptLogin();
                     }
                 });
-
+        offlineSignInButton = (Button) findViewById(R.id.offlineSignInButton);
+        offlineSignInButton.setOnClickListener(
+                new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("token", "");
+                        intent.putExtra("work", false);
+                        startActivity(intent);
+                    }
+                });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -111,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                                     //Toast.makeText(getBaseContext(),"Zalogowano", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("token", token);
+                                    intent.putExtra("work", true);
                                     startActivity(intent);
                                 } else {
                                     // Show error
