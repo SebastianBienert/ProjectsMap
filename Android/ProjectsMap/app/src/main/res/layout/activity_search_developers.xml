@@ -84,9 +84,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewStatement"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="34dp"
         android:layout_marginStart="34dp"
-        android:layout_toEndOf="@+id/textViewNameChoice"
-        android:layout_toRightOf="@+id/textViewNameChoice" />
+        android:layout_marginTop="50dp"
+        android:maxHeight="100dip"
+        android:maxWidth="100dip"
+        android:minHeight="100dip"
+        android:minWidth="100dip"/>
 </RelativeLayout>
 

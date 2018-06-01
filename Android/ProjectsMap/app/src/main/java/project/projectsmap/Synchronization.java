@@ -56,7 +56,7 @@ public class Synchronization extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if(isOnlineWork){
-                            waitForData.setVisibility(View.VISIBLE);
+                            TurnOnProgressBar();
                             EnableSynchronizationButton(false);
                             FetchDataSynchronization process = new FetchDataSynchronization();
                             process.setToken(token);
@@ -128,6 +128,12 @@ public class Synchronization extends AppCompatActivity {
 
     public void DisableProgressBar(){
         waitForData.setVisibility(View.INVISIBLE);
+        buttonSynchronization.setVisibility(View.VISIBLE);
+    }
+
+    public void TurnOnProgressBar(){
+        waitForData.setVisibility(View.VISIBLE);
+        buttonSynchronization.setVisibility(View.INVISIBLE);
     }
 
     public void EnableSynchronizationButton(boolean choice){
