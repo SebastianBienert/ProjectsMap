@@ -165,7 +165,7 @@ namespace ProjectsMap.WebApi.Repositories
 
             //Composite Key Employee [devID, companyID]
             modelBuilder.Entity<Employee>()
-                .HasKey(d => d.EmployeeId);
+                .HasKey(d => d.Id);
 
             //Composite Key ProjectRole [devID, projectID]
             modelBuilder.Entity<ProjectRole>()

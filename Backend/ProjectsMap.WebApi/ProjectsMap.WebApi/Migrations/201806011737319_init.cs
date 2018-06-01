@@ -24,6 +24,9 @@ namespace ProjectsMap.WebApi.Migrations
                         Description = c.String(),
                         FloorNumber = c.Int(nullable: false),
                         BuildingId = c.Int(nullable: false),
+                        Photo = c.String(),
+                        XPhoto = c.Int(),
+                        YPhoto = c.Int(),
                     })
                 .PrimaryKey(t => t.FloorId)
                 .ForeignKey("dbo.Buildings", t => t.BuildingId, cascadeDelete: true)
@@ -49,19 +52,20 @@ namespace ProjectsMap.WebApi.Migrations
                         Y = c.Int(nullable: false),
                         RoomId = c.Int(nullable: false),
                         EmployeeId = c.Int(),
-                        Employee_EmployeeId = c.Int(),
+                        Employee_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.SeatId)
-                .ForeignKey("dbo.Employees", t => t.Employee_EmployeeId)
+                .ForeignKey("dbo.Employees", t => t.Employee_Id)
                 .ForeignKey("dbo.Rooms", t => t.RoomId, cascadeDelete: true)
                 .Index(t => t.RoomId)
-                .Index(t => t.Employee_EmployeeId);
+                .Index(t => t.Employee_Id);
             
             CreateTable(
                 "dbo.Employees",
                 c => new
                     {
-                        EmployeeId = c.Int(nullable: false, identity: true),
+                        Id = c.Int(nullable: false, identity: true),
+                        EmployeeId = c.Int(nullable: false),
                         FirstName = c.String(),
                         Surname = c.String(),
                         Email = c.String(),
@@ -71,7 +75,7 @@ namespace ProjectsMap.WebApi.Migrations
                         JobTitle = c.String(),
                         ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.EmployeeId)
+                .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .ForeignKey("dbo.Employees", t => t.ManagerId)
                 .Index(t => t.ManagerId)
@@ -244,7 +248,7 @@ namespace ProjectsMap.WebApi.Migrations
             DropForeignKey("dbo.WallRoom", "WallRefId", "dbo.Walls");
             DropForeignKey("dbo.Walls", "FloorId", "dbo.Floors");
             DropForeignKey("dbo.Seats", "RoomId", "dbo.Rooms");
-            DropForeignKey("dbo.Seats", "Employee_EmployeeId", "dbo.Employees");
+            DropForeignKey("dbo.Seats", "Employee_Id", "dbo.Employees");
             DropForeignKey("dbo.EmployeeTechnology", "TechnologyRefId", "dbo.Technologies");
             DropForeignKey("dbo.EmployeeTechnology", "EmployeeRefId", "dbo.Employees");
             DropForeignKey("dbo.ProjectRoles", "ProjectId", "dbo.Projects");
@@ -276,7 +280,7 @@ namespace ProjectsMap.WebApi.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Employees", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Employees", new[] { "ManagerId" });
-            DropIndex("dbo.Seats", new[] { "Employee_EmployeeId" });
+            DropIndex("dbo.Seats", new[] { "Employee_Id" });
             DropIndex("dbo.Seats", new[] { "RoomId" });
             DropIndex("dbo.Rooms", new[] { "FloorId" });
             DropIndex("dbo.Floors", new[] { "BuildingId" });

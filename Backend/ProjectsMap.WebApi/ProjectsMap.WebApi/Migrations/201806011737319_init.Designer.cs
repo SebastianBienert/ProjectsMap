@@ -7,13 +7,13 @@ namespace ProjectsMap.WebApi.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class photoPosition : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(photoPosition));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805152042246_photoPosition"; }
+            get { return "201806011737319_init"; }
         }
         
         string IMigrationMetadata.Source
