@@ -38,6 +38,7 @@ export class MapCreatorComponent implements OnInit {
   photoFile: File;
   saveWithBackgroundPhoto: boolean = true;
   placingSeatEnabled: boolean = false;
+  movingPictureEnabled: boolean = true;
   floorNumber: number;
   floorDescription: string;
   removalMode: boolean = false;
@@ -85,7 +86,11 @@ export class MapCreatorComponent implements OnInit {
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
     this.removalMode = !this.removalMode;
+  }
 
+  movingImageOnOff() {
+    this.movingPictureEnabled = !this.movingPictureEnabled;
+    this.backgroundImage.draggable(this.movingPictureEnabled);
   }
 
   drawNewRoom() {
@@ -100,9 +105,6 @@ export class MapCreatorComponent implements OnInit {
       var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill({color: '#4f4', opacity: '0.7'}).stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
       this.drawingRightNow = true;
       var self = this;
-      if (this.displayBackgroundImage && this.imageHref !== null) {
-        this.backgroundImage.draggable(false);
-      }
       //function that handles end of drawing - 
       var stopDrawingAtEnter = function stopDrawingAtEnter(e) {
         if (e.keyCode == 13) {
