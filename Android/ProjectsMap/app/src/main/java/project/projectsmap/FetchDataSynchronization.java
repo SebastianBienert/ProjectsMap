@@ -36,7 +36,7 @@ public class FetchDataSynchronization extends AsyncTask<Void,Void,Void> {
             URL urlEmployees, urlProjects, urlMap, urlBuildings;
             urlEmployees = new URL(GlobalVariable.webApiURL+"/api/developers/");
             urlProjects = new URL(GlobalVariable.webApiURL+"/api/project/");
-            urlMap = new URL(GlobalVariable.webApiURL+"/api/floor/"); // tego geta jeszcze nie ma
+            urlMap = new URL(GlobalVariable.webApiURL+"/api/floor/allInformation"); // tego geta jeszcze nie ma
             urlBuildings = new URL(GlobalVariable.webApiURL+"/api/buildings");
 
             result = loadData(urlEmployees, "employees");

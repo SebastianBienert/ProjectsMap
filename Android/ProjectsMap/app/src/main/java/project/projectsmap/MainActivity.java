@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ShowMapActivity.class);
                 intent.putExtra("token", token);
+                intent.putExtra("isOnline", onlineWork);
                 startActivity(intent);
             }
         });
