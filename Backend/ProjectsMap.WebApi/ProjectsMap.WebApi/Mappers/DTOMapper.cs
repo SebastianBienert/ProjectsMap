@@ -195,7 +195,16 @@ namespace ProjectsMap.WebApi.Mappers
 			};
 			return result;
 		}
-		public static FloorDto GetFloorDtoListElement(Floor floor)
+        public static List<FloorDto> GetFloorsDtoList(List<Floor> floors)
+        {
+            var list = new List<FloorDto>();
+            foreach (Floor floor in floors)
+            {
+                list.Add(GetFloorDto(floor));
+            }
+            return list;
+        }
+        public static FloorDto GetFloorDtoListElement(Floor floor)
 		{
 			var result = new FloorDto()
 			{

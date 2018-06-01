@@ -39,7 +39,12 @@ namespace ProjectsMap.WebApi.Services.Concrete
 			return _floorRepository.Floors.Where(x => x.BuildingId == buildingId).Select(x => DTOMapper.GetFloorDtoListElement(x));
 		}
 
-		public FloorDto GetFloor(int id)
+        public IEnumerable<FloorDto> GetAllInformationFloors()
+        {
+            return DTOMapper.GetFloorsDtoList(_floorRepository.Floors.ToList());
+        }
+
+        public FloorDto GetFloor(int id)
 		{
 			var floor = _floorRepository.Get(id);
 			if (floor == null)
