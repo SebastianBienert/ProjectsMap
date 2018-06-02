@@ -173,27 +173,29 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
                     }
 
                     for(int i=0; i<developersList.size();i++){
-                        if(Integer.toString(developersList.get(i).getDeveloperId()).equals(numberId)) {
+                        if(developersList.get(i).getDeveloperId()==Integer.parseInt(numberIdEmployee)) {
                             seatId = Integer.toString(developersList.get(i).getSeat().seatId);
                             roomId = Integer.toString(developersList.get(i).getSeat().roomId);
                         }
                     }
 
-                    floor = floorsList.get(1); // Zamiast tego trzeba coś jak zakomentowane poniżej, ale poniżej jest gdzieś błąd i nic nie znajduje nic
+                    //floor = floorsList.get(1); // Zamiast tego trzeba coś jak zakomentowane poniżej, ale poniżej jest gdzieś błąd i nic nie znajduje nic
 
-/*                    for(int i=0; i<floorsList.size(); i++){
+                    for(int i=0; i<floorsList.size(); i++){
                         for(int j=0; j<floorsList.get(i).getRooms().size();j++) {
                             if (Integer.toString(floorsList.get(i).getRooms().get(j).getRoomId()).equals(roomId)) {
-                                for (int k = 0; k < floorsList.get(i).getRooms().get(j).getSeats().size(); k++) {
+                                floor = floorsList.get(i);
+                                break;
+                                /*for (int k = 0; k < floorsList.get(i).getRooms().get(j).getSeats().size(); k++) {
                                     if (Integer.toString(floorsList.get(i).getRooms().get(j).getSeats().get(k).seatId).equals(seatId)) {
                                         floor = floorsList.get(i);
                                         break;
                                     }
                                 }
-                                break;
+                                break;*/
                             }
                         }
-                    }*/
+                    }
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

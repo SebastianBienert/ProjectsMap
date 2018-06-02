@@ -70,6 +70,7 @@
         android:layout_below="@+id/buttonSynchronization"
         android:width="180dp"
         android:text="Zapis do pliku"
+        android:visibility="invisible"
         android:textSize="14sp"
         android:textStyle="bold" />
         <!--android:visibility="invisible"-->
