@@ -33,8 +33,15 @@ namespace ProjectsMap.WebApi.Controllers
 			return Ok(_service.GetFloorsList().Select(x => new { x.Id, x.BuildingId, x.Description }));
 		}
 
+        [HttpGet]
+        [Route("allInformation")]
+        public IHttpActionResult GetAllInformation()
+        {
+            return Ok(_service.GetAllInformationFloors());
+        }
 
-		[HttpGet]
+
+        [HttpGet]
 		[Route("{id:int}")]
 		public IHttpActionResult Get(int id)
 		{

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/UserImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/usericon" />
+
+    <TextView
+        android:id="@+id/DeveloperName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_toEndOf="@+id/UserImage"
+        android:text="Name Surname"
+        android:gravity="center"
+        android:layout_alignBottom="@+id/UserImage"
+        android:layout_marginRight="20dp"
+        android:textColor="#000000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/DeveloperId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/UserImage"
+        android:layout_below="@+id/DeveloperName"
+        android:gravity="left|center"
+        android:text="ID"
+        android:layout_marginStart="5dp"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/DeveloperEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DeveloperId"
+        android:layout_below="@+id/DeveloperId"
+        android:gravity="left|center"
+        android:text="Email"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/DeveloperJobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DeveloperId"
+        android:layout_below="@+id/DeveloperEmail"
+        android:gravity="left|center"
+        android:text="Standing"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/DeveloperTechnologies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/DeveloperId"
+        android:layout_below="@+id/DeveloperJobTitle"
+        android:gravity="left|center"
+        android:text="Technologies"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/DeveloperWantToHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/DeveloperTechnologies"
+        android:gravity="center"
+        android:text="WantToHelp"
+        android:textColor="#0b29e8"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonShowOnMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/DeveloperWantToHelp"
+        android:layout_alignParentStart="true"
+        android:text="Wskaż na mapie" />
+
+    <Button
+        android:id="@+id/buttonShowMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/UserImage"
+        android:layout_alignStart="@+id/UserImage"
+        android:layout_below="@+id/UserImage"
+        android:layout_marginTop="17dp"
+        android:visibility="invisible"
+        android:background="@drawable/arrowdown"
+        />
+
+</RelativeLayout>

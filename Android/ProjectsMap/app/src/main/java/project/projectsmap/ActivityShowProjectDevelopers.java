@@ -16,10 +16,12 @@ import java.util.ArrayList;
 public class ActivityShowProjectDevelopers extends AppCompatActivity {
 
     ListView listDevelopers;
-    CustomAdapter adapter;
+    DeveloperAdapter adapter;
     ArrayList<Developer> arrayDevelopers = new ArrayList<Developer>();
     ProgressBar waitForData;
     String ProjectId;
+    boolean isOnline;
+
     public void setArrayDevelopers(ArrayList<Developer> arrayDevelopers) {
         this.arrayDevelopers = arrayDevelopers;
         ShowEmployees();
@@ -30,7 +32,10 @@ public class ActivityShowProjectDevelopers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_project_developers);
-        adapter = new CustomAdapter(this);
+
+        isOnline = getIntent().getExtras().getBoolean("isOnline");
+
+        adapter = new DeveloperAdapter(this, isOnline);
         listDevelopers = (ListView) findViewById(R.id.listDevelopers);
         listDevelopers.setAdapter(adapter);
         listDevelopers = (ListView) findViewById(R.id.listDevelopers);
@@ -49,6 +54,7 @@ public class ActivityShowProjectDevelopers extends AppCompatActivity {
         FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
         process.setToken(GlobalVariable.token);
         process.setSaveDataToFile(false);
+        process.setInfoAboutConnectToInternet(isOnline);
         process.setChoice("Project");
         process.setInputData(ProjectId);
         process.setcontext(ActivityShowProjectDevelopers.this);
@@ -56,7 +62,7 @@ public class ActivityShowProjectDevelopers extends AppCompatActivity {
     }
     private void ShowEmployees(){
         for(int i = 0; i < arrayDevelopers.size(); i++){
-            adapter.list.add(arrayDevelopers.get(i).description());  // potem zmienić na długi i krótki opis
+            adapter.DevelopersList.add(arrayDevelopers.get(i));  // potem zmienić na długi i krótki opis
         }
         adapter.notifyDataSetChanged();
     }

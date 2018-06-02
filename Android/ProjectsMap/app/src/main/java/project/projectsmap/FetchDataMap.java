@@ -2,6 +2,8 @@ package project.projectsmap;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +11,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,18 +27,18 @@ import javax.net.ssl.HttpsURLConnection;
  */
 
 public class FetchDataMap extends AsyncTask<Void,Void,Void> {
-    String data ="";
+    String data ="", dataFloor ="";
     String numberId;
     String numberCompanyId;
-    //String webApiURL = "https://19484bc4.ngrok.io";
-    //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     String token = "";
     //Building building;
     ArrayList<Building> buildingsList = new ArrayList<Building>();
     ArrayList<Floor> floorsList = new ArrayList<Floor>();
     Context context;
+    Boolean isOnline;
 
     public void setToken(String token_){ token = token_; }
+    public void setInfoAboutConnectToInternet(Boolean on){ isOnline = on; }
     public void setContext(Context context) {
         this.context = context;
     }
@@ -49,17 +53,12 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
-            //URL url = new URL(GlobalVariable.webApiURL+"/api/company/" + numberId + "/buildings");
-            URL url = new URL(GlobalVariable.webApiURL+"/api/buildings");
-            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-            httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            httpsURLConnection.addRequestProperty("Authorization", "Bearer "+token);
-            InputStream inputStream = httpsURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            String line = "";
-            while(line != null) {
-                line = bufferedReader.readLine();
-                data = data + line;
+            if(isOnline){
+                data = loadDataAboutBuildingsFromServer();
+                dataFloor = loadDataAboutFloorsFromServer();
+            }else{
+                data = loadDataFromFile(context, "buildings");
+                dataFloor = loadDataFromFile(context, "map");
             }
 
             Object json = new JSONTokener(data).nextValue();
@@ -72,7 +71,16 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
                 }
             }
 
-            for(int i = 0; i < buildingsList.size(); i++){
+            Object jsonFloors = new JSONTokener(dataFloor).nextValue();
+            if (jsonFloors instanceof JSONObject) {
+                floorsList.add(new Floor(new JSONObject(dataFloor)));
+            } else if (jsonFloors instanceof JSONArray) {
+                JSONArray JA = new JSONArray(dataFloor);
+                for (int i = 0; i < JA.length(); i++) {
+                    floorsList.add(new Floor((JSONObject) JA.get(i)));
+                }
+            }
+            /*for(int i = 0; i < buildingsList.size(); i++){
                 for(int j = 0; j < buildingsList.get(i).Floors.size(); j++){
                     data = "";
                     URL urlFloor = new URL(GlobalVariable.webApiURL+"/api/floor/" + buildingsList.get(i).Floors.get(j));
@@ -96,17 +104,60 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
                         }
                     }
                 }
-            }
+            }*/
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+    private String loadDataAboutFloorsFromServer() {
+        String returnData="";
+        try{
+            URL urlFloors = new URL(GlobalVariable.webApiURL+"/api/floor/allInformation");
+            HttpsURLConnection httpsURLConnectionFloor = (HttpsURLConnection) urlFloors.openConnection();
+            httpsURLConnectionFloor.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpsURLConnectionFloor.addRequestProperty("Authorization", "Bearer "+token);
+            InputStream inputStreamFloor = httpsURLConnectionFloor.getInputStream();
+            BufferedReader bufferedReaderFloor = new BufferedReader(new InputStreamReader(inputStreamFloor));
+            String lineFloor = "";
+            while(lineFloor != null) {
+                lineFloor = bufferedReaderFloor.readLine();
+                returnData = returnData + lineFloor;
+            }
+            return returnData;
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String loadDataAboutBuildingsFromServer() {
+        String returnData="";
+        try{
+            URL url = new URL(GlobalVariable.webApiURL+"/api/buildings");
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+            httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpsURLConnection.addRequestProperty("Authorization", "Bearer "+token);
+            InputStream inputStream = httpsURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = "";
+            while(line != null) {
+                line = bufferedReader.readLine();
+                returnData = returnData + line;
+            }
+            return returnData;
+        }catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
@@ -122,6 +173,29 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
         }
         ((ShowMapActivity)context).DisableProgressBar();
         //ShowMapActivity.DisableProgressBar();
+    }
+    private String loadDataFromFile(Context context, String fileName){
+        try {
+            File path = Environment.getExternalStorageDirectory();
+            File[] files = ContextCompat.getExternalFilesDirs(context, null);
+            File file = new File(files[0], "/" + fileName+".txt");
+            //FileInputStream fis = context.openFileInput(context.getFilesDir().getAbsolutePath() + "/" + fileName + ".txt");
+            FileInputStream fis = new FileInputStream (file);
+            BufferedReader r = new BufferedReader(new InputStreamReader(fis));
+            String s = "";
+            String txt = "";
+            while ((s = r.readLine()) != null) {
+                txt += s;
+            }
+            r.close();
+            return txt;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

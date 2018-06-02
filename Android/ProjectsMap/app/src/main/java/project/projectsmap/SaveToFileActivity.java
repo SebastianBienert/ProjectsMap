@@ -64,7 +64,8 @@ public class SaveToFileActivity extends AppCompatActivity {
             });
             loadData.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    dataFromFile.setText(loadDataFromFile(getApplicationContext(), "plikTestowy"));
+                    //dataFromFile.setText(loadDataFromFile(getApplicationContext(), "plikTestowy"));
+                    dataFromFile.setText(loadDataFromFile(getApplicationContext(), dataToFile.getText().toString()));
                 }
             });
             clickSaveToFile.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +90,7 @@ public class SaveToFileActivity extends AppCompatActivity {
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
-            File file = new File(files[0], "/" + fileName+".json");
+            File file = new File(files[0], "/" + fileName+".txt");
             FileOutputStream fos = new FileOutputStream(file, append);//context.openFileOutput(context.getFilesDir().getAbsolutePath() + "/" + fileName +".txt",Context.MODE_PRIVATE);
             //FileOutputStream fos = openFileOutput(files[1] + "/" + fileName+".txt", MODE_APPEND);
             Writer out = new OutputStreamWriter(fos);
@@ -111,7 +112,7 @@ public class SaveToFileActivity extends AppCompatActivity {
         try {
             File path = Environment.getExternalStorageDirectory();
             File[] files = ContextCompat.getExternalFilesDirs(context, null);
-            File file = new File(files[0], "/" + fileName+".json");
+            File file = new File(files[0], "/" + fileName+".txt");
             //FileInputStream fis = context.openFileInput(context.getFilesDir().getAbsolutePath() + "/" + fileName + ".txt");
             FileInputStream fis = new FileInputStream (file);
             BufferedReader r = new BufferedReader(new InputStreamReader(fis));

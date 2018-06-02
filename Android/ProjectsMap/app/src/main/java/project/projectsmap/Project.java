@@ -19,9 +19,14 @@ public class Project implements Serializable {
     int CompanyId;
     ArrayList<String> technologies;
     ArrayList<String> employees;
+    ArrayList<String> employeesId = new ArrayList<String>();
 
     public Project(JSONObject object) throws JSONException {
         convertData(object);
+    }
+
+    public ArrayList<String> getEmployeesId() {
+        return employeesId;
     }
 
     public int getProjectId() {
@@ -181,13 +186,15 @@ public class Project implements Serializable {
     }
     private ArrayList<String> divisinOfEmployees(JSONObject object) throws JSONException {
         //String[] table;
-        String name, surname;
+        String name, surname, id;
         ArrayList<String> emp = new ArrayList<String>();
         JSONArray JObjects = object.getJSONArray("Employees");
         for(int i = 0; i < JObjects.length(); i++){
             JSONObject JO = (JSONObject) JObjects.get(i);
             name = JO.getString("FirstName");
             surname = JO.getString("Surname");
+            id = Integer.toString(JO.getInt("Id"));
+            employeesId.add(id);
             emp.add(name + " " + surname);
         }
         return emp;

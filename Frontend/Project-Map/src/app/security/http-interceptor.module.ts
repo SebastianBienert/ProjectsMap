@@ -1,11 +1,21 @@
 import { Injectable, NgModule } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpEvent, HttpInterceptor, HttpHandler,
-         HttpRequest } from '@angular/common/http';
+         HttpRequest, 
+         HttpResponse,
+         HttpErrorResponse} from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SecurityService } from './security.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
+
+  constructor(private service : SecurityService,
+    private router: Router){
+
+  }
+
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
     var token = localStorage.getItem("bearerToken");
@@ -17,11 +27,34 @@ export class HttpRequestInterceptor implements HttpInterceptor {
                     'Bearer ' + token)
         });
 
-        return next.handle(newReq);
+        return next.handle(newReq).do((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            // do stuff with response if you want
+          }
+        }, (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 401) {
+              this.service.logout();
+              this.router.navigate(['/login']);
+            }
+          }
+        });
     }
     else {
-      return next.handle(req);
+      return next.handle(req).do((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          // do stuff with response if you want
+        }
+      }, (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401) {
+            this.service.logout();
+            this.router.navigate(['/login']);
+          }
+        }
+      });
     }
+
   }
 };
 

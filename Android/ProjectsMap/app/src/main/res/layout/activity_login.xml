@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/login_activity_background"
     tools:context="project.projectsmap.LoginActivity">
 
     <!-- Login progress -->
@@ -18,7 +19,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:maxHeight="120dip"
+        android:maxWidth="120dip"
+        android:minHeight="120dip"
+        android:minWidth="120dip"
+        android:layout_marginTop="50dp"/>
 
     <ScrollView
         android:id="@+id/login_form"
@@ -78,7 +84,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/action_sign_in_short"
+                android:text="Zaloguj"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/offlineSignInButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Uruchom offline"
                 android:textStyle="bold" />
 
         </LinearLayout>

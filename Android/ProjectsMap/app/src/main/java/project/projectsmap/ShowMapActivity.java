@@ -40,6 +40,7 @@ public class ShowMapActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapterBuildings;
     //ArrayAdapter<CharSequence> arrayAdapterBuildings;
     Spinner spinnerBuildings, spinnerFloors;
+    Boolean isOnline;
 
     public void setArrayBulindings(ArrayList<Building> arrayBulindings) {
         this.arrayBulindings = arrayBulindings;
@@ -57,6 +58,7 @@ public class ShowMapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_map);
         setCanvas();
         final String token = getIntent().getExtras().getString("token");
+        isOnline = getIntent().getExtras().getBoolean("isOnline");
         spinnerBuildings = (Spinner)  findViewById(R.id.spinnerBuildings);
         spinnerFloors = (Spinner)  findViewById(R.id.spinnerFloors);
         //buildingDescription = findViewById(R.id.textViewBuildingDescription);
@@ -98,6 +100,7 @@ public class ShowMapActivity extends AppCompatActivity {
         process.setNumberId("1");
         process.setNumberCompanyId("1");    //na sztywno do testów potem ustawiane po zalogowaniu
         process.setContext(ShowMapActivity.this);
+        process.setInfoAboutConnectToInternet(isOnline);
         process.execute();
         /*clickShowMap.setOnClickListener(new View.OnClickListener() {
             @Override

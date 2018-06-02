@@ -72,6 +72,8 @@ public class Developer implements Serializable {
         WantToHelp = wantToHelp;
     }
 
+    public boolean getWantToHelp(){return WantToHelp;}
+
     public String getFirstName() {
         return FirstName;
     }

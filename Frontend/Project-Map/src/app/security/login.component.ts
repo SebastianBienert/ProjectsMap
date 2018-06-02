@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit {
           this.modalReference.close();
           this.router.navigateByUrl(this.returnUrl);
         }
+        else {
+          this.modalReference.close();
+          this.router.navigateByUrl("/main");
+        }
       },
         () => {
           // Initialize security object to display error message
