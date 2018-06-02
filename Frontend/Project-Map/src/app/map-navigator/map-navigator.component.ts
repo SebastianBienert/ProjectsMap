@@ -18,7 +18,7 @@ export class MapNavigatorComponent implements OnInit {
   currentBuildingFloorsList = Array();
   selectedFloor: number;//change to read id of first floor in floors list and secure from null
   selectedBuilding: number;//change to read id of first building in buildings list and secure from null
-  constructor(private floorService: FloorServiceService, private router: Router, private modalService: NgbModal,) { }
+  constructor(private floorService: FloorServiceService, private router: Router, private modalService: NgbModal) { }
   
   ngAfterViewInit(){
     setTimeout(() => {
@@ -54,16 +54,16 @@ export class MapNavigatorComponent implements OnInit {
     this.modalReference.close();
   }
 
-  changeBuilding(Id: number) {
-    this.router.navigate(['/main']);
+  changeBuilding(buildingId: number, floorId: number) {
+    //this.router.navigate(['/main']);
     this.currentBuildingFloorsList.length = 0;
-    this.getFloorsList(Id, true);
-    this.selectedBuilding = Id;
+    this.getFloorsList(buildingId, floorId);
+    this.selectedBuilding = buildingId;
   }
   debug() {
   }
 
-  getFloorsList(BuildingId: number, loadFirstFloor: boolean): void {
+  getFloorsList(BuildingId: number, floorId: number): void {
     this.floorService.getBuildingFloorsList(BuildingId)
       .subscribe(
         FloorsList => {
@@ -71,8 +71,12 @@ export class MapNavigatorComponent implements OnInit {
             return a.FloorNumber - b.FloorNumber;
           });
 
-          if(loadFirstFloor) {
+          if(floorId === 0) {
             this.changeFloor(this.currentBuildingFloorsList[0].Id);
+            this.modalReference.close();
+          }
+          else {
+            this.changeFloor(floorId);
             this.modalReference.close();
           }
         });
@@ -111,15 +115,19 @@ export class MapNavigatorComponent implements OnInit {
 
   mapCreated(mapCreated: boolean) {
     if (mapCreated) {
-      this.getFloorsList(this.selectedBuilding, false);
+      this.getFloorsList(this.selectedBuilding, 0);
     }
   }
 
-  mapChanged(mapChanged: number) {
+  mapChanged(mapChanged) {
     // if(mapChanged === 0)
     //   this.modalReference.close();
     //!!! needs to be implemented this.changeBuilding();
-    this.changeFloor(mapChanged);
+   // this.selectedFloor = mapChanged.floorId;
+   console.log(mapChanged.buildingId + "  sas   " +  mapChanged.floorId)
+    this.changeBuilding(mapChanged.buildingId, mapChanged.floorId)
+    //this.selectedBuilding = mapChanged.buildingId;
+    //this.changeFloor(mapChanged.floorId);
   }
 
   editMap() {

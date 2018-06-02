@@ -7,6 +7,8 @@
     position:absolute;
     min-width: 350px;
     max-width: 350px;
+    height: 116%;
+    margin-top: 10px;
 }
 
 #sidebar.active {
@@ -15,12 +17,12 @@
 
 .scrollable {
     height: 100%; /* or any value */
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #content {
     margin-left: 350px;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .collapse.in {

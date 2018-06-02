@@ -193,8 +193,9 @@ namespace ProjectsMap.WebApi.Services
 			var seatId = employee.Seat.SeatId;
 			var roomId = employee.Seat.RoomId;
 			var floorId = employee.Seat.Room.FloorId;
-
-			return new { RoomId = roomId, FloorId = floorId, SeatId = seatId };
+			var employeeId = employee.EmployeeId;
+			var employeeBuildingId = employee.Seat.Room.Floor.BuildingId;
+			return new { RoomId = roomId, FloorId = floorId, SeatId = seatId, EmployeeId = employeeId, EmployeeBuildingId = employeeBuildingId };
 
 
 		}

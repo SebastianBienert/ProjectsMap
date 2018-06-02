@@ -56,10 +56,9 @@ export class MapCreatorComponent implements OnInit {
   }
 
   changeImage() {
-    if (this.displayBackgroundImage) {
       this.backgroundImage = this.drawnMap.image(this.imageHref, 760, 760).move(20, 20).draggable().back();
-    }
-    
+      this.displayBackgroundImage = true;
+      (<HTMLInputElement>document.getElementById("displayBackgroundImageCheckBox")).checked = true;   
   }
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { AppUserAuth } from './../security/app-user-auth';
 import { SecurityService } from './../security/security.service';
@@ -9,16 +10,19 @@ import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
 import { Scale, Doc, PointArray, Rect } from './../../../node_modules/svg.js/svg.js.d';
-import { Component, OnInit, Input, Output, SimpleChange, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChange, OnChanges, EventEmitter, OnDestroy, ViewChild } from '@angular/core';
 import { Room } from '../common-interfaces/room';
 import { colors, styling } from './svgcolors';
+import { Subscription } from 'rxjs';
 declare const SVG: any;
 @Component({
   selector: 'app-displayed-map',
   templateUrl: './displayed-map.component.html',
   styleUrls: ['./displayed-map.component.css'],
 })
-export class DisplayedMapComponent implements OnInit, OnChanges {
+export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
+  @ViewChild('content') modalZiom;
+  subscription = new Subscription();
   backgroundImage: Blob;
   rooms: Room[];
   floor: Floor;
@@ -29,13 +33,14 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   securityObject: AppUserAuth = null;
   term = new FormControl();
   svgPhoto;
+  modalReference : any;
 
   @Input() floorToDisplay: number;
-  @Output() mapChanged = new EventEmitter<number>();
+  @Output() mapChanged = new EventEmitter<{ floorId:number, buildingId: number }>();
   drawnMap;
   changeLog: string[] = [];
   constructor(private roomService: RoomService, private floorService: FloorServiceService, private route: ActivatedRoute,
-    private router: Router, private employeeService: EmployeeService, private securityService: SecurityService) { }
+    private router: Router, private employeeService: EmployeeService, private securityService: SecurityService, private modalService: NgbModal) { }
 
   ngOnInit() {
     this.securityObject = this.securityService.securityObject;
@@ -49,7 +54,8 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
         .switchMap((params: ParamMap) =>
           this.employeeService.getEmployeeLocationInfo(+params.get('id')))
         .subscribe(EmployeeLocationInfo => {
-          this.mapChanged.emit(EmployeeLocationInfo.FloorId);
+         // console.log("zioom " + )
+          this.mapChanged.emit({floorId:EmployeeLocationInfo.FloorId, buildingId:EmployeeLocationInfo.EmployeeBuildingId});
           this.floorToDisplay = EmployeeLocationInfo.FloorId;
           this.selectedEmployeeRoomId = EmployeeLocationInfo.RoomId;
           this.selectedEmployeeSeatId = EmployeeLocationInfo.SeatId;
@@ -58,7 +64,16 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+   
+  }
+
   getFloor(): void {
+    setTimeout(() => {
+      this.open(this.modalZiom);
+    })
+    
+    this.subscription.unsubscribe();
     this.backgroundImage = null;
     this.svgPhoto = null;
     this.floor = null;
@@ -67,14 +82,17 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     this.floorService.getFloor(this.floorToDisplay)
       .subscribe(
         Floor => {
+          if(Floor.XPhoto == null) this.modalReference.close();
           this.floor = Floor;
           console.log("Moje pietro" + Floor.YPhoto)
           if (Floor.XPhoto != null) {
-            this.floorService.getFloorPhoto(this.floorToDisplay).subscribe(
+            this.subscription  = this.floorService.getFloorPhoto(this.floorToDisplay).subscribe(
               photo => {
+                this.modalReference.close()
                 let self = this;
                 var reader = new FileReader();
                 reader.readAsDataURL(photo);
+                
                 reader.onloadend = function () {
                   self.backgroundImage = reader.result;
                   self.displayMap();
@@ -88,6 +106,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   }
 
   getFloorByEmployeeId(employeeId: number) {
+    console.log("request2");
     this.floorService.getFloorByEmployeeId(employeeId)
       .subscribe(
         Floor => {
@@ -101,11 +120,17 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     for (let propName in changes) {
       let changedProp = changes[propName];
       this.floorToDisplay = changedProp.currentValue;
+      console.log("lool");
+      this.backgroundImage = null;
+      this.svgPhoto = null;
+      this.subscription.unsubscribe();
+      console.log("request3");
       this.getFloor();
     }
   }
 
   displayMap() {
+    
     this.drawnMap.clear();
     if (this.backgroundImage != null) {
       //console.log(this.backgroundImage);
@@ -255,6 +280,15 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
             }
           })
       });
+    });
+  }
+
+  open(content) {
+    this.modalReference = this.modalService.open(content)
+    this.modalReference.result.then((result) => {
+      //this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+     // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
 }

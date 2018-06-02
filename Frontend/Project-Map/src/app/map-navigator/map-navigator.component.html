@@ -1,6 +1,6 @@
 <div style="color: white">
   <ul>
-    <li  mdbRippleRadius *ngFor="let building of buildingsList" [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':building.Id === selectedBuilding}"  (click)="open(content); changeBuilding(building.Id)">{{building.Address}}</li>
+    <li  mdbRippleRadius *ngFor="let building of buildingsList" [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':building.Id === selectedBuilding}"  (click)="open(content); changeBuilding(building.Id, 0)">{{building.Address}}</li>
     <li  mdbRippleRadius [ngClass]="{'btn':true, 'btn-blue':true, 'waves-light':true, 'active':selectedBuilding ===0}" (click)="addNewBuilding()" *hasClaim="['canWriteProjects:true','claimType2:value']">+</li>
   </ul>
 </div>

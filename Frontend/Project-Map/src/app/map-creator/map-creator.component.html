@@ -11,7 +11,7 @@
         <input type="checkbox" id="displayGridCheckBox" [checked]="displayGrid" (change)="gridOnOff()" />
         <label for="displayGridCheckBox">Display grid</label>
     
-        <input type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
+        <input #displayBackgroundImageCheckBox type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
         <label for="displayBackgroundImageCheckBox">Display background image</label>
 
         <input type="checkbox" id="placingSeatEnabled" [checked]="placingSeatEnabled" (change)="placeSeatsOnOff()" />
