@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +31,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -42,8 +47,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     String errorText = "";
     String typeContext = ""; // wykorzystane do pobierania danych o pracowniku w MapActivity
     ArrayList<Developer> dataList = new ArrayList<Developer>();
-    //String webApiURL = "https://19484bc4.ngrok.io";
-    //String webApiURL = "https://projectsmapwebapi.azurewebsites.net";
+    Boolean isOnline;
     String token = "";
 
     /*      dodane do zapisu do pliku       */
@@ -64,6 +68,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
         inputData = name;
     }
     public void setTypeContext(String type){typeContext = type;}
+    public void setInfoAboutConnectToInternet(Boolean on){ isOnline = on; }
     /*      dodane do zapisu do pliku       */
     public void setSaveDataToFile(boolean choice){
         saveDataToFile = choice;
@@ -79,53 +84,176 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
-        if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
-            errorText = "Wprowadź dane";
-        } else {
-            try {
-                boolean digitsOnly = TextUtils.isDigitsOnly(inputData);
-                if(choice.equals("Id") && !digitsOnly)
-                    throw new NumberFormatException("incorrect input format!");
-                URL url = setURLAdress();
-                if (url == null) {
-                    return null;
-                }
-                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
-                httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                httpsURLConnection.addRequestProperty("Authorization", "Bearer " + token);
-                InputStream inputStream = httpsURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = "";
-                while (line != null) {
-                    line = bufferedReader.readLine();
-                    data = data + line;
-                }
-                dataList = new ArrayList<Developer>();
-                Object json = new JSONTokener(data).nextValue();
-                if (json instanceof JSONObject) {
-                    dataList.add(new Developer(new JSONObject(data)));
-                } else if (json instanceof JSONArray) {
-                    JSONArray JA = new JSONArray(data);
-                    for (int i = 0; i < JA.length(); i++) {
-                        dataList.add(new Developer((JSONObject) JA.get(i)));
+
+        if (isOnline) {
+            if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
+                errorText = "Wprowadź dane";
+            } else {
+                try {
+                    boolean digitsOnly = TextUtils.isDigitsOnly(inputData);
+                    if (choice.equals("Id") && !digitsOnly)
+                        throw new NumberFormatException("incorrect input format!");
+                    URL url = setURLAdress();
+                    if (url == null) {
+                        return null;
                     }
+                    HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                    httpsURLConnection.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    httpsURLConnection.addRequestProperty("Authorization", "Bearer " + token);
+                    InputStream inputStream = httpsURLConnection.getInputStream();
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line = "";
+                    while (line != null) {
+                        line = bufferedReader.readLine();
+                        data = data + line;
+                    }
+                    dataList = new ArrayList<Developer>();
+                    Object json = null;
+                    json = new JSONTokener(data).nextValue();
+
+                    if (json instanceof JSONObject) {
+                        dataList.add(new Developer(new JSONObject(data)));
+                    } else if (json instanceof JSONArray) {
+                        JSONArray JA = new JSONArray(data);
+                        for (int i = 0; i < JA.length(); i++) {
+                            dataList.add(new Developer((JSONObject) JA.get(i)));
+                        }
+                    }
+
+                } catch (MalformedURLException e) {
+                    errorText = "MalformedURLException";
+                    e.printStackTrace();
+                } catch (NumberFormatException e) {
+                    errorText = "Id powinno zawierać jedynie liczby!";
+                    e.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    errorText = "Brak wyników";
+                } catch (IOException e) {
+                    errorText = "IOException ";
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                errorText = "MalformedURLException";
-                e.printStackTrace();
-            } catch (NumberFormatException e){
-                errorText = "Id powinno zawierać jedynie liczby!";
-                e.printStackTrace();
-            } catch (FileNotFoundException e){
-                errorText = "Brak wyników";
-            } catch (IOException e) {
-                errorText = "IOException " ;
-                e.printStackTrace();
-            } catch (JSONException e) {
-                errorText = "JSONException";
-                e.printStackTrace();
             }
         }
+        else {
+            if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
+                errorText = "Wprowadź dane";
+            } else {
+                try {
+                    boolean digitsOnly = TextUtils.isDigitsOnly(inputData);
+                    if (choice.equals("Id") && !digitsOnly)
+                        throw new NumberFormatException("incorrect input format!");
+                    File[] files = ContextCompat.getExternalFilesDirs(context, null);
+                    File file = new File(files[0], "/" + "employees" + ".txt");
+                    FileInputStream fis = new FileInputStream(file);
+                    BufferedReader r = new BufferedReader(new InputStreamReader(fis));
+                    String s = "";
+                    while ((s = r.readLine()) != null) {
+                        data += s;
+                    }
+                    r.close();
+                    dataList = new ArrayList<Developer>();
+                    ArrayList<Developer> developersList = new ArrayList<Developer>();
+                    Object json = null;
+                    json = new JSONTokener(data).nextValue();
+
+                    if (json instanceof JSONObject) {
+                        developersList.add(new Developer(new JSONObject(data)));
+                    } else if (json instanceof JSONArray) {
+                        JSONArray JA = new JSONArray(data);
+                        for (int i = 0; i < JA.length(); i++) {
+                            developersList.add(new Developer((JSONObject) JA.get(i)));
+                        }
+                    }
+
+                    if(choice.equals("Wszyscy")) {
+                        for(int i=0; i<developersList.size();i++){
+                            dataList.add(developersList.get(i));
+                        }
+                    }
+                    else if(choice.equals("Id") && digitsOnly){
+                        for(int i=0; i<developersList.size();i++){
+                            if(Integer.toString(developersList.get(i).getDeveloperId()).contains(inputData))
+                            dataList.add(developersList.get(i));
+                        }
+                    }
+                    else if(choice.equals("Imię lub nazwisko")){
+                        for(int i=0; i<developersList.size();i++){
+                            if(Pattern.compile(Pattern.quote(inputData), Pattern.CASE_INSENSITIVE).matcher(developersList.get(i).getFirstName()).find())
+                                dataList.add(developersList.get(i));
+                        }
+                    }
+                    else if(choice.equals("Technologia")){
+                        boolean found = false;
+                        for(int i=0; i<developersList.size();i++) {
+                            found = false;
+                            for (int j = 0; j < developersList.get(i).getTechnologies().size(); j++) {
+                                if(Pattern.compile(Pattern.quote(inputData), Pattern.CASE_INSENSITIVE).matcher(developersList.get(i).getTechnologies().get(j)).find()) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if(found)
+                            dataList.add(developersList.get(i));
+                        }
+                    }
+                    else if(choice.equals("Project")){
+
+                        String data1="";
+                        ArrayList<Project> projectsList = new ArrayList<Project>();
+
+                        File[] files1 = ContextCompat.getExternalFilesDirs(context, null);
+                        File file1 = new File(files1[0], "/" + "projects" + ".txt");
+                        FileInputStream fis1 = new FileInputStream(file1);
+                        BufferedReader r1 = new BufferedReader(new InputStreamReader(fis1));
+                        String s1 = "";
+                        while ((s1 = r1.readLine()) != null) {
+                            data1 += s1;
+                        }
+                        r1.close();
+                        Object json1 = null;
+                        json1 = new JSONTokener(data1).nextValue();
+
+                        if (json1 instanceof JSONObject) {
+                            projectsList.add(new Project(new JSONObject(data1)));
+                        } else if (json instanceof JSONArray) {
+                            JSONArray JA1 = new JSONArray(data1);
+                            for (int i = 0; i < JA1.length(); i++) {
+                                projectsList.add(new Project((JSONObject) JA1.get(i)));
+                            }
+                        }
+
+
+                        for(int i=0; i<projectsList.size(); i++){
+                            if(Integer.toString(projectsList.get(i).getProjectId()).equals(inputData)) {
+                                    for (int j = 0; j < projectsList.get(i).getEmployeesId().size(); j++) {
+                                        for (int k = 0; k < developersList.size(); k++) {
+                                            if ( projectsList.get(i).getEmployeesId().get(j).equals(Integer.toString(developersList.get(k).getDeveloperId())))
+                                                dataList.add(developersList.get(k));
+                                        }
+                                    }
+                                break;
+                            }
+                        }
+                    }
+                    if(dataList.isEmpty())
+                        throw new FileNotFoundException("no results!");
+
+                } catch (FileNotFoundException e) {
+                    errorText = "Brak wyników";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
+                } catch (NumberFormatException e) {
+                    errorText = "Id powinno zawierać jedynie liczby!";
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         return null;
     }
     @Override

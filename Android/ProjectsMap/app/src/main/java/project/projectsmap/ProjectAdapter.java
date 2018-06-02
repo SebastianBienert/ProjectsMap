@@ -18,10 +18,12 @@ import java.util.ArrayList;
 public class ProjectAdapter extends BaseAdapter {
     ArrayList<Project> ProjectsList;
     Context c;
+    boolean isOnline;
 
-    ProjectAdapter(Context context){
+    ProjectAdapter(Context context, boolean isOnline_){
         c = context;
         ProjectsList = new ArrayList<Project>();
+        isOnline = isOnline_;
         ////////////// minuta 16:00 link: https://www.youtube.com/watch?v=vpfeDoIWT0U !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
@@ -79,7 +81,7 @@ public class ProjectAdapter extends BaseAdapter {
                 //Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(c, ActivityShowProjectDevelopers.class);
                 intent.putExtra("Id", projectId);
-                //intent.putExtra("listDev", );
+                intent.putExtra("isOnline", isOnline);
                 c.startActivity(intent);
             }
         });

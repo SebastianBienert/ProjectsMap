@@ -33,6 +33,8 @@ public class SearchProjectsActivity extends AppCompatActivity {
     String choice="";
     ProgressBar waitForData;
     ArrayList<Project> arrayProjects = new ArrayList<Project>();
+    Boolean isOnline;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class SearchProjectsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_projects);
 
         final String token = getIntent().getExtras().getString("token");
+        isOnline = getIntent().getExtras().getBoolean("isOnline");
+
         statement = (TextView) findViewById(R.id.textViewStatement);
         listProjects = (ListView) findViewById(R.id.listProjects);
         spinner = (Spinner) findViewById(R.id.spinnerSelectionMethod);
@@ -57,6 +61,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
                 adapter.ProjectsList.clear();
                 FetchDataAboutProject process = new FetchDataAboutProject();
                 process.setToken(token);
+                process.setInfoAboutConnectToInternet(isOnline);
                 process.setSaveDataToFile(false);
                 process.setChoice(choice);
                 process.setcontext(SearchProjectsActivity.this);
@@ -69,7 +74,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
 
             }
         });
-        adapter = new ProjectAdapter(this);
+        adapter = new ProjectAdapter(this, isOnline);
         listProjects.setAdapter(adapter);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -88,7 +93,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
             public void onSearchViewClosed() {
                 //listDevelopers = (ListView) findViewById(R.id.listDevelopers);
                 adapter.ProjectsList.clear();
-                adapter = new ProjectAdapter(SearchProjectsActivity.this);
+                adapter = new ProjectAdapter(SearchProjectsActivity.this, isOnline);
                 listProjects.setAdapter(adapter);
 
             }
@@ -107,6 +112,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
                     adapter.ProjectsList.clear();
                     FetchDataAboutProject process = new FetchDataAboutProject();
                     process.setToken(token);
+                    process.setInfoAboutConnectToInternet(isOnline);
                     process.setSaveDataToFile(false);
                     process.setChoice(choice);
                     process.setInputData(newText);

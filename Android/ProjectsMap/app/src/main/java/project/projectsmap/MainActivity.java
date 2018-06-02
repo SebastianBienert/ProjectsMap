@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchDevelopersActivity.class);
                 intent.putExtra("token", token);
+                intent.putExtra("isOnline", onlineWork);
                 startActivity(intent);
             }
         });
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, SearchProjectsActivity.class);
                 intent.putExtra("token", token);
+                intent.putExtra("isOnline", onlineWork);
                 startActivity(intent);
             }
         });

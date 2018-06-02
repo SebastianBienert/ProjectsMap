@@ -30,8 +30,6 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     String data ="", dataFloor ="";
     String numberId;
     String numberCompanyId;
-    //String webApiURL = "https://19484bc4.ngrok.io";
-    //String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
     String token = "";
     //Building building;
     ArrayList<Building> buildingsList = new ArrayList<Building>();

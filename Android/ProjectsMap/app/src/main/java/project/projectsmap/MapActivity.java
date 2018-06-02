@@ -35,13 +35,17 @@ public class MapActivity extends AppCompatActivity {
     TextView description;
     boolean areAllInformation = false;
     boolean choice;
+    Boolean isOnline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
         description = (TextView) findViewById(R.id.textViewDescription);
         final String DeveloperId = getIntent().getExtras().getString("Id", null);
+        isOnline = getIntent().getExtras().getBoolean("isOnline");
+
         if(DeveloperId!=null){
             String[] informaions = DeveloperId.split(" ");
         }
@@ -50,6 +54,7 @@ public class MapActivity extends AppCompatActivity {
         if(DeveloperId != null){
             FetchDataFloor process = new FetchDataFloor();
             process.setToken(GlobalVariable.token);
+            process.setInfoAboutConnectToInternet(isOnline);
             process.setNumberEmployeeId(DeveloperId);
             process.setContext(MapActivity.this);
             process.execute();
@@ -59,6 +64,7 @@ public class MapActivity extends AppCompatActivity {
             processTwo.setSaveDataToFile(false);
             processTwo.setChoice("Id");
             processTwo.setTypeContext("MapActivity");
+            processTwo.setInfoAboutConnectToInternet(isOnline);
             processTwo.setInputData(DeveloperId.toString());
             processTwo.setcontext(MapActivity.this);
             processTwo.execute();

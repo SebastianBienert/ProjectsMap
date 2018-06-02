@@ -24,10 +24,12 @@ public class DeveloperAdapter extends BaseAdapter {
 
     ArrayList<Developer> DevelopersList = new ArrayList<Developer>();
     Context c;
+    boolean isOnline;
 
-    DeveloperAdapter(Context context){
+    DeveloperAdapter(Context context, boolean isOnline_){
         c = context;
         DevelopersList = new ArrayList<Developer>();
+        isOnline = isOnline_;
         ////////////// minuta 16:00 link: https://www.youtube.com/watch?v=vpfeDoIWT0U !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
@@ -114,9 +116,10 @@ public class DeveloperAdapter extends BaseAdapter {
         btnShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent i = new Intent(c, MapActivity.class);
-                    i.putExtra("Id", employeeId);
-                    c.startActivity(i);
+                Intent i = new Intent(c, MapActivity.class);
+                i.putExtra("Id", employeeId);
+                i.putExtra("isOnline", isOnline);
+                c.startActivity(i);
             }
         });
 

@@ -51,7 +51,7 @@
         android:layout_below="@+id/RepositoryLink"
         android:text="Documentation Link"
         android:textSize="20sp"
-        android:background="#78ede576"
+        android:background="#789ed8e9"
         android:gravity="left|center"
         android:textStyle="bold" />
     <TextView
@@ -63,7 +63,7 @@
         android:layout_below="@+id/DocumentationLink"
         android:text="Project Technologies"
         android:textSize="20sp"
-        android:background="#78eda887"
+        android:background="#78b1e99e"
         android:gravity="left|center"
         android:textStyle="bold" />
 

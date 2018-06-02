@@ -46,7 +46,7 @@ public class Synchronization extends AppCompatActivity {
             buttonSynchronization.setEnabled(false);
         }*/
         dateLastSyn = loadDateFromFile();
-        if(dateLastSyn.equals("")){
+        if(dateLastSyn == null){
             dateLastSynchronization.setText("brak");
         }else{
             dateLastSynchronization.setText(dateLastSyn);
