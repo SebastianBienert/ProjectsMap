@@ -6,5 +6,6 @@ export interface Room {
     Walls: Wall[];
     Seats: Seat[];
     Projects: string[];
+    StateChanged: string;
   }
   

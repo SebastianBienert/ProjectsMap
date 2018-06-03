@@ -124,7 +124,6 @@ export class MapNavigatorComponent implements OnInit {
     //   this.modalReference.close();
     //!!! needs to be implemented this.changeBuilding();
    // this.selectedFloor = mapChanged.floorId;
-   console.log(mapChanged.buildingId + "  sas   " +  mapChanged.floorId)
     this.changeBuilding(mapChanged.buildingId, mapChanged.floorId)
     //this.selectedBuilding = mapChanged.buildingId;
     //this.changeFloor(mapChanged.floorId);

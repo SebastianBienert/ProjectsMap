@@ -15,5 +15,7 @@ namespace ProjectsMap.WebApi.DTOs
 		public Vertex EndVertex { get; set; }
 
 		public int MyProperty { get; set; }
+
+		public string StateChanged { get; set; }
 	}
 }

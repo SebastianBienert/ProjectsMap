@@ -15,5 +15,7 @@ namespace ProjectsMap.WebApi.DTOs
 		public int RoomId { get; set; }
 
         public int? DeveloperId { get; set; }
-    }
+
+		public string StateChanged { get; set; }
+	}
 }
