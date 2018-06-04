@@ -1,4 +1,3 @@
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { AppUserAuth } from './../security/app-user-auth';
 import { SecurityService } from './../security/security.service';
@@ -21,7 +20,6 @@ declare const SVG: any;
   styleUrls: ['./displayed-map.component.css'],
 })
 export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
-  @ViewChild('content') modalZiom;
   subscription = new Subscription();
   backgroundImage: Blob;
   rooms: Room[];
@@ -33,14 +31,14 @@ export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
   securityObject: AppUserAuth = null;
   term = new FormControl();
   svgPhoto;
-  modalReference: NgbModalRef;
 
+  showMap: boolean = false;
   @Input() floorToDisplay: number;
   @Output() mapChanged = new EventEmitter<{ floorId: number, buildingId: number }>();
   drawnMap;
   changeLog: string[] = [];
   constructor(private roomService: RoomService, private floorService: FloorServiceService, private route: ActivatedRoute,
-    private router: Router, private employeeService: EmployeeService, private securityService: SecurityService, private modalService: NgbModal) { }
+    private router: Router, private employeeService: EmployeeService, private securityService: SecurityService) { }
 
   ngOnInit() {
     this.securityObject = this.securityService.securityObject;
@@ -74,14 +72,10 @@ export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.modalReference.close();
   }
 
   getFloor(): void {
-    setTimeout(() => {
-      this.open(this.modalZiom);
-    })
-
+    this.showMap = false;
     this.subscription.unsubscribe();
     this.backgroundImage = null;
     this.svgPhoto = null;
@@ -93,12 +87,10 @@ export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
         Floor => {
           this.floor = Floor;
           if (Floor.XPhoto == null) {
-            this.modalReference.close();
             this.displayMap();
           } else {
             this.subscription = this.floorService.getFloorPhoto(this.floorToDisplay).subscribe(
               photo => {
-                this.modalReference.close()
                 let self = this;
                 var reader = new FileReader();
                 reader.readAsDataURL(photo);
@@ -106,7 +98,6 @@ export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
                 reader.onloadend = function () {
                   self.backgroundImage = reader.result;
                   self.displayMap();
-                  self.modalReference.close();
                 }
 
               });
@@ -285,14 +276,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
           })
       });
     });
+    this.showMap = true;
   }
 
-  open(content) {
-    this.modalReference = this.modalService.open(content);
-    this.modalReference.result.then((result) => {
-      //this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 }
