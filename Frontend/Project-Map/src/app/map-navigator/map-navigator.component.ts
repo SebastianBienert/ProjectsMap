@@ -1,3 +1,4 @@
+import { SecurityService } from './../security/security.service';
 import { Router } from '@angular/router';
 import { DisplayedMapComponent } from './../displayed-map/displayed-map.component';
 import { FloorServiceService } from './../services/floor-service.service';
@@ -18,7 +19,7 @@ export class MapNavigatorComponent implements OnInit {
   currentBuildingFloorsList = Array();
   selectedFloor: number;//change to read id of first floor in floors list and secure from null
   selectedBuilding: number;//change to read id of first building in buildings list and secure from null
-  constructor(private floorService: FloorServiceService, private router: Router, private modalService: NgbModal) { }
+  constructor(private floorService: FloorServiceService, private router: Router, private modalService: NgbModal, private securityService: SecurityService) { }
   
   ngAfterViewInit(){
     setTimeout(() => {
@@ -140,5 +141,9 @@ export class MapNavigatorComponent implements OnInit {
     }, (reason) => {
      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  canWrite(): boolean {
+    return this.securityService.hasClaim('canWriteProjects:true','claimType2:value');
   }
 }

@@ -19,7 +19,7 @@
   <div *ngSwitchCase="'displayMap'">
     <app-displayed-map [floorToDisplay]="selectedFloor" (mapChanged)="mapChanged($event)">
     </app-displayed-map>
-    <button class="btn btn-green waves-light" mdbRippleRadius (click)='editMap()'>Edit map</button>
+    <button class="btn btn-green waves-light" *ngIf="canWrite()" mdbRippleRadius (click)='editMap()'>Edit map</button>
     <!-- <label for="editMap" class="btn" style="background-color: blue; color: aqua" *hasClaim="['canWriteProjects:true','claimType2:value']">Edit map</label>
   <input id="editMap" (click)='editMap()' style="visibility:hidden;"> uncomment after fixing edit-->
   </div>
