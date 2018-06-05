@@ -49,13 +49,22 @@ export class SecurityService {
 
   setTimer(){
     let claim: AppUserClaim = this.securityObject.claims.find(x => x.claimType == "exp");
-    let expires = +claim.claimValue;
-    let current = Date.now() / 1000;
-    let remainingSeconds = expires - current;
+    if(claim == undefined)
+    {
+      this.timer = Observable
+      .interval(0)
+      .timeInterval()
+      .first();
+    }else
+    {
+      let expires = +claim.claimValue;
+      let current = Date.now() / 1000;
+      let remainingSeconds = expires - current;
       this.timer = Observable
       .interval(remainingSeconds*1000)
       .timeInterval()
       .first();
+    }
   }
 
   isUserStillValid(): boolean{
