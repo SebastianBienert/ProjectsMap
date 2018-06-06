@@ -43,10 +43,8 @@ public class ActivityShowProjectDevelopers extends AppCompatActivity {
         waitForData.setVisibility(View.INVISIBLE);
         ProjectId = getIntent().getExtras().getString("Id", null);
         if(ProjectId!=null){
-            Toast.makeText(getBaseContext(),"ID projektu: " + ProjectId, Toast.LENGTH_SHORT).show();
             LoadEmployees();
         }
-
         adapter.notifyDataSetChanged();
     }
     private void LoadEmployees(){

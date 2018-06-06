@@ -49,7 +49,6 @@ public class MapActivity extends AppCompatActivity {
         if(DeveloperId!=null){
             String[] informaions = DeveloperId.split(" ");
         }
-        Toast.makeText(getBaseContext(),"ID pracownika: " + DeveloperId, Toast.LENGTH_SHORT).show();
 
         if(DeveloperId != null){
             FetchDataFloor process = new FetchDataFloor();

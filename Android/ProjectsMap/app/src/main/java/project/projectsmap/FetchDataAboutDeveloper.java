@@ -180,7 +180,8 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
                     }
                     else if(choice.equals("Imię lub nazwisko")){
                         for(int i=0; i<developersList.size();i++){
-                            if(Pattern.compile(Pattern.quote(inputData), Pattern.CASE_INSENSITIVE).matcher(developersList.get(i).getFirstName()).find())
+                            if(Pattern.compile(Pattern.quote(inputData), Pattern.CASE_INSENSITIVE).matcher(developersList.get(i).getFirstName()).find()
+                                    || Pattern.compile(Pattern.quote(inputData), Pattern.CASE_INSENSITIVE).matcher(developersList.get(i).getSurname()).find())
                                 dataList.add(developersList.get(i));
                         }
                     }

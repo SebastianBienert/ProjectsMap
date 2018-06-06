@@ -3,17 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/ProjectImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/ProjectName"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/project_icon" />
+
     <TextView
         android:id="@+id/ProjectName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/rounded_button"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ProjectImage"
         android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="Project Name"
         android:textSize="30sp"
@@ -21,51 +27,56 @@
 
     <TextView
         android:id="@+id/ProjectId"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ProjectImage"
         android:layout_below="@+id/ProjectName"
-        android:text="ID"
-        android:textSize="20sp"
         android:gravity="left|center"
-        android:background="#789ed8e9"
-        android:textStyle="bold" />
+        android:text="ID"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+    //android:background="#789ed8e9"
+
     <TextView
         android:id="@+id/RepositoryLink"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ProjectImage"
         android:layout_below="@+id/ProjectId"
-        android:text="Repository Link"
-        android:textSize="20sp"
         android:gravity="left|center"
-        android:background="#78b1e99e"
-        android:textStyle="bold" />
+        android:text="Repository Link"
+        android:textColor="#000000"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textSize="20sp" />
+    //android:background="#78b1e99e"
+
     <TextView
         android:id="@+id/DocumentationLink"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/RepositoryLink"
         android:layout_below="@+id/RepositoryLink"
-        android:text="Documentation Link"
-        android:textSize="20sp"
-        android:background="#789ed8e9"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="20dp"
         android:gravity="left|center"
-        android:textStyle="bold" />
+        android:text="Documentation Link"
+        android:textColor="#000000"
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/ProjectTechnologies"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/RepositoryLink"
         android:layout_below="@+id/DocumentationLink"
-        android:text="Project Technologies"
-        android:textSize="20sp"
-        android:background="#78b1e99e"
+        android:layout_marginTop="11dp"
+        android:layout_marginRight="20dp"
         android:gravity="left|center"
-        android:textStyle="bold" />
+        android:text="Project Technologies"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
 
     <Button
