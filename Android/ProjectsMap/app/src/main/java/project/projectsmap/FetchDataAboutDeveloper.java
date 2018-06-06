@@ -85,7 +85,7 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
     @Override
     protected Void doInBackground(Void... voids) {
 
-        if (isOnline) {
+        if (isOnline && isNetworkAvailable()) {
             if (inputData.isEmpty() && !choice.equals("Wszyscy")) {
                 errorText = "Wprowadź dane";
             } else {
@@ -295,10 +295,10 @@ public class FetchDataAboutDeveloper extends AsyncTask<Void,Void,Void> {
 
     private void showErrorStatement() {
         if(TextViewStatement!=null){
-            if(isNetworkAvailable()){
-                TextViewStatement.setText(errorText);
+            if(!isNetworkAvailable()||!isOnline){
+                ((SearchDevelopersActivity)context).setStatement("Pracujesz offline");
             }else{
-                TextViewStatement.setText("Brak internetu");
+                ((SearchDevelopersActivity)context).setStatement(errorText);
             }
         }
     }

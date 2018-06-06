@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                 new OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        GlobalVariable.setOnlineWork(false);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("token", "");
                         intent.putExtra("work", false);
@@ -120,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (TextUtils.isEmpty(error) && !TextUtils.isEmpty(token)) {
                                     GlobalVariable.token = token;
                                     //Toast.makeText(getBaseContext(),"Zalogowano", Toast.LENGTH_LONG).show();
+                                    GlobalVariable.setOnlineWork(true);
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("token", token);
                                     intent.putExtra("work", true);

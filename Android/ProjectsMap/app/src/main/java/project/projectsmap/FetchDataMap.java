@@ -1,6 +1,8 @@
 package project.projectsmap;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
@@ -53,6 +55,9 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... voids) {
 
         try {
+            if(!isNetworkAvailable()){
+                isOnline = false;
+            }
             if(isOnline){
                 data = loadDataAboutBuildingsFromServer();
                 dataFloor = loadDataAboutFloorsFromServer();
@@ -80,32 +85,6 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
                     floorsList.add(new Floor((JSONObject) JA.get(i)));
                 }
             }
-            /*for(int i = 0; i < buildingsList.size(); i++){
-                for(int j = 0; j < buildingsList.get(i).Floors.size(); j++){
-                    data = "";
-                    URL urlFloor = new URL(GlobalVariable.webApiURL+"/api/floor/" + buildingsList.get(i).Floors.get(j));
-                    HttpsURLConnection httpsURLConnectionFloor = (HttpsURLConnection) urlFloor.openConnection();
-                    httpsURLConnectionFloor.addRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    httpsURLConnectionFloor.addRequestProperty("Authorization", "Bearer "+token);
-                    InputStream inputStreamFloor = httpsURLConnectionFloor.getInputStream();
-                    BufferedReader bufferedReaderFloor = new BufferedReader(new InputStreamReader(inputStreamFloor));
-                    String lineFloor = "";
-                    while(lineFloor != null) {
-                        lineFloor = bufferedReaderFloor.readLine();
-                        data = data + lineFloor;
-                    }
-                    Object jsonFloor = new JSONTokener(data).nextValue();
-                    if (jsonFloor instanceof JSONObject) {
-                        floorsList.add(new Floor(new JSONObject(data)));
-                    } else if (jsonFloor instanceof JSONArray) {
-                        JSONArray JA = new JSONArray(data);
-                        for (int n = 0; n < JA.length(); n++) {
-                            floorsList.add(new Floor((JSONObject) JA.get(n)));
-                        }
-                    }
-                }
-            }*/
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -197,5 +176,10 @@ public class FetchDataMap extends AsyncTask<Void,Void,Void> {
             return null;
         }
     }
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

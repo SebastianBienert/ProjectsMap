@@ -5,7 +5,14 @@ package project.projectsmap;
  */
 
 public class GlobalVariable {
-    static public String webApiURL = "https://4e27a81e.ngrok.io";
+    static public String webApiURL = "https://1d909dec.ngrok.io";
     static String token;
+    static private boolean onlineWork = false;
+    static public boolean getOnlineWork(){
+        return onlineWork;
+    }
+    static public void setOnlineWork(boolean decision){
+        onlineWork = decision;
+    }
     //static public String webApiURL = "http://projectsmapwebapi.azurewebsites.net";
 }

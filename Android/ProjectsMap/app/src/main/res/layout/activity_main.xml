@@ -91,26 +91,6 @@
         android:textStyle="bold" />
 
 
-    <Switch
-        android:id="@+id/switchOnlineWork"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="15dp"
-        android:visibility="invisible"
-        android:width="150dp"
-        android:height="50dp"
-        android:showText="true"
-        android:switchTextAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:text="Praca online"
-        android:textAlignment="center"
-        android:textOff="Off"
-        android:textOn="On"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
     <Button
         android:id="@+id/buttonSynchronization"
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 package project.projectsmap;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,7 +36,6 @@ public class SearchProjectsActivity extends AppCompatActivity {
     ArrayList<Project> arrayProjects = new ArrayList<Project>();
     Boolean isOnline;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,7 @@ public class SearchProjectsActivity extends AppCompatActivity {
 
         final String token = getIntent().getExtras().getString("token");
         isOnline = getIntent().getExtras().getBoolean("isOnline");
+        //context = (MainActivity)getIntent().getExtras().get("context");
 
         statement = (TextView) findViewById(R.id.textViewStatement);
         listProjects = (ListView) findViewById(R.id.listProjects);
@@ -143,5 +144,22 @@ public class SearchProjectsActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;
+    }
+    public void setStatement(String text) {
+        if(text.equals("Pracujesz offline")){
+            GlobalVariable.setOnlineWork(false);
+            statement.setBackgroundColor(Color.BLUE);
+            statement.setTextColor(Color.WHITE);
+            //((MainActivity)context).setOfflineWork();
+        }else{
+            statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+            statement.setTextColor(Color.GRAY);
+        }
+        statement.setText(text);
+    }
+    public void clearStatement() {
+        statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+        statement.setTextColor(Color.GRAY);
+        statement.setText("");
     }
 }

@@ -1,6 +1,7 @@
 package project.projectsmap;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -78,7 +79,7 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     /*--------------------------------------*/
     @Override
     protected Void doInBackground(Void... voids) {
-        if (isOnline) {
+        if (isOnline && isNetworkAvailable()) {
             if (inputData.isEmpty() && !choice.equals("Wszystkie")) {
                 errorText = "Wprowadź dane";
             } else {
@@ -215,10 +216,10 @@ public class FetchDataAboutProject extends AsyncTask<Void,Void,Void> {
     }
     private void showErrorStatement() {
         if(TextViewStatement!=null){
-            if(isNetworkAvailable()){
-                TextViewStatement.setText(errorText);
+            if(!isNetworkAvailable()||!isOnline){
+                ((SearchProjectsActivity)context).setStatement("Pracujesz offline");
             }else{
-                TextViewStatement.setText("Brak internetu");
+                ((SearchProjectsActivity)context).setStatement(errorText);
             }
         }
     }

@@ -1,5 +1,6 @@
 package project.projectsmap;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,6 +9,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +44,7 @@ public class ShowMapActivity extends AppCompatActivity {
     //ArrayAdapter<CharSequence> arrayAdapterBuildings;
     Spinner spinnerBuildings, spinnerFloors;
     Boolean isOnline;
+    Context context;
 
     public void setArrayBulindings(ArrayList<Building> arrayBulindings) {
         this.arrayBulindings = arrayBulindings;
@@ -59,6 +63,8 @@ public class ShowMapActivity extends AppCompatActivity {
         setCanvas();
         final String token = getIntent().getExtras().getString("token");
         isOnline = getIntent().getExtras().getBoolean("isOnline");
+        //context = (MainActivity)getIntent().getExtras().get("context");
+
         spinnerBuildings = (Spinner)  findViewById(R.id.spinnerBuildings);
         spinnerFloors = (Spinner)  findViewById(R.id.spinnerFloors);
         //buildingDescription = findViewById(R.id.textViewBuildingDescription);
@@ -93,7 +99,10 @@ public class ShowMapActivity extends AppCompatActivity {
 
             }
         });
-        clearStaement();
+        clearStatement();
+        if(!isOnline || !isNetworkAvailable()){
+            setStatement("Pracujesz offline");
+        }
         waitForData.setVisibility(View.VISIBLE);
         FetchDataMap process = new FetchDataMap();
         process.setToken(token);
@@ -102,30 +111,26 @@ public class ShowMapActivity extends AppCompatActivity {
         process.setContext(ShowMapActivity.this);
         process.setInfoAboutConnectToInternet(isOnline);
         process.execute();
-        /*clickShowMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearStaement();
-                if(floor!=null){
-                    Intent intent = new Intent(ShowMapActivity.this, MapActivity.class);
-                    intent.putExtra("choice", true);
-                    intent.putExtra("fl", floor);
-                    //MapActivity.floor = floor;
-                    startActivity(intent);
-                }else{
-                    setStatement("Najpierw pobierz piętro");
-                }
-            }
-        });*/
     }
     public void DisableProgressBar(){
         waitForData.setVisibility(View.INVISIBLE);
     }
 
     public void setStatement(String text) {
+        if(text.equals("Pracujesz offline")){
+            GlobalVariable.setOnlineWork(false);
+            statement.setBackgroundColor(Color.BLUE);
+            statement.setTextColor(Color.WHITE);
+            //((MainActivity)context).setOfflineWork();
+        }else{
+            statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+            statement.setTextColor(Color.GRAY);
+        }
         statement.setText(text);
     }
-    public void clearStaement() {
+    public void clearStatement() {
+        statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+        statement.setTextColor(Color.GRAY);
         statement.setText("");
     }
     public void setDescription(String text) {
@@ -231,5 +236,11 @@ public class ShowMapActivity extends AppCompatActivity {
                 DrawSeat(seats.get(j).getX(),seats.get(j).getY(),10,10, true, "#000000");
             }
         }
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

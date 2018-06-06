@@ -1,5 +1,6 @@
 package project.projectsmap;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     ProgressBar waitForData;
     ArrayList<Developer> arrayDevelopers = new ArrayList<Developer>();
     Boolean isOnline;
+    //Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         listDevelopers = (ListView) findViewById(R.id.listDevelopers);
         final String token = getIntent().getExtras().getString("token");
         isOnline = getIntent().getExtras().getBoolean("isOnline");
-
+        //context = (MainActivity)getIntent().getExtras().get("context");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Szukaj:");
@@ -183,6 +185,23 @@ public class SearchDevelopersActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;
+    }
+    public void setStatement(String text) {
+        if(text.equals("Pracujesz offline")){
+            GlobalVariable.setOnlineWork(false);
+            statement.setBackgroundColor(Color.BLUE);
+            statement.setTextColor(Color.WHITE);
+            //((MainActivity)context).setOfflineWork();
+        }else{
+            statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+            statement.setTextColor(Color.GRAY);
+        }
+        statement.setText(text);
+    }
+    public void clearStatement() {
+        statement.setBackgroundColor(Color.parseColor("#33FFFFFF"));
+        statement.setTextColor(Color.GRAY);
+        statement.setText("");
     }
 
 }

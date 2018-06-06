@@ -1,6 +1,8 @@
 package project.projectsmap;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 
@@ -46,7 +48,7 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        if (isOnline) {
+        if (isOnline && isNetworkAvailable()) {
             try {
                 URL url;
                 if (numberIdEmployee.equals("-1")) {
@@ -244,4 +246,10 @@ public class FetchDataFloor extends AsyncTask<Void,Void,Void> {
         numberId = number;
     }
     public void setNumberEmployeeId(String number) { numberIdEmployee = number;}
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
