@@ -24,6 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="53dp" />
+        android:layout_marginTop="53dp"
+        android:maxHeight="100dip"
+        android:maxWidth="100dip"
+        android:minHeight="100dip"
+        android:minWidth="100dip"/>
 
 </RelativeLayout>

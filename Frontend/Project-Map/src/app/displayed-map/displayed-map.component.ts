@@ -9,16 +9,18 @@ import { Vertex } from './../common-interfaces/vertex';
 import { async } from '@angular/core/testing';
 import { RoomService } from './../services/room.service';
 import { Scale, Doc, PointArray, Rect } from './../../../node_modules/svg.js/svg.js.d';
-import { Component, OnInit, Input, Output, SimpleChange, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, SimpleChange, OnChanges, EventEmitter, OnDestroy, ViewChild } from '@angular/core';
 import { Room } from '../common-interfaces/room';
 import { colors, styling } from './svgcolors';
+import { Subscription } from 'rxjs';
 declare const SVG: any;
 @Component({
   selector: 'app-displayed-map',
   templateUrl: './displayed-map.component.html',
   styleUrls: ['./displayed-map.component.css'],
 })
-export class DisplayedMapComponent implements OnInit, OnChanges {
+export class DisplayedMapComponent implements OnInit, OnChanges, OnDestroy {
+  subscription = new Subscription();
   backgroundImage: Blob;
   rooms: Room[];
   floor: Floor;
@@ -30,8 +32,9 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
   term = new FormControl();
   svgPhoto;
 
+  showMap: boolean = false;
   @Input() floorToDisplay: number;
-  @Output() mapChanged = new EventEmitter<number>();
+  @Output() mapChanged = new EventEmitter<{ floorId: number, buildingId: number }>();
   drawnMap;
   changeLog: string[] = [];
   constructor(private roomService: RoomService, private floorService: FloorServiceService, private route: ActivatedRoute,
@@ -41,44 +44,63 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
     this.securityObject = this.securityService.securityObject;
     // this.drawnMap = SVG.adopt(document.getElementById('svg')).panZoom({zoomMin: 0.5, zoomMax: 20});
     this.drawnMap = SVG('svg').size(800, 800).panZoom({ zoomMin: 0.5, zoomMax: 10 });
-    this.drawnMap.circle(100).move(350, 350);
-    this.route.params.subscribe(params => this.selectedEmployeeId = + params['id']);
+    //this.drawnMap.circle(100).move(350, 350);
+    this.route.params.subscribe(params => this.selectedEmployeeId = +params['id']);
     //this.getFloor();
     if (this.selectedEmployeeId > 0) {
       this.route.paramMap
         .switchMap((params: ParamMap) =>
           this.employeeService.getEmployeeLocationInfo(+params.get('id')))
         .subscribe(EmployeeLocationInfo => {
-          this.mapChanged.emit(EmployeeLocationInfo.FloorId);
-          this.floorToDisplay = EmployeeLocationInfo.FloorId;
-          this.selectedEmployeeRoomId = EmployeeLocationInfo.RoomId;
-          this.selectedEmployeeSeatId = EmployeeLocationInfo.SeatId;
+          if (EmployeeLocationInfo.FloorId && EmployeeLocationInfo.RoomId && EmployeeLocationInfo.SeatId) {
+            this.mapChanged.emit({ floorId: EmployeeLocationInfo.FloorId, buildingId: EmployeeLocationInfo.EmployeeBuildingId });
+            this.floorToDisplay = EmployeeLocationInfo.FloorId;
+            this.selectedEmployeeRoomId = EmployeeLocationInfo.RoomId;
+            this.selectedEmployeeSeatId = EmployeeLocationInfo.SeatId;
+          } else {
+            this.floorToDisplay = 1;//!!!
+            this.selectedEmployeeRoomId = 0;
+            this.selectedEmployeeSeatId = 0;
+          }
           this.getFloor();
         });
     }
+    /*else {
+      this.selectedEmployeeId = 0;
+      this.displayMap();
+    }*/
+  }
+
+  ngOnDestroy(): void {
   }
 
   getFloor(): void {
+    this.showMap = false;
+    this.subscription.unsubscribe();
     this.backgroundImage = null;
+    this.svgPhoto = null;
+    this.floor = null;
+    if (this.drawnMap != null)
+      this.drawnMap.clear();
     this.floorService.getFloor(this.floorToDisplay)
       .subscribe(
         Floor => {
           this.floor = Floor;
-          console.log("Moje pietro" + Floor.YPhoto)
-          if (Floor.XPhoto != null) {
-            this.floorService.getFloorPhoto(this.floorToDisplay).subscribe(
+          if (Floor.XPhoto == null) {
+            this.displayMap();
+          } else {
+            this.subscription = this.floorService.getFloorPhoto(this.floorToDisplay).subscribe(
               photo => {
                 let self = this;
                 var reader = new FileReader();
                 reader.readAsDataURL(photo);
+
                 reader.onloadend = function () {
                   self.backgroundImage = reader.result;
                   self.displayMap();
                 }
-                
+
               });
-          } else {
-            this.displayMap();
           }
         });
   }
@@ -94,17 +116,20 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    this.subscription.unsubscribe();
     for (let propName in changes) {
       let changedProp = changes[propName];
       this.floorToDisplay = changedProp.currentValue;
+      this.backgroundImage = null;
+      this.svgPhoto = null;
       this.getFloor();
     }
   }
 
   displayMap() {
+
     this.drawnMap.clear();
     if (this.backgroundImage != null) {
-      //console.log(this.backgroundImage);
       this.svgPhoto = this.drawnMap.image(this.backgroundImage, 760, 760).move(this.floor.XPhoto, this.floor.YPhoto).back();
     }
     var el = document.getElementById("svg");
@@ -123,10 +148,9 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
       }
       //drawing room with mouseover and mouseout events { color: '#f06', opacity: 0.6 }
       this.drawnMap
-        .polygon(arra).fill({color:this.selectedEmployeeRoomId === room.Id ? colors.roomWithMouseOverColor : colors.roomColor, opacity: 0.6})
+        .polygon(arra).fill({ color: this.selectedEmployeeRoomId === room.Id ? colors.roomWithMouseOverColor : colors.roomColor, opacity: 0.6 })
         /*.mouseover(function () {
           this.fill(colors.roomWithMouseOverColor);
-          console.log(room.Id + "selected");
         })
         .mouseout(function () {
             this.fill(this.selectedEmployeeRoomId === room.Id ? colors.roomWithMouseOverColor : colors.roomColor)
@@ -156,7 +180,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
           .stroke({ width: 0 })
           .click(function () {
             if (!(seat.DeveloperId === null))
-              self.router.navigate(['/main',{outlets: {right: ['user', seat.DeveloperId], center: [seat.DeveloperId]} }]);
+              self.router.navigate(['/main', { outlets: { right: ['user', seat.DeveloperId], center: [seat.DeveloperId] } }]);
             else {
               //check if there exists seatQuestionMessageBox, don't show new one if so
               let seatQuestionMessageBox = SVG.get('seatQuestionMessageBox');
@@ -252,5 +276,7 @@ export class DisplayedMapComponent implements OnInit, OnChanges {
           })
       });
     });
+    this.showMap = true;
   }
+
 }

@@ -4,5 +4,6 @@ export interface Seat{
     Id : number,
     Vertex : Vertex,
     RoomId : number,
-    DeveloperId : number
+    DeveloperId : number,
+    StateChanged: string;
 }

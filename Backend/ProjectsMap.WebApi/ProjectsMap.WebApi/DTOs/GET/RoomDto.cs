@@ -13,5 +13,7 @@ namespace ProjectsMap.WebApi.DTOs
         public IEnumerable<WallDto> Walls { get; set; }
 
         public IEnumerable<SeatDto> Seats { get; set; }
-    }
+
+		public string StateChanged { get; set; }
+	}
 }

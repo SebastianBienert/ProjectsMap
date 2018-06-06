@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,23 +16,25 @@ import java.util.ArrayList;
  */
 
 public class ProjectAdapter extends BaseAdapter {
-    ArrayList<String> list;
+    ArrayList<Project> ProjectsList;
     Context c;
+    boolean isOnline;
 
-    ProjectAdapter(Context context){
+    ProjectAdapter(Context context, boolean isOnline_){
         c = context;
-        list = new ArrayList<String>();
+        ProjectsList = new ArrayList<Project>();
+        isOnline = isOnline_;
         ////////////// minuta 16:00 link: https://www.youtube.com/watch?v=vpfeDoIWT0U !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return ProjectsList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return ProjectsList.get(position);
     }
 
     @Override
@@ -47,19 +48,40 @@ public class ProjectAdapter extends BaseAdapter {
 
         View row = layoutInflater.inflate(R.layout.activity_single_row_project,parent,false);
 
-        TextView rowData = (TextView)row.findViewById(R.id.textViewRowData);
+        TextView ProjectName = (TextView)row.findViewById(R.id.ProjectName);
+        TextView ProjectId = (TextView)row.findViewById(R.id.ProjectId);
+        TextView RepositoryLink = (TextView)row.findViewById(R.id.RepositoryLink);
+        TextView DocumentationLink = (TextView)row.findViewById(R.id.DocumentationLink);
+        TextView ProjectTechnologies = (TextView)row.findViewById(R.id.ProjectTechnologies);
 
         Button btnShowDev = (Button)row.findViewById(R.id.buttonShowDevelopers);
-        rowData.setText(list.get(position));
-        final String[] data = ((String) rowData.getText()).split(" ");
-        final String projectId = data[1];
+        ProjectName.setText(ProjectsList.get(position).getDescription());
+        ProjectId.setText("ID: "+ProjectsList.get(position).getProjectId());
+        RepositoryLink.setText("Repozytorium: "+ProjectsList.get(position).getRepositoryLink());
+        DocumentationLink.setText("Dokumentacja: "+ProjectsList.get(position).getDocumentationLink());
+        if(ProjectsList.get(position).getTechnologies()!=null) {
+            ProjectTechnologies.setText("Technologie: ");
+            for (int i = 0; i < ProjectsList.get(position).getTechnologies().size(); i++) {
+                if(i==ProjectsList.get(position).getTechnologies().size()-1){
+                    ProjectTechnologies.setText(ProjectTechnologies.getText() +
+                            ProjectsList.get(position).getTechnologies().get(i).replace('"', ' '));
+                }
+                else{
+                    ProjectTechnologies.setText(ProjectTechnologies.getText() +
+                            ProjectsList.get(position).getTechnologies().get(i).replace('"', ' ') + " | ");
+                }
+            }
+        }
+
+
+        final String projectId = Integer.toString(ProjectsList.get(position).getProjectId());
         btnShowDev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(c,"Ta funkcjonalność nie została jeszcze zaimplementowana", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(c, ActivityShowProjectDevelopers.class);
                 intent.putExtra("Id", projectId);
-                //intent.putExtra("listDev", );
+                intent.putExtra("isOnline", isOnline);
                 c.startActivity(intent);
             }
         });

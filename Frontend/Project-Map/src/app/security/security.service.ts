@@ -10,6 +10,7 @@ import * as JWT from 'jwt-decode';
 import { AppUserClaim } from './app-user-claim';
 import { HttpErrorHandler, HandleError } from '../services/http-error-handler.service';
 import { catchError } from 'rxjs/operators';
+import { TimeInterval } from 'rxjs';
 
 
 const httpOptions = {
@@ -22,6 +23,8 @@ const httpOptions = {
 
 @Injectable()
 export class SecurityService {
+
+  public timer: Observable<TimeInterval<number>>;
   securityObject: AppUserAuth = new AppUserAuth();
   Api_Url: string;
   private handleError: HandleError;
@@ -44,7 +47,25 @@ export class SecurityService {
     );
    }
 
-  initializeSecurityObj 
+  setTimer(){
+    let claim: AppUserClaim = this.securityObject.claims.find(x => x.claimType == "exp");
+    if(claim == undefined)
+    {
+      this.timer = Observable
+      .interval(0)
+      .timeInterval()
+      .first();
+    }else
+    {
+      let expires = +claim.claimValue;
+      let current = Date.now() / 1000;
+      let remainingSeconds = expires - current;
+      this.timer = Observable
+      .interval(remainingSeconds*1000)
+      .timeInterval()
+      .first();
+    }
+  }
 
   isUserStillValid(): boolean{
     let claim: AppUserClaim = this.securityObject.claims.find(x => x.claimType == "exp");

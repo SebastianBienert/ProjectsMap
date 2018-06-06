@@ -76,8 +76,6 @@ export class EditProjectComponent implements OnInit {
       )
       this.formEditProject.updateValueAndValidity();
       this.onControlValueChanged();
-      console.log("Technologies: " + result.Technologies);
-      console.log("Employees : " + JSON.stringify(result));
     })
    
     
@@ -122,7 +120,6 @@ export class EditProjectComponent implements OnInit {
       EmployeesRoles : employees
     }
     this.projectService.editProject(project).subscribe(response =>{
-      console.log("Project edited");
       this.modalReference.close();
       this.router.navigate(['/main']);
     });
@@ -130,7 +127,6 @@ export class EditProjectComponent implements OnInit {
   
   deleteProject() {
       this.projectService.delete(this.project.Id).subscribe(response =>{
-        console.log("Project deleted");
         this.modalReference.close();
         this.router.navigate(['/main']);
       })

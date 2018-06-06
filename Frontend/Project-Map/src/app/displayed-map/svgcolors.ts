@@ -3,9 +3,9 @@ export const colors ={
     selectedSeatColor: '#fff',
     emptySeatColor: '#808080',
     roomColor: '#77aaff',
-    roomWithMouseOverColor: '#99b5e6',
+    roomWithMouseOverColor: '#4f4',
     roomBorderColor: 'none',
-    backgroundColor: '#f7ece8',
+    backgroundColor: '#ffffff',
     seatMessageColor: '#5E83C2',
     seatAnswersColor: '#84a5dc',
     seatAnswerHoverColor: '#3E66AB'

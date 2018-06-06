@@ -44,7 +44,6 @@ export class FloorServiceService {
   }
 
   getFloor (id: number): Observable<Floor> {
-    //,console.log("MeinID"  +  id);
     return this.http.get<Floor>(this.floorUrl + "/"  + id)
       .pipe(
         catchError(this.handleError<Floor>('getFloor'))
@@ -144,7 +143,7 @@ export class FloorServiceService {
       );
     }
 
-    public updateFloor(Floor) {
+    public updateFloor(Floor: Floor) {
       return this.http.put<Floor>(this.floorUrl + "/" + Floor.Id, {
         'Walls' : Floor.Walls,
         'Rooms' : Floor.Rooms,
@@ -155,7 +154,6 @@ export class FloorServiceService {
     }
 
     public assignNewSeat(SeatId: number, UserId: string) {
-      console.log("am tryin");
       return this.http.post<any>(this.seatUrl + "/" + SeatId + "/assignEmployee/" + UserId, {
         'seatId' : SeatId,
         'employeeId' : UserId,
@@ -166,13 +164,12 @@ export class FloorServiceService {
       let input = new FormData();
       input.append('file', fileToUpload, fileToUpload.name);
       const url = this.floorUrl + "/photo/" + id;
-      console.log(url + "co jest");
       this.http.post(url, input).subscribe(
         res => {
           console.log(res);
         },
         err => {
-          console.log("Error during uploading photo occured...");
+          //console.log("Error during uploading photo occured...");
         }
       );
     }

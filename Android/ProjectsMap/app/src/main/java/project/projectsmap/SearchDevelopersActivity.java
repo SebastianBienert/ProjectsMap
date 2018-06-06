@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -30,32 +28,32 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     MaterialSearchView searchView;
 
     Spinner spinner;
-    Button clickSerach;
-    TextView inputDataField;
     TextView statement;
-    //TextView data;
     ListView listDevelopers;
-    CustomAdapter adapter;
+    DeveloperAdapter adapter;
     ArrayAdapter<CharSequence> arrayAdapter;
-    String choice="";
+    String choice = "";
     ProgressBar waitForData;
     ArrayList<Developer> arrayDevelopers = new ArrayList<Developer>();
+    Boolean isOnline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_search_developers);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search_developers);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         listDevelopers = (ListView) findViewById(R.id.listDevelopers);
         final String token = getIntent().getExtras().getString("token");
+        isOnline = getIntent().getExtras().getBoolean("isOnline");
+
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Szukaj:");
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF"));
         searchView = (MaterialSearchView) findViewById(R.id.search_view);
 
-        adapter = new CustomAdapter(this);
+        adapter = new DeveloperAdapter(this, isOnline);
         listDevelopers.setAdapter(adapter);
 
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
@@ -66,81 +64,77 @@ public class SearchDevelopersActivity extends AppCompatActivity {
 
             @Override
             public void onSearchViewClosed() {
-                //listDevelopers = (ListView) findViewById(R.id.listDevelopers);
-                adapter.list.clear();
-                adapter = new CustomAdapter(SearchDevelopersActivity.this);
+                adapter.DevelopersList.clear();
+                adapter = new DeveloperAdapter(SearchDevelopersActivity.this, isOnline);
                 listDevelopers.setAdapter(adapter);
 
             }
         });
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String query) {
-                        return false;
-                    }
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                    @Override
-                    public boolean onQueryTextChange(String newText) {
-                        if (newText != null && !newText.isEmpty() && choice!="Wszyscy") {
-                            waitForData.setVisibility(View.VISIBLE);
-                            adapter.list.clear();
-                            FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
-                            process.setToken(token);
-                            process.setSaveDataToFile(false);
-                            process.setChoice(choice);
-                            process.setInputData(newText);
-                            process.setcontext(SearchDevelopersActivity.this);
-                            process.setTextViewStatement(statement);
-                            process.execute();
-                        }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText != null && !newText.isEmpty() && choice != "Wszyscy") {
+                    waitForData.setVisibility(View.VISIBLE);
+                    adapter.DevelopersList.clear();
+                    FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                    process.setInfoAboutConnectToInternet(isOnline);
+                    process.setToken(token);
+                    process.setSaveDataToFile(false);
+                    process.setChoice(choice);
+                    process.setInputData(newText);
+                    process.setcontext(SearchDevelopersActivity.this);
+                    process.setTextViewStatement(statement);
+                    process.execute();
+                }
                 return true;
             }
         });
 
+        statement = (TextView) findViewById(R.id.textViewStatement);
+        listDevelopers = (ListView) findViewById(R.id.listDevelopers);
+        spinner = (Spinner) findViewById(R.id.spinnerSelectionMethod);
+        arrayAdapter = ArrayAdapter.createFromResource(this, R.array.selected_method_developer, android.R.layout.simple_spinner_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
+        waitForData.setVisibility(View.INVISIBLE);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
+                choice = (String) adapterView.getItemAtPosition(position);
+                waitForData.setVisibility(View.VISIBLE);
+                adapter.DevelopersList.clear();
+                FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
+                process.setInfoAboutConnectToInternet(isOnline);
+                process.setToken(token);
+                process.setSaveDataToFile(false);
+                process.setChoice(choice);
+                process.setcontext(SearchDevelopersActivity.this);
+                process.setTextViewStatement(statement);
+                process.execute();
+                //setInputDataField();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-
-        // clickSerach = (Button) findViewById(R.id.buttonSearch);
-            //inputDataField = (TextView) findViewById(R.id.editTextInputData);
-            statement = (TextView) findViewById(R.id.textViewStatement);
-            listDevelopers = (ListView) findViewById(R.id.listDevelopers);
-            spinner = (Spinner) findViewById(R.id.spinnerSelectionMethod);
-            arrayAdapter = ArrayAdapter.createFromResource(this, R.array.selected_method_developer, android.R.layout.simple_spinner_item);
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(arrayAdapter);
-            waitForData = (ProgressBar) findViewById(R.id.progressBarWaitForData);
-            waitForData.setVisibility(View.INVISIBLE);
-            spinner.setAdapter(arrayAdapter);
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                    //Toast.makeText(getBaseContext(), adapterView.getItemAtPosition(position) + " selected", Toast.LENGTH_LONG);
-                    choice = (String) adapterView.getItemAtPosition(position);
-                    waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
-                            FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
-                            process.setToken(token);
-                            process.setSaveDataToFile(false);
-                            process.setChoice(choice);
-                            process.setcontext(SearchDevelopersActivity.this);
-                            process.setTextViewStatement(statement);
-                            process.execute();
-                    //setInputDataField();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-
-                }
-            });
+            }
+        });
 
 
  /*           clickSerach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     waitForData.setVisibility(View.VISIBLE);
-                    adapter.list.clear();
+                    adapter.ProjectsList.clear();
                     FetchDataAboutDeveloper process = new FetchDataAboutDeveloper();
                     process.setSaveDataToFile(false);
                     process.setChoice(choice);
@@ -152,26 +146,26 @@ public class SearchDevelopersActivity extends AppCompatActivity {
             });*/
     }
 
-/*    private void setInputDataField(){
-        inputDataField.setText("");
-        if(choice.equals("Id")){
-            inputDataField.setInputType(InputType.TYPE_CLASS_NUMBER);
-        }else{
-            inputDataField.setInputType(InputType.TYPE_CLASS_TEXT);
-        }
-        if(choice.equals("Wszyscy")){
-            inputDataField.setEnabled(false);
-            inputDataField.setFocusable(false);
-            inputDataField.setCursorVisible(false);
-            inputDataField.setHint("");
-        }else{
-            inputDataField.setEnabled(true);
-            inputDataField.setFocusableInTouchMode(true);
-            inputDataField.setCursorVisible(true);
-            inputDataField.setHint("Podaj " + choice);
-        }
-    }*/
-    public void DisableProgressBar(){
+    /*    private void setInputDataField(){
+            inputDataField.setText("");
+            if(choice.equals("Id")){
+                inputDataField.setInputType(InputType.TYPE_CLASS_NUMBER);
+            }else{
+                inputDataField.setInputType(InputType.TYPE_CLASS_TEXT);
+            }
+            if(choice.equals("Wszyscy")){
+                inputDataField.setEnabled(false);
+                inputDataField.setFocusable(false);
+                inputDataField.setCursorVisible(false);
+                inputDataField.setHint("");
+            }else{
+                inputDataField.setEnabled(true);
+                inputDataField.setFocusableInTouchMode(true);
+                inputDataField.setCursorVisible(true);
+                inputDataField.setHint("Podaj " + choice);
+            }
+        }*/
+    public void DisableProgressBar() {
         waitForData.setVisibility(View.INVISIBLE);
     }
 
@@ -180,12 +174,12 @@ public class SearchDevelopersActivity extends AppCompatActivity {
     }
 
     public void addDeveloper(Developer developer) {
-        adapter.list.add(developer.description());
+        adapter.DevelopersList.add(developer);
         arrayDevelopers.add(developer);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_item,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_item, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
         return true;

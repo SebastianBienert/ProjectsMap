@@ -104,7 +104,6 @@ export class ProjectComponent implements OnInit {
       EmployeesRoles : employees
     }
     this.projectService.addProject(project).subscribe(response =>{
-      console.log("Project added");
       this.modalReference.close();
       this.router.navigate(['/main']);
     });

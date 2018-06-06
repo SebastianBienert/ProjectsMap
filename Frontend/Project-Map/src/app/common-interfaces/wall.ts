@@ -1,6 +1,7 @@
 import { Vertex } from './../common-interfaces/vertex';
 export interface Wall {
-    WallId: number;
+    Id: number;
     StartVertex: Vertex;
     EndVertex: Vertex;
+    StateChanged: string;
   }

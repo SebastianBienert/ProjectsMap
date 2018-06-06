@@ -38,6 +38,7 @@ export class MapCreatorComponent implements OnInit {
   photoFile: File;
   saveWithBackgroundPhoto: boolean = true;
   placingSeatEnabled: boolean = false;
+  movingPictureEnabled: boolean = true;
   floorNumber: number;
   floorDescription: string;
   removalMode: boolean = false;
@@ -49,16 +50,15 @@ export class MapCreatorComponent implements OnInit {
   createdRooms = Array();
   rects = Array();
   lines = Array();
-
+  wallls = Array();
 
   constructor(private roomService: RoomService, private floorService: FloorServiceService) {
   }
 
   changeImage() {
-    if (this.displayBackgroundImage) {
-      this.backgroundImage = this.drawnMap.image(this.imageHref, 760, 760).move(20, 20).draggable().back();
-    }
-    
+    this.backgroundImage = this.drawnMap.image(this.imageHref, 760, 760).move(20, 20).draggable().back();
+    this.displayBackgroundImage = true;
+    (<HTMLInputElement>document.getElementById("displayBackgroundImageCheckBox")).checked = true;
   }
 
   ngOnInit() {
@@ -85,7 +85,11 @@ export class MapCreatorComponent implements OnInit {
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
     this.removalMode = !this.removalMode;
+  }
 
+  movingImageOnOff() {
+    this.movingPictureEnabled = !this.movingPictureEnabled;
+    this.backgroundImage.draggable(this.movingPictureEnabled);
   }
 
   drawNewRoom() {
@@ -97,24 +101,19 @@ export class MapCreatorComponent implements OnInit {
     if (!this.drawingRightNow) {
       // grup defined to hold seats, room shape and circles at vertexes of room together
       var group = this.drawnMap.group();
-      var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill({color: '#4f4', opacity: '0.7'}).stroke({ width: 1 }).mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
+      var poly = this.drawnMap.polygon().draw({ snapToGrid: defaultValues.gridSize }).fill({ color: '#4f4', opacity: '0.7' }).stroke({ width: 1 }).click(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
       this.drawingRightNow = true;
       var self = this;
-      if (this.displayBackgroundImage && this.imageHref !== null) {
-        this.backgroundImage.draggable(false);
-      }
       //function that handles end of drawing - 
       var stopDrawingAtEnter = function stopDrawingAtEnter(e) {
         if (e.keyCode == 13) {
-          if (self.displayBackgroundImage && self.imageHref !== null) {
-            self.backgroundImage.draggable();
-          }
           document.removeEventListener('keydown', stopDrawingAtEnter);
           poly.draw('done');
           poly.off('drawstart');
           self.drawingRightNow = false;
           var room = new MapCreatorComponent.RoomWithSeats;
           room.polygon = poly;
+          room.stateChanged = "added";
           self.createdRooms.push(room);
 
           var oneCoordinateAtTime = self.createdRooms[self.createdRooms.length - 1].polygon.attr('points').trim().split(/[\s,]+/);
@@ -126,8 +125,8 @@ export class MapCreatorComponent implements OnInit {
             var pointie = self.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
               //function to move circles snapped to grid
               return {
-                x: x - x % defaultValues.gridSize -5,
-                y: y - y % defaultValues.gridSize -5
+                x: x - x % defaultValues.gridSize - 5,
+                y: y - y % defaultValues.gridSize - 5
               };
             })
               //every time when circle is moved polygon needs to be replotted
@@ -159,7 +158,8 @@ export class MapCreatorComponent implements OnInit {
                   x: x - x % defaultValues.gridSize,
                   y: y - y % defaultValues.gridSize
                 };
-              }));
+              }))
+                .click(f => { if (this.removalMode) seatRect.remove(); this.removalMode = false; });;
               var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
               var seat = { Vertex: seatVertex }
               room.seats.push(seat);
@@ -212,7 +212,8 @@ export class MapCreatorComponent implements OnInit {
     this.drawMode = 'line';
     this.drawnMap.off("mousedown");
     this.drawnMap.off("mouseup");
-    var line = this.drawnMap.line().fill('none').stroke({ width: 3 }).mouseover(f => { if (this.removalMode) { var index = this.lines.findIndex((x) => x.attr().id === line.attr().id); this.lines.splice(index, 1); line.remove(); } });
+    var wallando;
+    var line = this.drawnMap.line().fill('none').stroke({ width: 3 }).mouseover(f => { if (this.removalMode) { var index = this.lines.findIndex((x) => x.attr().id === line.attr().id); wallando.StateChanged = "deleted"; this.lines.splice(index, 1); line.remove(); } });
     this.drawnMap.on(
       "mousedown",
       function (e) {
@@ -226,6 +227,8 @@ export class MapCreatorComponent implements OnInit {
       function (e) {
         line.draw("stop", e);
         self.lines.push(line);
+        wallando = self.coordinatesToWall(line.attr('x1'), line.attr('y1'), line.attr('x2'), line.attr('y2'), "added", 0);
+        self.wallls.push(wallando);
       },
       false
     );
@@ -272,44 +275,47 @@ export class MapCreatorComponent implements OnInit {
 
   //add allert so that user will know that saving map will end map creation!
   saveMap() {
-    //console.log(this.backgroundImage.attr('x') + "to jest x");
     var linesVertexes = Array();
     //parse svg.js lines to LineMap
-    for (var i = 0; i < this.lines.length; i++) {
+    /*for (var i = 0; i < this.lines.length; i++) {
       linesVertexes.push(this.coordinatesToLine(this.lines[i].attr('x1'), this.lines[i].attr('y1'), this.lines[i].attr('x2'), this.lines[i].attr('y2')));
-    }
+    }*/
     //parse svg.js rects to 
-    for (var i = 0; i < this.rects.length; i++) {
+    /*for (var i = 0; i < this.rects.length; i++) {
       linesVertexes.push(...this.rectToLines(this.rects[i]));
-    }
+    }*/ //TODO: squares to lines
     //polygon to lines
     var Rooms = Array();
     for (var i = 0; i < this.createdRooms.length; i++) {
-      var oneCoordinateAtTime = this.createdRooms[i].polygon.attr('points').trim().split(/[\s,]+/);
       var Walls = Array();
-      for (var j = 0; j < (oneCoordinateAtTime.length - 2); j += 2) {
-        Walls.push(this.coordinatesToLine(oneCoordinateAtTime[j], oneCoordinateAtTime[j + 1], oneCoordinateAtTime[j + 2], oneCoordinateAtTime[j + 3]));
+      if (this.createdRooms[i].stateChanged != "modified") {
+        var oneCoordinateAtTime = this.createdRooms[i].polygon.attr('points').trim().split(/[\s,]+/);
+        for (var j = 0; j < (oneCoordinateAtTime.length - 2); j += 2) {
+          Walls.push(this.coordinatesToLine(oneCoordinateAtTime[j], oneCoordinateAtTime[j + 1], oneCoordinateAtTime[j + 2], oneCoordinateAtTime[j + 3]));
+        }
+        Walls.push(this.coordinatesToLine(oneCoordinateAtTime[oneCoordinateAtTime.length - 2], oneCoordinateAtTime[oneCoordinateAtTime.length - 1], oneCoordinateAtTime[0], oneCoordinateAtTime[1]));
+      } else {
+        Walls.push(...this.createdRooms[i].Walls);
       }
-      Walls.push(this.coordinatesToLine(oneCoordinateAtTime[oneCoordinateAtTime.length - 2], oneCoordinateAtTime[oneCoordinateAtTime.length - 1], oneCoordinateAtTime[0], oneCoordinateAtTime[1]));
       //push seats and Projects as empty
       var Seats = this.createdRooms[i].seats;
-      var room: Room = { Walls, Seats, Id: this.createdRooms[i].RoomId } as Room;//!!! Seats
+      var room: Room = { Walls, Seats, Id: this.createdRooms[i].RoomId, StateChanged: this.createdRooms[i].stateChanged } as Room;//!!! Seats
       Rooms.push(room);
     }
 
-    if(this.saveWithBackgroundPhoto && this.backgroundImage != null)
-      var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber, XPhoto: 20, YPhoto: 20 } as Floor;
-    else 
-      var floor: Floor = { Rooms, Walls: linesVertexes, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
-   
-      if (this.loadedFloorId == -1) {
-      this.floorService.addFloor(floor).subscribe(data => {this.mapCreated.emit(true); this.loadedFloorId = data;  
-        if(this.saveWithBackgroundPhoto && this.backgroundImage != null)
-        {
+    if (this.saveWithBackgroundPhoto && this.backgroundImage != null)
+      var floor: Floor = { Rooms, Walls: this.wallls, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber, XPhoto: 20, YPhoto: 20 } as Floor;
+    else
+      var floor: Floor = { Rooms, Walls: this.wallls, BuildingId: this.buildingId, Description: this.floorDescription, FloorNumber: this.floorNumber } as Floor;
+
+    if (this.loadedFloorId == -1) {
+      this.floorService.addFloor(floor).subscribe(data => {
+        this.mapCreated.emit(true); this.loadedFloorId = data;
+        if (this.saveWithBackgroundPhoto && this.backgroundImage != null) {
           this.floorService.uploadBackgroundPhoto(this.photoFile, data);
         }
       });
-      
+
     } else {
       floor.Id = this.loadedFloorId;
       this.floorService.updateFloor(floor).subscribe(floorNumber => { this.mapCreated.emit(true); });
@@ -343,14 +349,26 @@ export class MapCreatorComponent implements OnInit {
     Y = y2;
     var EndVertex = { X, Y } as Vertex;
 
-    var line: Wall = { StartVertex, EndVertex } as Wall;
-    return line;
+    var wall: Wall = { StartVertex, EndVertex } as Wall;
+    return wall;
+  }
+
+  coordinatesToWall(x1, y1, x2, y2, StateChanged, Id): Wall {
+    var X = x1;
+    var Y = y1
+    var StartVertex = { X, Y } as Vertex;
+
+    X = x2;
+    Y = y2;
+    var EndVertex = { X, Y } as Vertex;
+
+    var wall: Wall = { StartVertex, EndVertex, StateChanged, Id } as Wall;
+    return wall;
   }
 
 
-
   loadMap() {
-    var floor;
+    let floor;
     this.floorService.getFloor(this.loadedFloorId)
       .subscribe(
         Floor => {
@@ -358,20 +376,26 @@ export class MapCreatorComponent implements OnInit {
           this.floorNumber = Floor.FloorNumber;
           this.floorDescription = Floor.Description;
           floor.Rooms.forEach(room => {
+            var roomie = new MapCreatorComponent.RoomWithSeats;
+            roomie.RoomId = room.Id;
             //concatenate room lines into polygon coordinates
             var arra = '';
             room.Walls.forEach(wall => {
+              /*test*/
+              let StartVertex = { X: wall.StartVertex.X, Y: wall.StartVertex.Y } as Vertex;
+              let EndVertex = { X: wall.EndVertex.X, Y: wall.EndVertex.Y } as Vertex;
+              let Wallie = { Id: wall.Id, StartVertex, EndVertex };
+              roomie.Walls.push(Wallie);
+              /*stop test */
               arra = arra.concat(wall.StartVertex.X + ',' + wall.StartVertex.Y + ' ')
             });
 
             var poly = this.drawnMap
               .polygon(arra).fill('#999')
               .stroke({ width: 2 })
-              .mouseover(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms.splice(index, 1); group.remove(); } });
+              .click(f => { if (this.removalMode) { var index = this.createdRooms.findIndex((x) => x.polygon.attr().id === poly.attr().id); this.createdRooms[index].stateChanged = "deleted"; group.remove(); } });//!!!
 
             var group = this.drawnMap.group();
-            var roomie = new MapCreatorComponent.RoomWithSeats;
-            roomie.RoomId = room.Id;
             roomie.polygon = poly;
 
             var oneCoordinateAtTime = poly.attr('points').trim().split(/[\s,]+/);
@@ -380,11 +404,41 @@ export class MapCreatorComponent implements OnInit {
             for (var j = 0; j <= (oneCoordinateAtTime.length - 2); j += 2) {
               var x = parseInt(oneCoordinateAtTime[j]);
               var y = parseInt(oneCoordinateAtTime[j + 1]);
+              let pointNumber = j/2;
               var pointie = this.drawnMap.circle(10).fill('#f06').move(x - 5, y - 5).draggable(function (x, y) {
                 //function to move circles snapped to grid
+                /*test */
+                if(pointNumber == 0) {
+                  roomie.Walls[0].StartVertex.X = x - x % defaultValues.gridSize;
+                  roomie.Walls[0].StartVertex.Y = y - y % defaultValues.gridSize;
+                  roomie.Walls[oneCoordinateAtTime.length/2 - 1].EndVertex.X = x - x % defaultValues.gridSize;
+                  roomie.Walls[oneCoordinateAtTime.length/2 - 1].EndVertex.Y = y - y % defaultValues.gridSize;
+                  roomie.Walls[0].StateChanged = "modified";
+                  roomie.Walls[oneCoordinateAtTime.length/2 - 1].StateChanged = "modified";
+                } else {
+                  roomie.Walls[pointNumber].StartVertex.X = x - x % defaultValues.gridSize;
+                  roomie.Walls[pointNumber].StartVertex.Y = y - y % defaultValues.gridSize;
+                  roomie.Walls[pointNumber-1].EndVertex.X = x - x % defaultValues.gridSize;
+                  roomie.Walls[pointNumber-1].EndVertex.Y = y - y % defaultValues.gridSize;
+                  roomie.Walls[pointNumber].StateChanged = "modified";
+                  roomie.Walls[pointNumber-1].StateChanged = "modified";
+                }
+                roomie.stateChanged = "modified";
+                /*if (wallModified != 0 && wallModified != oneCoordinateAtTime.length/2 - 1) {
+                  roomie.Walls[wallModified].StateChanged = "modified";
+                  roomie.Walls[wallModified+1].StateChanged = "modified";                  
+                } else if(wallModified == 0){
+                  roomie.Walls[0].StateChanged = "modified";
+                  roomie.Walls[roomie.Walls.length - 1].StateChanged = "modified";
+                } else if(wallModified == oneCoordinateAtTime.length/2 - 1)
+                {
+                  roomie.Walls[0].StateChanged = "modified";
+                  roomie.Walls[roomie.Walls.length - 1].StateChanged = "modified";
+                }*/
+                /*stop test */
                 return {
-                  x: x - x % defaultValues.gridSize -2.5,
-                  y: y - y % defaultValues.gridSize -2.5
+                  x: x - x % defaultValues.gridSize - 5,
+                  y: y - y % defaultValues.gridSize - 5
                 };
               })
                 //every time when circle is moved polygon needs to be replotted
@@ -394,6 +448,10 @@ export class MapCreatorComponent implements OnInit {
                     coords = coords.concat(circle.attr('cx') + ',' + circle.attr('cy') + ' ')
                   });
                   poly.plot(coords);
+
+
+
+
                   group.front();
                   arrayOfCircles.forEach(circle => {
                     circle.front();
@@ -406,17 +464,20 @@ export class MapCreatorComponent implements OnInit {
             group.add(poly);
 
             var self = this;
+            let seat;
             poly.click(function placeSeat(event) {
               if (self.placingSeatEnabled) {
+                roomie.stateChanged = "modified";
                 var seatRect = self.drawnMap.rect(defaultValues.seatSize, defaultValues.seatSize).move((event.offsetX - event.offsetX % defaultValues.gridSize), (event.offsetY - event.offsetY % defaultValues.gridSize)).draggable((function (x, y) {
                   //function to move seats snapped to grid
                   return {
                     x: x - x % defaultValues.gridSize,
                     y: y - y % defaultValues.gridSize
                   };
-                }));
+                }))
+                  .click(f => { if (this.removalMode) { seatRect.remove(); } });
                 var seatVertex = { X: seatRect.attr().x, Y: seatRect.attr().y } as Vertex;
-                var seat = { Vertex: seatVertex }
+                seat = { Vertex: seatVertex, StateChanged: "added" };
                 roomie.seats.push(seat);
                 group.add(seatRect);
               }
@@ -430,11 +491,16 @@ export class MapCreatorComponent implements OnInit {
                 .stroke({ width: 0 })
                 .draggable((function (x, y) {
                   //function to move seats snapped to grid
+                  roomie.stateChanged = "modified";
+                  seat.StateChanged = "modified";
+                  seat.Vertex.X = x - x % defaultValues.gridSize;
+                  seat.Vertex.Y = y - y % defaultValues.gridSize;
                   return {
                     x: x - x % defaultValues.gridSize,
                     y: y - y % defaultValues.gridSize
                   };
-                }));
+                }))
+                .click(f => { if (this.removalMode) { seatle.remove(); this.removalMode = false; seat.StateChanged = "deleted"; roomie.stateChanged = "modified" } });
               var seatVertex = { X: seat.Vertex.X, Y: seat.Vertex.Y } as Vertex;
               roomie.seats.push(seat);
               group.add(seatle);
@@ -445,23 +511,28 @@ export class MapCreatorComponent implements OnInit {
           });
           floor.Walls.forEach(wall => {
             //drawing lines
+            let wallando = this.coordinatesToWall(wall.StartVertex.X, wall.StartVertex.Y, wall.EndVertex.X, wall.EndVertex.Y, "null", wall.Id);
             var line = this.drawnMap
               .line(wall.StartVertex.X + ", " + wall.StartVertex.Y + ", " + wall.EndVertex.X + ", " + wall.EndVertex.Y)
               .stroke({ width: 2 })
-              .mouseover(f => { if (this.removalMode) { var index = this.lines.findIndex((x) => x.attr().id === line.attr().id); this.lines.splice(index, 1); line.remove(); } });
-            this.lines.push(line);
+              .mouseover(f => { if (this.removalMode) { var index = this.lines.findIndex((x) => x.attr().id === line.attr().id); this.lines.splice(index, 1); line.remove(); wallando.StateChanged = "deleted" } });
+            //this.lines.push(line);
+            this.wallls.push(wallando);
           });
         });
 
-        
+
   }
 
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
+      if (this.backgroundImage)
+        this.backgroundImage.remove();
+      this.photoFile = null;
+      this.imageHref = null;
       var reader = new FileReader();
       this.photoFile = event.target.files[0];
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      console.log(this.photoFile);
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.imageHref = (event.target as any).result;
         this.changeImage();
@@ -506,6 +577,8 @@ export class MapCreatorComponent implements OnInit {
     RoomId: number;
     polygon;
     seats = Array();
+    stateChanged: string;
+    Walls = Array();
   }
 
 }

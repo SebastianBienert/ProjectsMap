@@ -19,13 +19,25 @@ export class AuthGuard implements CanActivate {
       this.securityService.mapResponse(secObject);
     }
     
+    this.securityService.setTimer();
+    this.securityService.timer.subscribe(x => {
+      this.securityService.logout();
+      this.router.navigate(['login'], { queryParams: { returnUrl: state.url } });
+    });
+
     if (this.securityService.securityObject.isAuthenticated
       && this.securityService.hasClaim(claimType) && this.securityService.isUserStillValid()) {
       return true;
     }
     else {
-      this.router.navigate(['login'],
+      if(state.url === null || state.url.length == 0) {
+        this.router.navigate(['login'],
+        { queryParams: { returnUrl: "//main" } });
+      }
+      else {
+        this.router.navigate(['login'],
         { queryParams: { returnUrl: state.url } });
+      }
       return false;
     }
   }

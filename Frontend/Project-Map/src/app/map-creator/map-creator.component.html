@@ -1,9 +1,9 @@
 <div>
 
-    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='drawNewRoom()'>Create room</button>
-    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='chooseLine()'>Line</button>
-    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='chooseSquare()'>Square</button>
-    <button class="btn btn-blue waves-light" mdbRippleRadius (click)='clearMap()'>Clear</button>
+    <button class="btn btn-green waves-light" mdbRippleRadius (click)='drawNewRoom()'>Create room</button>
+    <button class="btn btn-green waves-light" mdbRippleRadius (click)='chooseLine()'>Line</button>
+    <button class="btn btn-green waves-light" mdbRippleRadius (click)='chooseSquare()'>Square</button>
+    <button class="btn btn-green waves-light" mdbRippleRadius (click)='clearMap()'>Clear</button>
     <!-- <button (click)='test()'>Testing</button> -->
     
     
@@ -11,11 +11,14 @@
         <input type="checkbox" id="displayGridCheckBox" [checked]="displayGrid" (change)="gridOnOff()" />
         <label for="displayGridCheckBox">Display grid</label>
     
-        <input type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
+        <input #displayBackgroundImageCheckBox type="checkbox" id="displayBackgroundImageCheckBox" [checked]="displayBackgroundImage" (change)="backgroundImageOnOff()" />
         <label for="displayBackgroundImageCheckBox">Display background image</label>
 
         <input type="checkbox" id="placingSeatEnabled" [checked]="placingSeatEnabled" (change)="placeSeatsOnOff()" />
-        <label for="placingSeatEnabled">Placing seat enabled</label>
+        <label for="placingSeatEnabled">Placing seat</label>
+
+        <input type="checkbox" id="movingPictureEnabled" [checked]="movingPictureEnabled" (change)="movingImageOnOff()" />
+        <label for="movingPictureEnabled">Allow image positioning</label>
     <div>
         <input [(ngModel)]="floorNumber" #ctrl="ngModel" required placeholder="Floor number">
     </div> 

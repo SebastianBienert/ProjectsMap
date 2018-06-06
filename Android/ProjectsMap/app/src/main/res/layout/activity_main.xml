@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="project.projectsmap.MainActivity">
+    tools:context="project.projectsmap.MainActivity"
+    android:background="@drawable/login_activity_background"
+    >
 
 
     <Button
@@ -18,10 +20,12 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="@drawable/rounded_button"
         android:text="Wyświetl mape"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
+<!--    android:background="#c8d4e99e"-->
 
     <Button
         android:id="@+id/buttonSearchDevelopers"
@@ -31,13 +35,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="93dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="@drawable/rounded_button"
         android:text="Wyszukaj pracownika"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/buttonSearchProjects"
@@ -50,24 +55,26 @@
         android:layout_marginTop="20dp"
         android:width="600dp"
         android:height="80dp"
+        android:background="@drawable/rounded_button"
         android:text="Wyszukaj projekty"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
+<!--    android:background="#c8c59ee9"-->
 
     <Button
         android:id="@+id/buttonSaveTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="57dp"
-        android:layout_marginStart="10dp"
+        android:layout_alignStart="@+id/buttonSynchronization"
+        android:layout_below="@+id/buttonSynchronization"
         android:width="180dp"
         android:text="Zapis do pliku"
         android:visibility="invisible"
         android:textSize="14sp"
         android:textStyle="bold" />
+        <!--android:visibility="invisible"-->
+
 
 
     <Button
@@ -103,6 +110,24 @@
         android:textOn="On"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonSynchronization"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonShowMap"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:width="600dp"
+        android:height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:text="Synchronizacja" />
 
     <!-- android:layout_alignLeft="@+id/buttonPaint"
     android:layout_alignStart="@+id/buttonPaint"
