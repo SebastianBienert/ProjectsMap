@@ -20,6 +20,7 @@ namespace ProjectsMap.WebApi.Migrations
             AutomaticMigrationsEnabled = false;
             AutomaticMigrationDataLossAllowed = true;
             CommandTimeout = 0; // A value of 0 indicates no limit (an attempt to execute 
+            
         }
 
         protected override void Seed(ProjectsMap.WebApi.Repositories.EfDbContext context)

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProjectsMap.WebApi.Infrastructure;
+using ProjectsMap.WebApi.Migrations;
 using ProjectsMap.WebApi.Models;
 using ProjectsMap.WebApi.Repositories.EntityFramework;
 
 
 namespace ProjectsMap.WebApi.Repositories
 {
+    [DbConfigurationType(typeof(DataContextConfiguration))]
     public class EfDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Employee> Employees { get; set; }
@@ -36,7 +38,7 @@ namespace ProjectsMap.WebApi.Repositories
         public EfDbContext() : base("name=ProjectsMapDbContext", throwIfV1Schema: false)
         {
             Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 600;
             this.Configuration.LazyLoadingEnabled = false;
              Database.SetInitializer(new ProjectsMapDbInitializer());
         }

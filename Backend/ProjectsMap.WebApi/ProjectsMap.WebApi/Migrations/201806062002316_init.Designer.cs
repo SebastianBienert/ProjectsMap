@@ -13,7 +13,7 @@ namespace ProjectsMap.WebApi.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806011737319_init"; }
+            get { return "201806062002316_init"; }
         }
         
         string IMigrationMetadata.Source
